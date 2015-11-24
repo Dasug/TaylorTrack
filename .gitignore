@@ -30,5 +30,9 @@
 # build folder
 /build*/
 
+# binary folders
+/bin/
+/lib/
+
 # Apple stuff
 .DS_Store
