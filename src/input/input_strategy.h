@@ -5,6 +5,7 @@ namespace taylortrack {
         class InputStrategy {
         public:
             virtual const char* read() = 0;
+            virtual bool is_done() = 0;
         };
     } // namespace input
 } // namespace taylortrack
