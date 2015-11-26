@@ -1,5 +1,5 @@
 # Add Datastreamer executable
-add_executable(sim_datastreamer sim_datastreamer.cpp input/dummy_input_strategy.cpp)
+add_executable(sim_datastreamer sim_datastreamer.cpp input/dummy_input_strategy.cpp sim/streamer.cpp)
 
 # Add Datareceiver executable
 add_executable(sim_datareceiver sim_datareceiver.cpp)
