@@ -11,11 +11,13 @@ namespace taylortrack {
             ReadFileInputStrategy(const char* file_name);
             const char* read();
             bool is_done();
+            ~ReadFileInputStrategy();
 
         private:
             bool done_;
             char* memblock_;
             std::streampos size_;
+            std::ifstream file_;
         };
     }
 }

@@ -2,10 +2,13 @@
 #include <iostream>
 #include "input/input_strategy.h"
 #include "input/dummy_input_strategy.h"
+#include "input/read_file_input_strategy.h"
+
 #include "sim/streamer.h"
 
 int main(int argc, char *argv[]) {
-    taylortrack::input::DummyInputStrategy dummy = taylortrack::input::DummyInputStrategy();
+    taylortrack::input::ReadFileInputStrategy dummy = taylortrack::input::ReadFileInputStrategy("~/Documents/workspace/BP/jannis.txt");
     taylortrack::sim::Streamer streamer = taylortrack::sim::Streamer(&dummy, "/bp39_out");
     streamer.start_streaming("/bp39_in");
+    return 0;
 }
