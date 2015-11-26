@@ -2,7 +2,6 @@
 #include <iostream>
 #include <unistd.h>
 
-
 int main(int argc, char *argv[]) {
     yarp::os::Network yarp;
     yarp::os::BufferedPort<yarp::os::Bottle> port;
