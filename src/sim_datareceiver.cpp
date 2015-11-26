@@ -1,6 +1,7 @@
 #include <yarp/os/all.h>
 #include <iostream>
 #include <unistd.h>
+#include <string.h>
 
 int main(int argc, char *argv[]) {
     yarp::os::Network yarp;
@@ -11,7 +12,7 @@ int main(int argc, char *argv[]) {
         std::cout << "waiting for input" << std::endl;
         yarp::os::Bottle *input = port.read();
         if (input!=NULL) {
-            std::cout << "got message:" << input->toString().c_str() << std::endl;
+            std::cout << "got message (length " << input->toString().size() << "):" << input->toString().c_str() << std::endl;
         }
     }
     return 0;

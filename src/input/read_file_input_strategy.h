@@ -17,7 +17,7 @@ namespace taylortrack {
             bool done_;
             char* memblock_;
             std::streampos size_;
-            std::ifstream file_;
+            std::ifstream* file_;
         };
     }
 }
