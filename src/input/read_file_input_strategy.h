@@ -7,8 +7,8 @@
 namespace taylortrack {
     namespace input {
         class ReadFileInputStrategy: public InputStrategy {
-        public
-:            ReadFileInputStrategy(const char* file_name);
+        public:           
+            ReadFileInputStrategy(const char* file_name);
             const char* read();
             bool is_done();
 
