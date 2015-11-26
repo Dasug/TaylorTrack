@@ -5,16 +5,32 @@
 namespace taylortrack {
     namespace input {
 
-        ReadFileInputStrategy::ReadFileInputStrategy() {
+        ReadFileInputStrategy::ReadFileInputStrategy(const char* file_name) {
+        if(file.is_open()) {         
+            std::ifstream file (file_name, std::ios::in|std::ios::binary|std::ios::ate);
+            size_ = file.tellg();
+            memblock_ = new char [size];
+            file.seekg (0, std::ios::beg);
+        }
             done_ = false;
         }
-        const char* ReadFileInputStrategy::read(const char* file) {
+
+        const char* ReadFileInputStrategy::read() {
+            if(file.is_open()) {
+                file.read(memblock_,size_);
+                file.close
+            }
             done_ = true;
-            return "Dummy Test successful";
+            return memblock_;
         }
 
         bool ReadFileInputStrategy::is_done() {
+            delete[] memblock_;
             return done_;
+        }
+
+        ReadFileInputStrategy::~ReadFileInputStrategy() {
+            delete[] memblock_;
         }
     }
 }
