@@ -7,11 +7,10 @@ namespace taylortrack {
 
         ReadFileInputStrategy::ReadFileInputStrategy(const char* file_name) {
 
-            std::ifstream file(file_name, std::ios::in|std::ios::binary|std::ios::ate);
-            file_ = &file;
+            file_ = new std::ifstream (file_name, std::ios::in|std::ios::binary|std::ios::ate);
 
             if(file_->is_open()) {
-                std::streampos size_ = file_->tellg();
+                size_ = file_->tellg();
                 memblock_ = new char [size_];
                 file_->seekg(0, std::ios::beg);
             }
@@ -28,12 +27,12 @@ namespace taylortrack {
         }
 
         bool ReadFileInputStrategy::is_done() {
-            delete[] memblock_;
             return done_;
         }
 
         ReadFileInputStrategy::~ReadFileInputStrategy() {
             delete[] memblock_;
+            delete file_;
         }
     }
 }
