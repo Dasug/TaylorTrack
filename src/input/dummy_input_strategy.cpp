@@ -1,3 +1,8 @@
+/**
+* @file
+* @brief Implementation of the dummy_input_strategy.h
+*/
+
 #include "dummy_input_strategy.h"
 #include <stdbool.h>
 

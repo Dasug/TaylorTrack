@@ -1,6 +1,8 @@
 /**
 * @file
-* @brief Contains the dummy strategy.
+* @brief Dummy Input for reading
+* @details Implements a reading strategy input. This return a positive feedback if connection could be established.
+* @version 1
 */
 #ifndef TAYLORTRACK_INPUT_DUMMY_INPUT_STRATEGY_H_
 #define TAYLORTRACK_INPUT_DUMMY_INPUT_STRATEGY_H_

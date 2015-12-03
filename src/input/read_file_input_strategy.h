@@ -1,7 +1,10 @@
 /**
 * @file
 * @brief Contains the read input from file strategy.
+* @details Constructor (and Destructor) to read and return data (with a specific strategy) and status of reading
+* @version 1
 */
+
 #ifndef TAYLORTRACK_INPUT_READ_FILE_INPUT_STRATEGY_H_
 #define TAYLORTRACK_INPUT_READ_FILE_INPUT_STRATEGY_H_
 #include <fstream>
@@ -35,7 +38,7 @@ namespace taylortrack {
             const char* read();
 
             /**
-            * @brief Detects if the read metod is done with reading the simulation data.
+            * @brief Detects if the read method is done with reading the simulation data.
             * @return Status of the read method.
             */
             bool is_done();

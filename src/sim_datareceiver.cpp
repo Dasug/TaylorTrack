@@ -1,10 +1,20 @@
+/**
+ * @file
+ * @brief Simulation for receiving data
+ */
+
 #include <yarp/os/all.h>
 #include <iostream>
 #include <unistd.h>
 #include <string.h>
 
+/**
+ * @brief receiving data main method
+ *
+ * Initialize and open a port, wait for input from input bottle, and print positive message if successful
+ */
 int main(int argc, char *argv[]) {
-    yarp::os::Network yarp;
+    yarp::os::Network yarp; //jannis: kann ich das nicht weglassen?
     yarp::os::BufferedPort<yarp::os::Bottle> port;
     port.open("/bp39_in");
     while (true) {

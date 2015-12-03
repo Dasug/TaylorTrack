@@ -1,3 +1,8 @@
+/**
+ * @file
+ * @brief Implementation of the streamer.h
+ */
+
 #include "streamer.h"
 #include <stdbool.h>
 #include <yarp/os/all.h>
@@ -26,10 +31,10 @@ namespace taylortrack {
                     yarp::os::Bottle& output = out_port.prepare();
                     output.clear();
                     output.addString(yarp::os::ConstString(output_string));
-                    out_port.write(true);
-                }
+                    out_port.write(true); //blocking statement
+                } // while
                 return true;
-            }
+            } //if
         }
     } // namespace sim
 } // namespace taylortrack
