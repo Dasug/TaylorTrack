@@ -1,14 +1,18 @@
+/**
+* @file
+* @brief Implementation of the read_file_input_strategy.h
+*/
+
 #include "read_file_input_strategy.h"
 #include <fstream>
 #include <iostream>
 
 namespace taylortrack {
     namespace input {
-
         ReadFileInputStrategy::ReadFileInputStrategy(const char* file_name) {
-
             file_ = new std::ifstream (file_name, std::ios::in|std::ios::binary|std::ios::ate);
 
+            // Determine the size of the file and initialise the char array for the data..
             if(file_->is_open()) {
                 size_ = file_->tellg();
                 memblock_ = new char [size_];
