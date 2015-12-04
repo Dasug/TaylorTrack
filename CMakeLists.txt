@@ -5,6 +5,10 @@ project(TaylorTrack)
 find_package(YARP REQUIRED)
 include_directories(${YARP_INCLUDE_DIRS})
 
+# find googletest
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
 # activate debugging symbols and warnings
 set(CMAKE_CXX_FLAGS "-g -Wall")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../lib)
