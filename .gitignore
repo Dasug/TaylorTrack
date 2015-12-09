@@ -39,6 +39,9 @@
 .cproject
 .project
 
+#clion
+.idea/
+
 # documentation folder
 /doc/
 # Apple stuff
