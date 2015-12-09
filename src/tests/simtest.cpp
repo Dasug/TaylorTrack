@@ -15,7 +15,7 @@ TEST(DummyTest, InitialNotDone) {
 
 TEST(DummyTest, Read) {
 	taylortrack::input::DummyInputStrategy dummy = taylortrack::input::DummyInputStrategy();
-	EXPECT_EQ("Dummy Test successful", dummy.read());
+	ASSERT_STREQ("Dummy Test successful", dummy.read());
 }
 
 TEST(DummyTest, ReadDone) {
