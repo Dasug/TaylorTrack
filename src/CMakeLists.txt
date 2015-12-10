@@ -13,4 +13,4 @@ target_link_libraries(sim_datastreamer ${YARP_LIBRARIES})
 target_link_libraries(sim_datareceiver ${YARP_LIBRARIES})
 
 # link google libraries
-target_link_libraries(testunit libgtest libgmock)
+target_link_libraries(testunit ${GTEST_LIBRARIES})
