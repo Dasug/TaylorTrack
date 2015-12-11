@@ -1,6 +1,3 @@
-//
-// Created by dasug on 10.12.15.
-//
 
 #include "../input/dummy_input_strategy.h"
 #include "../sim/streamer.h"

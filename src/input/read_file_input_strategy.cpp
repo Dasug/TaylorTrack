@@ -4,8 +4,6 @@
 */
 
 #include "read_file_input_strategy.h"
-#include <fstream>
-#include <iostream>
 
 namespace taylortrack {
     namespace input {
