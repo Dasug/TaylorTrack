@@ -17,10 +17,15 @@
 int main(int argc, const char *argv[]) {
     int size;
     const char *file;
-
-    std::tie(file,size) = taylortrack::utils::ParameterParser::parse_streamer(argc,argv);
-    taylortrack::input::ReadFileInputStrategy dummy = taylortrack::input::ReadFileInputStrategy(file);
-    taylortrack::sim::Streamer streamer = taylortrack::sim::Streamer(&dummy, "/bp39_out");
-    streamer.start_streaming("/bp39_in");
-    return 0;
+    bool valid;
+    std::tie(file,size, valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,argv);
+    if(!valid) {
+        std::cout << "Invalid parameter usage. Please check --help" << std::endl;
+        return EXIT_FAILURE;
+    } else {
+        taylortrack::input::ReadFileInputStrategy dummy = taylortrack::input::ReadFileInputStrategy(file);
+        taylortrack::sim::Streamer streamer = taylortrack::sim::Streamer(&dummy, "/bp39_out");
+        streamer.start_streaming("/bp39_in");
+        return EXIT_SUCCESS;
+    }
 }
