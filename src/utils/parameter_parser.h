@@ -19,9 +19,9 @@ namespace taylortrack {
        *
        * @param argc Amount of passed parameters
        * @param argv Passed Parameters.
-       * @return Returns file path and the size in which the packets shall be streamed.
+       * @return Returns file path, the size in which the packets shall be streamed, the port name and a valid flag.
        */
-      static std::tuple<const char*,int, bool> parse_streamer(int argc, const char **arg);
+      static std::tuple<const char*,int, const char*, const char*, bool> parse_streamer(int argc, const char **arg);
     };
   } // utils
 } // Taylortrack

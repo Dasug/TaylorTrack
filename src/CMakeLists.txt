@@ -8,6 +8,8 @@ add_executable(sim_datareceiver sim_datareceiver.cpp utils/parameter_parser.cpp 
 # Add test executable
 add_executable(testunit input/dummy_input_strategy.cpp sim/streamer.cpp tests/testinit.cpp tests/simtest.cpp tests/streamertest.cpp utils/parameter_parser.cpp utils/parameter_parser.h tests/parserTest.cpp)
 
+SETUP_TARGET_FOR_COVERAGE(testunit_coverage testunit coverage)
+
 # link Yarp libraries
 target_link_libraries(sim_datastreamer ${YARP_LIBRARIES})
 target_link_libraries(sim_datareceiver ${YARP_LIBRARIES})

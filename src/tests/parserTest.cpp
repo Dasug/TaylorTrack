@@ -5,11 +5,11 @@
 TEST(ParserTest,StreamerParserSuccess) {
   int size;
   const char *file;
-  bool valid;
+  bool valid = false;
   const char *testArguments[] = {"../sim_datastreamer", "-s", "42", "path/to/file/file"};
   int argc = 4;
 
-  std::tie(file,size,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
+  std::tie(file,size,std::ignore, std::ignore,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
   ASSERT_TRUE(valid);
   ASSERT_EQ(size,42);
   ASSERT_EQ(file,"path/to/file/file");
@@ -20,7 +20,7 @@ TEST(ParserTest,StramerParserNoLenght) {
   const char *file;
   bool valid;
   const char *testArguments[] = {"../sim_datastreamer","path/to/file/file"};
-  std::tie(file,size,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
+  std::tie(file,size,std::ignore, std::ignore,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
   ASSERT_TRUE(valid);
   ASSERT_EQ(size,0);
   ASSERT_EQ(file,"path/to/file/file");
@@ -31,6 +31,22 @@ TEST(ParserTest, InvalidParameter) {
   const char *file;
   bool valid;
   const char *testArguments[] = {"./sim_datastreamer","-s"};
-  std::tie(file,size,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
+  std::tie(std::ignore,std::ignore,std::ignore, std::ignore,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
   ASSERT_FALSE(valid);
 }
+
+TEST(ParserTest, InvalidParameterName) {
+  int argc = 2;
+  const char *testArguments[] = {"./sim_datastreamer","-"};
+  bool valid=false;
+  std::tie(std::ignore,std::ignore,std::ignore, std::ignore,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
+  ASSERT_FALSE(valid);
+}
+
+/*TEST(ParserTest, InvalidParameterName) {
+  int argc = 2;
+  const char *testArguments[] = {"./sim_datastreamer","-"};
+  bool valid=false;
+  std::tie(std::ignore,std::ignore,std::ignore, std::ignore,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
+  ASSERT_FALSE(valid);
+}*/
