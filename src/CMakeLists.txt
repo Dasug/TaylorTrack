@@ -17,4 +17,4 @@ target_link_libraries(testunit ${YARP_LIBRARIES})
 
 
 # link google libraries
-target_link_libraries(testunit ${GTEST_LIBRARIES})
+target_link_libraries(testunit ${GTEST_LIBRARIES} -lpthread -lm)
