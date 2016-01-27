@@ -10,6 +10,10 @@ namespace taylortrack {
         ReadFileInputStrategy::ReadFileInputStrategy(const char* file_name) {
             file_ = new std::ifstream (file_name, std::ios::in|std::ios::binary|std::ios::ate);
 
+            if(file_ -> fail()) {
+              file_ -> close();
+            }
+
             // Determine the size of the file and initialise the char array for the data..
             if(file_->is_open()) {
                 size_ = file_->tellg();
@@ -33,8 +37,9 @@ namespace taylortrack {
         }
 
         ReadFileInputStrategy::~ReadFileInputStrategy() {
-            delete[] memblock_;
+            delete[] memblock_; // LCOV_EXCL_BR_START
             delete file_;
         }
     }
 }
+// LCOV_EXCL_BR_STOP

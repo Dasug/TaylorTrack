@@ -57,7 +57,7 @@ TEST(ParserTest, InvalidParameter) {
   const char *file;
   bool valid;
   const char *testArguments[] = {"./sim_datastreamer","-s"};
-  std::tie(std::ignore,std::ignore,std::ignore, std::ignore,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
+  std::tie(file,std::ignore,std::ignore, std::ignore,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
   ASSERT_FALSE(valid);
 }
 
@@ -66,7 +66,7 @@ TEST(ParserTest, InvalidParameterOutport) {
   const char *file;
   bool valid;
   const char *testArguments[] = {"./sim_datastreamer","-o"};
-  std::tie(std::ignore,std::ignore,std::ignore, std::ignore,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
+  std::tie(file,std::ignore,std::ignore, std::ignore,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
   ASSERT_FALSE(valid);
 }
 
@@ -75,15 +75,16 @@ TEST(ParserTest, InvalidParameterInport) {
   const char *file;
   bool valid;
   const char *testArguments[] = {"./sim_datastreamer","-i"};
-  std::tie(std::ignore,std::ignore,std::ignore, std::ignore,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
+  std::tie(file,std::ignore,std::ignore, std::ignore,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
   ASSERT_FALSE(valid);
 }
 
 TEST(ParserTest, InvalidParameterName) {
   int argc = 2;
+  const char *file;
   const char *testArguments[] = {"./sim_datastreamer","-"};
   bool valid=false;
-  std::tie(std::ignore,std::ignore,std::ignore, std::ignore,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
+  std::tie(file,std::ignore,std::ignore, std::ignore,valid) = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
   ASSERT_FALSE(valid);
 }
 

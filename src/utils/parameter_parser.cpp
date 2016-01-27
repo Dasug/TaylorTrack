@@ -49,4 +49,4 @@ std::tuple<const char*, int, const char*, const char*, bool> taylortrack::utils:
     }
   }
   return std::make_tuple(file, size, outport, inport, valid);
-}
+} // LCOV_EXCL_BR_LINE
