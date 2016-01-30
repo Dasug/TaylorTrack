@@ -135,4 +135,13 @@ TEST(FftLibTest,Zeropadding_Test) {
     vec[5] = 6;
     newvec = taylortrack::utils::FftLib::zeropadding(vec,3);
     ASSERT_EQ(newvec.size(),9);
+    ASSERT_EQ(newvec[0].real(),0);
+    ASSERT_EQ(newvec[1].real(),0);
+    ASSERT_EQ(newvec[2].real(),0);
+    ASSERT_EQ(newvec[3].real(),1);
+    ASSERT_EQ(newvec[4].real(),2);
+    ASSERT_EQ(newvec[5].real(),3);
+    ASSERT_EQ(newvec[6].real(),4);
+    ASSERT_EQ(newvec[7].real(),5);
+    ASSERT_EQ(newvec[8].real(),6);
 }
