@@ -77,6 +77,8 @@ CArray taylortrack::utils::FftLib::zeropadding(CArray &signal, int padamount) {
     for(int i=0;i<padamount;i++){
         paddedsignal[i] = 0;
     }
-    paddedsignal[std::slice(padamount,newsize,1)] = signal;
+    for(int i=padamount;i<newsize;i++){
+        paddedsignal[i] = signal[i-padamount];
+    }
     return paddedsignal;
 }

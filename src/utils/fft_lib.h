@@ -17,7 +17,8 @@ namespace taylortrack {
             typedef std::valarray<double> RArray;
             /**
             * @brief Zero pad a signal with a variable amount.
-            *
+            * @param signal a discrete audio signal
+            * @param padamount amount of leading zeros
             * Creates a zero padded signal
             *
             */
