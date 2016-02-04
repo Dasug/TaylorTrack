@@ -4,7 +4,6 @@
 */
 
 #include "dummy_input_strategy.h"
-#include <stdbool.h>
 
 namespace taylortrack {
     namespace input {

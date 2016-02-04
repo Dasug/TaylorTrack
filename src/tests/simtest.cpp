@@ -1,9 +1,3 @@
-/*
- * simtest.cpp
- *
- *  Created on: 04.12.2015
- *      Author: tamarafriess
- */
 
 #include "../input/dummy_input_strategy.h"
 #include <gtest/gtest.h>

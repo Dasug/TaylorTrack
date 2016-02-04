@@ -14,7 +14,7 @@
  * Initialize and open a port, wait for input from input bottle, and print positive message if successful
  */
 int main(int argc, char *argv[]) {
-    yarp::os::Network yarp; //jannis: kann ich das nicht weglassen?
+    yarp::os::Network yarp;
     yarp::os::BufferedPort<yarp::os::Bottle> port;
     port.open("/bp39_in");
     while (true) {

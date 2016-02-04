@@ -4,9 +4,7 @@
  */
 
 #include "streamer.h"
-#include <stdbool.h>
 #include <yarp/os/all.h>
-#include "../input/input_strategy.h"
 
 namespace taylortrack {
     namespace sim {

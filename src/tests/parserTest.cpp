@@ -1,6 +1,5 @@
 #include "../utils/parameter_parser.h"
 #include "gtest/gtest.h"
-#include <tuple>
 
 TEST(ParserTest,StreamerParserSuccess) {
   int size;
