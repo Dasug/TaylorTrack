@@ -7,7 +7,7 @@
 #include "gtest/gtest.h"
 
 TEST(FftLibTest,FftTest) {
-    taylortrack::utils::FftLib::CArray vec(16);
+    taylortrack::utils::FftLib::CArray vec(8);
     vec[0] = 1;
     vec[1] = 1;
     vec[2] = 1;
@@ -16,28 +16,17 @@ TEST(FftLibTest,FftTest) {
     vec[5] = 7;
     vec[6] = 2;
     vec[7] = 2;
-    vec[8] = 2;
-    vec[9] = 2;
-    vec[10] = 1;
-    vec[11] = 1;
-    vec[12] = 1;
-    vec[13] = 0;
-    vec[14] = 7;
-    vec[15] = 2;
 
     taylortrack::utils::FftLib::fft(vec);
-    for (int i=0;i<16;i++){
-        std::cout << vec[i]<< "\n";
-    }
     // testing real parts
     ASSERT_TRUE(std::abs(vec[0].real()-15) < 0.0001);
-    ASSERT_TRUE(std::abs(vec[1].real()+2.5355) < 0.0001);
-    ASSERT_TRUE(std::abs(vec[2].real()+2.0000) < 0.0001);
-    ASSERT_TRUE(std::abs(vec[3].real()-4.5355) < 0.0001);
+    ASSERT_TRUE(std::abs(vec[1].real()+2.53553) < 0.0001);
+    ASSERT_TRUE(std::abs(vec[2].real()+2) < 0.0001);
+    ASSERT_TRUE(std::abs(vec[3].real()-4.53553) < 0.0001);
     ASSERT_TRUE(std::abs(vec[4].real()+7) < 0.0001);
-    ASSERT_TRUE(std::abs(vec[5].real()-4.5355) < 0.0001);
+    ASSERT_TRUE(std::abs(vec[5].real()-4.53553) < 0.0001);
     ASSERT_TRUE(std::abs(vec[6].real()+2) < 0.0001);
-    ASSERT_TRUE(std::abs(vec[7].real()+2.5355) < 0.0001);
+    ASSERT_TRUE(std::abs(vec[7].real()+2.53553) < 0.0001);
     // testing complex parts
     ASSERT_TRUE(std::abs(vec[0].imag()) < 0.0001);
     ASSERT_TRUE(std::abs(vec[1].imag()-5.9497) < 0.0001);
@@ -147,10 +136,7 @@ TEST(FftLibTest,Zeropadding_Test) {
     vec[6] = 0.7;
     vec[7] = 0.8;
     newvec = taylortrack::utils::FftLib::zeropadding(vec,8);
-    //taylortrack::utils::FftLib::fft(newvec);
-    for (int i=0;i<16;i++){
-        std::cout << newvec[i]<< "\n";
-    }
+
     ASSERT_EQ(newvec.size(),16);
     ASSERT_EQ(newvec[0].real(),0.1);
     ASSERT_EQ(newvec[1].real(),0.2);
