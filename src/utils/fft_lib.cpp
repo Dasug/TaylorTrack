@@ -12,6 +12,22 @@ typedef std::valarray <Complex> CArray;
 typedef std::valarray<double> RArray;
 
 
+CArray taylortrack::utils::FftLib::converttocomp(RArray &x) {
+    CArray converted(x.size());
+    for (int i=0;i<x.size();i++){
+        converted[i] = x[i];
+    }
+    return converted;
+}
+
+RArray taylortrack::utils::FftLib::converttoreal(CArray &x) {
+    RArray converted(x.size());
+    for (int i=0;i<x.size();i++){
+        converted[i] = x[i].real();
+    }
+    return converted;
+}
+
 void taylortrack::utils::FftLib::fft(CArray &x) {
 
     const size_t N = x.size();
@@ -26,13 +42,12 @@ void taylortrack::utils::FftLib::fft(CArray &x) {
     fft(odd);
 
     // combine
-    for (size_t k = 0; k < N/2; ++k)
-    {
+    for (size_t k = 0; k < N/2; ++k) {
         Complex t = std::polar(1.0, -2 * PI * k / N) * odd[k];
         x[k    ] = even[k] + t;
         x[k+N/2] = even[k] - t;
     }
-            }
+}
 
 
 void taylortrack::utils::FftLib::ifft(CArray &x) {
@@ -74,11 +89,11 @@ void taylortrack::utils::FftLib::fftshift(RArray &outvec, RArray &invec) {
 CArray taylortrack::utils::FftLib::zeropadding(CArray &signal, int padamount) {
     int newsize = padamount + signal.size();
     CArray paddedsignal(newsize);
-    for(int i=0;i<padamount;i++){
-        paddedsignal[i] = 0;
+    for(int i=0;i<signal.size();i++){
+        paddedsignal[i] = signal[i];
     }
-    for(int i=padamount;i<newsize;i++){
-        paddedsignal[i] = signal[i-padamount];
+    for(int i=signal.size();i<newsize;i++){
+        paddedsignal[i] = 0;
     }
     return paddedsignal;
 }

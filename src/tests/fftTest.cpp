@@ -7,7 +7,7 @@
 #include "gtest/gtest.h"
 
 TEST(FftLibTest,FftTest) {
-    taylortrack::utils::FftLib::CArray vec(8);
+    taylortrack::utils::FftLib::CArray vec(16);
     vec[0] = 1;
     vec[1] = 1;
     vec[2] = 1;
@@ -16,8 +16,19 @@ TEST(FftLibTest,FftTest) {
     vec[5] = 7;
     vec[6] = 2;
     vec[7] = 2;
+    vec[8] = 2;
+    vec[9] = 2;
+    vec[10] = 1;
+    vec[11] = 1;
+    vec[12] = 1;
+    vec[13] = 0;
+    vec[14] = 7;
+    vec[15] = 2;
 
     taylortrack::utils::FftLib::fft(vec);
+    for (int i=0;i<16;i++){
+        std::cout << vec[i]<< "\n";
+    }
     // testing real parts
     ASSERT_TRUE(std::abs(vec[0].real()-15) < 0.0001);
     ASSERT_TRUE(std::abs(vec[1].real()+2.5355) < 0.0001);
@@ -125,23 +136,29 @@ TEST(FftLibTest,Fftshifttest) {
 
 // suspected memory errors in this test
 TEST(FftLibTest,Zeropadding_Test) {
-    taylortrack::utils::FftLib::CArray vec(6);
-    taylortrack::utils::FftLib::CArray newvec(9);
-    vec[0] = 1;
-    vec[1] = 2;
-    vec[2] = 3;
-    vec[3] = 4;
-    vec[4] = 5;
-    vec[5] = 6;
-    newvec = taylortrack::utils::FftLib::zeropadding(vec,3);
+    taylortrack::utils::FftLib::CArray vec(8);
+    taylortrack::utils::FftLib::CArray newvec(16);
+    vec[0] = 0.1;
+    vec[1] = 0.2;
+    vec[2] = 0.3;
+    vec[3] = 0.4;
+    vec[4] = 0.5;
+    vec[5] = 0.6;
+    vec[6] = 0.7;
+    vec[7] = 0.8;
+    newvec = taylortrack::utils::FftLib::zeropadding(vec,8);
+    taylortrack::utils::FftLib::fft(newvec);
+    for (int i=0;i<8;i++){
+        std::cout << newvec[i]<< "\n";
+    }
     ASSERT_EQ(newvec.size(),9);
-    ASSERT_EQ(newvec[0].real(),0);
-    ASSERT_EQ(newvec[1].real(),0);
-    ASSERT_EQ(newvec[2].real(),0);
-    ASSERT_EQ(newvec[3].real(),1);
-    ASSERT_EQ(newvec[4].real(),2);
-    ASSERT_EQ(newvec[5].real(),3);
-    ASSERT_EQ(newvec[6].real(),4);
-    ASSERT_EQ(newvec[7].real(),5);
-    ASSERT_EQ(newvec[8].real(),6);
+    ASSERT_EQ(newvec[0].real(),1);
+    ASSERT_EQ(newvec[1].real(),2);
+    ASSERT_EQ(newvec[2].real(),3);
+    ASSERT_EQ(newvec[3].real(),4);
+    ASSERT_EQ(newvec[4].real(),5);
+    ASSERT_EQ(newvec[5].real(),6);
+    ASSERT_EQ(newvec[6].real(),0);
+    ASSERT_EQ(newvec[7].real(),0);
+    ASSERT_EQ(newvec[8].real(),0);
 }

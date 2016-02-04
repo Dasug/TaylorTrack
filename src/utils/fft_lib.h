@@ -40,6 +40,10 @@ namespace taylortrack {
             static void fftshift(RArray &outvec, RArray &invec);
 
             static void circshift(RArray &out, RArray &in, int xdim, int ydim, int xshift, int yshift);
+
+
+            static CArray converttocomp(RArray &x);
+            static RArray converttoreal(CArray &x);
         };
     }
 }
