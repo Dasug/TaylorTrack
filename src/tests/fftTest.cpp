@@ -147,18 +147,20 @@ TEST(FftLibTest,Zeropadding_Test) {
     vec[6] = 0.7;
     vec[7] = 0.8;
     newvec = taylortrack::utils::FftLib::zeropadding(vec,8);
-    taylortrack::utils::FftLib::fft(newvec);
-    for (int i=0;i<8;i++){
+    //taylortrack::utils::FftLib::fft(newvec);
+    for (int i=0;i<16;i++){
         std::cout << newvec[i]<< "\n";
     }
-    ASSERT_EQ(newvec.size(),9);
-    ASSERT_EQ(newvec[0].real(),1);
-    ASSERT_EQ(newvec[1].real(),2);
-    ASSERT_EQ(newvec[2].real(),3);
-    ASSERT_EQ(newvec[3].real(),4);
-    ASSERT_EQ(newvec[4].real(),5);
-    ASSERT_EQ(newvec[5].real(),6);
-    ASSERT_EQ(newvec[6].real(),0);
-    ASSERT_EQ(newvec[7].real(),0);
+    ASSERT_EQ(newvec.size(),16);
+    ASSERT_EQ(newvec[0].real(),0.1);
+    ASSERT_EQ(newvec[1].real(),0.2);
+    ASSERT_EQ(newvec[2].real(),0.3);
+    ASSERT_EQ(newvec[3].real(),0.4);
+    ASSERT_EQ(newvec[4].real(),0.5);
+    ASSERT_EQ(newvec[5].real(),0.6);
+    ASSERT_EQ(newvec[6].real(),0.7);
+    ASSERT_EQ(newvec[7].real(),0.8);
     ASSERT_EQ(newvec[8].real(),0);
+    ASSERT_EQ(newvec[9].real(),0);
+    ASSERT_EQ(newvec[10].real(),0);
 }
