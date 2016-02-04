@@ -65,13 +65,11 @@ void taylortrack::utils::FftLib::ifft(CArray &x) {
                 x /= x.size();
             }
 
-            void taylortrack::utils::FftLib::circshift(RArray &out, RArray &in, int xdim, int ydim, int xshift, int yshift) {
+            void taylortrack::utils::FftLib::circshift(RArray &out, RArray &in, int xdim, int ydim, unsigned int xshift, unsigned int yshift) {
                 for (int i = 0; i < xdim; i++) {
                     int ii = (i + xshift) % xdim;
-                    if (ii < 0) ii = xdim + ii;
                     for (int j = 0; j < ydim; j++) {
                         int jj = (j + yshift) % ydim;
-                        if (jj < 0) jj = ydim + jj;
                         out[ii * ydim + jj] = in[i * ydim + j];
                     }
                 }
