@@ -5,9 +5,9 @@
 #ifndef TAYLORTRACK_PARAMETER_PARSER_H
 #define TAYLORTRACK_PARAMETER_PARSER_H
 #include <tuple>
+#include "parameters.h"
 namespace taylortrack {
   namespace utils {
-
   /**
    * @class ParameterParser
    * @brief Provides parser for the start parameters.
@@ -21,7 +21,7 @@ namespace taylortrack {
        * @param argv Passed Parameters.
        * @return Returns file path, the size in which the packets shall be streamed, the port name and a valid flag.
        */
-      static std::tuple<const char*,int, const char*, const char*, bool> parse_streamer(int argc, const char **arg);
+      static Parameters parse_streamer(int argc, const char **arg);
     };
   } // utils
 } // Taylortrack
