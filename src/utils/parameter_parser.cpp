@@ -4,13 +4,10 @@
  */
 #include <iostream>
 #include "parameter_parser.h"
-std::tuple<const char*, int, const char*, const char*, bool> taylortrack::utils::ParameterParser::parse_streamer(int argc,const char **argv) {
+
+Parameters taylortrack::utils::ParameterParser::parse_streamer(int argc,const char **argv) {
   char *end;
-  const char *file;
-  const char *outport = "/bp39_out";
-  const char *inport = "/bp39_in";
-  int size = 0;
-  bool valid = false;
+  Parameters parameters;
 
   for(int i = 1; i < argc; i++) {
     if(argv[i][0] == '-') {
@@ -18,35 +15,35 @@ std::tuple<const char*, int, const char*, const char*, bool> taylortrack::utils:
         // stream buffer size
         case 's':
           if(++i >= argc) {
-            valid = false;
+            parameters.valid = false;
           } else {
-            size =  (int) strtol(argv[i], &end, 10);
+            parameters.size =  (int) strtol(argv[i], &end, 10);
           }
           break;
         // Output port
         case 'o':
           if(++i >= argc) {
-            valid = false;
+            parameters.valid = false;
           } else {
-            outport = argv[i];
+            parameters.outport = argv[i];
           }
           break;
         // Input port
         case 'i':
           if(++i >= argc) {
-            valid = false;
+            parameters.valid = false;
           } else {
-            inport = argv[i];
+            parameters.inport = argv[i];
           }
           break;
 
         default:
-          valid = false;
+          parameters.valid = false;
       }
     }else {
-      file = argv[i];
-      valid = true;
+      parameters.file = argv[i];
+      parameters.valid = true;
     }
   }
-  return std::make_tuple(file, size, outport, inport, valid);
+  return parameters;
 } // LCOV_EXCL_BR_LINE
