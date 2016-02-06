@@ -30,3 +30,23 @@ TEST(WaveParserTest, ValidExample) {
 
     ASSERT_FLOAT_EQ(-0.0006408887f, sample_float_value);
 }
+
+TEST(WaveParserTest, NoRIFFHeader) {
+    taylortrack::utils::WaveParser parser = taylortrack::utils::WaveParser("../Testdata/Testnoriff.wav");
+    ASSERT_FALSE(parser.isValid());
+}
+
+TEST(WaveParserTest, NoDataHeader) {
+    taylortrack::utils::WaveParser parser = taylortrack::utils::WaveParser("../Testdata/Testnodata.wav");
+    ASSERT_FALSE(parser.isValid());
+}
+
+TEST(WaveParserTest, NofmtHeader) {
+    taylortrack::utils::WaveParser parser = taylortrack::utils::WaveParser("../Testdata/Testnofmt.wav");
+    ASSERT_FALSE(parser.isValid());
+}
+
+TEST(WaveParserTest, NoWaveFormat) {
+    taylortrack::utils::WaveParser parser = taylortrack::utils::WaveParser("../Testdata/Testwave.wav");
+    ASSERT_FALSE(parser.isValid());
+}
