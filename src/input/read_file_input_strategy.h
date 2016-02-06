@@ -35,7 +35,7 @@ namespace taylortrack {
             * @return Simulation data.
             * @see is_done()
             */
-            const char* read();
+            yarp::os::Bottle read();
 
             /**
             * @brief Detects if the read method is done with reading the simulation data.
@@ -52,8 +52,7 @@ namespace taylortrack {
 
         private:
             bool done_;
-            char* memblock_;
-            std::streampos size_;
+            long size_;
             std::ifstream* file_;
         };
     }

@@ -16,20 +16,22 @@ namespace taylortrack {
 
             // Determine the size of the file and initialise the char array for the data..
             if(file_->is_open()) {
-                size_ = file_->tellg();
-                memblock_ = new char [size_];
+                size_ = (long) file_->tellg();
                 file_->seekg(0, std::ios::beg);
             }
             done_ = false;
         }
 
-        const char* ReadFileInputStrategy::read() {
+        yarp::os::Bottle ReadFileInputStrategy::read() {
+            yarp::os::Bottle bottle;
             if(file_->is_open()) {
-                file_->read(memblock_,size_);
+                char *memblock = new char[size_];
+                file_->read(memblock,size_);
+                bottle.addString(yarp::os::ConstString(memblock, size_));
                 file_->close();
             }
             done_ = true;
-            return memblock_;
+            return bottle;
         }
 
         bool ReadFileInputStrategy::is_done() {
@@ -37,7 +39,6 @@ namespace taylortrack {
         }
 
         ReadFileInputStrategy::~ReadFileInputStrategy() {
-            delete[] memblock_; // LCOV_EXCL_BR_START
             delete file_;
         }
     }

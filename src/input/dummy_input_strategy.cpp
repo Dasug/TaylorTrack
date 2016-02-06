@@ -10,9 +10,11 @@ namespace taylortrack {
         DummyInputStrategy::DummyInputStrategy() {
             done_ = false;
         }
-        const char* DummyInputStrategy::read() {
+        yarp::os::Bottle DummyInputStrategy::read() {
             done_ = true;
-            return "Dummy Test successful";
+            yarp::os::Bottle bottle;
+            bottle.addString("Dummy Test successful");
+            return bottle;
         }
 
         bool DummyInputStrategy::is_done() {

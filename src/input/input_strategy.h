@@ -6,6 +6,9 @@
 */
 #ifndef TAYLORTRACK_INPUT_INPUT_STRATEGY_H_
 #define TAYLORTRACK_INPUT_INPUT_STRATEGY_H_
+
+#include <yarp/os/all.h>
+
 namespace taylortrack {
     namespace input {
         /**
@@ -20,7 +23,7 @@ namespace taylortrack {
 			* @brief Read data to be streamed.
 			* @return Simulation data.
         	*/
-            virtual const char* read() = 0;
+            virtual yarp::os::Bottle read() = 0;
 
             /**
             * @brief Detects if the read metod is done with reading the simulation data.
