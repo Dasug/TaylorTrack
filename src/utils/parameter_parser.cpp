@@ -4,8 +4,9 @@
  */
 #include <iostream>
 #include "parameter_parser.h"
+#include "parameters.h"
 
-Parameters taylortrack::utils::ParameterParser::parse_streamer(int argc,const char **argv) {
+taylortrack::utils::Parameters taylortrack::utils::ParameterParser::parse_streamer(int argc,const char **argv) {
   char *end;
   Parameters parameters;
 
