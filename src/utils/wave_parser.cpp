@@ -17,6 +17,16 @@ taylortrack::utils::WaveParser::~WaveParser() {
     delete this->file_;
 }
 
+bool taylortrack::utils::WaveParser::is_done() {
+    return !valid || this->file_->eof() || ((unsigned long) this->data_offset + this->data_size <= (unsigned long) this->file_->tellg());
+}
+
+unsigned long taylortrack::utils::WaveParser::get_sample_num() {
+    return this->data_size / this->block_align;
+}
+
+
+
 void taylortrack::utils::WaveParser::parse_file() {
     bool valid = true;
     char four_byte_buffer[4];
@@ -29,10 +39,10 @@ void taylortrack::utils::WaveParser::parse_file() {
         this->file_->seekg(8, std::ios_base::beg);
 
         // read chunk format
-        this->file_->read(four_byte_buffer, 4);
+        valid &= (bool) this->file_->read(four_byte_buffer, 4);
         if(strcmp(four_byte_buffer, "WAVE") == 0) {
             // read subchunk id
-            this->file_->read(four_byte_buffer, 4);
+            valid &= (bool) this->file_->read(four_byte_buffer, 4);
             if(strcmp(four_byte_buffer, "fmt ") == 0) {
                 fmt_size = this->file_->get() | (this->file_->get() << 8) | (this->file_->get() << 16) | (this->file_->get() << 24);
 
@@ -45,11 +55,12 @@ void taylortrack::utils::WaveParser::parse_file() {
 
                 // read data header
                 this->file_->seekg(20 + fmt_size, std::ios_base::beg);
-                this->file_->read(four_byte_buffer, 4);
+                valid &= (bool) this->file_->read(four_byte_buffer, 4);
 
                 if(strcmp(four_byte_buffer, "data") == 0) {
                     // read data subchunk length in bytes
                     this->data_size = this->file_->get() | (this->file_->get() << 8) | (this->file_->get() << 16) | (this->file_->get() << 24);
+                    this->data_offset = this->file_->tellg();
                 } else {
                     valid = false;
                 }
@@ -68,10 +79,10 @@ void taylortrack::utils::WaveParser::parse_file() {
 }
 
 
-std::string taylortrack::utils::WaveParser::get_samples(int sample_num) {
+std::string taylortrack::utils::WaveParser::get_samples(unsigned int sample_num) {
     int transfered_sample_size = (int) ((this->block_align * sample_num) <= this->data_size ? this->block_align * sample_num : this->data_size);
     char samples[transfered_sample_size];
-    for (int i = 0; i < (transfered_sample_size * this->block_align); ++i) {
+    for (int i = 0; i < transfered_sample_size; ++i) {
         samples[i] = (char) this->file_->get();
     }
     return std::string(samples, transfered_sample_size);

@@ -21,7 +21,7 @@ namespace taylortrack {
             unsigned short bits_per_sample;
             unsigned long data_size;
             std::ifstream *file_;
-
+            std::fpos<mbstate_t> data_offset;
             void parse_file();
 
         public:
@@ -55,9 +55,13 @@ namespace taylortrack {
 
             WaveParser(const char *file_name);
 
-            std::string get_samples(int sample_num);
+            std::string get_samples(unsigned int sample_num);
 
             virtual ~WaveParser();
+
+            bool is_done();
+
+            unsigned long get_sample_num();
         };
     } // namespace utils
 } // namespace taylortrack
