@@ -15,10 +15,7 @@
  * Reads a file with the Read_File_Input strategy and starts streaming the file
  */
 int main(int argc, const char *argv[]) {
-    int size;
-    const char *file, *outport, *inport;
-    bool valid;
-    Parameters parameters = taylortrack::utils::ParameterParser::parse_streamer(argc,argv);
+    taylortrack::utils::Parameters parameters = taylortrack::utils::ParameterParser::parse_streamer(argc,argv);
     if(!parameters.valid) {
         std::cout << "Invalid parameter usage. Please check --help" << std::endl;
         return EXIT_FAILURE;
