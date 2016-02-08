@@ -12,10 +12,11 @@
 * @details
 * @version 1
 */
+#include "audio_localizer.h"
 #include <complex>
 #include <valarray>
 #include <vector>
-#include "audio_localizer.h"
+#include <fstream>
 namespace taylortrack {
     namespace localization {
 
@@ -31,19 +32,33 @@ namespace taylortrack {
             /**
             * @brief SrpPhat Constructor
             *
-            * initializes the localization algorithm with all needed parameters
+            * initializes the localization algorithm with all relevant parameters
             * @param samplerate Audio samplerate (how many discrete signals per second).
             * @param samplelength Length of the sample that the algorithm will be fed with.
             * @param mics   Microphone positions in the room.
             */
-            SrpPhat(const int samplerate, const int samplelength,const RArray &xDimMics,const RArray &yDimMics, const double xLength, const double yLength, const double stepSize);
+            SrpPhat(const int samplerate,const RArray &xDimMics,const RArray &yDimMics, const double xLength, const double yLength, const double stepSize,const int steps);
 
             /**
             * @brief Returns most likely position of the recorded speaker in degrees
             * @param
             * @return speaker position in degree
             */
-            const int getposition();
+            int getPosition(std::vector<std::vector<double>> &gccGrid);
+
+            /**
+            * @brief Returns a probability distribution for the position of the speaker over all degrees
+            * @param  signals a vector of all microphone signals
+            * @return A RArray with all probability values
+            */
+            RArray getPositionDistribution(std::vector<RArray> &signals);
+
+            /**
+            * @brief Returns an RAarray with values filled in from a given file. Only works for one value per column
+            * @param  s A string with the path to the file containing the values
+            * @return RArray with all values in that file
+            */
+            RArray getMicSignal(const std::string &s);
 
             /**
             * @brief Returns a tensor that contains the expected delay for each point in a x-y grid for all possible microphone pairs
@@ -53,7 +68,7 @@ namespace taylortrack {
 
 
             /**
-            * @brief Returns a vector of tuples containing microphone pairs indices
+            * @brief Returns a vector of tuples containing all possible microphone pairs indices
             * @return vector of microphone pair tuples
             */
 
@@ -67,7 +82,7 @@ namespace taylortrack {
             int pointToAngle(double x_coordinate,double y_coordinate);
 
             /**
-            * @brief Returns the expected delay of sound arrival given that noise source stands at the given point
+            * @brief Returns the expected delay of sound arrival given that the noise source stands at the given point
             * @param point The coordinates of the noise source
             * @param mic1 coordinates of the first microphone
             * @param mic2 coordinates of the second microphone
@@ -82,14 +97,38 @@ namespace taylortrack {
             */
             RArray gcc(RArray &signal1, RArray &signal2,double beta);
 
+
+            /**
+            * @brief Returns a x-y grid with the summed up gcc values for each point and each microphone pair
+            * @param signals a vector with a variable amount of microphone signals. The amount of signals has to match the amount of stored microphones.
+
+            * @return Returns the gcc value grid as
+            */
+            std::vector<std::vector<double>> getGccGrid(std::vector<RArray> &signals,double beta);
+
+
+            /**
+             * @brief Returns values for a given axis
+             * @param axis defines which axis you want values for xaxis=true means x axis and xaxis=false returns values for the y axis
+             */
+            std::vector<double> getAxisvalues(bool xaxis);
+
+            /**
+             * @brief simple find function for valarray of doubles
+             * @param ra RArray that contains values to search
+             * @param val value to look for in the RArray
+             * @return Returns index of the value in the RArray in case the value was found -1 otherwise.
+             */
+            int findVal(RArray &ra,double val);
+
         private:
-            int samplerate_;
-            int samplelength_;
-            double xLength_;
-            double yLength_;
-            double stepSize_;
-            RArray xDimMics_;
-            RArray yDimMics_;
+            int samplerate_;        // audio sample rate the algorithm should work with
+            double xLength_;        // size of the grids x axis to consider for the estimation
+            double yLength_;        // size of the grids y axis to consider for the estimation
+            double stepSize_;       // sample length or the amount of discrete signals to consider for each estimate
+            RArray xDimMics_;       // X coordinates of the microphones in the grid
+            RArray yDimMics_;       // Y coordinates of the microphones in the grid
+            int steps_;
         };
     }
 }
