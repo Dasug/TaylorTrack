@@ -4,7 +4,6 @@
  */
 #ifndef TAYLORTRACK_PARAMETER_PARSER_H
 #define TAYLORTRACK_PARAMETER_PARSER_H
-#include <tuple>
 #include "parameters.h"
 namespace taylortrack {
   namespace utils {
