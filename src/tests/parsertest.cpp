@@ -15,10 +15,6 @@ TEST(ParserTest,SetOutportTest) {
   const char *testArguments[] = {"../sim_datastreamer", "-o", "/taylortest", "path/to/file/file"};
   int argc = 4;
 
-  for(int i = 0; i < 100; i++) {
-    int k = 1;
-  }
-
   taylortrack::utils::Parameters parameters = taylortrack::utils::ParameterParser::parse_streamer(argc,testArguments);
   ASSERT_TRUE(parameters.valid);
   ASSERT_EQ(parameters.outport, "/taylortest");
