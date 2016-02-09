@@ -7,7 +7,7 @@
 
 TEST(WaveParserTest, ValidExample) {
     taylortrack::utils::WaveParser parser = taylortrack::utils::WaveParser("../Testdata/Test.wav");
-    ASSERT_TRUE(parser.isValid());
+    ASSERT_TRUE(parser.is_valid());
     ASSERT_EQ(parser.get_sample_rate(), 44100);
     ASSERT_EQ(parser.get_num_channels(), 1);
     ASSERT_EQ(parser.get_byte_rate(), 88200);
@@ -33,20 +33,20 @@ TEST(WaveParserTest, ValidExample) {
 
 TEST(WaveParserTest, NoRIFFHeader) {
     taylortrack::utils::WaveParser parser = taylortrack::utils::WaveParser("../Testdata/Testnoriff.wav");
-    ASSERT_FALSE(parser.isValid());
+    ASSERT_FALSE(parser.is_valid());
 }
 
 TEST(WaveParserTest, NoDataHeader) {
     taylortrack::utils::WaveParser parser = taylortrack::utils::WaveParser("../Testdata/Testnodata.wav");
-    ASSERT_FALSE(parser.isValid());
+    ASSERT_FALSE(parser.is_valid());
 }
 
 TEST(WaveParserTest, NofmtHeader) {
     taylortrack::utils::WaveParser parser = taylortrack::utils::WaveParser("../Testdata/Testnofmt.wav");
-    ASSERT_FALSE(parser.isValid());
+    ASSERT_FALSE(parser.is_valid());
 }
 
 TEST(WaveParserTest, NoWaveFormat) {
     taylortrack::utils::WaveParser parser = taylortrack::utils::WaveParser("../Testdata/Testwave.wav");
-    ASSERT_FALSE(parser.isValid());
+    ASSERT_FALSE(parser.is_valid());
 }

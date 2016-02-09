@@ -23,7 +23,7 @@ taylortrack::input::WaveInputStrategy::~WaveInputStrategy() {
 yarp::os::Bottle taylortrack::input::WaveInputStrategy::read() {
     yarp::os::Bottle bottle;
 
-    if (waveParser->isValid() && !waveParser->is_done()) {
+    if (waveParser->is_valid() && !waveParser->is_done()) {
         unsigned int sample_amount;
         if(parameter_.size <= 0) {
             sample_amount = waveParser->get_sample_num();

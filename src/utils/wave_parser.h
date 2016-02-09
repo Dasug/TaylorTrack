@@ -25,7 +25,7 @@ namespace taylortrack {
             void parse_file();
 
         public:
-            bool isValid() const {
+            bool is_valid() const {
                 return valid;
             }
 
