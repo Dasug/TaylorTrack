@@ -1,6 +1,8 @@
-//
-// Created by dasug on 05.02.16.
-//
+/**
+* @file
+* @brief Implementation of for taylortrack::utils::WaveParser class.
+* @version 1
+*/
 
 #include <string.h>
 #include "wave_parser.h"
