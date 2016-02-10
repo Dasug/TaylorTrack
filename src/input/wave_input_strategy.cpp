@@ -7,7 +7,6 @@
 #include <fstream>
 #include <iostream>
 #include "wave_input_strategy.h"
-#include "../utils/wave_parser.h"
 
 taylortrack::input::WaveInputStrategy::WaveInputStrategy(taylortrack::utils::Parameters& params) {
     this->parameter_ = params;

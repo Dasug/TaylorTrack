@@ -4,7 +4,6 @@
  */
 
 #include "streamer.h"
-#include <yarp/os/all.h>
 
 namespace taylortrack {
     namespace sim {

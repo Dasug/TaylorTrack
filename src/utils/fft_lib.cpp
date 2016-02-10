@@ -3,8 +3,7 @@
 //
 #include <iostream>
 #include "fft_lib.h"
-#include <valarray>
-#include <complex>
+
 const double PI = 3.141592653589793238460;
 
 typedef std::complex<double> Complex;

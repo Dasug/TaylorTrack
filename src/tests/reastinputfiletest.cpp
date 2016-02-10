@@ -1,4 +1,3 @@
-#include "../utils/parameter_parser.h"
 #include "gtest/gtest.h"
 #include "zlib.h"
 #include "../input/read_file_input_strategy.h"

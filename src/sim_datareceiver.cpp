@@ -4,9 +4,6 @@
  */
 
 #include <yarp/os/all.h>
-#include <iostream>
-#include <unistd.h>
-#include <string.h>
 
 /**
  * @brief receiving data main method
