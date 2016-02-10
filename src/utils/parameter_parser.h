@@ -1,6 +1,7 @@
 /**
  * @file
  * @brief Provides a parser for the start parameters.
+ * @version 1
  */
 #ifndef TAYLORTRACK_PARAMETER_PARSER_H
 #define TAYLORTRACK_PARAMETER_PARSER_H
@@ -20,7 +21,7 @@ namespace taylortrack {
        * @param argv Passed Parameters.
        * @return Returns file path, the size in which the packets shall be streamed, the port name and a valid flag.
        */
-      static Parameters parse_streamer(int argc, const char **arg);
+      static Parameters parse_streamer(int argc, const char **argv);
     };
   } // utils
 } // Taylortrack
