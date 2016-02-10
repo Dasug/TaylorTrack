@@ -103,6 +103,10 @@ namespace taylortrack {
             */
             std::string get_samples(unsigned int sample_num);
 
+            /**
+            * @brief WaveParser Destructor
+            * Releases wave file
+            */
             virtual ~WaveParser();
 
             /**
