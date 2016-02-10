@@ -8,7 +8,7 @@
 
 taylortrack::utils::Parameters taylortrack::utils::ParameterParser::parse_streamer(int argc,const char **argv) {
   char *end;
-  Parameters parameters;
+  Parameters parameters = utils::Parameters();
 
   for(int i = 1; i < argc; i++) {
     if(argv[i][0] == '-') {
