@@ -24,7 +24,6 @@ namespace taylortrack {
         private:
             taylortrack::utils::Parameters parameter_;
             taylortrack::utils::WaveParser *waveParser;
-            bool done_;
         public:
             /**
             * @brief WaveInputStrategy Constructor
