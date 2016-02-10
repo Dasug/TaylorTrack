@@ -89,3 +89,31 @@ std::string taylortrack::utils::WaveParser::get_samples(unsigned int sample_num)
     }
     return std::string(samples, transfered_sample_size);
 }
+
+unsigned short taylortrack::utils::WaveParser::get_bits_per_sample() const {
+    return bits_per_sample;
+}
+
+unsigned short taylortrack::utils::WaveParser::get_block_align() const {
+    return block_align;
+}
+
+unsigned long taylortrack::utils::WaveParser::get_byte_rate() const {
+    return byte_rate;
+}
+
+unsigned long taylortrack::utils::WaveParser::get_sample_rate() const {
+    return sample_rate;
+}
+
+unsigned short taylortrack::utils::WaveParser::get_num_channels() const {
+    return num_channels;
+}
+
+unsigned short taylortrack::utils::WaveParser::get_audio_format() const {
+    return audio_format;
+}
+
+bool taylortrack::utils::WaveParser::is_valid() const {
+    return valid;
+}
