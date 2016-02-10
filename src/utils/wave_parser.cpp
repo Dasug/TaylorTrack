@@ -82,10 +82,38 @@ void taylortrack::utils::WaveParser::parse_file() {
 
 
 std::string taylortrack::utils::WaveParser::get_samples(unsigned int sample_num) {
-    int transfered_sample_size = (int) ((this->block_align * sample_num) <= this->data_size ? this->block_align * sample_num : this->data_size);
+    unsigned long transfered_sample_size = ((this->block_align * sample_num) <= this->data_size ? this->block_align * sample_num : this->data_size);
     char samples[transfered_sample_size];
     for (int i = 0; i < transfered_sample_size; ++i) {
         samples[i] = (char) this->file_->get();
     }
     return std::string(samples, transfered_sample_size);
+}
+
+unsigned short taylortrack::utils::WaveParser::get_bits_per_sample() const {
+    return bits_per_sample;
+}
+
+unsigned short taylortrack::utils::WaveParser::get_block_align() const {
+    return block_align;
+}
+
+unsigned long taylortrack::utils::WaveParser::get_byte_rate() const {
+    return byte_rate;
+}
+
+unsigned long taylortrack::utils::WaveParser::get_sample_rate() const {
+    return sample_rate;
+}
+
+unsigned short taylortrack::utils::WaveParser::get_num_channels() const {
+    return num_channels;
+}
+
+unsigned short taylortrack::utils::WaveParser::get_audio_format() const {
+    return audio_format;
+}
+
+bool taylortrack::utils::WaveParser::is_valid() const {
+    return valid;
 }

@@ -1,6 +1,8 @@
-//
-// Created by dasug on 06.02.16.
-//
+/**
+* @file
+* @brief Header file for taylortrack::input::WaveInputStrategy class.
+* @version 1
+*/
 
 #ifndef TAYLORTRACK_WAVE_INPUT_STRATEGY_H
 #define TAYLORTRACK_WAVE_INPUT_STRATEGY_H
@@ -12,24 +14,30 @@
 
 namespace taylortrack {
     namespace input {
+        /**
+        * @class WaveInputStrategy
+        * @brief Reads a wave file and processes it to a format readable by the tracking algorithm.
+        *
+        * Returns a YARP bottle consisting of sample amplitude levels as float values
+        */
         class WaveInputStrategy : public InputStrategy {
         private:
             taylortrack::utils::Parameters parameter_;
             taylortrack::utils::WaveParser *waveParser;
-            bool done_;
         public:
             /**
-            * @brief ReadFileInputStrategy Constructor
+            * @brief WaveInputStrategy Constructor
             *
-            * Opens the input stream and initialise
-            * @param file_name Path to the file to be read.
+            * Opens the input stream, parses the wave file header
+            * @param params taylortrack::utils::Parameters object
             */
             WaveInputStrategy(taylortrack::utils::Parameters& params);
 
             /**
-            * @brief Reads the entire file and returns the data.
-            * @pre Should only be called if is_done() returns false
-            * @return Simulation data.
+            * @brief Reads samples from the input file
+            * Number of samples to be read for every audio channel is defined in the taylortrack::utils::Parameters struct given to the constructor
+            * @pre is_done() returns false
+            * @return YARP bottle consisting of sample amplitude levels as float values
             * @see is_done()
             */
             yarp::os::Bottle read();
@@ -41,9 +49,9 @@ namespace taylortrack {
             bool is_done();
 
             /**
-            * @ReadFileInputStrategy Destructor
+            * @brief ~WaveInputStrategy Destructor
             *
-            * Frees up memory.
+            * Releases file pointer, frees memory
             */
             ~WaveInputStrategy();
         };

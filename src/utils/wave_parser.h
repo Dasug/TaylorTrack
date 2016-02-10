@@ -38,9 +38,7 @@ namespace taylortrack {
             * @brief Checks whether the parsed file has a correct header.
             * @return true if file is valid, otherwise false
             */
-            bool is_valid() const {
-                return valid;
-            }
+            bool is_valid() const;
 
             /**
             * @brief Gets the sample encoding format specified in the wave header
@@ -48,36 +46,28 @@ namespace taylortrack {
             * @return The audio format code
             * @sa %Audio format code reference: https://de.wikipedia.org/wiki/RIFF_WAVE#Datenformate_.28Format-Tag.29
             */
-            unsigned short get_audio_format() const {
-                return audio_format;
-            }
+            unsigned short get_audio_format() const;
 
             /**
             * @brief Gets the number of audio channels within the parsed wave file
             * @pre is_valid() returns true
             * @return Number of channels
             */
-            unsigned short get_num_channels() const {
-                return num_channels;
-            }
+            unsigned short get_num_channels() const;
 
             /**
             * @brief Gets the parsed wave file's sample rate
             * @pre is_valid() returns true
             * @return Sample rate (Samples / second)
             */
-            unsigned long get_sample_rate() const {
-                return sample_rate;
-            }
+            unsigned long get_sample_rate() const;
 
             /**
             * @brief Gets the parsed wave file's byte rate
             * @pre is_valid() returns true
             * @return Byte rate (Bytes / second)
             */
-            unsigned long get_byte_rate() const {
-                return byte_rate;
-            }
+            unsigned long get_byte_rate() const;
 
             /**
             * @brief Gets the parsed wave file's number of bytes per sample frame
@@ -85,18 +75,14 @@ namespace taylortrack {
             * @pre is_valid() returns true
             * @return Sample frame size in bytes
             */
-            unsigned short get_block_align() const {
-                return block_align;
-            }
+            unsigned short get_block_align() const;
 
             /**
             * @brief Gets the parsed wave file's bits per sample
             * @pre is_valid() returns true
             * @return Number of Bits included in a single sample. Must be a multiple of 8
             */
-            unsigned short get_bits_per_sample() const {
-                return bits_per_sample;
-            }
+            unsigned short get_bits_per_sample() const;
 
 
             /**
@@ -117,6 +103,10 @@ namespace taylortrack {
             */
             std::string get_samples(unsigned int sample_num);
 
+            /**
+            * @brief WaveParser Destructor
+            * Releases wave file
+            */
             virtual ~WaveParser();
 
             /**
