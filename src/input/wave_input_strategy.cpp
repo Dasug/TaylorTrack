@@ -1,6 +1,8 @@
-//
-// Created by dasug on 06.02.16.
-//
+/**
+* @file
+* @brief Implementation of taylortrack::input::WaveInputStrategy class.
+* @version 1
+*/
 
 #include <fstream>
 #include <iostream>
