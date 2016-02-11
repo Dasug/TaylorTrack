@@ -13,12 +13,19 @@ namespace taylortrack {
             WINDOW *top_window;
             WINDOW *main_window;
             void handle_resize();
-            void handle_user_input();
             bool user_quit = false;
             bool failed = false;
             int original_cursor_state;
+            bool show_top_window = true;
+
+            void toggle_upper_window();
+            void handle_user_input();
+            void create_top_window();
             void update_top_window();
+            void create_main_window();
+            void update_main_window();
             void print_center(WINDOW *window, const char *string);
+
         public:
             bool user_has_quit() const;
             bool has_failed() const;
@@ -27,7 +34,6 @@ namespace taylortrack {
             bool term_supports_color();
 
             virtual ~OutputVisualizer();
-
         };
     } // namespace taylortrack::vis
 } // namespace taylortrack
