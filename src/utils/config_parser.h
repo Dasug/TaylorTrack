@@ -27,6 +27,9 @@ namespace taylortrack {
       Audio audio;
       Video video;
       Combination combination;
+      bool valid;
+      void parse_file();
+
 
      public:
       /**
@@ -35,11 +38,6 @@ namespace taylortrack {
        * @param file_name Path to the file to be parsed.
       */
       ConfigParser(const char *file_name);
-
-      /**
-       * @brief Starts parsing the file.
-       */
-      void parse_file();
     };
   }
 }
