@@ -84,7 +84,7 @@ void taylortrack::utils::WaveParser::parse_file() {
 std::string taylortrack::utils::WaveParser::get_samples(unsigned int sample_num) {
     unsigned long transfered_sample_size = ((this->block_align * sample_num) <= this->data_size ? this->block_align * sample_num : this->data_size);
     char samples[transfered_sample_size];
-    for (int i = 0; i < transfered_sample_size; ++i) {
+    for (unsigned int i = 0; i < transfered_sample_size; ++i) {
         samples[i] = (char) this->file_->get();
     }
     return std::string(samples, transfered_sample_size);
