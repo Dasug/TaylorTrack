@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
             out->draw_frame();
 
             // Obviously Windows and Unix systems use different sleep functions...
-            int milliseconds = 900;
+            int milliseconds = 100;
             #ifdef WIN32
                 Sleep(milliseconds);
             #else
