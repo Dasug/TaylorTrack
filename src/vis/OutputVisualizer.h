@@ -12,12 +12,18 @@ namespace taylortrack {
             int rows, cols;
             WINDOW *top_window;
             WINDOW *main_window;
-            void handle_resize();
             bool user_quit = false;
             bool failed = false;
             int original_cursor_state;
             bool show_top_window = true;
+        public:
+            void set_diagram_data(const std::vector<double> &diagram_data);
 
+        private:
+            std::vector<double> diagram_data;
+            bool data_set = false;
+
+            void handle_resize();
             void toggle_upper_window();
             void handle_user_input();
             void create_top_window();

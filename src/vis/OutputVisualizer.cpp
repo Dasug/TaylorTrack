@@ -33,6 +33,14 @@ taylortrack::vis::OutputVisualizer::OutputVisualizer(taylortrack::utils::Options
         // Define color pair 2 as blue on white
         init_pair(2, COLOR_BLUE, COLOR_WHITE);
 
+        // Redefine colors if terminal supports it (We only 8 colors available, so the names might be a bit unfitting)
+        init_color(COLOR_RED, 933, 461, 0); // Dark Orange
+        init_color(COLOR_YELLOW, 1000, 645, 0); // Light Orange
+
+        // Define color pair 3 and 4 for use in the diagram
+        init_pair(3, COLOR_WHITE, COLOR_RED);
+        init_pair(4, COLOR_WHITE, COLOR_YELLOW);
+
         int rows, cols;
 
         // retrieve window size
@@ -192,6 +200,79 @@ void taylortrack::vis::OutputVisualizer::update_main_window() {
     // Create Box around main window
     box(this->main_window, 0, 0);
 
+    wmove(this->main_window, 1,1);
+    if(this->data_set) {
+        double x_axis_size = diagram_data.size();
+        int height, width;
+        getmaxyx(this->main_window, height, width);
+
+        // Not the entire window usable
+        width -= 2;
+        height -= 4;
+
+        // Calculate values per character
+        int vpc = (int) ceil(x_axis_size / (double) width);
+        int actual_size = (int) (x_axis_size / vpc);
+
+        // Calculate max value
+        double max_value = 0.0f;
+        for (int i = 0; i < actual_size; ++i) {
+            double current_value = 0;
+            for (int j = 0; j < vpc; ++j) {
+                current_value += diagram_data[i*vpc + j];
+            }
+            if(current_value > max_value) {
+                max_value = current_value;
+            }
+        }
+
+        wprintw(this->main_window, "Debug-Values: %d %d %d %d %f", vpc, actual_size, COLORS, can_change_color(), max_value);
+
+        if(max_value > 0.0) {
+            // calculate the value of one square in the terminal
+            double delta = max_value / height;
+
+            // Add the vpc next values together and draw block if value high enough
+            for (int y = 0; y < height; ++y) {
+                for (int x = 0; x < actual_size; ++x) {
+
+                    double current_value = 0;
+                    for (int j = 0; j < vpc; ++j) {
+                        current_value += diagram_data[x*vpc + j];
+                    }
+
+                    if (current_value >= (height - y) * delta) {
+                        wmove(this->main_window, 1+y, 1 + x);
+
+                        if(x % 2 == 0) {
+                            waddch(this->main_window, ' ' | COLOR_PAIR(3));
+                        } else {
+                            waddch(this->main_window, ' ' | COLOR_PAIR(4));
+                        }
+                    }
+                }
+            }
+        } else {
+            height = getmaxy(this->main_window);
+            height -= 2;
+
+            wmove(this->main_window, height / 2, 1);
+            print_center(this->main_window, "Invalid Data!");
+        }
+    } else {
+        int height;
+        height = getmaxy(this->main_window);
+        height -= 2;
+
+        wmove(this->main_window, height / 2, 1);
+        print_center(this->main_window, "Waiting for Data...");
+    }
+
     // flush display buffer and write to screen
     wrefresh(this->main_window);
+}
+
+void taylortrack::vis::OutputVisualizer::set_diagram_data(const std::vector<double> &diagram_data) {
+    this->diagram_data = diagram_data;
+    this->data_set = true;
 }

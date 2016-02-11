@@ -11,8 +11,19 @@ int main(int argc, char **argv) {
     taylortrack::utils::Options options = taylortrack::utils::Options();
     taylortrack::vis::OutputVisualizer *out = new taylortrack::vis::OutputVisualizer(options);
 
+    // Generate vector with sample data
+    std::vector<double> sampleVector;
+
+    for (int i = 0; i < 360; ++i) {
+        sampleVector.push_back(((double) rand()) / ((double) RAND_MAX));
+    }
+
+    int i = 0;
     if(out->term_supports_color()) {
         while(!out->has_failed() && !out->user_has_quit()) {
+            if(i == 15)
+                out->set_diagram_data(sampleVector);
+
             out->draw_frame();
 
             // Obviously Windows and Unix systems use different sleep functions...
@@ -22,6 +33,7 @@ int main(int argc, char **argv) {
             #else
                 usleep((__useconds_t) (milliseconds * 1000));
             #endif // win32
+            ++i;
         }
 
         // Leave ncurses terminal mode
