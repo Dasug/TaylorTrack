@@ -9,7 +9,7 @@ add_executable(sim_datareceiver sim_datareceiver.cpp utils/parameter_parser.cpp 
 add_executable(testunit input/dummy_input_strategy.cpp sim/streamer.cpp tests/testinit.cpp tests/simtest.cpp tests/streamertest.cpp utils/parameter_parser.cpp utils/fft_lib.cpp tests/parsertest.cpp tests/reastinputfiletest.cpp input/read_file_input_strategy.cpp tests/ffttest.cpp utils/wave_parser.cpp tests/wave_parser_test.cpp input/wave_input_strategy.cpp tests/wave_input_test.cpp utils/config_parser.cpp tests/config_parser_test.cpp)
 
 # Result Visualizer
-add_executable(visualizer visualizer.cpp)
+add_executable(visualizer visualizer.cpp vis/OutputVisualizer.cpp vis/OutputVisualizer.h)
 
 SETUP_TARGET_FOR_COVERAGE(testunit_coverage testunit coverage)
 
@@ -25,3 +25,5 @@ target_link_libraries(testunit ${GTEST_LIBRARIES} -lpthread -lm)
 # link zlib
 target_link_libraries(testunit ${ZLIB_LIBRARIES})
 
+# link
+target_link_libraries(visualizer ${CURSES_LIBRARIES})

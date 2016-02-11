@@ -15,6 +15,9 @@ include_directories(${GTEST_INCLUDE_DIRS})
 find_package(ZLIB)
 include_directories(${ZLIB_INCLUDE_DIRS})
 
+find_package(Curses REQUIRED)
+include_directories(${CURSES_INCLUDE_DIRS})
+
 # activate debugging symbols and warnings
 set(CMAKE_CXX_FLAGS "-std=c++11 -g -Wall -g -O0 -fprofile-arcs -ftest-coverage -coverage")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../lib)
