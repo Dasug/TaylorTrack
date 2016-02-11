@@ -33,13 +33,13 @@ void taylortrack::utils::ConfigParser::parse_file() {
         audio.outport = x[1];
       else if (x[0].compare("sample_rate") == 0)
         std::istringstream(x[1]) >> audio.sample_rate;
-      else if (x[0].compare("mic_x") == 0) { // TODO handle multiple whitespaces and tabs
-        std::vector<std::string> mic = split(x[1],' ');
+      else if (x[0].compare("mic_x") == 0) {
+        std::vector<std::string> mic = split_microphones(x[1]);
         audio.mic_x.resize(mic.size());
         for(uint i = 0; i < mic.size(); i++)
           std::stringstream(mic[i]) >> audio.mic_x[i];
-      }else if (x[0].compare("mic_y") == 0) { // TODO handle multiple whitespaces and tabs
-        std::vector<std::string> mic = split(x[1],' ');
+      }else if (x[0].compare("mic_y") == 0) {
+        std::vector<std::string> mic = split_microphones(x[1]);
         audio.mic_y.resize(mic.size());
         for(uint i = 0; i < mic.size(); i++)
           std::stringstream(mic[i]) >> audio.mic_y[i];
@@ -96,6 +96,26 @@ std::vector<std::string> taylortrack::utils::ConfigParser::split(const std::stri
   while(std::getline(ss,item,delim))
     elems.push_back(item);
 
+  return elems;
+}
+
+std::vector<std::string> taylortrack::utils::ConfigParser::split_microphones(std::string s) {
+  std::vector<std::string> elems;
+  int start = -1;
+
+  for(unsigned int i = 0; i < s.length(); ++i) {
+    if(std::isspace(s[i]) == 0 && start == -1) {
+      if (i == s.length() - 1)
+        elems.push_back(s.substr(i));
+      start = i;
+    }else if((std::isspace(s[i]) != 0 && start != -1) || i == s.length() - 1) {
+      if(i == s.length() -1)
+        elems.push_back(s.substr((unsigned int) start, i + 1 - start));
+      else
+        elems.push_back(s.substr((unsigned int) start, i - start));
+      start = -1;
+    }
+  }
   return elems;
 }
 

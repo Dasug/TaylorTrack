@@ -23,6 +23,7 @@ namespace taylortrack {
       std::ifstream file_;
       std::string trim(const std::string &s);
       std::vector<std::string> split(const std::string &s, char delim);
+      std::vector<std::string> split_microphones(std::string s);
       Options options;
       Audio audio;
       Video video;
