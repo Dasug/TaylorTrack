@@ -19,17 +19,16 @@ namespace taylortrack {
     */
     class ConfigParser {
      private:
-
       std::ifstream file_;
       std::string trim(const std::string &s);
       std::vector<std::string> split(const std::string &s, char delim);
       std::vector<std::string> split_microphones(std::string s);
+      void parse_file();
       Options options;
       Audio audio;
       Video video;
       Combination combination;
       bool valid;
-      void parse_file();
 
 
      public:
@@ -39,6 +38,50 @@ namespace taylortrack {
        * @param file_name Path to the file to be parsed.
       */
       ConfigParser(const char *file_name);
+
+      /**
+      * @brief Gets the general configuration for the algorithms
+      * @pre is_valid() returns true
+      * @return General configuration for the algorithms
+      */
+      const Options get_general_configuration() const {
+        return options;
+      }
+
+      /**
+      * @brief Gets the configuration for the speaker tracking algorithm
+      * @pre is_valid() returns true
+      * @return Configuration for the speaker tracking algorithm
+      */
+      const Audio get_audio_configuration() const {
+        return audio;
+      }
+
+      /**
+      * @brief Gets the configuration for the vision tracking algorithm
+      * @pre is_valid() returns true
+      * @return Configuration for the vision tracking algorithm
+      */
+      const Video get_video_configuration() const {
+        return video;
+      }
+
+      /**
+      * @brief Gets the configuration for the combination algorithm
+      * @pre is_valid() returns true
+      * @return Configuration for the algorithm
+      */
+      const Combination get_combination_configuration() const {
+        return combination;
+      }
+
+      /**
+      * @brief Checks whether the configuration file is valid or not.
+      * @return true if the configuration is valid, otherwise false
+      */
+      bool is_valid() const {
+        return valid;
+      }
     };
   }
 }
