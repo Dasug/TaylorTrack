@@ -42,17 +42,20 @@ taylortrack::vis::OutputVisualizer::OutputVisualizer(taylortrack::utils::Options
         this->cols = cols;
 
         refresh();
+        create_top_window();
+        create_main_window();
 
-        this->top_window = newwin(4, cols, 0, 0);
-        // Set color pair 1 for thetop window
-        wbkgd(this->top_window, COLOR_PAIR(1));
-
-        this->main_window = newwin(rows - 4, cols, 4, 0);
-
-        update_top_window();
     } else {
         failed = true;
     }
+}
+
+void taylortrack::vis::OutputVisualizer::create_top_window() {
+    this->top_window = newwin(4, this->cols, 0, 0);
+    // Set color pair 1 for thetop window
+    wbkgd(this->top_window, COLOR_PAIR(1));
+
+    update_top_window();
 }
 
 taylortrack::vis::OutputVisualizer::~OutputVisualizer() {
@@ -72,11 +75,7 @@ void taylortrack::vis::OutputVisualizer::draw_frame() {
 
     // TODO Actual visualisation
 
-    // Create Box around main window
-    box(this->main_window, 0, 0);
-
-    // flush display buffer and write to screen
-    wrefresh(this->main_window);
+    this->update_main_window();
 }
 
 void taylortrack::vis::OutputVisualizer::handle_resize() {
@@ -86,10 +85,15 @@ void taylortrack::vis::OutputVisualizer::handle_resize() {
     getmaxyx(stdscr,rows,cols);
 
     if(rows != this->rows || cols != this->cols) {
-        wresize(this->top_window, 4, cols);
-        wresize(this->main_window, rows - 4, cols);
-        if(cols != this->cols) {
-            this->update_top_window();
+
+        if(this->show_top_window) {
+            wresize(this->top_window, 4, cols);
+            wresize(this->main_window, rows - 4, cols);
+            if(cols != this->cols) {
+                this->update_top_window();
+            }
+        } else {
+            wresize(this->main_window, rows, cols);
         }
         this->rows = rows;
         this->cols = cols;
@@ -108,6 +112,9 @@ void taylortrack::vis::OutputVisualizer::handle_user_input() {
                 break;
             case 'q':
                 this->user_quit = true;
+                break;
+            case 'h':
+                this->toggle_upper_window();
                 break;
             default:
                 break;
@@ -133,6 +140,9 @@ void taylortrack::vis::OutputVisualizer::update_top_window() {
     wmove(this->top_window, 1, 1);
 
     this->print_center(this->top_window, "TaylorTrack - Tracking Visualizer");
+
+    this->print_center(this->top_window, "Press 'q' or ESC to quit and 'h' to toggle this window.");
+
     wrefresh(this->top_window);
 }
 
@@ -154,4 +164,34 @@ void taylortrack::vis::OutputVisualizer::print_center(WINDOW *window, const char
     wprintw(window, string);
 
     wmove(window, cy + 1, cx);
+}
+
+void taylortrack::vis::OutputVisualizer::toggle_upper_window() {
+    this->show_top_window = !this->show_top_window;
+
+    if(show_top_window) {
+        delwin(this->main_window);
+        this->create_top_window();
+        this->create_main_window();
+    } else {
+        delwin(this->top_window);
+        delwin(this->main_window);
+        this->create_main_window();
+    }
+}
+
+void taylortrack::vis::OutputVisualizer::create_main_window() {
+    if(show_top_window) {
+        this->main_window = newwin(this->rows - 4, this->cols, 4, 0);
+    } else {
+        this->main_window = newwin(this->rows, this->cols, 0, 0);
+    }
+}
+
+void taylortrack::vis::OutputVisualizer::update_main_window() {
+    // Create Box around main window
+    box(this->main_window, 0, 0);
+
+    // flush display buffer and write to screen
+    wrefresh(this->main_window);
 }
