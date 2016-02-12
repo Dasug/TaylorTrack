@@ -11,9 +11,6 @@ add_executable(testunit input/dummy_input_strategy.cpp sim/streamer.cpp tests/te
 # Result Visualizer
 add_executable(visualizer visualizer.cpp vis/OutputVisualizer.cpp vis/OutputVisualizer.h)
 
-# Result Visualizer
-add_executable(visualizer visualizer.cpp vis/OutputVisualizer.cpp vis/OutputVisualizer.h)
-
 SETUP_TARGET_FOR_COVERAGE(testunit_coverage testunit coverage)
 
 # link Yarp libraries
