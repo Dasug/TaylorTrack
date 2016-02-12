@@ -7,7 +7,8 @@
 #include <string.h>
 #include "wave_parser.h"
 
-
+//TODO: Überprüfung einbauen zum gewährleisten, dass (file_name != null)
+//sonst gibt es probleme in Zeile 39
 taylortrack::utils::WaveParser::WaveParser(const char *file_name) {
     this->file_ = new std::ifstream (file_name, std::ios::in|std::ios::binary);
 

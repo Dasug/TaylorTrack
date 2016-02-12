@@ -1,6 +1,7 @@
 #ifndef TAYLORTRACK_OUTPUTVISUALIZER_H
 #define TAYLORTRACK_OUTPUTVISUALIZER_H
 
+#include <vector>
 #include "../utils/config.h"
 
 
