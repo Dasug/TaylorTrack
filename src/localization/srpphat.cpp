@@ -3,6 +3,8 @@
 //
 const double c = 340.42;    // speed of sound constant
 const double PI = 3.141592653589793238460;
+
+#include <tuple>
 #include "srpphat.h"
 #include "../utils/fft_lib.h"
 namespace taylortrack {
