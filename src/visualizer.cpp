@@ -1,3 +1,8 @@
+/**
+* @file
+* @brief Contains main method for the visualizer.
+*/
+
 #include <ncurses.h>
 #include <iostream>
 #include "vis/OutputVisualizer.h"
@@ -7,6 +12,13 @@
 #include <unistd.h>
 #endif //WIN32
 
+/**
+ * @brief Visualizer main method
+ *
+ * Initializes console output and contains main display loop
+ * @param argc number of arguments
+ * @param argv array of arguments
+ */
 int main(int argc, char **argv) {
     taylortrack::utils::Options options = taylortrack::utils::Options();
     taylortrack::vis::OutputVisualizer *out = new taylortrack::vis::OutputVisualizer(options);

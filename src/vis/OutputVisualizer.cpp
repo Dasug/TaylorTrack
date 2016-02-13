@@ -1,3 +1,8 @@
+/**
+* @file
+* @brief Contains implementation for taylortrack::vis::OutputVisualizer class.
+*/
+
 #include <ncurses.h>
 #include <string.h>
 #include "OutputVisualizer.h"
