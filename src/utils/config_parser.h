@@ -10,6 +10,7 @@
 #include <iostream>
 #include "config.h"
 #include <sstream>
+#include <vector>
 
 namespace taylortrack {
   namespace utils {
