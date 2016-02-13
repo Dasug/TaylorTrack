@@ -8,10 +8,10 @@
 #include <vector>
 #include <valarray>
 #include <complex>
-#include <spqr.hpp>
 
 namespace taylortrack {
     namespace utils {
+        typedef std::complex<double> Complex ;
         typedef std::valarray<double> RArray;
         typedef std::valarray<Complex> CArray;
         /**

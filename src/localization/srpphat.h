@@ -17,11 +17,10 @@
 #include <valarray>
 #include <vector>
 #include <fstream>
-#include <spqr.hpp>
 
 namespace taylortrack {
     namespace localization {
-
+        typedef std::complex<double> Complex ;
         typedef std::valarray<double> RArray;
         typedef std::valarray<Complex> CArray;
         /**
