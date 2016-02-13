@@ -29,10 +29,43 @@ namespace taylortrack {
       AudioSettings audio;
       VideoSettings video;
       CombinationSettings combination;
+      CommunicationSettings input_communication_out, audio_communication_in, audio_communication_out, video_communication_in, video_communication_out, combination_communication_in, combination_communication_out, visualizer_communication_in;
       bool valid;
 
 
-     public:
+    public:
+      const CommunicationSettings &get_input_communication_out() const {
+        return input_communication_out;
+      }
+
+      const CommunicationSettings &get_audio_communication_in() const {
+        return audio_communication_in;
+      }
+
+      const CommunicationSettings &get_audio_communication_out() const {
+        return audio_communication_out;
+      }
+
+      const CommunicationSettings &get_video_communication_in() const {
+        return video_communication_in;
+      }
+
+      const CommunicationSettings &get_video_communication_out() const {
+        return video_communication_out;
+      }
+
+      const CommunicationSettings &get_combination_communication_in() const {
+        return combination_communication_in;
+      }
+
+      const CommunicationSettings &get_combination_communication_out() const {
+        return combination_communication_out;
+      }
+
+      const CommunicationSettings &get_visualizer_communication_in() const {
+        return visualizer_communication_in;
+      }
+
       /**
        * @brief Configuration parser constructor
        * Opens the supplied configuration file and parses it.

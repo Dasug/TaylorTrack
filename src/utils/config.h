@@ -30,12 +30,14 @@ namespace taylortrack {
       /**
        * @var outport
        * Defines the yarp output port for the speaker tracking algorithm.
+       * @deprecated Use CommunicationSettings struct instead
       */
       std::string outport = "/bp39_audio_out";
 
       /**
        * @var inport
        * Defines the yarp input port for the speaker tracking algorithm.
+       * @deprecated Use CommunicationSettings struct instead
       */
       std::string inport  = "/bp39_audio_in";
 
@@ -96,11 +98,13 @@ namespace taylortrack {
       /**
        * @var outport
        * Defines the yarp output port for the vision tracking algorithm.
+       * @deprecated Use CommunicationSettings struct instead
       */
       std::string outport = "/bp39_video_out";
       /**
        * @var inport
        * Defines the yarp input port for the vision tracking algorithm.
+       * @deprecated Use CommunicationSettings struct instead
       */
       std::string inport  = "/bp39_video_in";
     };
@@ -109,14 +113,27 @@ namespace taylortrack {
       /**
        * @var outport
        * Defines the yarp input port for the vision tracking algorithm.
+       * @deprecated Use CommunicationSettings struct instead
       */
       std::string outport = "/bp39_combination_out";
-
       /**
        * @var inport
        * Defines the yarp input port for the vision tracking algorithm.
+       * @deprecated Use CommunicationSettings struct instead
       */
       std::string inport  = "/bp39_combination_in";
+    };
+
+    /**
+     * @Struct
+     * @brief Contains parameters for network communication.
+     */
+    struct CommunicationSettings {
+      /**
+       * @var outport
+       * Defines the yarp port used for input or output.
+      */
+      std::string port = "/unnamed_port";
     };
   } // utils
 } // taylortrack

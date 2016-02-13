@@ -14,7 +14,7 @@ taylortrack::utils::ConfigParser::ConfigParser(const char *file_name) {
 }
 
 bool taylortrack::utils::ConfigParser::parse_file() {
-  // 0 = options, 1 = audio, 2 = video, 3 = combination
+  // 0 = options, 1 = audio, 2 = video, 3 = combination, 4 = input, 5 = visualizer
   int section = -1;
   std::string line;
   while(std::getline(file_,line)) {
@@ -26,63 +26,83 @@ bool taylortrack::utils::ConfigParser::parse_file() {
     if(x.size() > 2 || (x.size() == 2 && trim(x[1]).empty()))
       return false;
 
-    if(section == 0 && (!line.empty() && line.at(0) != '[' && line.at(0) != '#' && !isspace(line.at(0)))) {
+
+    if (!line.empty() && line.at(0) != '[' && line.at(0) != '#' && !isspace(line.at(0))) {
       x[0] = trim(x[0]);
       x[1] = trim(x[1]);
+      switch(section) {
+        case 0: // [options]
+          if(x[0].compare("console_output") == 0)
+            options.console_output = x[1].compare("true") == 0;
 
-      if(x[0].compare("console_output") == 0)
-        options.console_output = x[1].compare("true") == 0;
+          break; // end section 0
 
-    }else if(section == 1 && (!line.empty() && line.at(0) != '[' && line.at(0) != '#' && !isspace(line.at(0)))) {
-      x[0] = trim(x[0]);
-      x[1] = trim(x[1]);
 
-      if (x[0].compare("inport") == 0)
-        audio.inport = x[1];
-      else if (x[0].compare("outport") == 0)
-        audio.outport = x[1];
-      else if (x[0].compare("sample_rate") == 0)
-        std::istringstream(x[1]) >> audio.sample_rate;
-      else if (x[0].compare("mic_x") == 0) {
-        std::vector<std::string> mic = split_microphones(x[1]);
-        audio.mic_x.resize(mic.size());
-        for(uint i = 0; i < mic.size(); i++)
-          std::stringstream(mic[i]) >> audio.mic_x[i];
-      }else if (x[0].compare("mic_y") == 0) {
-        std::vector<std::string> mic = split_microphones(x[1]);
-        audio.mic_y.resize(mic.size());
-        for(uint i = 0; i < mic.size(); i++)
-          std::stringstream(mic[i]) >> audio.mic_y[i];
-      }else if(x[0].compare("beta") == 0)
-        std::stringstream(x[1]) >> audio.beta;
-      else if(x[0].compare("grid_x") == 0)
-        std::stringstream(x[1]) >> audio.grid_x;
-      else if(x[0].compare("grid_y") == 0)
-        std::stringstream(x[1]) >> audio.grid_y;
-      else if(x[0].compare("interval") == 0)
-        std::stringstream(x[1]) >> audio.interval;
-      else if(x[0].compare("frame_size") == 0)
-        std::stringstream(x[1]) >> audio.frame_size;
-    } // end if section 1
-    else if(section == 2 && (!line.empty() && line.at(0) != '[' && line.at(0) != '#' && !isspace(line.at(0)))) {
-      x[0] = trim(x[0]);
-      x[1] = trim(x[1]);
+        case 1: // [audio]
+          if (x[0].compare("inport") == 0) {
+            audio.inport = x[1];
+            audio_communication_in.port = x[1];
+          } else if (x[0].compare("outport") == 0) {
+            audio.outport = x[1];
+            audio_communication_out.port = x[1];
+          } else if (x[0].compare("sample_rate") == 0)
+            std::istringstream(x[1]) >> audio.sample_rate;
+          else if (x[0].compare("mic_x") == 0) {
+            std::vector<std::string> mic = split_microphones(x[1]);
+            audio.mic_x.resize(mic.size());
+            for(uint i = 0; i < mic.size(); i++)
+              std::stringstream(mic[i]) >> audio.mic_x[i];
+          }else if (x[0].compare("mic_y") == 0) {
+            std::vector<std::string> mic = split_microphones(x[1]);
+            audio.mic_y.resize(mic.size());
+            for(uint i = 0; i < mic.size(); i++)
+              std::stringstream(mic[i]) >> audio.mic_y[i];
+          }else if(x[0].compare("beta") == 0)
+            std::stringstream(x[1]) >> audio.beta;
+          else if(x[0].compare("grid_x") == 0)
+            std::stringstream(x[1]) >> audio.grid_x;
+          else if(x[0].compare("grid_y") == 0)
+            std::stringstream(x[1]) >> audio.grid_y;
+          else if(x[0].compare("interval") == 0)
+            std::stringstream(x[1]) >> audio.interval;
+          else if(x[0].compare("frame_size") == 0)
+            std::stringstream(x[1]) >> audio.frame_size;
+          break; // end section 1
 
-      if (x[0].compare("inport") == 0)
-        video.inport = x[1];
-      else if (x[0].compare("outport") == 0)
-        video.outport = x[1];
+        case 2: // [video]
+          if (x[0].compare("inport") == 0) {
+            video.inport = x[1];
+            video_communication_in.port = x[1];
+          } else if (x[0].compare("outport") == 0) {
+            video.outport = x[1];
+            video_communication_out.port = x[1];
+          }
+          break; // end section 2
 
-    } // end if section 2
-    else if(section == 3 && (!line.empty() && line.at(0) != '[' && line.at(0) != '#' && !isspace(line.at(0)))) {
-      x[0] = trim(x[0]);
-      x[1] = trim(x[1]);
+        case 3: // [combination]
+          if (x[0].compare("inport") == 0) {
+            combination.inport = x[1];
+            combination_communication_in.port = x[1];
+          } else if (x[0].compare("outport") == 0) {
+            combination.outport = x[1];
+            combination_communication_out.port = x[1];
+          }
+          break; // end section 3
 
-      if (x[0].compare("inport") == 0)
-        combination.inport = x[1];
-      else if (x[0].compare("outport") == 0)
-        combination.outport = x[1];
-    } // end if section 3
+        case 4:
+          if (x[0].compare("outport") == 0)
+            input_communication_out.port = x[1];
+          break; // end section 4
+
+        case 5:
+          if (x[0].compare("inport") == 0)
+            visualizer_communication_in.port = x[1];
+          break; // end section 5
+
+        default: // Do nothing
+          break;
+      }
+    }
 
     if(line.compare("[options]") == 0)
       section = 0;
@@ -92,6 +112,10 @@ bool taylortrack::utils::ConfigParser::parse_file() {
       section = 2;
     else if(line.compare("[combination]") == 0)
       section = 3;
+    else if(line.compare("[input]") == 0)
+      section = 4;
+    else if(line.compare("[visualizer]") == 0)
+      section = 5;
   } // end while
   return audio.mic_x.size() == audio.mic_y.size() && audio.mic_x.size() > 0 && audio.mic_y.size() > 0;
 }
