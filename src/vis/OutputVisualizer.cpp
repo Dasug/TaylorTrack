@@ -7,7 +7,7 @@
 #include <string.h>
 #include "OutputVisualizer.h"
 
-taylortrack::vis::OutputVisualizer::OutputVisualizer(taylortrack::utils::Options options) {
+taylortrack::vis::OutputVisualizer::OutputVisualizer(taylortrack::utils::GeneralOptions options) {
     this->options = options;
 
     // Initialize console window

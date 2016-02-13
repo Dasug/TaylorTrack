@@ -3,10 +3,10 @@
 
 TEST(ConfigParserTest, ValidParsing) {
   taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("../Testdata/taylortrack.conf");
-  taylortrack::utils::Options general = parser.get_general_configuration();
-  taylortrack::utils::Audio audio = parser.get_audio_configuration();
-  taylortrack::utils::Video video = parser.get_video_configuration();
-  taylortrack::utils::Combination combination = parser.get_combination_configuration();
+  taylortrack::utils::GeneralOptions general = parser.get_general_configuration();
+  taylortrack::utils::AudioSettings audio = parser.get_audio_configuration();
+  taylortrack::utils::VideoSettings video = parser.get_video_configuration();
+  taylortrack::utils::CombinationSettings combination = parser.get_combination_configuration();
 
   std::valarray<double> mic_x = {4, 8.2, 2, 9.123, 0, 3, 5, 5.123};
   std::valarray<double> mic_y = {0.1, 0.12, 0.123, 0.1245, 1234.1, 1234.128, 52, 6123.41234};
@@ -45,7 +45,27 @@ TEST(ConfigParserTest, ValidParsing) {
   ASSERT_STREQ("/test_combination_outport", combination.outport.c_str());
 }
 
-TEST(ConfigParserTest, InvalidParsing) {
+TEST(ConfigParserTest, UnequalMicNumber) {
   taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("../Testdata/taylortrack2.conf");
   ASSERT_FALSE(parser.is_valid());
 }
+
+TEST(ConfigParserTest, NoMic) {
+  taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("../Testdata/taylortrack3.conf");
+  ASSERT_FALSE(parser.is_valid());
+}
+
+TEST(ConfigParserTest, NoFileToParse) {
+  taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("");
+  ASSERT_FALSE(parser.is_valid());
+}
+
+TEST(ConfigParserTest, DoubleEquals) {
+  taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("../Testdata/taylortrack4.conf");
+  ASSERT_FALSE(parser.is_valid());
+}
+
+
+
+
+

@@ -24,11 +24,11 @@ namespace taylortrack {
       std::string trim(const std::string &s);
       std::vector<std::string> split(const std::string &s, char delim);
       std::vector<std::string> split_microphones(std::string s);
-      void parse_file();
-      Options options;
-      Audio audio;
-      Video video;
-      Combination combination;
+      bool parse_file();
+      GeneralOptions options;
+      AudioSettings audio;
+      VideoSettings video;
+      CombinationSettings combination;
       bool valid;
 
 
@@ -45,7 +45,7 @@ namespace taylortrack {
       * @pre is_valid() returns true
       * @return General configuration for the algorithms
       */
-      const Options get_general_configuration() const {
+      const GeneralOptions get_general_configuration() const {
         return options;
       }
 
@@ -54,7 +54,7 @@ namespace taylortrack {
       * @pre is_valid() returns true
       * @return Configuration for the speaker tracking algorithm
       */
-      const Audio get_audio_configuration() const {
+      const AudioSettings get_audio_configuration() const {
         return audio;
       }
 
@@ -63,7 +63,7 @@ namespace taylortrack {
       * @pre is_valid() returns true
       * @return Configuration for the vision tracking algorithm
       */
-      const Video get_video_configuration() const {
+      const VideoSettings get_video_configuration() const {
         return video;
       }
 
@@ -72,7 +72,7 @@ namespace taylortrack {
       * @pre is_valid() returns true
       * @return Configuration for the algorithm
       */
-      const Combination get_combination_configuration() const {
+      const CombinationSettings get_combination_configuration() const {
         return combination;
       }
 

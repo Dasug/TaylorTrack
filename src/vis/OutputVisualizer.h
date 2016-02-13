@@ -22,7 +22,7 @@ namespace taylortrack {
         */
         class OutputVisualizer {
         private:
-            taylortrack::utils::Options options;
+            taylortrack::utils::GeneralOptions options;
             int rows, cols;
             WINDOW *top_window;
             WINDOW *main_window;
@@ -48,9 +48,9 @@ namespace taylortrack {
              * @brief OutputVisualizer constructor
              *
              * Initializes console output and draws initial frame
-             * @param options Configuration object
+             * @param options taylortrack::utils::GeneralOptions configuration object
              */
-            OutputVisualizer(taylortrack::utils::Options options);
+            OutputVisualizer(taylortrack::utils::GeneralOptions options);
 
             /**
              * @brief Checks whether the user requested to terminate the visualization.
