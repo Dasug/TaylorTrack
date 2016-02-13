@@ -28,7 +28,7 @@ namespace taylortrack {
             * @param  signals a vector of all microphone signals
             * @return A RArray with all probability values
             */
-            virtual RArray getPositionDistribution(std::vector<RArray> &signals) = 0;
+            virtual RArray getPositionDistribution(std::vector<std::vector<double>> &gccGrid) = 0;
 
         };
     } // namespace input

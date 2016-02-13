@@ -32,6 +32,11 @@ namespace taylortrack {
             */
             void ifft(CArray& x);
 
+            /**
+            * @brief Performs a fftshift on a given valarray and writes the shifted vector into another given valarray.
+            * @param outvec The valarray that has to contain the shifted valarray
+            * @param invec The valarray that contains the original valarray
+            */
             void fftshift(RArray &outvec, RArray &invec);
 
         };

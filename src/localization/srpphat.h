@@ -54,7 +54,7 @@ namespace taylortrack {
             * @param  signals a vector of all microphone signals
             * @return A RArray with all probability values
             */
-            RArray getPositionDistribution(std::vector<RArray> &signals);
+            RArray getPositionDistribution(std::vector<std::vector<double>> &gccGrid);
 
             /**
             * @brief Returns an RAarray with values filled in from a given file. Only works for one value per column

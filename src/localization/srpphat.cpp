@@ -89,8 +89,7 @@ namespace taylortrack {
         }
 
 
-        RArray SrpPhat::getPositionDistribution(std::vector<RArray> &signals){
-            std::vector<std::vector<double>> gccGrid = getGccGrid(signals);
+        RArray SrpPhat::getPositionDistribution(std::vector<std::vector<double>> &gccGrid){
             RArray degreevals(360);
             std::vector<double> xAxisValues = getAxisvalues(true);
             std::vector<double> yAxisValues = getAxisvalues(false);
@@ -104,7 +103,7 @@ namespace taylortrack {
                 }
             }
             // get maximum for normalization of values
-            double res = degreevals.max();
+            double res = degreevals.sum();
             return degreevals / res;
         };
 
@@ -165,26 +164,22 @@ namespace taylortrack {
                     // assigning the corresponding signals
                     RArray signal1 = signals[index1];
                     RArray signal2 = signals[index2];
-                    // iterating over each frame
-                    for(int step=1;step<steps;step++){
                         // get the current frame from the complete signal
-                        RArray signalSlice1 = signal1[std::slice((steps_-1)*(step-1), steps_+1, 1)];
-                        auto temp = std::slice(steps_*(step-1), steps_+1, 1);
-                        RArray signalSlice2 = signal2[std::slice((steps_-1)*(step-1), steps_, 1)];
-                        // computing the cross correlation of both frames
-                        RArray gccTemp = gcc(signalSlice1,signalSlice2);
-                        // iterating over the whole x-y grid
-                        for(int x=0;x<vectorSize;x++){
-                            for(int y=0;y<vectorSize;y++){
-                                double del = micDelays[x][y][i];
-                                // adding the corresponding cross correlation value to the grid
-                                gccValues[x][y] += gccTemp[(steps_-1)+round(del/(1.0/samplerate_))];
-                            }
+                    RArray signalSlice1 = signal1[std::slice(0, steps_+1, 1)];
+                    RArray signalSlice2 = signal2[std::slice(0, steps_, 1)];
+                    // computing the cross correlation of both frames
+                    int temp = signalSlice1.size();
+                    int temp2 = signalSlice2.size();
+                    RArray gccTemp = gcc(signalSlice1,signalSlice2);
+                    // iterating over the whole x-y grid
+                    for(int x=0;x<vectorSize;x++){
+                        for(int y=0;y<vectorSize;y++){
+                            double del = micDelays[x][y][i];
+                            // adding the corresponding cross correlation value to the grid
+                            gccValues[x][y] += gccTemp[(steps_-1)+round(del/(1.0/samplerate_))];
                         }
                     }
-
                 }
-
             return gccValues;
         }
 

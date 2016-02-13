@@ -177,11 +177,11 @@ TEST(SrpPhatTest,gccGridTest) {
 
 TEST(SrpPhatTest,getPositionTest) {
 
-    double mx[] = {0.0, -0.055, 0, 0.055};
-    double my[] = {0.055, 0.0, -0.055, 0.0};
+    double mx[] = {0.055, 0.0, -0.055, 0.0};
+    double my[] = {0.0, 0.055, 0.0, -0.055};
     taylortrack::utils::FftLib::RArray micsX(mx,4);
     taylortrack::utils::FftLib::RArray micsY(my,4);
-    const int steps = 256;
+    const int steps = 2048;
     taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, micsX,micsY,4.0,4.0,0.1,steps,0.7);
 
     taylortrack::utils::FftLib::RArray sig1 = srp.getMicSignal("../Testdata/0-180.txt");
@@ -198,14 +198,14 @@ TEST(SrpPhatTest,getPositionTest) {
     signals.push_back(sig3);
     signals.push_back(sig4);
     int signalLength = signals[0].size();
-    int sigsteps = signalLength / 2570 +1;
+    int sigsteps = signalLength / steps +1;
     for(int step=1;step<sigsteps;step++){
         std::vector<taylortrack::utils::FftLib::RArray> signals2;
 
-        taylortrack::utils::FftLib::RArray signalSlice1 = sig1[std::slice((2570-1)*(step-1), 2570, 1)];
-        taylortrack::utils::FftLib::RArray signalSlice2 = sig2[std::slice((2570-1)*(step-1), 2570, 1)];
-        taylortrack::utils::FftLib::RArray signalSlice3 = sig3[std::slice((2570-1)*(step-1), 2570, 1)];
-        taylortrack::utils::FftLib::RArray signalSlice4 = sig4[std::slice((2570-1)*(step-1), 2570, 1)];
+        taylortrack::utils::FftLib::RArray signalSlice1 = sig1[std::slice((2049-1)*(step-1), 2049, 1)];
+        taylortrack::utils::FftLib::RArray signalSlice2 = sig2[std::slice((2049-1)*(step-1), 2049, 1)];
+        taylortrack::utils::FftLib::RArray signalSlice3 = sig3[std::slice((2049-1)*(step-1), 2049, 1)];
+        taylortrack::utils::FftLib::RArray signalSlice4 = sig4[std::slice((2049-1)*(step-1), 2049, 1)];
         signals2.push_back(signalSlice1);
         signals2.push_back(signalSlice2);
         signals2.push_back(signalSlice3);
@@ -213,6 +213,52 @@ TEST(SrpPhatTest,getPositionTest) {
         std::vector<std::vector<double>> gcca = srp.getGccGrid(signals2);
         int pos = srp.getPosition(gcca);
         std::cout << pos<< std::endl;
+    }
+    //int gcca = srp.getPosition(signals);
+
+
+
+    ASSERT_TRUE(true);
+}
+
+TEST(SrpPhatTest,getPositionDistributionTest) {
+
+    double mx[] = {0.055, 0.0, -0.055, 0.0};
+    double my[] = {0.0, 0.055, 0.0, -0.055};
+    taylortrack::utils::FftLib::RArray micsX(mx,4);
+    taylortrack::utils::FftLib::RArray micsY(my,4);
+    const int steps = 2048;
+    taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, micsX,micsY,4.0,4.0,0.1,steps,0.7);
+
+    taylortrack::utils::FftLib::RArray sig1 = srp.getMicSignal("../Testdata/0-180.txt");
+    taylortrack::utils::FftLib::RArray sig2 = srp.getMicSignal("../Testdata/90-180.txt");
+    taylortrack::utils::FftLib::RArray sig3 = srp.getMicSignal("../Testdata/180-180.txt");
+    taylortrack::utils::FftLib::RArray sig4 = srp.getMicSignal("../Testdata/270-180.txt");
+
+
+
+
+    std::vector<taylortrack::utils::FftLib::RArray> signals;
+    signals.push_back(sig1);
+    signals.push_back(sig2);
+    signals.push_back(sig3);
+    signals.push_back(sig4);
+    int signalLength = signals[0].size();
+    int sigsteps = signalLength / steps +1;
+    for(int step=1;step<sigsteps;step++){
+        std::vector<taylortrack::utils::FftLib::RArray> signals2;
+
+        taylortrack::utils::FftLib::RArray signalSlice1 = sig1[std::slice((2049-1)*(step-1), 2049, 1)];
+        taylortrack::utils::FftLib::RArray signalSlice2 = sig2[std::slice((2049-1)*(step-1), 2049, 1)];
+        taylortrack::utils::FftLib::RArray signalSlice3 = sig3[std::slice((2049-1)*(step-1), 2049, 1)];
+        taylortrack::utils::FftLib::RArray signalSlice4 = sig4[std::slice((2049-1)*(step-1), 2049, 1)];
+        signals2.push_back(signalSlice1);
+        signals2.push_back(signalSlice2);
+        signals2.push_back(signalSlice3);
+        signals2.push_back(signalSlice4);
+        std::vector<std::vector<double>> gcca = srp.getGccGrid(signals2);
+        taylortrack::utils::FftLib::RArray pos = srp.getPositionDistribution(gcca);
+        int i = 0;
     }
     //int gcca = srp.getPosition(signals);
 
