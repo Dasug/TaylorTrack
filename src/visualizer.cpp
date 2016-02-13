@@ -14,15 +14,17 @@ int main(int argc, char **argv) {
     // Generate vector with sample data
     std::vector<double> sampleVector;
 
-    for (int i = 0; i < 360; ++i) {
-        sampleVector.push_back(((double) rand()) / ((double) RAND_MAX));
-    }
-
     int i = 0;
     if(out->term_supports_color()) {
         while(!out->has_failed() && !out->user_has_quit()) {
-            if(i == 15)
+            if(i % 15 == 14) {
+                sampleVector.clear();
+                for (int j = 0; j < 360; ++j) {
+                    sampleVector.push_back(((double) rand()) / ((double) RAND_MAX));
+                }
                 out->set_diagram_data(sampleVector);
+            }
+
 
             out->draw_frame();
 
