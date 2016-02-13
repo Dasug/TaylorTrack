@@ -33,7 +33,11 @@ int main(int argc, char **argv) {
             #ifdef WIN32
                 Sleep(milliseconds);
             #else
-                usleep((__useconds_t) (milliseconds * 1000));
+                #ifdef __useconds_t_defined
+                    usleep((__useconds_t) (milliseconds * 1000));
+                #else
+                    usleep(milliseconds * 1000);
+                #endif // __useconds_t_defined
             #endif // win32
             ++i;
         }
