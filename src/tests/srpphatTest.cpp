@@ -49,14 +49,12 @@ TEST(SrpPhatTest,axisValueTest) {
     std::vector<double> xax = srp.getAxisvalues(true);
     std::vector<double> yax = srp.getAxisvalues(false);
 
-    for (int i=0;i<xax.size();i++){
-        std::cout << xax[i]<< "\n";
-        std::cout << yax[i]<< "\n";
-
-    }
-    std::cout << xax.size()<< "\n";
-
-    ASSERT_EQ(1,1);
+    ASSERT_EQ(41,xax.size());
+    ASSERT_EQ(41,yax.size());
+    ASSERT_DOUBLE_EQ(2.0,yax[0]);
+    ASSERT_DOUBLE_EQ(-2.0,xax[0]);
+    ASSERT_DOUBLE_EQ(2.0,xax[40]);
+    ASSERT_DOUBLE_EQ(-2.0,yax[40]);
 }
 
 TEST(SrpPhatTest,gccTest) {
@@ -118,8 +116,9 @@ TEST(SrpPhatTest,getDelayTensorTest) {
     std::vector<std::vector<std::vector<double>>> difference;
 
     difference = srp.getDelayTensor();
-    std::cout << difference.size()<< "\n";
-    ASSERT_EQ(0,0);
+    ASSERT_EQ(0,difference[0][0][0]);
+    ASSERT_TRUE(difference[0][28][1]-0.0001199 < 0.000001);
+    ASSERT_EQ(0,difference[40][0][2]);
 }
 
 TEST(SrpPhatTest,getMicPairsTest) {
@@ -153,10 +152,10 @@ TEST(SrpPhatTest,gccGridTest) {
     taylortrack::utils::RArray micsY(my,4);
     taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, micsX,micsY,4.0,4.0,0.1,256,beta);
 
-    taylortrack::utils::RArray sig1 = srp.getMicSignal("../Testdata/0-180.txt");
-    taylortrack::utils::RArray sig2 = srp.getMicSignal("../Testdata/90-180.txt");
-    taylortrack::utils::RArray sig3 = srp.getMicSignal("../Testdata/180-180.txt");
-    taylortrack::utils::RArray sig4 = srp.getMicSignal("../Testdata/270-180.txt");
+    taylortrack::utils::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
+    taylortrack::utils::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
+    taylortrack::utils::RArray sig3 = srp.getMicSignal("../Testdata/180-180_short.txt");
+    taylortrack::utils::RArray sig4 = srp.getMicSignal("../Testdata/270-180_short.txt");
 
     std::vector<taylortrack::utils::RArray> signals;
     signals.push_back(sig1);
@@ -164,15 +163,8 @@ TEST(SrpPhatTest,gccGridTest) {
     signals.push_back(sig3);
     signals.push_back(sig4);
     std::vector<std::vector<double>> gcca = srp.getGccGrid(signals);
-    for (int i=0;i<41;i++){
-        for(int j=0;j<41;j++){
-            std::cout << gcca[i][j]<< " ";
-        }
-        std::cout << "\n"<< std::endl;
-    }
-
-
-    ASSERT_TRUE(true);
+    ASSERT_TRUE(gcca[0][0]-0.10463105 <0.000001);
+    ASSERT_TRUE(gcca[18][0]-0.0895043 <0.000001);
 }
 
 TEST(SrpPhatTest,getPositionTest) {
@@ -184,13 +176,11 @@ TEST(SrpPhatTest,getPositionTest) {
     const int steps = 2048;
     taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, micsX,micsY,4.0,4.0,0.1,steps,0.7);
 
-    taylortrack::utils::FftLib::RArray sig1 = srp.getMicSignal("../Testdata/0-180.txt");
-    taylortrack::utils::FftLib::RArray sig2 = srp.getMicSignal("../Testdata/90-180.txt");
-    taylortrack::utils::FftLib::RArray sig3 = srp.getMicSignal("../Testdata/180-180.txt");
-    taylortrack::utils::FftLib::RArray sig4 = srp.getMicSignal("../Testdata/270-180.txt");
-
-
-
+    taylortrack::utils::FftLib::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
+    taylortrack::utils::FftLib::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
+    taylortrack::utils::FftLib::RArray sig3 = srp.getMicSignal("../Testdata/180-180_short.txt");
+    taylortrack::utils::FftLib::RArray sig4 = srp.getMicSignal("../Testdata/270-180_short.txt");
+    taylortrack::utils::FftLib::RArray estimates(3);
 
     std::vector<taylortrack::utils::FftLib::RArray> signals;
     signals.push_back(sig1);
@@ -212,13 +202,10 @@ TEST(SrpPhatTest,getPositionTest) {
         signals2.push_back(signalSlice4);
         std::vector<std::vector<double>> gcca = srp.getGccGrid(signals2);
         int pos = srp.getPosition(gcca);
-        std::cout << pos<< std::endl;
+        estimates[step] = pos;
     }
-    //int gcca = srp.getPosition(signals);
-
-
-
-    ASSERT_TRUE(true);
+    ASSERT_EQ(180,estimates[1]);
+    ASSERT_EQ(180,estimates[2]);
 }
 
 TEST(SrpPhatTest,getPositionDistributionTest) {
@@ -230,14 +217,11 @@ TEST(SrpPhatTest,getPositionDistributionTest) {
     const int steps = 2048;
     taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, micsX,micsY,4.0,4.0,0.1,steps,0.7);
 
-    taylortrack::utils::FftLib::RArray sig1 = srp.getMicSignal("../Testdata/0-180.txt");
-    taylortrack::utils::FftLib::RArray sig2 = srp.getMicSignal("../Testdata/90-180.txt");
-    taylortrack::utils::FftLib::RArray sig3 = srp.getMicSignal("../Testdata/180-180.txt");
-    taylortrack::utils::FftLib::RArray sig4 = srp.getMicSignal("../Testdata/270-180.txt");
-
-
-
-
+    taylortrack::utils::FftLib::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
+    taylortrack::utils::FftLib::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
+    taylortrack::utils::FftLib::RArray sig3 = srp.getMicSignal("../Testdata/180-180_short.txt");
+    taylortrack::utils::FftLib::RArray sig4 = srp.getMicSignal("../Testdata/270-180_short.txt");
+    taylortrack::utils::FftLib::RArray estimates(3);
     std::vector<taylortrack::utils::FftLib::RArray> signals;
     signals.push_back(sig1);
     signals.push_back(sig2);
@@ -258,11 +242,9 @@ TEST(SrpPhatTest,getPositionDistributionTest) {
         signals2.push_back(signalSlice4);
         std::vector<std::vector<double>> gcca = srp.getGccGrid(signals2);
         taylortrack::utils::FftLib::RArray pos = srp.getPositionDistribution(gcca);
-        int i = 0;
+        int maxpos = srp.findVal(pos,pos.max());
+        estimates[step] = maxpos;
     }
-    //int gcca = srp.getPosition(signals);
-
-
-
-    ASSERT_TRUE(true);
+    ASSERT_EQ(180,estimates[1]);
+    ASSERT_EQ(180,estimates[2]);
 }
