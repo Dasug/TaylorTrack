@@ -24,10 +24,9 @@ namespace taylortrack {
                 yarp.connect(out_port.getName(),yarp::os::ConstString(inport));
 
                 while(!strategy_->is_done()) {
-                    const char* output_string = strategy_->read().pop().asString().c_str();
                     yarp::os::Bottle& output = out_port.prepare();
                     output.clear();
-                    output.addString(yarp::os::ConstString(output_string));
+                    strategy_->read(output);
                     out_port.write(true); //blocking statement
                 } // while
                 return true;

@@ -32,7 +32,7 @@ namespace taylortrack {
             * @return "Dummy Test successful"
             * @see is_done()
             */
-            yarp::os::Bottle read();
+            yarp::os::Bottle read(yarp::os::Bottle& bottle);
 
             /**
             * @brief Detects if the read method returned "Dummy Test successful".

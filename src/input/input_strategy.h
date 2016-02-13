@@ -23,7 +23,8 @@ namespace taylortrack {
 			* @brief Read data to be streamed.
 			* @return Simulation data.
         	*/
-            virtual yarp::os::Bottle read() = 0;
+            virtual yarp::os::Bottle read(yarp::os::Bottle& bottle) = 0;
+            // TODO fix doxygen for changed method signature
 
             /**
             * @brief Detects if the read metod is done with reading the simulation data.

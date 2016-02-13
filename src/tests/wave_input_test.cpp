@@ -14,7 +14,8 @@ TEST(WaveInputTest, ValidExample) {
     ASSERT_FALSE(input.is_done());
 
     // read first two samples
-    yarp::os::Bottle bottle = input.read();
+    yarp::os::Bottle bottle;
+    input.read(bottle);
 
     ASSERT_EQ(2, bottle.size());
 
@@ -34,7 +35,8 @@ TEST(WaveInputTest, LargeExample) {
     ASSERT_FALSE(input.is_done());
 
     // read first two samples
-    yarp::os::Bottle bottle = input.read();
+    yarp::os::Bottle bottle;
+    input.read(bottle);
 
     ASSERT_EQ(90561, bottle.size());
 
@@ -56,7 +58,8 @@ TEST(WaveInputTest, InvalidFile) {
     ASSERT_TRUE(input.is_done());
 
     // read hopefully empty bottle
-    yarp::os::Bottle bottle = input.read();
+    yarp::os::Bottle bottle;
+    input.read(bottle);
 
     ASSERT_EQ(0, bottle.size());
 }
@@ -73,7 +76,8 @@ TEST(WaveInputTest, NoSize) {
     ASSERT_FALSE(input.is_done());
 
     // read first two samples
-    yarp::os::Bottle bottle = input.read();
+    yarp::os::Bottle bottle;
+    input.read(bottle);
 
     ASSERT_EQ(90561, bottle.size());
 

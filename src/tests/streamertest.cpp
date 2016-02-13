@@ -7,6 +7,7 @@
 TEST(StreamerTest, FailWhenDone) {
     taylortrack::input::DummyInputStrategy dummy = taylortrack::input::DummyInputStrategy();
     taylortrack::sim::Streamer streamer = taylortrack::sim::Streamer(&dummy, "/test_out");
-    dummy.read();
+    yarp::os::Bottle bottle;
+    dummy.read(bottle);
     EXPECT_FALSE(streamer.start_streaming("/test_in"));
 }

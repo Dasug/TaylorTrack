@@ -40,7 +40,7 @@ namespace taylortrack {
             * @return YARP bottle consisting of sample amplitude levels as float values
             * @see is_done()
             */
-            yarp::os::Bottle read();
+            yarp::os::Bottle read(yarp::os::Bottle& bottle);
 
             /**
             * @brief Detects if the read method is done with reading the simulation data.

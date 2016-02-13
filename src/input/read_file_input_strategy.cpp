@@ -22,8 +22,7 @@ namespace taylortrack {
             done_ = false;
         }
 
-        yarp::os::Bottle ReadFileInputStrategy::read() {
-            yarp::os::Bottle bottle;
+        yarp::os::Bottle ReadFileInputStrategy::read(yarp::os::Bottle& bottle) {
             if(file_->is_open() && (size_ >= 0) ) {
                 char *memblock = new char[size_];
                 file_->read(memblock,size_);

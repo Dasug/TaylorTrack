@@ -10,9 +10,8 @@ namespace taylortrack {
         DummyInputStrategy::DummyInputStrategy() {
             done_ = false;
         }
-        yarp::os::Bottle DummyInputStrategy::read() {
+        yarp::os::Bottle DummyInputStrategy::read(yarp::os::Bottle& bottle) {
             done_ = true;
-            yarp::os::Bottle bottle;
             bottle.addString("Dummy Test successful");
             return bottle;
         }

@@ -21,8 +21,7 @@ taylortrack::input::WaveInputStrategy::~WaveInputStrategy() {
     delete this->waveParser;
 }
 
-yarp::os::Bottle taylortrack::input::WaveInputStrategy::read() {
-    yarp::os::Bottle bottle;
+yarp::os::Bottle taylortrack::input::WaveInputStrategy::read(yarp::os::Bottle& bottle) {
 
     if (waveParser->is_valid() && !waveParser->is_done()) {
         unsigned int sample_amount;
