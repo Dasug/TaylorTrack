@@ -17,10 +17,13 @@
 #include <valarray>
 #include <vector>
 #include <fstream>
+#include <spqr.hpp>
+
 namespace taylortrack {
     namespace localization {
 
         typedef std::valarray<double> RArray;
+        typedef std::valarray<Complex> CArray;
         /**
         * @class SrpPhat
         * @brief Implements the getposition function from the AudioLocalizer interface.
@@ -37,7 +40,7 @@ namespace taylortrack {
             * @param samplelength Length of the sample that the algorithm will be fed with.
             * @param mics   Microphone positions in the room.
             */
-            SrpPhat(const int samplerate,const RArray &xDimMics,const RArray &yDimMics, const double xLength, const double yLength, const double stepSize,const int steps);
+            SrpPhat(const int samplerate,const RArray &xDimMics,const RArray &yDimMics, const double xLength, const double yLength, const double stepSize,const int steps,double beta);
 
             /**
             * @brief Returns most likely position of the recorded speaker in degrees
@@ -95,7 +98,7 @@ namespace taylortrack {
             * @param signal2 second discrete audio signal
             * @return returns the shifted cross correlation vector so that the end length has to be length(signal1)+ length(signal2) -1
             */
-            RArray gcc(RArray &signal1, RArray &signal2,double beta);
+            RArray gcc(RArray &signal1, RArray &signal2);
 
 
             /**
@@ -104,7 +107,7 @@ namespace taylortrack {
 
             * @return Returns the gcc value grid as
             */
-            std::vector<std::vector<double>> getGccGrid(std::vector<RArray> &signals,double beta);
+            std::vector<std::vector<double>> getGccGrid(std::vector<RArray> &signals);
 
 
             /**
@@ -122,6 +125,72 @@ namespace taylortrack {
             int findVal(RArray &ra,double val);
 
         private:
+        public:
+            int getSamplerate_() const {
+                return samplerate_;
+            }
+
+            void setSamplerate_(int samplerate_) {
+                SrpPhat::samplerate_ = samplerate_;
+            }
+
+            double getXLength_() const {
+                return xLength_;
+            }
+
+            void setXLength_(double xLength_) {
+                SrpPhat::xLength_ = xLength_;
+            }
+
+            double getYLength_() const {
+                return yLength_;
+            }
+
+            void setYLength_(double yLength_) {
+                SrpPhat::yLength_ = yLength_;
+            }
+
+            double getStepSize_() const {
+                return stepSize_;
+            }
+
+            void setStepSize_(double stepSize_) {
+                SrpPhat::stepSize_ = stepSize_;
+            }
+
+            const RArray &getXDimMics_() const {
+                return xDimMics_;
+            }
+
+            void setXDimMics_(const RArray &xDimMics_) {
+                SrpPhat::xDimMics_ = xDimMics_;
+            }
+
+            const RArray &getYDimMics_() const {
+                return yDimMics_;
+            }
+
+            void setYDimMics_(const RArray &yDimMics_) {
+                SrpPhat::yDimMics_ = yDimMics_;
+            }
+
+            int getSteps_() const {
+                return steps_;
+            }
+
+            void setSteps_(int steps_) {
+                SrpPhat::steps_ = steps_;
+            }
+
+            double getBeta_() const {
+                return beta_;
+            }
+
+            void setBeta_(double beta_) {
+                SrpPhat::beta_ = beta_;
+            }
+
+        private:
             int samplerate_;        // audio sample rate the algorithm should work with
             double xLength_;        // size of the grids x axis to consider for the estimation
             double yLength_;        // size of the grids y axis to consider for the estimation
@@ -129,6 +198,7 @@ namespace taylortrack {
             RArray xDimMics_;       // X coordinates of the microphones in the grid
             RArray yDimMics_;       // Y coordinates of the microphones in the grid
             int steps_;
+            double beta_;
         };
     }
 }

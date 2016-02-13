@@ -4,46 +4,36 @@
 
 #ifndef TAYLORTRACK_FFT_LIB_H
 #define TAYLORTRACK_FFT_LIB_H
+
 #include <valarray>
 #include <complex>
+#include "fft_strategy.h"
 
 namespace taylortrack {
     namespace utils {
-        class FftLib {
+        class FftLib: public fft_strategy{
         public:
-
-            typedef std::complex<double> Complex;
-            typedef std::valarray <Complex> CArray;
             typedef std::valarray<double> RArray;
-            /**
-            * @brief Zero pad a signal with a variable amount.
-            * @param signal a discrete audio signal
-            * @param padamount amount of leading zeros
-            * Creates a zero padded signal
-            *
-            */
-            static CArray zeropadding(CArray &signal,int padamount);
+            typedef std::valarray<Complex> CArray;
+
+
+
             /**
             * @brief Perform a fast fourier transformation on a signal
             * @param x Discrete audio signal.
             *
             *
             */
-            static void fft(CArray &x);
+            void fft(CArray &x);
             /**
             * @brief Perform an inverse fast fourier transformation on a signal
             * @param x Discrete audio signal.
             *
             */
-            static void ifft(CArray& x);
+            void ifft(CArray& x);
 
-            static void fftshift(RArray &outvec, RArray &invec);
+            void fftshift(RArray &outvec, RArray &invec);
 
-            static void circshift(RArray &out, RArray &in, int xdim, int ydim,unsigned int xshift,unsigned int yshift);
-
-
-            static CArray converttocomp(RArray &x);
-            static RArray converttoreal(CArray &x);
         };
     }
 }

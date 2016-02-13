@@ -3,95 +3,60 @@
 //
 #include <iostream>
 #include "fft_lib.h"
-#include <valarray>
-#include <complex>
+
 const double PI = 3.141592653589793238460;
 
-typedef std::complex<double> Complex;
-typedef std::valarray <Complex> CArray;
-typedef std::valarray<double> RArray;
 
 
-CArray taylortrack::utils::FftLib::converttocomp(RArray &x) {
-    CArray converted(x.size());
-    for (int i=0;i<x.size();i++){
-        converted[i] = x[i];
-    }
-    return converted;
-}
+namespace taylortrack{
+    namespace utils{
+        void FftLib::fft(CArray &x) {
 
-RArray taylortrack::utils::FftLib::converttoreal(CArray &x) {
-    RArray converted(x.size());
-    for (int i=0;i<x.size();i++){
-        converted[i] = x[i].real();
-    }
-    return converted;
-}
+            const size_t N = x.size();
+            if (N <= 1) return;
 
-void taylortrack::utils::FftLib::fft(CArray &x) {
+            // divide
+            CArray even = x[std::slice(0, N/2, 2)];
+            CArray  odd = x[std::slice(1, N/2, 2)];
 
-    const size_t N = x.size();
-    if (N <= 1) return;
+            // conquer
+            fft(even);
+            fft(odd);
 
-    // divide
-    CArray even = x[std::slice(0, N/2, 2)];
-    CArray  odd = x[std::slice(1, N/2, 2)];
-
-    // conquer
-    fft(even);
-    fft(odd);
-
-    // combine
-    for (size_t k = 0; k < N/2; ++k) {
-        Complex t = std::polar(1.0, -2 * PI * k / N) * odd[k];
-        x[k    ] = even[k] + t;
-        x[k+N/2] = even[k] - t;
-    }
-}
-
-
-void taylortrack::utils::FftLib::ifft(CArray &x) {
-
-                // conjugate the complex numbers
-                x = x.apply(std::conj);
-
-                // forward fft
-                taylortrack::utils::FftLib::fft(x);
-
-                // conjugate the complex numbers again
-                x = x.apply(std::conj);
-
-                // scale the numbers
-                x /= x.size();
+            // combine
+            for (size_t k = 0; k < N/2; ++k) {
+                Complex t = std::polar(1.0, -2 * PI * k / N) * odd[k];
+                x[k    ] = even[k] + t;
+                x[k+N/2] = even[k] - t;
             }
-
-            void taylortrack::utils::FftLib::circshift(RArray &out, RArray &in, int xdim, int ydim, unsigned int xshift, unsigned int yshift) {
-                for (int i = 0; i < xdim; i++) {
-                    int ii = (i + xshift) % xdim;
-                    for (int j = 0; j < ydim; j++) {
-                        int jj = (j + yshift) % ydim;
-                        out[ii * ydim + jj] = in[i * ydim + j];
-                    }
-                }
-            }
+        }
 
 
-void taylortrack::utils::FftLib::fftshift(RArray &outvec, RArray &invec) {
-    // xdim is 1 since we only deal with col vectors
-    // xshift is 0 since we obviously never shift vectors along the x or row axis
-    int yshift = floor(invec.size()/2);
-    taylortrack::utils::FftLib::circshift(outvec,invec,1,invec.size(),0, yshift);
+        void FftLib::ifft(CArray &x) {
 
-}
+            // conjugate the complex numbers
+            x = x.apply(std::conj);
 
-CArray taylortrack::utils::FftLib::zeropadding(CArray &signal, int padamount) {
-    int newsize = padamount + signal.size();
-    CArray paddedsignal(newsize);
-    for(int i=0;i<signal.size();i++){
-        paddedsignal[i] = signal[i];
+            // forward fft
+            fft(x);
+
+            // conjugate the complex numbers again
+            x = x.apply(std::conj);
+
+            // scale the numbers
+            x /= x.size();
+        }
+
+
+
+        void FftLib::fftshift(RArray &outvec, RArray &invec) {
+            // xdim is 1 since we only deal with col vectors
+            // xshift is 0 since we obviously never shift vectors along the x or row axis
+            unsigned long yshift = (unsigned long) floor(invec.size()/2);
+            fft_strategy::circshift(outvec,invec,1,invec.size(),0, yshift);
+
+        }
+
+
     }
-    for(int i=signal.size();i<newsize;i++){
-        paddedsignal[i] = 0;
-    }
-    return paddedsignal;
 }

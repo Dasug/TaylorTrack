@@ -7,10 +7,13 @@
 
 #include <vector>
 #include <valarray>
+#include <complex>
+#include <spqr.hpp>
+
 namespace taylortrack {
     namespace utils {
         typedef std::valarray<double> RArray;
-        typedef std::valarray<double> CArray;
+        typedef std::valarray<Complex> CArray;
         /**
 		* @interface AudioLocalizer
 		* @brief Interface for different audio localization algorithms.
@@ -36,7 +39,32 @@ namespace taylortrack {
             * @param outvec The valarray that has to contain the shifted signal.
             * @param invec The valarray that contains the signal that has to be shifted.
             */
-            static void fftshift(RArray &outvec, RArray &invec);
+            virtual void fftshift(RArray &outvec, RArray &invec)=0;
+
+
+            virtual void circshift(RArray &out, RArray &in, long xdim, long ydim,unsigned long xshift,unsigned long yshift);
+
+            /**
+            * @brief creates a complex val array out of a real one by filling imaginary parts with zeros.
+            * @param x a valarray filled with complex values
+            * return a valarray filled with complex numbers.
+            */
+            virtual CArray converttocomp(RArray &x);
+
+            /**
+            * @brief creates a real val array out of a complex one by cutting of all imaginary values.
+            * @param x a valarray filled with complex values
+            * return a valarray filled with doubles which represent the real parts of the input valarray
+            */
+            virtual RArray converttoreal(CArray &x);
+
+            /**
+            * @brief Zero pad a signal with a variable amount.
+            * @param signal a discrete audio signal
+            * @param padamount amount of leading zeros
+            * Creates a zero padded signal
+            */
+            virtual CArray zeropadding(CArray &signal,int padamount);
         };
     } // namespace utils
 } // namespace taylortrack

@@ -4,14 +4,10 @@
 const double c = 340.42;    // speed of sound constant
 const double PI = 3.141592653589793238460;
 #include "srpphat.h"
-#include <math.h>
-#include <cstdlib>
-#include <vector>
-#include <tuple>
 #include "../utils/fft_lib.h"
 namespace taylortrack {
     namespace localization {
-        SrpPhat::SrpPhat(const int samplerate,const RArray &xDimMics,const RArray &yDimMics,const double xLength, const double yLength, double stepSize, int steps) {
+        SrpPhat::SrpPhat(const int samplerate,const RArray &xDimMics,const RArray &yDimMics,const double xLength, const double yLength, double stepSize, int steps, double beta) {
             samplerate_ = samplerate;
             xDimMics_ = xDimMics;
             yDimMics_ = yDimMics;
@@ -19,6 +15,7 @@ namespace taylortrack {
             yLength_ = yLength;
             stepSize_ = stepSize;
             steps_ = steps;
+            beta_ = beta;
         }
 
         double SrpPhat::imtdf(RArray &point, RArray &mic1, RArray &mic2) {
@@ -26,7 +23,7 @@ namespace taylortrack {
         }
 
         int SrpPhat::pointToAngle(double x_coordinate, double y_coordinate) {
-            return round(fmod(((atan2(y_coordinate,x_coordinate) * 180 / PI)+360) ,360.0));
+            return (int) round(fmod(((atan2(y_coordinate,x_coordinate) * 180 / PI)+360) ,360.0));
         }
 
         std::vector< std::tuple<int,int>> SrpPhat::getMicPairs(){
@@ -47,36 +44,34 @@ namespace taylortrack {
 
 
 
-        RArray SrpPhat::gcc(RArray &signal1, RArray &signal2,double beta){
-            int corr_length = signal1.size()+signal2.size() -1;
-            int ak = signal1.size();
-            int bk = signal2.size();
+        RArray SrpPhat::gcc(RArray &signal1, RArray &signal2){
+            size_t corr_length = signal1.size()+signal2.size() -1;
             // bringing the signals into the right shape to work with the fftlib
             // first making them complex and pad with necessary zeros
-            taylortrack::utils::FftLib::CArray tempsignal1 = taylortrack::utils::FftLib::converttocomp(signal1);
-            taylortrack::utils::FftLib::CArray tempsignal2 = taylortrack::utils::FftLib::converttocomp(signal2);
-            taylortrack::utils::FftLib::CArray csignal1 = taylortrack::utils::FftLib::zeropadding(tempsignal1,corr_length-signal1.size());
-            taylortrack::utils::FftLib::CArray csignal2 = taylortrack::utils::FftLib::zeropadding(tempsignal2,corr_length-signal2.size());
+            taylortrack::utils::FftLib fft_obj = taylortrack::utils::FftLib();
+            CArray tempsignal1 = fft_obj.converttocomp(signal1);
+            CArray tempsignal2 = fft_obj.converttocomp(signal2);
+            CArray csignal1 = fft_obj.zeropadding(tempsignal1,(int) (corr_length-signal1.size()));
+            CArray csignal2 = fft_obj.zeropadding(tempsignal2,(int) (corr_length-signal2.size()));
 
 
             // perform FFT on the converted signals
-            taylortrack::utils::FftLib::fft(csignal1);
-            taylortrack::utils::FftLib::fft(csignal2);
+            fft_obj.fft(csignal1);
+            fft_obj.fft(csignal2);
 
             // computing nominator and denominator of the generalized cross correlation
-            taylortrack::utils::FftLib::CArray nominator = csignal1 * csignal2.apply(std::conj);
-
-            taylortrack::utils::FftLib::CArray denominator = std::pow(abs(nominator),beta);
+            CArray nominator = csignal1 * csignal2.apply(std::conj);
+            CArray denominator = std::pow(abs(nominator),(float) beta_);
 
             // reverse transfering to time domain
-            taylortrack::utils::FftLib::CArray temp = nominator / denominator;
+            CArray temp = nominator / denominator;
 
-            taylortrack::utils::FftLib::ifft(temp);
+            fft_obj.ifft(temp);
 
-            taylortrack::utils::FftLib::RArray result(temp.size());
-            taylortrack::utils::FftLib::RArray temp3 = taylortrack::utils::FftLib::converttoreal(temp);
+            RArray result(temp.size());
+            RArray temp3 = fft_obj.converttoreal(temp);
 
-            taylortrack::utils::FftLib::fftshift(result, temp3);
+            fft_obj.fftshift(result, temp3);
 
             return result;
         }
@@ -84,78 +79,77 @@ namespace taylortrack {
 
         std::vector<double> SrpPhat::getAxisvalues(bool xaxis){
             std::vector<double> axisValues;
-            int vectorSize = (xaxis) ? xLength_/stepSize_ +1  : yLength_/stepSize_ +1 ;
-            double axStart = (xaxis) ? xLength_/2 * -1 : yLength_/2;
+            int vectorSize = (int) (xaxis ? xLength_/stepSize_ +1  : yLength_/stepSize_ +1);
+            double axStart = xaxis ? xLength_/2 * -1 : yLength_/2;
             while(axisValues.size()<vectorSize){
                 axisValues.push_back(axStart);
-                axStart = (xaxis) ? axStart + stepSize_ : axStart - stepSize_;
+                axStart = xaxis ? axStart + stepSize_ : axStart - stepSize_;
             }
             return axisValues;
         }
 
 
         RArray SrpPhat::getPositionDistribution(std::vector<RArray> &signals){
-            std::vector<std::vector<double>> gccGrid = getGccGrid(signals,0.7);
+            std::vector<std::vector<double>> gccGrid = getGccGrid(signals);
             RArray degreevals(360);
             std::vector<double> xAxisValues = getAxisvalues(true);
             std::vector<double> yAxisValues = getAxisvalues(false);
 
-            int vectorSize = xLength_/stepSize_;
             for (int i=0;i<xAxisValues.size();i++){
                 for(int j=0;j<yAxisValues.size();j++){
                     int deg = pointToAngle(xAxisValues[i], yAxisValues[j]);
-                    if (deg == 360 || std::abs(yAxisValues[i]-0.00000001)<0.00001  )
+                    if (deg == 360)
                         deg = 0;
                     degreevals[deg] += gccGrid[i][j];
                 }
             }
             // get maximum for normalization of values
             double res = degreevals.max();
-            return degreevals /= res;
+            return degreevals / res;
         };
 
 
         int SrpPhat::getPosition(std::vector<std::vector<double>> &gccGrid) {
-            RArray degreevals(359);
+            RArray degreevals(360);
             std::vector<double> xAxisValues = getAxisvalues(true);
             std::vector<double> yAxisValues = getAxisvalues(false);
             for (int i=0;i<360;i++){
                 degreevals[i] = 0;
             }
-            int vectorSize = xLength_/stepSize_ +1;
+            int vectorSize = (int) (xLength_/stepSize_ +1);
             for (int i=0;i<vectorSize;i++){
                 for(int j=0;j<vectorSize;j++){
-                    int deg = pointToAngle(xAxisValues[j], yAxisValues[i]);
-                    if (deg == 360 || (std::abs(yAxisValues[i]-0.00000001)<0.00001  && xAxisValues[j]<0.0))
+                    int deg = pointToAngle(xAxisValues[j],(double) yAxisValues[i]);
+                    if (deg == 360)
                         deg = 0;
                     degreevals[deg] += gccGrid[j][i];
                 }
             }
             double res = degreevals.max();
-            return findVal(degreevals,res)+1;
+            return findVal(degreevals,res);
         };
 
         int SrpPhat::findVal(RArray &ra,double val){
             for(int i=0;i<ra.size();i++){
-                if (abs(ra[i] - val) < 0.0001){
+                if (std::abs(ra[i] - val) < 0.0001){
                     return i;
                 }
             }
             return -1;
         }
 
-        std::vector<std::vector<double>> SrpPhat::getGccGrid(std::vector<RArray> &signals,double beta){
+        std::vector<std::vector<double>> SrpPhat::getGccGrid(std::vector<RArray> &signals){
             std::vector< std::tuple<int,int>> pairs = getMicPairs();
             std::vector<std::vector<double>> gccValues;
-            const int vectorSize = xLength_/stepSize_ +1 ;
+            unsigned long vectorSize = (unsigned long) (xLength_ / stepSize_ + 1);
             // initializing the gcc grid
             gccValues.resize(vectorSize);
             for (int i = 0; i < vectorSize; ++i) {
                 gccValues[i].resize(vectorSize);
             }
 
-            int signalLength = signals[0].size();
-            int steps = signalLength / steps_ +1 ;
+            size_t signalLength = signals[0].size();
+            long steps = signalLength / steps_ +1 ;
             std::vector<std::vector<std::vector<double>>> micDelays = getDelayTensor();
             // iterating over all microphone pairs
             for(int i=0;i<pairs.size();i++) {
@@ -173,13 +167,12 @@ namespace taylortrack {
                     RArray signal2 = signals[index2];
                     // iterating over each frame
                     for(int step=1;step<steps;step++){
-
                         // get the current frame from the complete signal
                         RArray signalSlice1 = signal1[std::slice((steps_-1)*(step-1), steps_+1, 1)];
                         auto temp = std::slice(steps_*(step-1), steps_+1, 1);
                         RArray signalSlice2 = signal2[std::slice((steps_-1)*(step-1), steps_, 1)];
                         // computing the cross correlation of both frames
-                        RArray gccTemp = gcc(signalSlice1,signalSlice2,beta);
+                        RArray gccTemp = gcc(signalSlice1,signalSlice2);
                         // iterating over the whole x-y grid
                         for(int x=0;x<vectorSize;x++){
                             for(int y=0;y<vectorSize;y++){
