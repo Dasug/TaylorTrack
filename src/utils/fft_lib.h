@@ -1,6 +1,8 @@
-//
-// Created by Jannis Hoppe on 28.01.16.
-//
+/**
+* @file
+* @brief TODO
+* @version 1
+*/
 
 #ifndef TAYLORTRACK_FFT_LIB_H
 #define TAYLORTRACK_FFT_LIB_H
@@ -11,25 +13,26 @@
 
 namespace taylortrack {
     namespace utils {
+        /**
+        * @class fft_strategy
+        * @brief TODO
+        *
+        * TODO detailed description if necessary
+        */
         class FftLib: public fft_strategy{
         public:
-            typedef std::complex<double> Complex;
+            typedef std::complex<double> ComplexDouble;
             typedef std::valarray<double> RArray;
-            typedef std::valarray<Complex> CArray;
-
-
+            typedef std::valarray<ComplexDouble> CArray;
 
             /**
             * @brief Perform a fast fourier transformation on a signal
             * @param x Discrete audio signal.
-            *
-            *
             */
             void fft(CArray &x);
             /**
             * @brief Perform an inverse fast fourier transformation on a signal
             * @param x Discrete audio signal.
-            *
             */
             void ifft(CArray& x);
 
@@ -41,7 +44,6 @@ namespace taylortrack {
             void fftshift(RArray &outvec, RArray &invec);
 
         };
-    }
-}
-
+    } //namespace utils
+} // namespace taylortrack
 #endif //TAYLORTRACK_FFT_LIB_H
