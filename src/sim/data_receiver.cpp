@@ -6,10 +6,10 @@ taylortrack::sim::DataReceiver::DataReceiver(const taylortrack::utils::Communica
     port->open(in_settings.port);
 }
 
-std::vector<double> taylortrack::sim::DataReceiver::readData() const {
+std::vector<double> taylortrack::sim::DataReceiver::readData(bool blocking) const {
     std::vector<double> return_vector;
 
-    yarp::os::Bottle *input = port->read(false);
+    yarp::os::Bottle *input = port->read(blocking);
     int size = 0;
     if(input && !input->isNull()) {
         size = input->size();

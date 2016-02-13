@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
     int i = 0;
     if(out->term_supports_color()) {
         while(!out->has_failed() && !out->user_has_quit()) {
-            std::vector<double> new_data = rec.readData();
+            std::vector<double> new_data = rec.readData(false);
             if(!new_data.empty()) {
                 sampleVector = new_data;
                 out->set_diagram_data(sampleVector);

@@ -15,7 +15,7 @@ namespace taylortrack {
             DataReceiver(const taylortrack::utils::CommunicationSettings& in_settings);
             ~DataReceiver();
 
-            std::vector<double> readData() const;
+            std::vector<double> readData(bool blocking = true) const;
         };
     }
 }
