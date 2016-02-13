@@ -6,6 +6,9 @@
 #include <ncurses.h>
 #include <iostream>
 #include "vis/OutputVisualizer.h"
+#include "sim/data_receiver.h"
+#include "utils/config_parser.h"
+
 #ifdef WIN32
 #include <windows.h>
 #else
@@ -21,6 +24,8 @@
  */
 int main(int argc, char **argv) {
     taylortrack::utils::GeneralOptions options = taylortrack::utils::GeneralOptions();
+    taylortrack::utils::ConfigParser config = taylortrack::utils::ConfigParser("../Testdata/taylortrack.conf");
+    taylortrack::sim::DataReceiver rec = taylortrack::sim::DataReceiver(config.get_visualizer_communication_in());
     taylortrack::vis::OutputVisualizer *out = new taylortrack::vis::OutputVisualizer(options);
 
     // Generate vector with sample data
@@ -29,11 +34,9 @@ int main(int argc, char **argv) {
     int i = 0;
     if(out->term_supports_color()) {
         while(!out->has_failed() && !out->user_has_quit()) {
-            if(i % 15 == 14) {
-                sampleVector.clear();
-                for (int j = 0; j < 360; ++j) {
-                    sampleVector.push_back(((double) rand()) / ((double) RAND_MAX));
-                }
+            std::vector<double> new_data = rec.readData();
+            if(!new_data.empty()) {
+                sampleVector = new_data;
                 out->set_diagram_data(sampleVector);
             }
 

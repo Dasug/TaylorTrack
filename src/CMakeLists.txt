@@ -3,13 +3,13 @@
 add_executable(sim_datastreamer sim_datastreamer.cpp input/dummy_input_strategy.cpp sim/streamer.cpp input/read_file_input_strategy.cpp utils/parameter_parser.cpp utils/wave_parser.cpp utils/wave_parser.h input/wave_input_strategy.cpp input/wave_input_strategy.h)
 
 # Add Datareceiver executable
-add_executable(sim_datareceiver sim_datareceiver.cpp utils/parameter_parser.cpp )
+add_executable(sim_datareceiver sim_datareceiver.cpp utils/parameter_parser.cpp sim/data_receiver.cpp)
 
 # Add test executable
-add_executable(testunit input/dummy_input_strategy.cpp sim/streamer.cpp tests/testinit.cpp tests/simtest.cpp tests/streamertest.cpp utils/parameter_parser.cpp utils/fft_lib.cpp localization/srpphat.cpp tests/parsertest.cpp tests/read_input_file_test.cpp input/read_file_input_strategy.cpp tests/ffttest.cpp utils/wave_parser.cpp tests/wave_parser_test.cpp input/wave_input_strategy.cpp tests/wave_input_test.cpp utils/config_parser.cpp tests/config_parser_test.cpp tests/srpphatTest.cpp utils/fft_strategy.cpp)
+add_executable(testunit input/dummy_input_strategy.cpp sim/streamer.cpp tests/testinit.cpp tests/simtest.cpp tests/streamertest.cpp utils/parameter_parser.cpp utils/fft_lib.cpp localization/srpphat.cpp tests/parsertest.cpp tests/read_input_file_test.cpp input/read_file_input_strategy.cpp tests/ffttest.cpp utils/wave_parser.cpp tests/wave_parser_test.cpp input/wave_input_strategy.cpp tests/wave_input_test.cpp utils/config_parser.cpp tests/config_parser_test.cpp tests/srpphatTest.cpp utils/fft_strategy.cpp sim/data_receiver.cpp)
 
 # Result Visualizer
-add_executable(visualizer visualizer.cpp vis/OutputVisualizer.cpp vis/OutputVisualizer.h)
+add_executable(visualizer visualizer.cpp vis/OutputVisualizer.cpp sim/data_receiver.cpp utils/config_parser.cpp)
 
 SETUP_TARGET_FOR_COVERAGE(testunit_coverage testunit coverage)
 
@@ -17,6 +17,7 @@ SETUP_TARGET_FOR_COVERAGE(testunit_coverage testunit coverage)
 target_link_libraries(sim_datastreamer ${YARP_LIBRARIES})
 target_link_libraries(sim_datareceiver ${YARP_LIBRARIES})
 target_link_libraries(testunit ${YARP_LIBRARIES})
+target_link_libraries(visualizer ${YARP_LIBRARIES})
 
 
 # link google libraries
