@@ -6,6 +6,7 @@
 #ifndef TAYLORTRACK_CONFIG_H
 #define TAYLORTRACK_CONFIG_H
 #include <valarray>
+#include <string>
 
 namespace taylortrack {
   namespace utils {
