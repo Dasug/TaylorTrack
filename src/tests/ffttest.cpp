@@ -16,17 +16,17 @@ TEST(FftLibTest,FftTest) {
     vec[5] = 7;
     vec[6] = 2;
     vec[7] = 2;
-
-    taylortrack::utils::FftLib::fft(vec);
+    taylortrack::utils::FftLib FftLib = taylortrack::utils::FftLib();
+    FftLib.fft(vec);
     // testing real parts
     ASSERT_TRUE(std::abs(vec[0].real()-15) < 0.0001);
-    ASSERT_TRUE(std::abs(vec[1].real()+2.5355) < 0.0001);
-    ASSERT_TRUE(std::abs(vec[2].real()+2.0000) < 0.0001);
-    ASSERT_TRUE(std::abs(vec[3].real()-4.5355) < 0.0001);
+    ASSERT_TRUE(std::abs(vec[1].real()+2.53553) < 0.0001);
+    ASSERT_TRUE(std::abs(vec[2].real()+2) < 0.0001);
+    ASSERT_TRUE(std::abs(vec[3].real()-4.53553) < 0.0001);
     ASSERT_TRUE(std::abs(vec[4].real()+7) < 0.0001);
-    ASSERT_TRUE(std::abs(vec[5].real()-4.5355) < 0.0001);
+    ASSERT_TRUE(std::abs(vec[5].real()-4.53553) < 0.0001);
     ASSERT_TRUE(std::abs(vec[6].real()+2) < 0.0001);
-    ASSERT_TRUE(std::abs(vec[7].real()+2.5355) < 0.0001);
+    ASSERT_TRUE(std::abs(vec[7].real()+2.53553) < 0.0001);
     // testing complex parts
     ASSERT_TRUE(std::abs(vec[0].imag()) < 0.0001);
     ASSERT_TRUE(std::abs(vec[1].imag()-5.9497) < 0.0001);
@@ -49,9 +49,10 @@ TEST(FftLibTest,IfftTest) {
     vec[5] = 7;
     vec[6] = 2;
     vec[7] = 2;
+    taylortrack::utils::FftLib FftLib = taylortrack::utils::FftLib();
 
-    taylortrack::utils::FftLib::fft(vec);
-    taylortrack::utils::FftLib::ifft(vec);
+    FftLib.fft(vec);
+    FftLib.ifft(vec);
     ASSERT_TRUE(vec[0].real()-1 < 0.0001);
     ASSERT_TRUE(vec[1].real()-1 < 0.0001);
     ASSERT_TRUE(vec[2].real()-1 < 0.0001);
@@ -86,8 +87,8 @@ TEST(FftLibTest,Circshifttest) {
     outvec[3] = 4;
     outvec[4] = 5;
     outvec[5] = 6;
-
-    taylortrack::utils::FftLib::circshift(outvec,vec,1,6,0,2);
+    taylortrack::utils::FftLib FftLib = taylortrack::utils::FftLib();
+    FftLib.circshift(outvec,vec,1,6,0,2);
 
     ASSERT_EQ(outvec[0],5);
     ASSERT_EQ(outvec[1],6);
@@ -112,8 +113,8 @@ TEST(FftLibTest,Fftshifttest) {
     outvec[3] = 4;
     outvec[4] = 5;
     outvec[5] = 6;
-
-    taylortrack::utils::FftLib::fftshift(outvec,vec);
+    taylortrack::utils::FftLib FftLib = taylortrack::utils::FftLib();
+    FftLib.fftshift(outvec,vec);
 
     ASSERT_EQ(outvec[0],4);
     ASSERT_EQ(outvec[1],5);
@@ -125,23 +126,29 @@ TEST(FftLibTest,Fftshifttest) {
 
 // suspected memory errors in this test
 TEST(FftLibTest,Zeropadding_Test) {
-    taylortrack::utils::FftLib::CArray vec(6);
-    taylortrack::utils::FftLib::CArray newvec(9);
-    vec[0] = 1;
-    vec[1] = 2;
-    vec[2] = 3;
-    vec[3] = 4;
-    vec[4] = 5;
-    vec[5] = 6;
-    newvec = taylortrack::utils::FftLib::zeropadding(vec,3);
-    ASSERT_EQ(newvec.size(),9);
-    ASSERT_EQ(newvec[0].real(),0);
-    ASSERT_EQ(newvec[1].real(),0);
-    ASSERT_EQ(newvec[2].real(),0);
-    ASSERT_EQ(newvec[3].real(),1);
-    ASSERT_EQ(newvec[4].real(),2);
-    ASSERT_EQ(newvec[5].real(),3);
-    ASSERT_EQ(newvec[6].real(),4);
-    ASSERT_EQ(newvec[7].real(),5);
-    ASSERT_EQ(newvec[8].real(),6);
+    taylortrack::utils::FftLib::CArray vec(8);
+    taylortrack::utils::FftLib::CArray newvec(16);
+    vec[0] = 0.1;
+    vec[1] = 0.2;
+    vec[2] = 0.3;
+    vec[3] = 0.4;
+    vec[4] = 0.5;
+    vec[5] = 0.6;
+    vec[6] = 0.7;
+    vec[7] = 0.8;
+    taylortrack::utils::FftLib FftLib = taylortrack::utils::FftLib();
+    newvec = FftLib.zeropadding(vec,8);
+
+    ASSERT_EQ(newvec.size(),16);
+    ASSERT_EQ(newvec[0].real(),0.1);
+    ASSERT_EQ(newvec[1].real(),0.2);
+    ASSERT_EQ(newvec[2].real(),0.3);
+    ASSERT_EQ(newvec[3].real(),0.4);
+    ASSERT_EQ(newvec[4].real(),0.5);
+    ASSERT_EQ(newvec[5].real(),0.6);
+    ASSERT_EQ(newvec[6].real(),0.7);
+    ASSERT_EQ(newvec[7].real(),0.8);
+    ASSERT_EQ(newvec[8].real(),0);
+    ASSERT_EQ(newvec[9].real(),0);
+    ASSERT_EQ(newvec[10].real(),0);
 }
