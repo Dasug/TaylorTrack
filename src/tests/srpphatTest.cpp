@@ -180,7 +180,7 @@ TEST(SrpPhatTest,getPositionTest) {
     taylortrack::utils::FftLib::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
     taylortrack::utils::FftLib::RArray sig3 = srp.getMicSignal("../Testdata/180-180_short.txt");
     taylortrack::utils::FftLib::RArray sig4 = srp.getMicSignal("../Testdata/270-180_short.txt");
-    taylortrack::utils::FftLib::RArray estimates(3);
+    taylortrack::utils::FftLib::RArray estimates(4);
 
     std::vector<taylortrack::utils::FftLib::RArray> signals;
     signals.push_back(sig1);
@@ -221,7 +221,7 @@ TEST(SrpPhatTest,getPositionDistributionTest) {
     taylortrack::utils::FftLib::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
     taylortrack::utils::FftLib::RArray sig3 = srp.getMicSignal("../Testdata/180-180_short.txt");
     taylortrack::utils::FftLib::RArray sig4 = srp.getMicSignal("../Testdata/270-180_short.txt");
-    taylortrack::utils::FftLib::RArray estimates(3);
+    taylortrack::utils::FftLib::RArray estimates(4);
     std::vector<taylortrack::utils::FftLib::RArray> signals;
     signals.push_back(sig1);
     signals.push_back(sig2);
