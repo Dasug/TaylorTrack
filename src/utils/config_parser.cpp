@@ -3,18 +3,28 @@
 
 taylortrack::utils::ConfigParser::ConfigParser(const char *file_name) {
   file_ = std::ifstream(file_name, std::ios::in|std::ios::binary);
-  valid = true;
-  parse_file();
+
+  if(!file_.fail())
+    valid = parse_file();
+  else {
+    std::cout << "Error could not parse file." << std::endl;
+    valid = false;
+    file_.close();
+  }
 }
 
-void taylortrack::utils::ConfigParser::parse_file() {
+bool taylortrack::utils::ConfigParser::parse_file() {
   // 0 = options, 1 = audio, 2 = video, 3 = combination
   int section = -1;
   std::string line;
   while(std::getline(file_,line)) {
     std::vector<std::string> x = split(line,'=');
-    if(x.size() != 2 && line.find('[') == std::string::npos)
+
+    if(x.size() < 2 && line.find('[') == std::string::npos)
       continue;
+
+    if(x.size() > 2 || (x.size() == 2 && trim(x[1]).empty()))
+      return false;
 
     if(section == 0 && (!line.empty() && line.at(0) != '[' && line.at(0) != '#' && !isspace(line.at(0)))) {
       x[0] = trim(x[0]);
@@ -83,8 +93,7 @@ void taylortrack::utils::ConfigParser::parse_file() {
     else if(line.compare("[combination]") == 0)
       section = 3;
   } // end while
-  if(audio.mic_x.size() != audio.mic_y.size())
-    valid = false;
+  return audio.mic_x.size() == audio.mic_y.size() && audio.mic_x.size() > 0 && audio.mic_y.size() > 0;
 }
 
 // Method to split a string by the given delim.

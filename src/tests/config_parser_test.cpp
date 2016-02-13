@@ -45,7 +45,27 @@ TEST(ConfigParserTest, ValidParsing) {
   ASSERT_STREQ("/test_combination_outport", combination.outport.c_str());
 }
 
-TEST(ConfigParserTest, InvalidParsing) {
+TEST(ConfigParserTest, UnequalMicNumber) {
   taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("../Testdata/taylortrack2.conf");
   ASSERT_FALSE(parser.is_valid());
 }
+
+TEST(ConfigParserTest, NoMic) {
+  taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("../Testdata/taylortrack3.conf");
+  ASSERT_FALSE(parser.is_valid());
+}
+
+TEST(ConfigParserTest, NoFileToParse) {
+  taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("");
+  ASSERT_FALSE(parser.is_valid());
+}
+
+TEST(ConfigParserTest, DoubleEquals) {
+  taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("../Testdata/taylortrack4.conf");
+  ASSERT_FALSE(parser.is_valid());
+}
+
+
+
+
+
