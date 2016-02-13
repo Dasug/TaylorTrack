@@ -14,7 +14,7 @@ namespace taylortrack {
      * @Struct
      * @brief Contains general options.
      */
-    struct Options {
+    struct GeneralOptions {
       /**
        * @var console_output
        * Defines whether the user wants to have a console output for the results of the algorithm.
@@ -26,7 +26,7 @@ namespace taylortrack {
    * @Struct
    * @brief Contains the parameters for the audio tracking algorithm.
    */
-    struct Audio {
+    struct AudioSettings {
       /**
        * @var outport
        * Defines the yarp output port for the speaker tracking algorithm.
@@ -92,7 +92,7 @@ namespace taylortrack {
    * @Struct
    * @brief Contains the parameters for the vision tracking algorithm.
    */
-    struct Video {
+    struct VideoSettings {
       /**
        * @var outport
        * Defines the yarp output port for the vision tracking algorithm.
@@ -105,7 +105,7 @@ namespace taylortrack {
       std::string inport  = "/bp39_video_in";
     };
 
-    struct Combination {
+    struct CombinationSettings {
       /**
        * @var outport
        * Defines the yarp input port for the vision tracking algorithm.

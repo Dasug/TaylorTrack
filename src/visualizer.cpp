@@ -20,7 +20,7 @@
  * @param argv array of arguments
  */
 int main(int argc, char **argv) {
-    taylortrack::utils::Options options = taylortrack::utils::Options();
+    taylortrack::utils::GeneralOptions options = taylortrack::utils::GeneralOptions();
     taylortrack::vis::OutputVisualizer *out = new taylortrack::vis::OutputVisualizer(options);
 
     // Generate vector with sample data

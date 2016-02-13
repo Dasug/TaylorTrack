@@ -3,10 +3,10 @@
 
 TEST(ConfigParserTest, ValidParsing) {
   taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("../Testdata/taylortrack.conf");
-  taylortrack::utils::Options general = parser.get_general_configuration();
-  taylortrack::utils::Audio audio = parser.get_audio_configuration();
-  taylortrack::utils::Video video = parser.get_video_configuration();
-  taylortrack::utils::Combination combination = parser.get_combination_configuration();
+  taylortrack::utils::GeneralOptions general = parser.get_general_configuration();
+  taylortrack::utils::AudioSettings audio = parser.get_audio_configuration();
+  taylortrack::utils::VideoSettings video = parser.get_video_configuration();
+  taylortrack::utils::CombinationSettings combination = parser.get_combination_configuration();
 
   std::valarray<double> mic_x = {4, 8.2, 2, 9.123, 0, 3, 5, 5.123};
   std::valarray<double> mic_y = {0.1, 0.12, 0.123, 0.1245, 1234.1, 1234.128, 52, 6123.41234};
