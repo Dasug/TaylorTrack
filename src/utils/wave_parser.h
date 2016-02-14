@@ -101,7 +101,7 @@ namespace taylortrack {
             * @return String with raw binary data for all extracted samples. Exact encoding depends on audio format
             * @sa get_audio_format() for wave file's audio format
             */
-            std::string get_samples(unsigned int sample_num);
+            std::string get_samples(unsigned long sample_num);
 
             /**
             * @brief WaveParser Destructor
