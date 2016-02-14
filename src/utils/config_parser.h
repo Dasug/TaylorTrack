@@ -19,51 +19,37 @@ namespace taylortrack {
      * @brief Parses a configuration and stores the configuration at its representative struct.
     */
     class ConfigParser {
-     private:
-      std::ifstream file_;
-      std::string trim(const std::string &s);
-      std::vector<std::string> split(const std::string &s, char delim);
-      std::vector<std::string> split_microphones(std::string s);
-      bool parse_file();
-      GeneralOptions options;
-      AudioSettings audio;
-      VideoSettings video;
-      CombinationSettings combination;
-      CommunicationSettings input_communication_out, audio_communication_in, audio_communication_out, video_communication_in, video_communication_out, combination_communication_in, combination_communication_out, visualizer_communication_in;
-      bool valid;
-
-
     public:
       const CommunicationSettings &get_input_communication_out() const {
-        return input_communication_out;
+        return input_communication_out_;
       }
 
       const CommunicationSettings &get_audio_communication_in() const {
-        return audio_communication_in;
+        return audio_communication_in_;
       }
 
       const CommunicationSettings &get_audio_communication_out() const {
-        return audio_communication_out;
+        return audio_communication_out_;
       }
 
       const CommunicationSettings &get_video_communication_in() const {
-        return video_communication_in;
+        return video_communication_in_;
       }
 
       const CommunicationSettings &get_video_communication_out() const {
-        return video_communication_out;
+        return video_communication_out_;
       }
 
       const CommunicationSettings &get_combination_communication_in() const {
-        return combination_communication_in;
+        return combination_communication_in_;
       }
 
       const CommunicationSettings &get_combination_communication_out() const {
-        return combination_communication_out;
+        return combination_communication_out_;
       }
 
       const CommunicationSettings &get_visualizer_communication_in() const {
-        return visualizer_communication_in;
+        return visualizer_communication_in_;
       }
 
       /**
@@ -79,7 +65,7 @@ namespace taylortrack {
       * @return General configuration for the algorithms
       */
       const GeneralOptions get_general_configuration() const {
-        return options;
+        return general_options_;
       }
 
       /**
@@ -88,7 +74,7 @@ namespace taylortrack {
       * @return Configuration for the speaker tracking algorithm
       */
       const AudioSettings get_audio_configuration() const {
-        return audio;
+        return audio_settings_;
       }
 
       /**
@@ -97,7 +83,7 @@ namespace taylortrack {
       * @return Configuration for the vision tracking algorithm
       */
       const VideoSettings get_video_configuration() const {
-        return video;
+        return video_settings_;
       }
 
       /**
@@ -106,7 +92,7 @@ namespace taylortrack {
       * @return Configuration for the algorithm
       */
       const CombinationSettings get_combination_configuration() const {
-        return combination;
+        return combination_settings_;
       }
 
       /**
@@ -114,8 +100,28 @@ namespace taylortrack {
       * @return true if the configuration is valid, otherwise false
       */
       bool is_valid() const {
-        return valid;
+        return valid_;
       }
+
+     private:
+      std::string trim(const std::string &s);
+      std::vector<std::string> split(const std::string &s, char delim);
+      std::vector<std::string> split_microphones(std::string s);
+      bool parse_file();
+      bool valid_;
+      std::ifstream file_;
+      GeneralOptions general_options_;
+      AudioSettings audio_settings_;
+      VideoSettings video_settings_;
+      CombinationSettings combination_settings_;
+      CommunicationSettings input_communication_out_,
+                            audio_communication_in_,
+                            audio_communication_out_,
+                            video_communication_in_,
+                            video_communication_out_,
+                            combination_communication_in_,
+                            combination_communication_out_,
+                            visualizer_communication_in_;
     };
   }
 }
