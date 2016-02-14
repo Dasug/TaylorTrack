@@ -13,12 +13,12 @@ taylortrack::input::WaveInputStrategy::WaveInputStrategy(taylortrack::utils::Par
     this->waveParser = new taylortrack::utils::WaveParser(params.file);
 }
 
-bool taylortrack::input::WaveInputStrategy::is_done() {
-    return waveParser->is_done();
-}
-
 taylortrack::input::WaveInputStrategy::~WaveInputStrategy() {
     delete this->waveParser;
+}
+
+bool taylortrack::input::WaveInputStrategy::is_done() {
+    return waveParser->is_done();
 }
 
 yarp::os::Bottle taylortrack::input::WaveInputStrategy::read() {

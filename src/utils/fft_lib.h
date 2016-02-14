@@ -24,6 +24,7 @@ namespace taylortrack {
             typedef std::complex<double> ComplexDouble;
             typedef std::valarray<double> RArray;
             typedef std::valarray<ComplexDouble> CArray;
+            static const double PI_fft = 3.141592653589793238460;
 
             /**
             * @brief Perform a fast fourier transformation on a signal

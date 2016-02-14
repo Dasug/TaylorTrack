@@ -1,12 +1,10 @@
-//
-// Created by Jannis Hoppe on 28.01.16.
-//
+/**
+ * @file
+ * @brief FFT library
+ */
+
 #include <iostream>
 #include "fft_lib.h"
-
-const double PI = 3.141592653589793238460;
-
-
 
 namespace taylortrack{
     namespace utils{
@@ -17,6 +15,8 @@ namespace taylortrack{
 
             // divide
             CArray even = x[std::slice(0, N/2, 2)];
+            //!!! ^this cuts the last value of the array if array size is uneven.
+            //Backlog: a method that proofs that no array with a size different from 2^x should be used
             CArray  odd = x[std::slice(1, N/2, 2)];
 
             // conquer
@@ -25,8 +25,8 @@ namespace taylortrack{
 
             // combine
             for (size_t k = 0; k < N/2; ++k) {
-                ComplexDouble t = std::polar(1.0, -2 * PI * k / N) * odd[k];
-                x[k    ] = even[k] + t;
+                ComplexDouble t = std::polar(1.0, -2 * PI_fft * k / N) * odd[k];
+                x[k]     = even[k] + t;
                 x[k+N/2] = even[k] - t;
             }
         }
