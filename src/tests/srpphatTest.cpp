@@ -115,7 +115,7 @@ TEST(SrpPhatTest,getDelayTensorTest) {
 
     std::vector<std::vector<std::vector<double>>> difference;
 
-    difference = srp.getDelayTensor();
+    difference = srp.get_delay_tensor();
     ASSERT_EQ(0,difference[0][0][0]);
     ASSERT_TRUE(difference[0][28][1]-0.0001199 < 0.000001);
     ASSERT_EQ(0,difference[40][0][2]);
