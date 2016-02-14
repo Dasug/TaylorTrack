@@ -1,3 +1,7 @@
+/**
+* @file
+* @brief Implementation of the config_parser.h
+*/
 #include <iomanip>
 #include "config_parser.h"
 
@@ -27,7 +31,7 @@ bool taylortrack::utils::ConfigParser::parse_file() {
       return false;
 
 
-    if (!line.empty() && line.at(0) != '[' && line.at(0) != '#' && !isspace(line.at(0))) {
+    if (!line.empty() && (line.at(0) != '[') && (line.at(0) != '#') && !isspace(line.at(0))) {
       x[0] = trim(x[0]);
       x[1] = trim(x[1]);
       switch(section) {
@@ -101,8 +105,8 @@ bool taylortrack::utils::ConfigParser::parse_file() {
 
         default: // Do nothing
           break;
-      }
-    }
+      } // end switch
+    } // end if
 
     if(line.compare("[options]") == 0)
       section = 0;
