@@ -52,10 +52,10 @@ namespace taylortrack {
       /* bringing the signals into the right shape to work with the fftlib
        first making them complex and pad with necessary zeros */
       taylortrack::utils::FftLib fft_obj = taylortrack::utils::FftLib();
-      CArray tempsignal1 = fft_obj.converttocomp(signal1);
-      CArray tempsignal2 = fft_obj.converttocomp(signal2);
-      CArray csignal1 = fft_obj.zeropadding(tempsignal1, (int) (corr_length - signal1.size()));
-      CArray csignal2 = fft_obj.zeropadding(tempsignal2, (int) (corr_length - signal2.size()));
+      CArray tempsignal1 = fft_obj.convertToComplex(signal1);
+      CArray tempsignal2 = fft_obj.convertToComplex(signal2);
+      CArray csignal1 = fft_obj.zeroPadding(tempsignal1, (int) (corr_length - signal1.size()));
+      CArray csignal2 = fft_obj.zeroPadding(tempsignal2, (int) (corr_length - signal2.size()));
 
       // perform FFT on the converted signals
       fft_obj.fft(csignal1);
@@ -71,7 +71,7 @@ namespace taylortrack {
       fft_obj.ifft(temp);
 
       RArray result(temp.size());
-      RArray temp3 = fft_obj.converttoreal(temp);
+      RArray temp3 = fft_obj.convertToReal(temp);
 
       fft_obj.fftshift(result, temp3);
 

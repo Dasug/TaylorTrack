@@ -132,7 +132,7 @@ TEST(FftLibTest, Zeropadding_Test) {
   vec[6] = 0.7;
   vec[7] = 0.8;
   taylortrack::utils::FftLib FftLib = taylortrack::utils::FftLib();
-  newvec = FftLib.zeropadding(vec, 8);
+  newvec = FftLib.zeroPadding(vec, 8);
 
   ASSERT_EQ(newvec.size(), 16);
   ASSERT_EQ(newvec[0].real(), 0.1);
