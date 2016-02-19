@@ -109,6 +109,10 @@ namespace taylortrack {
       std::string inport  = "/bp39_video_in";
     };
 
+    /**
+     * @Struct
+     * @brief //TODO
+     */
     struct CombinationSettings {
       /**
        * @var outport
@@ -130,7 +134,7 @@ namespace taylortrack {
      */
     struct CommunicationSettings {
       /**
-       * @var outport
+       * @var port
        * Defines the yarp port used for input or output.
       */
       std::string port = "/unnamed_port";

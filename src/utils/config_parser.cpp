@@ -1,3 +1,7 @@
+/**
+* @file
+* @brief Implementation of the config_parser.h
+*/
 #include "config_parser.h"
 #include <iomanip>
 
