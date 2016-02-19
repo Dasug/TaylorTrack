@@ -22,10 +22,10 @@ namespace taylortrack {
       bool console_output = true;
     };
 
-  /**
-   * @Struct
-   * @brief Contains the parameters for the audio tracking algorithm.
-   */
+    /**
+     * @Struct
+     * @brief Contains the parameters for the audio tracking algorithm.
+     */
     struct AudioSettings {
       /**
        * @var outport
@@ -130,7 +130,7 @@ namespace taylortrack {
      */
     struct CommunicationSettings {
       /**
-       * @var outport
+       * @var port
        * Defines the yarp port used for input or output.
       */
       std::string port = "/unnamed_port";
