@@ -1,7 +1,7 @@
-  /**
-  * @file
-  * @brief Implementation of srpphat.h
-  **/
+/**
+ * @file
+ * @brief Implementation of srpphat.h
+ */
 const double kSpeedOfSound = 340.42;
 const double kPI = 3.141592653589793238460;
 

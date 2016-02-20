@@ -57,7 +57,7 @@ namespace taylortrack {
       RArray getPositionDistribution(std::vector<std::vector<double>> &gcc_grid);
 
       /**
-      * @brief Returns an RAarray filled with values from a given file s✓. Only works for one value per column
+      * @brief Returns an RAarray filled with values from a given filepath_name. Only works for one value per column
       * @param  filepath_name A string with the path to the file containing the values
       * @return RArray with all values in that file
       */
