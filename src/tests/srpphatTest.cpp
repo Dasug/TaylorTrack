@@ -83,12 +83,12 @@ TEST(SrpPhatTest, pointToAngleTest) {
   double y5 = 0;
   taylortrack::utils::RArray mics(4);
   taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, mics, mics, 0, 0, 0, 256, 0.7);
-  int deg = srp.pointToAngle(x, y);
-  int deg2 = srp.pointToAngle(x2, y2);
-  int deg3 = srp.pointToAngle(x3, y3);
-  int deg4 = srp.pointToAngle(x4, y4);
-  int deg5 = srp.pointToAngle(x4, -y4);
-  int deg6 = srp.pointToAngle(x5, y5);
+  int deg = srp.pointToDegree(x, y);
+  int deg2 = srp.pointToDegree(x2, y2);
+  int deg3 = srp.pointToDegree(x3, y3);
+  int deg4 = srp.pointToDegree(x4, y4);
+  int deg5 = srp.pointToDegree(x4, -y4);
+  int deg6 = srp.pointToDegree(x5, y5);
   ASSERT_EQ(45, deg);
   ASSERT_EQ(270, deg2);
   ASSERT_EQ(180, deg3);

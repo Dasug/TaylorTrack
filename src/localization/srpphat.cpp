@@ -1,3 +1,7 @@
+  /**
+  * @file
+  * @brief Implementation of srpphat.h
+  **/
 const double kSpeedOfSound = 340.42;
 const double kPI = 3.141592653589793238460;
 
@@ -29,7 +33,7 @@ namespace taylortrack {
       return (std::sqrt(std::pow(point - mic1, 2).sum()) - std::sqrt(std::pow(point - mic2, 2).sum())) / kSpeedOfSound;
     }
 
-    int SrpPhat::pointToAngle(double x_coordinate, double y_coordinate) {
+    int SrpPhat::pointToDegree(double x_coordinate, double y_coordinate) {
       return (int) round(fmod(((atan2(y_coordinate, x_coordinate) * 180 / kPI) + 360), 360.0));
     }
 
@@ -96,7 +100,7 @@ namespace taylortrack {
 
       for (int i = 0; i < xAxisValues.size(); i++) {
         for (int j = 0; j < yAxisValues.size(); j++) {
-          int deg = pointToAngle(xAxisValues[i], yAxisValues[j]);
+          int deg = pointToDegree(xAxisValues[i], yAxisValues[j]);
           if (deg == 360)
             deg = 0;
           degreevals[deg] += gcc_grid[i][j];
@@ -117,7 +121,7 @@ namespace taylortrack {
       int vectorSize = (int) (x_length_ / stepsize_ + 1);
       for (int i = 0; i < vectorSize; i++) {
         for (int j = 0; j < vectorSize; j++) {
-          int deg = pointToAngle(xAxisValues[j], (double) yAxisValues[i]);
+          int deg = pointToDegree(xAxisValues[j], (double) yAxisValues[i]);
           if (deg == 360)
             deg = 0;
           degreevals[deg] += gcc_grid[j][i];
@@ -225,9 +229,9 @@ namespace taylortrack {
       return delayTensor;
     }
 
-    RArray SrpPhat::getMicSignal(const std::string &s) {
+    RArray SrpPhat::getMicSignal(const std::string &filepath_name) {
       std::vector<double> tmp;
-      std::ifstream infile(s);
+      std::ifstream infile(filepath_name);
       std::string line;
       while (std::getline(infile, line)) {
         std::istringstream ss(line);

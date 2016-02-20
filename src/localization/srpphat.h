@@ -1,10 +1,8 @@
 /**
 * @file
 * @brief Implements the SRP PHAT algorithm
-* @details
 * @version 1
 */
-
 #ifndef TAYLORTRACK_SRPPHAT_H
 #define TAYLORTRACK_SRPPHAT_H
 
@@ -31,7 +29,7 @@ namespace taylortrack {
       * @brief SrpPhat Constructor
       *
       * initializes the localization algorithm with all relevant parameters
-      * @param samplerate Audio samplerate (how many discrete signals per second).
+      * @param samplerate Audio samplerate (amount of discrete signals per second).
       * @param samplelength Length of the sample that the algorithm will be fed with.
       * @param mics   Microphone positions in the room.
       */
@@ -45,28 +43,29 @@ namespace taylortrack {
               double beta);
 
       /**
-      * @brief Returns most likely position of the recorded speaker in degrees
-      * @param
+      * @brief Gets most likely position of the recorded speaker in degrees
+      * @param gcc_grid todo
       * @return speaker position in degree
       */
       int getPosition(std::vector<std::vector<double>> &gcc_grid);
 
       /**
       * @brief Returns a probability distribution for the position of the speaker over all degrees
-      * @param  signals a vector of all microphone signals
+      * @param  gcc_grid a vector of all microphone signals
       * @return A RArray with all probability values
       */
       RArray getPositionDistribution(std::vector<std::vector<double>> &gcc_grid);
 
       /**
-      * @brief Returns an RAarray with values filled in from a given file. Only works for one value per column
-      * @param  s A string with the path to the file containing the values
+      * @brief Returns an RAarray filled with values from a given file s✓. Only works for one value per column
+      * @param  filepath_name A string with the path to the file containing the values
       * @return RArray with all values in that file
       */
-      RArray getMicSignal(const std::string &s);
+      RArray getMicSignal(const std::string &filepath_name);
 
       /**
       * @brief Returns a tensor that contains the expected delay for each point in a x-y grid for all possible microphone pairs
+      * @details todo sth like: where as tensor vector contains a vector of delays. these delays are modeled as microphone pairs.
       * @return Returns the delay tensor modelled by a 3 dimensional vector
       */
       std::vector<std::vector<std::vector<double>>> get_delay_tensor();
@@ -76,15 +75,15 @@ namespace taylortrack {
       * @brief Returns a vector of tuples containing all possible microphone pairs indices
       * @return vector of microphone pair tuples
       */
-
       std::vector<std::tuple<int, int>> getMicPairs();
+
       /**
       * @brief converts a 2 dimensional point in space to degree
       * @param x_coordinate x coordinate of a point in x y grid
       * @param y_coordinate y coordinate of a point in x y grid
       * @return speaker position in degree
       */
-      int pointToAngle(double x_coordinate, double y_coordinate);
+      int pointToDegree(double x_coordinate, double y_coordinate);
 
       /**
       * @brief Returns the expected delay of sound arrival given that the noise source stands at the given point
@@ -106,21 +105,23 @@ namespace taylortrack {
       /**
       * @brief Returns a x-y grid with the summed up gcc values for each point and each microphone pair
       * @param signals a vector with a variable amount of microphone signals. The amount of signals has to match the amount of stored microphones.
-      * @return Returns the gcc value grid as
+      * @return Returns the gcc value grid as TODO
       */
       std::vector<std::vector<double>> getGccGrid(std::vector<RArray> &signals);
 
       /**
        * @brief Returns values for a given axis
        * @param axis defines which axis you want values for xaxis=true means x axis and xaxis=false returns values for the y axis
+       * @return Todo
        */
+
       std::vector<double> getAxisvalues(bool xaxis);
 
       /**
-       * @brief simple find function for valarray of doubles
-       * @param ra RArray that contains values to search
+       * @brief function that search for a specific val in a given valarray of doubles
+       * @param ra RArray that contains values to be searched
        * @param val value to look for in the RArray
-       * @return Returns index of the value in the RArray in case the value was found -1 otherwise.
+       * @return Returns index of the value in the RArray. If value is not found returns -1
        */
       int findVal(RArray &ra, double val);
 
