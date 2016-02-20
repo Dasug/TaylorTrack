@@ -32,7 +32,9 @@ namespace taylortrack {
 
       /**
       * @brief Reads samples from the input file
+      *
       * Number of samples to be read for every audio channel is defined in the taylortrack::utils::Parameters struct given to the constructor
+      * @param bottle YARP bottle to store the read data
       * @pre is_done() returns false
       * @return YARP bottle consisting of sample amplitude levels as float values
       * @see is_done()

@@ -31,6 +31,7 @@ namespace taylortrack {
 
       /**
       * @brief Reads the entire file and returns the data.
+      * @param bottle YARP bottle to store the read data
       * @pre Should only be called if is_done() returns false
       * @return Simulation data.
       * @see is_done()

@@ -30,8 +30,13 @@ namespace taylortrack {
       *
       * initializes the localization algorithm with all relevant parameters
       * @param samplerate Audio samplerate (amount of discrete signals per second).
-      * @param samplelength Length of the sample that the algorithm will be fed with.
-      * @param mics   Microphone positions in the room.
+      * @param x_dim_mics TODO: jannis: doxygen comment misssing
+      * @param y_dim_mics
+      * @param x_length
+      * @param y_length
+      * @param stepsize
+      * @param steps
+      * @param beta
       */
       SrpPhat(const int samplerate,
               const RArray &x_dim_mics,
@@ -44,7 +49,7 @@ namespace taylortrack {
 
       /**
       * @brief Gets most likely position of the recorded speaker in degrees
-      * @param gcc_grid todo
+      * @param gcc_grid TODO: jannis: doxygen comment missing
       * @return speaker position in degree
       */
       int getPosition(std::vector<std::vector<double>> &gcc_grid);
@@ -65,7 +70,7 @@ namespace taylortrack {
 
       /**
       * @brief Returns a tensor that contains the expected delay for each point in a x-y grid for all possible microphone pairs
-      * @details todo sth like: where as tensor vector contains a vector of delays. these delays are modeled as microphone pairs.
+      * @details TODO jannis: description sth like: where as tensor vector contains a vector of delays. these delays are modeled as microphone pairs.
       * @return Returns the delay tensor modelled by a 3 dimensional vector
       */
       std::vector<std::vector<std::vector<double>>> get_delay_tensor();
@@ -105,14 +110,14 @@ namespace taylortrack {
       /**
       * @brief Returns a x-y grid with the summed up gcc values for each point and each microphone pair
       * @param signals a vector with a variable amount of microphone signals. The amount of signals has to match the amount of stored microphones.
-      * @return Returns the gcc value grid as TODO
+      * @return the gcc value grid as TODO jannis: finish this sentence
       */
       std::vector<std::vector<double>> getGccGrid(std::vector<RArray> &signals);
 
       /**
        * @brief Returns values for a given axis
        * @param axis defines which axis you want values for xaxis=true means x axis and xaxis=false returns values for the y axis
-       * @return Todo
+       * @return TODO jannis: doxygen comment
        */
 
       std::vector<double> getAxisvalues(bool xaxis);
@@ -125,8 +130,7 @@ namespace taylortrack {
        */
       int findVal(RArray &ra, double val);
 
-     private:
-     public:
+      //TODO: jannis: doxygen comments for all methods
       int getSamplerate() const {
         return samplerate_;
       }

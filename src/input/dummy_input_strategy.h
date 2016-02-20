@@ -29,8 +29,10 @@ namespace taylortrack {
       * @brief Returns the test string.
       *
       * After the first call is_done will return true.
+      * @param bottle YARP bottle to store the read data
+      * @pre is_done() returns false
       * @return "Dummy Test successful"
-        * @see is_done()
+      * @see is_done()
       */
       yarp::os::Bottle read(yarp::os::Bottle &bottle);
 

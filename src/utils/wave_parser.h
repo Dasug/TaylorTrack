@@ -58,6 +58,7 @@ namespace taylortrack {
 
       /**
       * @brief Gets the parsed wave file's number of bytes per sample frame
+      *
       * A sample frame refers to a single sample for every audio channel
       * @pre is_valid() returns true
       * @return Sample frame size in bytes
@@ -74,6 +75,7 @@ namespace taylortrack {
 
       /**
       * @brief Wave parser constructor
+      *
       * Opens the supplied wave file and parses its header
       * @param file_name Path to the file to be parsed.
       */
@@ -81,7 +83,9 @@ namespace taylortrack {
 
       /**
       * @brief Fetches the next n samples
+      *
       * Keeps track of which samples have been extracted already and continues with the next n samples
+      * Where n is the amount of samples supplied by the parameter sample_num.
       * If more samples are requested than remain unextracted, it will extract all remaining samples instead.
       * @pre is_valid() returns true
       * @param sample_num Number of samples to be extracted for each audio channel
@@ -92,6 +96,7 @@ namespace taylortrack {
 
       /**
       * @brief WaveParser Destructor
+      *
       * Releases wave file
       */
       virtual ~WaveParser();
