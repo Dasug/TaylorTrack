@@ -1,12 +1,14 @@
 /**
 * @file
 * @brief Header file for taylortrack::vis::OutputVisualizer class.
+* @version 1
 */
 
 #ifndef TAYLORTRACK_OUTPUTVISUALIZER_H
 #define TAYLORTRACK_OUTPUTVISUALIZER_H
 
 #include <vector>
+#include <ncurses.h>
 #include "../utils/config.h"
 
 namespace taylortrack {
@@ -25,7 +27,7 @@ namespace taylortrack {
        * @brief OutputVisualizer constructor
        *
        * Initializes console output and draws initial frame
-       * @param options taylortrack::utils::GeneralOptions configuration object
+       * @param general_options taylortrack::utils::GeneralOptions configuration object
        */
       OutputVisualizer(taylortrack::utils::GeneralOptions general_options);
 
@@ -49,7 +51,7 @@ namespace taylortrack {
       /**
        * @brief Draws a single frame of the visualizer
        *
-       * Need to be called in order to react to console window resizes and to display changed data
+       * Need to be called in order to react to console window resizing and to display changed data
        * @pre has_failed() returns false
        */
       void draw_frame();
@@ -58,7 +60,7 @@ namespace taylortrack {
        * @brief Checks whether the terminal this program is being called in supports color.
        *
        * Since this visualizer relies on colors, you should terminate the program and inform the user if it doesn't support them.
-       * Proceding anyways might result in the program failing.
+       * Proceeding anyways might result in the program failing.
        * @return true if the terminal this program is being called on supports colors, otherwise false
        */
       bool term_supports_color();

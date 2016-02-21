@@ -38,7 +38,7 @@ taylortrack::vis::OutputVisualizer::OutputVisualizer(taylortrack::utils::General
     // Define color pair 2 as blue on white
     init_pair(2, COLOR_BLUE, COLOR_WHITE);
 
-    // Redefine colors if terminal supports it (We only 8 colors available, so the names might be a bit unfitting)
+    // Redefine colors if terminal supports it (We only have 8 colors available, so the names might be a bit unfitting)
     init_color(COLOR_RED, 933, 461, 0); // Dark Orange
     init_color(COLOR_YELLOW, 1000, 645, 0); // Light Orange
 
@@ -65,7 +65,7 @@ taylortrack::vis::OutputVisualizer::OutputVisualizer(taylortrack::utils::General
 
 void taylortrack::vis::OutputVisualizer::create_top_window() {
   this->top_window_ = newwin(4, this->cols_, 0, 0);
-  // Set color pair 1 for thetop window
+  // Set color pair 1 for the top window
   wbkgd(this->top_window_, COLOR_PAIR(1));
 
   update_top_window();
