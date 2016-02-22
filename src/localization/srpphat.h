@@ -30,13 +30,13 @@ namespace taylortrack {
       *
       * initializes the localization algorithm with all relevant parameters
       * @param samplerate Audio samplerate (amount of discrete signals per second).
-      * @param x_dim_mics TODO: jannis: doxygen comment misssing
-      * @param y_dim_mics
-      * @param x_length
-      * @param y_length
-      * @param stepsize
-      * @param steps
-      * @param beta
+      * @param x_dim_mics X coordinates of the microphones in the grid
+      * @param y_dim_mics Y coordinates of the microphones in the grid
+      * @param x_length Total length of the x axis in the grid
+      * @param y_length Total length of the y axis in the grid
+      * @param stepsize The resolution of the points to consider on each axis in the Grid. For instance a 2x2 meter grid with a stepsize of 0.1 considers the points (2,-2),(2,-1.9),(2,-1.8)...(-1.8,2),(-1.9,2),(-2,2)
+      * @param steps The amount of sampled points an audio signal has that needs to be evaluated.
+      * @param beta The exponent of the weighting term of the cross correlation.
       */
       SrpPhat(const int samplerate,
               const RArray &x_dim_mics,
@@ -49,7 +49,7 @@ namespace taylortrack {
 
       /**
       * @brief Gets most likely position of the recorded speaker in degrees
-      * @param gcc_grid TODO: jannis: doxygen comment missing
+      * @param gcc_grid Matrix modeled as two nested vectors that contains every point of the room(grid) and the corresponding cross correlation value.
       * @return speaker position in degree
       */
       int getPosition(std::vector<std::vector<double>> &gcc_grid);
@@ -69,8 +69,8 @@ namespace taylortrack {
       RArray getMicSignal(const std::string &filepath_name);
 
       /**
-      * @brief Returns a tensor that contains the expected delay for each point in a x-y grid for all possible microphone pairs
-      * @details TODO jannis: description sth like: where as tensor vector contains a vector of delays. these delays are modeled as microphone pairs.
+      * @brief Returns a tensor containing all delays for all possible microphone pairs.
+      * @details Returns a (X,Y,Z) tensor with matrices modelling the room(X,Y) with each entry containing the appropriate delay for that point given a certain microphone pair. The third dimension(Z) of the tensor models all the possible microphone pairs.
       * @return Returns the delay tensor modelled by a 3 dimensional vector
       */
       std::vector<std::vector<std::vector<double>>> get_delay_tensor();
@@ -110,14 +110,14 @@ namespace taylortrack {
       /**
       * @brief Returns a x-y grid with the summed up gcc values for each point and each microphone pair
       * @param signals a vector with a variable amount of microphone signals. The amount of signals has to match the amount of stored microphones.
-      * @return the gcc value grid as TODO jannis: finish this sentence
+      * @return The GccGrid Matrix modeled as two nested vectors that contains every point of the room(grid) and the corresponding cross correlation value.
       */
       std::vector<std::vector<double>> getGccGrid(std::vector<RArray> &signals);
 
       /**
        * @brief Returns values for a given axis
        * @param axis defines which axis you want values for xaxis=true means x axis and xaxis=false returns values for the y axis
-       * @return TODO jannis: doxygen comment
+       * @return A vector of all X-, or Y values of the grid depending on the specified axis,length of the axis and stepsize specified in the constructor.
        */
 
       std::vector<double> getAxisvalues(bool xaxis);
@@ -130,67 +130,107 @@ namespace taylortrack {
        */
       int findVal(RArray &ra, double val);
 
-      //TODO: jannis: doxygen comments for all methods
+        /**
+        * @brief Gets the audio samplerate the algorithm is working with
+        * @return Returns the audio samplerate (samples per second)
+        */
       int getSamplerate() const {
         return samplerate_;
       }
-
+        /**
+        * @brief Sets the audio samplerate the algorithm is working with
+        */
       void setSamplerate(int samplerate) {
         SrpPhat::samplerate_ = samplerate;
       }
-
+        /**
+        * @brief Gets the length of the x axis used for the grid that models the room.
+        * @return Returns the x axis length in meters
+        */
       double getXLength() const {
         return x_length_;
       }
-
+        /**
+         * @brief Sets the length of the x axis used for the grid that models the room.
+         */
       void setXLength(double x_length) {
         SrpPhat::x_length_ = x_length;
       }
-
+        /**
+        * @brief Gets the length of the y axis used for the grid that models the room.
+        * @return Returns the y axis length in meters
+        */
       double getYLength() const {
         return y_length_;
       }
-
+        /**
+         * @brief Sets the length of the y axis used for the grid that models the room.
+         */
       void setYLength(double y_length) {
         SrpPhat::y_length_ = y_length;
       }
-
+        /**
+        * @brief Gets the stepsize resolution for points in the room.
+        * @return Returns the stepsize in meters.
+        */
       double getStepSize() const {
         return stepsize_;
       }
-
+        /**
+        * @brief Sets the stepsize resolution for points to be considered in the room. The lower the more points used.
+        */
       void setStepSize(double stepsize) {
         SrpPhat::stepsize_ = stepsize;
       }
-
+        /**
+        * @brief Gets the x axis values of the microphones in the room(grid).
+        * @return Returns a valarray with the corresponding x axis values of each microphone.
+        */
       const RArray &getXDimMics() const {
         return x_dim_mics_;
       }
-
+        /**
+        * @brief Sets the x axis values of the microphones in the room(grid).
+        */
       void setXDimMics(const RArray &x_dim_mics) {
         SrpPhat::x_dim_mics_ = x_dim_mics;
       }
-
+        /**
+        * @brief Gets the y axis values of the microphones in the room(grid).
+        * @return Returns a valarray with the corresponding y axis values of each microphone.
+        */
       const RArray &getYDimMics() const {
         return y_dim_mics_;
       }
-
+        /**
+        * @brief Sets the y axis values of the microphones in the room(grid).
+        */
       void setYDimMics(const RArray &y_dim_mics) {
         SrpPhat::y_dim_mics_ = y_dim_mics;
       }
-
+        /**
+        * @brief Gets the length of the audio signals the algorithm is working with.
+        * @return Returns the number of samples per frame for which a localization estimation is done.
+        */
       int getSteps() const {
         return steps_;
       }
-
+        /**
+        * @brief Sets the length of the audio signals the algorithm is working with (samples per frame).
+        */
       void setSteps(int steps) {
         SrpPhat::steps_ = steps;
       }
-
+        /**
+        * @brief Gets the beta exponent used in the cross correlation weighting.
+        * @return Returns the beta exponent.
+        */
       double getBeta() const {
         return beta_;
       }
-
+        /**
+        * @brief Sets the beta exponent used in the cross correlation weighting.
+        */
       void setBeta(double beta) {
         SrpPhat::beta_ = beta;
       }
@@ -202,8 +242,8 @@ namespace taylortrack {
       double stepsize_;         // sample length or the amount of discrete signals to consider for each estimate
       RArray x_dim_mics_;       // X coordinates of the microphones in the grid
       RArray y_dim_mics_;       // Y coordinates of the microphones in the grid
-      int steps_;
-      double beta_;
+      int steps_;               // steps The amount of sampled points an audio signal has that needs to be evaluated.
+      double beta_;             // beta The exponent of the weighting term of the cross correlation.
     };
   } // namespace localization
 } // namespace taylortrack
