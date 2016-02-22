@@ -1,4 +1,9 @@
-
+/**
+* @file
+* @brief Implementation of the fft_strategy using the cooley turkey algorithm. This implementation however only works with
+* signals that have a length equal to a power of two.
+* @version 1
+*/
 #ifndef TAYLORTRACK_FFT_STRATEGY_H
 #define TAYLORTRACK_FFT_STRATEGY_H
 
@@ -12,10 +17,10 @@ namespace taylortrack {
     typedef std::valarray<double> RArray;
     typedef std::valarray<Complex> CArray;
     /**
-    * @interface AudioLocalizer
-    * @brief Interface for different audio localization algorithms.
+    * @interface fft_strategy
+    * @brief Implementation of the fft_strategy using the cooley turkey algorithm. This implementation however only works with
+    * signals that have a length equal to a power of two.
     *
-    * Localization algorithm that will get used
     */
     class fft_strategy {
      public:
@@ -38,6 +43,16 @@ namespace taylortrack {
       */
       virtual void fftshift(RArray &outvec, RArray &invec) = 0;
 
+
+        /**
+         * @brief Perform a circular shift on a given signal. The shifted signal will be placed in the parameter out.
+         * @param outvec The valarray that has to contain the shifted signal.
+         * @param invec The valarray that contains the signal that has to be shifted.
+         * @param xdim The x dimension of the given vector.
+         * @param ydim The y dimension of the given vector.
+         * @param xshift The amount to shift in the x dimension.
+         * @param yshift The amount to shift in the y dimension.
+         */
       virtual void circshift(RArray &out, RArray &in, long xdim, long ydim, unsigned long xshift, unsigned long yshift);
 
       /**
@@ -45,14 +60,14 @@ namespace taylortrack {
       * @param x a valarray filled with complex values
       * return a valarray filled with complex numbers.
       */
-      virtual CArray convertToComplex(RArray &x);
+      virtual CArray convertToComplex(RArray &signal);
 
       /**
       * @brief creates a real val array out of a complex one by cutting of all imaginary values.
       * @param x a valarray filled with complex values
       * return a valarray filled with doubles which represent the real parts of the input valarray
       */
-      virtual RArray convertToReal(CArray &x);
+      virtual RArray convertToReal(CArray &signal);
 
       /**
       * @brief Zero pad a signal with a variable amount.
