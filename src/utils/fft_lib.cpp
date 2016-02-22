@@ -5,38 +5,38 @@ const double kPI = 3.141592653589793238460;
 
 namespace taylortrack {
   namespace utils {
-    void FftLib::fft(CArray &x) {
-      const size_t N = x.size();
+    void FftLib::fft(CArray &signal) {
+      const size_t N = signal.size();
       if (N <= 1) return;
 
-      // divide
-      CArray even = x[std::slice(0, N / 2, 2)];
-      CArray odd = x[std::slice(1, N / 2, 2)];
+      // divide: Splitting in even and odd part of the signal
+      CArray even = signal[std::slice(0, N / 2, 2)];
+      CArray odd = signal[std::slice(1, N / 2, 2)];
 
-      // conquer
+      // conquer: Recursive call with the previously splitted signal.
       fft(even);
       fft(odd);
 
       // combine
       for (size_t k = 0; k < N / 2; ++k) {
         ComplexDouble t = std::polar(1.0, -2 * kPI * k / N) * odd[k];
-        x[k] = even[k] + t;
-        x[k + N / 2] = even[k] - t;
+        signal[k] = even[k] + t;
+        signal[k + N / 2] = even[k] - t;
       }
     }
 
-    void FftLib::ifft(CArray &x) {
+    void FftLib::ifft(CArray &signal) {
       // conjugate the complex numbers
-      x = x.apply(std::conj);
+      signal = signal.apply(std::conj);
 
       // forward fft
-      fft(x);
+      fft(signal);
 
       // conjugate the complex numbers again
-      x = x.apply(std::conj);
+      signal = signal.apply(std::conj);
 
       // scale the numbers
-      x /= x.size();
+      signal /= signal.size();
     }
 
     void FftLib::fftshift(RArray &outvec, RArray &invec) {
