@@ -8,9 +8,9 @@
 
 namespace taylortrack {
   namespace utils {
-    typedef std::complex<double> Complex;
+    typedef std::complex<double> ComplexDouble;
     typedef std::valarray<double> RArray;
-    typedef std::valarray<Complex> CArray;
+    typedef std::valarray<ComplexDouble> CArray;
     /**
     * @interface AudioLocalizer
     * @brief Interface for different audio localization algorithms.
