@@ -139,6 +139,7 @@ namespace taylortrack {
       }
         /**
         * @brief Sets the audio samplerate the algorithm is working with
+        * @param samplerate
         */
       void setSamplerate(int samplerate) {
         SrpPhat::samplerate_ = samplerate;
@@ -152,6 +153,7 @@ namespace taylortrack {
       }
         /**
          * @brief Sets the length of the x axis used for the grid that models the room.
+         * @param x_length for setting the length
          */
       void setXLength(double x_length) {
         SrpPhat::x_length_ = x_length;
@@ -165,6 +167,7 @@ namespace taylortrack {
       }
         /**
          * @brief Sets the length of the y axis used for the grid that models the room.
+         * @para y_length for setting the length
          */
       void setYLength(double y_length) {
         SrpPhat::y_length_ = y_length;
@@ -178,6 +181,7 @@ namespace taylortrack {
       }
         /**
         * @brief Sets the stepsize resolution for points to be considered in the room. The lower the more points used.
+        * @param stepsize for setting the stepsize
         */
       void setStepSize(double stepsize) {
         SrpPhat::stepsize_ = stepsize;
@@ -191,6 +195,7 @@ namespace taylortrack {
       }
         /**
         * @brief Sets the x axis values of the microphones in the room(grid).
+        * @param x_dim_mics for setting the x values of the microphones
         */
       void setXDimMics(const RArray &x_dim_mics) {
         SrpPhat::x_dim_mics_ = x_dim_mics;
@@ -204,6 +209,7 @@ namespace taylortrack {
       }
         /**
         * @brief Sets the y axis values of the microphones in the room(grid).
+        * @return Returns a valarray with the corresponding y axis values of each microphone.
         */
       void setYDimMics(const RArray &y_dim_mics) {
         SrpPhat::y_dim_mics_ = y_dim_mics;
@@ -217,6 +223,7 @@ namespace taylortrack {
       }
         /**
         * @brief Sets the length of the audio signals the algorithm is working with (samples per frame).
+        * @param steps for setting length of audio signal
         */
       void setSteps(int steps) {
         SrpPhat::steps_ = steps;
@@ -230,6 +237,7 @@ namespace taylortrack {
       }
         /**
         * @brief Sets the beta exponent used in the cross correlation weighting.
+        * @param beta for setting beta exponent
         */
       void setBeta(double beta) {
         SrpPhat::beta_ = beta;
