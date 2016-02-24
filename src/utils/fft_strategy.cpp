@@ -18,18 +18,18 @@ namespace taylortrack {
       }
     }
 
-    CArray fft_strategy::convertToComplex(RArray &x) {
-      CArray converted(x.size());
-      for (int i = 0; i < x.size(); i++) {
-        converted[i] = x[i];
+    CArray fft_strategy::convertToComplex(RArray &signal) {
+      CArray converted(signal.size());
+      for (int i = 0; i < signal.size(); i++) {
+        converted[i] = signal[i];
       }
       return converted;
     }
 
-    RArray fft_strategy::convertToReal(CArray &x) {
-      RArray converted(x.size());
-      for (int i = 0; i < x.size(); i++) {
-        converted[i] = x[i].real();
+    RArray fft_strategy::convertToReal(CArray &signal) {
+      RArray converted(signal.size());
+      for (int i = 0; i < signal.size(); i++) {
+        converted[i] = signal[i].real();
       }
       return converted;
     }
@@ -37,9 +37,11 @@ namespace taylortrack {
     CArray fft_strategy::zeroPadding(CArray &signal, int padamount) {
       size_t newsize = padamount + signal.size();
       CArray paddedsignal(newsize);
+      // copying the signal
       for (size_t i = 0; i < signal.size(); i++) {
         paddedsignal[i] = signal[i];
       }
+      // padding the original signal with the specified amount of zeros.
       for (size_t i = signal.size(); i < newsize; i++) {
         paddedsignal[i] = 0;
       }
