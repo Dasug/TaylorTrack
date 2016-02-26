@@ -20,34 +20,65 @@ namespace taylortrack {
     */
     class ConfigParser {
     public:
+      /**
+       * @brief TODO: Marius
+       * @return TODO: Marius
+       */
       const CommunicationSettings &get_input_communication_out() const {
         return input_communication_out_;
       }
 
+      /**
+       * @brief TODO: Marius
+       * @return TODO: Marius
+       */
       const CommunicationSettings &get_audio_communication_in() const {
         return audio_communication_in_;
       }
 
+      /**
+       * @brief TODO: Marius
+       * @return TODO: Marius
+       */
       const CommunicationSettings &get_audio_communication_out() const {
         return audio_communication_out_;
       }
-
+      /**
+       * @brief TODO: Marius
+       * @return TODO: Marius
+       */
       const CommunicationSettings &get_video_communication_in() const {
         return video_communication_in_;
       }
 
+      /**
+       * @brief TODO: Marius
+       * @return TODO: Marius
+       */
       const CommunicationSettings &get_video_communication_out() const {
         return video_communication_out_;
       }
 
+      /**
+       * @brief TODO: Marius
+       * @return TODO: Marius
+       */
       const CommunicationSettings &get_combination_communication_in() const {
         return combination_communication_in_;
       }
 
+      /**
+       * @brief TODO: Marius
+       * @return TODO: Marius
+       */
       const CommunicationSettings &get_combination_communication_out() const {
         return combination_communication_out_;
       }
 
+      /**
+       * @brief TODO: Marius
+       * @return TODO: Marius
+       */
       const CommunicationSettings &get_visualizer_communication_in() const {
         return visualizer_communication_in_;
       }

@@ -13,9 +13,9 @@
 
 namespace taylortrack {
   namespace utils {
-    typedef std::complex<double> Complex;
+    typedef std::complex<double> ComplexDouble;
     typedef std::valarray<double> RArray;
-    typedef std::valarray<Complex> CArray;
+    typedef std::valarray<ComplexDouble> CArray;
     /**
     * @interface fft_strategy
     * @brief Implementation of the fft_strategy using the cooley turkey algorithm. This implementation however only works with
@@ -58,14 +58,14 @@ namespace taylortrack {
       /**
       * @brief creates a complex val array out of a real one by filling imaginary parts with zeros.
       * @param x a valarray filled with complex values
-      * return a valarray filled with complex numbers.
+      * @return a valarray filled with complex numbers.
       */
       virtual CArray convertToComplex(RArray &signal);
 
       /**
       * @brief creates a real val array out of a complex one by cutting of all imaginary values.
       * @param x a valarray filled with complex values
-      * return a valarray filled with doubles which represent the real parts of the input valarray
+      * @return a valarray filled with doubles which represent the real parts of the input valarray
       */
       virtual RArray convertToReal(CArray &signal);
 
@@ -73,7 +73,7 @@ namespace taylortrack {
       * @brief Zero pad a signal with a variable amount.
       * @param signal a discrete audio signal
       * @param padamount amount of leading zeros
-      * Creates a zero padded signal
+      * @return a zero padded signal
       */
       virtual CArray zeroPadding(CArray &signal, int padamount);
     };
