@@ -244,6 +244,7 @@ namespace taylortrack {
       }
 
      private:
+      std::vector<std::vector<std::vector<double>>> delay_tensor_;
       int samplerate_;          // audio sample rate the algorithm should work with
       double x_length_;         // size of the grids x axis to consider for the estimation
       double y_length_;         // size of the grids y axis to consider for the estimation
@@ -252,6 +253,7 @@ namespace taylortrack {
       RArray y_dim_mics_;       // Y coordinates of the microphones in the grid
       int steps_;               // steps The amount of sampled points an audio signal has that needs to be evaluated.
       double beta_;             // beta The exponent of the weighting term of the cross correlation.
+
     };
   } // namespace localization
 } // namespace taylortrack

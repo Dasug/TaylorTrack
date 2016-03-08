@@ -9,10 +9,14 @@ TEST(SrpPhatTest, imtdfTest) {
   taylortrack::utils::RArray point2(2);
   taylortrack::utils::RArray mic1(2);
   taylortrack::utils::RArray mic2(2);
-  taylortrack::utils::RArray mics(4);
 
-  taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, mics, mics, 0, 0, 0, 256, 0.7);
+  double mx[] = {0.055, 0.0, -0.055, 0.0};
+  double my[] = {0.0, 0.055, 0.0, -0.055};
+  taylortrack::utils::FftLib::RArray micsX(mx, 4);
+  taylortrack::utils::FftLib::RArray micsY(my, 4);
+  const int steps = 2048;
 
+  taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, micsX, micsY, 4.0, 4.0, 0.1, steps, 0.7);
   point[0] = 0;
   point[1] = 339.42;
   mic1[0] = 1;
@@ -56,7 +60,12 @@ TEST(SrpPhatTest, axisValueTest) {
 
 TEST(SrpPhatTest, gccTest) {
   taylortrack::utils::RArray mics(4);
-  taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, mics, mics, 0, 0, 0, 256, 0.7);
+  double mx[] = {0.055, 0.0, -0.055, 0.0};
+  double my[] = {0.0, 0.055, 0.0, -0.055};
+  taylortrack::utils::FftLib::RArray micsX(mx, 4);
+  taylortrack::utils::FftLib::RArray micsY(my, 4);
+  const int steps = 2048;
+  taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, micsX, micsY, 4.0, 4.0, 0.1, steps, 0.7);
 
   taylortrack::utils::RArray sig1 = srp.getMicSignal("../Testdata/0-180.txt");
   taylortrack::utils::RArray sig2 = srp.getMicSignal("../Testdata/90-180.txt");
@@ -81,8 +90,12 @@ TEST(SrpPhatTest, pointToAngleTest) {
   double y4 = 5.41;
   double x5 = 0;
   double y5 = 0;
-  taylortrack::utils::RArray mics(4);
-  taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, mics, mics, 0, 0, 0, 256, 0.7);
+  double mx[] = {0.055, 0.0, -0.055, 0.0};
+  double my[] = {0.0, 0.055, 0.0, -0.055};
+  taylortrack::utils::FftLib::RArray micsX(mx, 4);
+  taylortrack::utils::FftLib::RArray micsY(my, 4);
+  const int steps = 2048;
+  taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, micsX, micsY, 4.0, 4.0, 0.1, steps, 0.7);
   int deg = srp.pointToDegree(x, y);
   int deg2 = srp.pointToDegree(x2, y2);
   int deg3 = srp.pointToDegree(x3, y3);

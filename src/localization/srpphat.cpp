@@ -27,6 +27,7 @@ namespace taylortrack {
       stepsize_ = stepsize;
       steps_ = steps;
       beta_ = beta;
+      delay_tensor_ = get_delay_tensor();
     }
 
     double SrpPhat::imtdf(RArray &point, RArray &mic1, RArray &mic2) {
@@ -152,7 +153,7 @@ namespace taylortrack {
 
       size_t signalLength = signals[0].size();
       long steps = signalLength / steps_ + 1;
-      std::vector<std::vector<std::vector<double>>> micDelays = get_delay_tensor();
+      std::vector<std::vector<std::vector<double>>> micDelays = delay_tensor_;
       // iterating over all microphone pairs
       for (int i = 0; i < pairs.size(); i++) {
         RArray mic1(2);
