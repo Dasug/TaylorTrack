@@ -9,6 +9,8 @@
 #include "input/read_file_input_strategy.h"
 #include "sim/streamer.h"
 #include "utils/parameter_parser.h"
+#include "input/wave_input_strategy.h"
+
 /**
  * @brief streaming data main method
  *
@@ -20,7 +22,7 @@ int main(int argc, const char *argv[]) {
         std::cout << "Invalid parameter usage. Please check --help" << std::endl;
         return EXIT_FAILURE;
     } else {
-        taylortrack::input::ReadFileInputStrategy dummy = taylortrack::input::ReadFileInputStrategy(parameters.file);
+        taylortrack::input::WaveInputStrategy dummy = taylortrack::input::WaveInputStrategy(parameters);
         taylortrack::sim::Streamer streamer = taylortrack::sim::Streamer(&dummy, parameters.outport);
         streamer.start_streaming(parameters.inport);
         return EXIT_SUCCESS;

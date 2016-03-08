@@ -18,7 +18,7 @@ std::vector<double> taylortrack::sim::DataReceiver::readData(bool blocking) cons
     for (int i = 0; i < size; ++i) {
         return_vector.push_back(input->get(i).asDouble());
     }
-
+    //std::cout << return_vector << std::endl;
     return return_vector;
 }
 

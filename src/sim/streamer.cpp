@@ -3,6 +3,7 @@
  * @brief Implementation of the streamer.h
  */
 
+#include <unistd.h>
 #include "streamer.h"
 
 namespace taylortrack {
@@ -28,6 +29,8 @@ namespace taylortrack {
                     output.clear();
                     strategy_->read(output);
                     out_port.write(true); //blocking statement
+                    usleep(1000000);
+                    std::cout << "Next!" << std::endl;
                 } // while
                 return true;
             } //if

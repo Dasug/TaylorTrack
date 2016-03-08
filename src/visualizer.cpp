@@ -24,20 +24,20 @@
  */
 int main(int argc, char **argv) {
     taylortrack::utils::GeneralOptions options = taylortrack::utils::GeneralOptions();
-    taylortrack::utils::ConfigParser config = taylortrack::utils::ConfigParser("../Testdata/taylortrack.conf");
+    taylortrack::utils::ConfigParser config = taylortrack::utils::ConfigParser("../Testdata/real_config.conf");
     taylortrack::sim::DataReceiver rec = taylortrack::sim::DataReceiver(config.get_visualizer_communication_in());
     taylortrack::vis::OutputVisualizer *out = new taylortrack::vis::OutputVisualizer(options);
 
     // Generate vector with sample data
-    std::vector<double> sampleVector;
+    //std::vector<double> sampleVector;
 
     int i = 0;
     if(out->term_supports_color()) {
         while(!out->has_failed() && !out->user_has_quit()) {
             std::vector<double> new_data = rec.readData(false);
             if(!new_data.empty()) {
-                sampleVector = new_data;
-                out->set_diagram_data(sampleVector);
+                std::cout << "Y" << std::endl;
+                out->set_diagram_data(new_data);
             }
 
 
