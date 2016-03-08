@@ -92,8 +92,3 @@ TEST(ConfigParserTest, DoubleEquals) {
   taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("../Testdata/taylortrack4.conf");
   ASSERT_FALSE(parser.is_valid());
 }
-
-
-
-
-

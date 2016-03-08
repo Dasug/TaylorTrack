@@ -23,7 +23,7 @@ namespace taylortrack {
        */
       static Parameters parse_streamer(int argc, const char **argv);
     };
-  } // utils
-} // Taylortrack
+  } // namespace utils
+} // namespace taylortrack
 
 #endif //TAYLORTRACK_PARAMETER_PARSER_H
