@@ -11,6 +11,7 @@
 #include <iostream>
 #include <stdbool.h>
 #include "input_strategy.h"
+#include "../utils/parameters.h"
 namespace taylortrack {
   namespace input {
     /**
@@ -27,7 +28,7 @@ namespace taylortrack {
       * Opens the input stream and initialise
       * @param file_name Path to the file to be read.
       */
-      ReadFileInputStrategy(const char *file_name);
+      ReadFileInputStrategy(taylortrack::utils::Parameters &params);
 
       /**
       * @brief Reads the entire file and returns the data.
@@ -53,7 +54,7 @@ namespace taylortrack {
 
      private:
       bool done_;
-      long size_;
+      long size_, package_size_;
       std::ifstream *file_;
     };
   } // namespace input

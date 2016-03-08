@@ -7,8 +7,8 @@
 
 namespace taylortrack {
   namespace input {
-    ReadFileInputStrategy::ReadFileInputStrategy(const char *file_name) {
-      file_ = new std::ifstream(file_name, std::ios::in | std::ios::binary | std::ios::ate);
+    ReadFileInputStrategy::ReadFileInputStrategy(taylortrack::utils::Parameters &params) {
+      file_ = new std::ifstream(params.file, std::ios::in | std::ios::binary | std::ios::ate);
 
       if (file_->fail())
         file_->close();
@@ -17,18 +17,22 @@ namespace taylortrack {
       if (file_->is_open()) {
         size_ = (long) file_->tellg();
         file_->seekg(0, std::ios::beg);
+        params.size == 0 ? package_size_ = size_ : package_size_ = params.size;
       }
+
       done_ = false;
     }
 
     yarp::os::Bottle ReadFileInputStrategy::read(yarp::os::Bottle &bottle) {
-      if (file_->is_open() && (size_ >= 0)) {
-        char *memblock = new char[size_];
-        file_->read(memblock, size_);
-        bottle.addString(yarp::os::ConstString(memblock, size_));
-        file_->close();
+      if (file_->is_open() && file_->tellg() != size_) {
+        char *memblock = new char[package_size_];
+        file_->read(memblock, package_size_);
+        bottle.addString(yarp::os::ConstString(memblock, package_size_));
+        done_ = file_->eof() || file_->tellg() == size_;
+      }else {
+        done_ = true;
       }
-      done_ = true;
+
       return bottle;
     }
 
