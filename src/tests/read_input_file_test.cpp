@@ -1,7 +1,6 @@
 #include "gtest/gtest.h"
 #include "zlib.h"
 #include "../input/read_file_input_strategy.h"
-#include "../utils/parameters.h"
 
 TEST(InputFileTest, CRC32Match) {
   taylortrack::utils::Parameters params;
@@ -23,7 +22,7 @@ TEST(InputFileTest, CRC32Match) {
   unsigned long crc = crc32(0L, Z_NULL, 0);
   crc = crc32(crc, (const unsigned char *) data, size);
 
-  ASSERT_EQ(true, done);
+  ASSERT_TRUE(done);
   ASSERT_EQ(crc, 0x1ed1ce7d);
 }
 
@@ -35,7 +34,7 @@ TEST(InputFileTest, ReadTwoTimes) {
       strategy = taylortrack::input::ReadFileInputStrategy(params);
   yarp::os::Bottle bottle;
   const char *data = strategy.read(bottle).pop().asString().c_str();
-  ASSERT_EQ(true, strategy.is_done());
+  ASSERT_TRUE(strategy.is_done());
   bottle.clear();
   data = strategy.read(bottle).pop().asString().c_str();
 
@@ -43,19 +42,19 @@ TEST(InputFileTest, ReadTwoTimes) {
   crc = crc32(crc, (const unsigned char *) data, 0);
 
   ASSERT_EQ(0x00000000, crc);
-  ASSERT_EQ(true, strategy.is_done());
+  ASSERT_TRUE(strategy.is_done());
 }
 
 TEST(InputFileTest, NoFile) {
   taylortrack::utils::Parameters params;
   params.file = "nodata";
   params.size = 0;
-  taylortrack::input::ReadFileInputStrategy *strategy = new taylortrack::input::ReadFileInputStrategy(params);
+  taylortrack::input::ReadFileInputStrategy strategy = taylortrack::input::ReadFileInputStrategy(params);
 
   yarp::os::Bottle bottle;
 
-  ASSERT_STREQ("", strategy->read(bottle).pop().asString().c_str());
-  ASSERT_EQ(true, strategy->is_done());
+  ASSERT_STREQ("", strategy.read(bottle).pop().asString().c_str());
+  ASSERT_TRUE(strategy.is_done());
 }
 
 TEST(InputFileTest, CRC32VideoTest) {
@@ -79,7 +78,7 @@ TEST(InputFileTest, CRC32VideoTest) {
   unsigned long crc = crc32(0L, Z_NULL, 0);
   crc = crc32(crc, (const unsigned char *) data, size_);
 
-  ASSERT_EQ(true, strategy.is_done());
+  ASSERT_TRUE(strategy.is_done());
   ASSERT_EQ(crc, 0xe7c1d385);
 }
 
@@ -104,6 +103,27 @@ TEST(InputFileTest, CRC32AudioTest) {
   unsigned long crc = crc32(0L, Z_NULL, 0);
   crc = crc32(crc, (const unsigned char *) data, size_);
 
-  ASSERT_EQ(true, strategy.is_done());
+  ASSERT_TRUE(strategy.is_done());
   ASSERT_EQ(crc, 0x22e40972);
+}
+
+TEST(InputFileTest, SizeUnequalZeroTest) {
+  taylortrack::utils::Parameters params;
+  params.file = "../Testdata/Test.txt";
+  params.size = 5;
+  taylortrack::input::ReadFileInputStrategy
+      strategy = taylortrack::input::ReadFileInputStrategy(params);
+  yarp::os::Bottle bottle;
+  const char *data = strategy.read(bottle).pop().asString().c_str();
+  bool done = strategy.is_done();
+
+  ASSERT_STREQ("Lorem",data);
+  ASSERT_FALSE(done);
+  ASSERT_EQ(5, strlen(data));
+
+  data = strategy.read(bottle).pop().asString().c_str();
+  done = strategy.is_done();
+  ASSERT_STREQ(" ipsu",data);
+  ASSERT_FALSE(done);
+  ASSERT_EQ(5, strlen(data));
 }
