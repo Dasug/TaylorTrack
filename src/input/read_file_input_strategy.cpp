@@ -17,7 +17,8 @@ namespace taylortrack {
       if (file_->is_open()) {
         size_ = (long) file_->tellg();
         file_->seekg(0, std::ios::beg);
-        params.size == 0 ? package_size_ = size_ : package_size_ = params.size;
+        package_size_ = (params.size == 0) ? size_ : params.size;
+        //params.size == 0 ? package_size_ = size_ : package_size_ = params.size;
       }
 
       done_ = false;
@@ -32,6 +33,9 @@ namespace taylortrack {
       }else {
         done_ = true;
       }
+
+      if(done_ && file_->is_open())
+        file_->close();
 
       return bottle;
     }
