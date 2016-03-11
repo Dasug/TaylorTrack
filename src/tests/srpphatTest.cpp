@@ -67,16 +67,15 @@ TEST(SrpPhatTest, gccTest) {
   const int steps = 2048;
   taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, micsX, micsY, 4.0, 4.0, 0.1, steps, 0.7);
 
-  taylortrack::utils::RArray sig1 = srp.getMicSignal("../Testdata/0-180.txt");
-  taylortrack::utils::RArray sig2 = srp.getMicSignal("../Testdata/90-180.txt");
+  taylortrack::utils::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
+  taylortrack::utils::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
 
   taylortrack::utils::RArray temp1 = sig1[std::slice(0, 257, 1)];
   taylortrack::utils::RArray temp2 = sig2[std::slice(0, 256, 1)];
 
   taylortrack::utils::RArray gcca = srp.gcc(temp1, temp2);
 
-
-  ASSERT_TRUE(abs(gcca.max() - 0.0138) < 0.0001);
+  ASSERT_TRUE(abs(gcca.max() - 0.0529023) < 0.0001);
 }
 
 TEST(SrpPhatTest, pointToAngleTest) {
