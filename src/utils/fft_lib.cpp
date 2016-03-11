@@ -43,7 +43,7 @@ namespace taylortrack {
       // xdim is 1 since we only deal with col vectors
       // xshift is 0 since we obviously never shift vectors along the x or row axis
       unsigned long yshift = (unsigned long) floor(invec.size() / 2);
-      fft_strategy::circshift(outvec, invec, 1, invec.size(), 0, yshift);
+      FftStrategy::circshift(outvec, invec, 1, invec.size(), 0, yshift);
     }
   } // namsespace utils
 } // namespace taylortrack

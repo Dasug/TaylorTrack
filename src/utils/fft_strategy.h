@@ -22,7 +22,7 @@ namespace taylortrack {
     * signals that have a length equal to a power of two.
     *
     */
-    class fft_strategy {
+    class FftStrategy {
      public:
       /**
       * @brief Perform a fast fourier transformation on a signal inplace
