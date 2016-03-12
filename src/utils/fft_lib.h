@@ -21,7 +21,7 @@ namespace taylortrack {
     *
     *
     */
-    class FftLib: public fft_strategy {
+    class FftLib: public FftStrategy {
      public:
       typedef std::complex<double> ComplexDouble;
       typedef std::valarray<double> RArray;

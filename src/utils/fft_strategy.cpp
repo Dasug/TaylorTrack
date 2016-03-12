@@ -3,7 +3,7 @@
 
 namespace taylortrack {
   namespace utils {
-    void fft_strategy::circshift(RArray &out,
+    void FftStrategy::circshift(RArray &out,
                                  RArray &in,
                                  long xdim,
                                  long ydim,
@@ -18,7 +18,7 @@ namespace taylortrack {
       }
     }
 
-    CArray fft_strategy::convertToComplex(RArray &signal) {
+    CArray FftStrategy::convertToComplex(RArray &signal) {
       CArray converted(signal.size());
       for (int i = 0; i < signal.size(); i++) {
         converted[i] = signal[i];
@@ -26,7 +26,7 @@ namespace taylortrack {
       return converted;
     }
 
-    RArray fft_strategy::convertToReal(CArray &signal) {
+    RArray FftStrategy::convertToReal(CArray &signal) {
       RArray converted(signal.size());
       for (int i = 0; i < signal.size(); i++) {
         converted[i] = signal[i].real();
@@ -34,7 +34,7 @@ namespace taylortrack {
       return converted;
     }
 
-    CArray fft_strategy::zeroPadding(CArray &signal, int padamount) {
+    CArray FftStrategy::zeroPadding(CArray &signal, int padamount) {
       size_t newsize = padamount + signal.size();
       CArray paddedsignal(newsize);
       // copying the signal
