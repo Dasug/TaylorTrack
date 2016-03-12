@@ -25,41 +25,20 @@ namespace taylortrack {
     */
     class SrpPhat: public AudioLocalizer {
      public:
-      /**
-      * @brief SrpPhat Constructor
-      *
-      * initializes the localization algorithm with all relevant parameters
-      * @param samplerate Audio samplerate (amount of discrete signals per second).
-      * @param x_dim_mics X coordinates of the microphones in the grid
-      * @param y_dim_mics Y coordinates of the microphones in the grid
-      * @param x_length Total length of the x axis in the grid
-      * @param y_length Total length of the y axis in the grid
-      * @param stepsize The resolution of the points to consider on each axis in the Grid. For instance a 2x2 meter grid with a stepsize of 0.1 considers the points (2,-2),(2,-1.9),(2,-1.8)...(-1.8,2),(-1.9,2),(-2,2)
-      * @param steps The amount of sampled points an audio signal has that needs to be evaluated.
-      * @param beta The exponent of the weighting term of the cross correlation.
-      */
-      SrpPhat(const int samplerate,
-              const RArray &x_dim_mics,
-              const RArray &y_dim_mics,
-              const double x_length,
-              const double y_length,
-              const double stepsize,
-              const int steps,
-              double beta);
 
       /**
       * @brief Gets most likely position of the recorded speaker in degrees
       * @param gcc_grid Matrix modeled as two nested vectors that contains every point of the room(grid) and the corresponding cross correlation value.
       * @return speaker position in degree
       */
-      int getPosition(std::vector<std::vector<double>> &gcc_grid);
+      int getPosition(std::vector<RArray> &signals);
 
       /**
       * @brief Returns a probability distribution for the position of the speaker over all degrees
       * @param  gcc_grid a vector of all microphone signals
       * @return A RArray with all probability values
       */
-      RArray getPositionDistribution(std::vector<std::vector<double>> &gcc_grid);
+      RArray getPositionDistribution(std::vector<RArray> &signals);
 
       /**
       * @brief Returns an RAarray filled with values from a given filepath_name. Only works for one value per column
@@ -241,6 +220,23 @@ namespace taylortrack {
         */
       void setBeta(double beta) {
         SrpPhat::beta_ = beta;
+      }
+
+
+      /**
+      * @brief Sets all relevant parameters of the srp phat algorithm.
+      * @param  settings a struct of type AudioSettings
+      */
+      void setParams(taylortrack::utils::AudioSettings &settings){
+        samplerate_ = settings.sample_rate;
+        x_length_ = settings.grid_x;
+        y_length_ = settings.grid_y;
+        stepsize_ = settings.interval;
+        x_dim_mics_ = settings.mic_x;
+        y_dim_mics_ = settings.mic_y;
+        steps_ = settings.frame_size;
+        beta_ = settings.beta;
+        delay_tensor_ = get_delay_tensor();
       }
 
      private:

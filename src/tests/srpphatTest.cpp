@@ -3,6 +3,7 @@
 #include <fstream>
 #include "../localization/srpphat.h"
 #include "../utils/fft_lib.h"
+#include "../utils/config.h"
 
 TEST(SrpPhatTest, imtdfTest) {
   taylortrack::utils::RArray point(2);
@@ -15,8 +16,19 @@ TEST(SrpPhatTest, imtdfTest) {
   taylortrack::utils::FftLib::RArray micsX(mx, 4);
   taylortrack::utils::FftLib::RArray micsY(my, 4);
   const int steps = 2048;
+  taylortrack::localization::SrpPhat
+      srp;
+  taylortrack::utils::AudioSettings settings;
+  settings.beta = 0.7;
+  settings.sample_rate = 44100;
+  settings.grid_x = 4.0;
+  settings.grid_y = 4.0;
+  settings.interval = 0.1;
+  settings.mic_x = micsX;
+  settings.mic_y = micsY;
+  settings.frame_size = steps;
 
-  taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, micsX, micsY, 4.0, 4.0, 0.1, steps, 0.7);
+  srp.setParams(settings);
   point[0] = 0;
   point[1] = 339.42;
   mic1[0] = 1;
@@ -44,8 +56,20 @@ TEST(SrpPhatTest, axisValueTest) {
   double my[] = {0.055, 0.0, -0.055, 0.0};
   taylortrack::utils::RArray micsX(mx, 4);
   taylortrack::utils::RArray micsY(my, 4);
+  const int steps = 2048;
   taylortrack::localization::SrpPhat
-      srp = taylortrack::localization::SrpPhat(44100, micsX, micsY, 4.0, 4.0, 0.1, 256, 0.7);
+      srp;
+  taylortrack::utils::AudioSettings settings;
+  settings.beta = 0.7;
+  settings.sample_rate = 44100;
+  settings.grid_x = 4.0;
+  settings.grid_y = 4.0;
+  settings.interval = 0.1;
+  settings.mic_x = micsX;
+  settings.mic_y = micsY;
+  settings.frame_size = steps;
+
+  srp.setParams(settings);
 
   std::vector<double> xax = srp.getAxisvalues(true);
   std::vector<double> yax = srp.getAxisvalues(false);
@@ -65,7 +89,19 @@ TEST(SrpPhatTest, gccTest) {
   taylortrack::utils::FftLib::RArray micsX(mx, 4);
   taylortrack::utils::FftLib::RArray micsY(my, 4);
   const int steps = 2048;
-  taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, micsX, micsY, 4.0, 4.0, 0.1, steps, 0.7);
+  taylortrack::localization::SrpPhat
+      srp;
+  taylortrack::utils::AudioSettings settings;
+  settings.beta = 0.7;
+  settings.sample_rate = 44100;
+  settings.grid_x = 4.0;
+  settings.grid_y = 4.0;
+  settings.interval = 0.1;
+  settings.mic_x = micsX;
+  settings.mic_y = micsY;
+  settings.frame_size = steps;
+
+  srp.setParams(settings);
 
   taylortrack::utils::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
   taylortrack::utils::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
@@ -94,7 +130,19 @@ TEST(SrpPhatTest, pointToAngleTest) {
   taylortrack::utils::FftLib::RArray micsX(mx, 4);
   taylortrack::utils::FftLib::RArray micsY(my, 4);
   const int steps = 2048;
-  taylortrack::localization::SrpPhat srp = taylortrack::localization::SrpPhat(44100, micsX, micsY, 4.0, 4.0, 0.1, steps, 0.7);
+  taylortrack::localization::SrpPhat
+      srp;
+  taylortrack::utils::AudioSettings settings;
+  settings.beta = 0.7;
+  settings.sample_rate = 44100;
+  settings.grid_x = 4.0;
+  settings.grid_y = 4.0;
+  settings.interval = 0.1;
+  settings.mic_x = micsX;
+  settings.mic_y = micsY;
+  settings.frame_size = steps;
+
+  srp.setParams(settings);
   int deg = srp.pointToDegree(x, y);
   int deg2 = srp.pointToDegree(x2, y2);
   int deg3 = srp.pointToDegree(x3, y3);
@@ -117,7 +165,18 @@ TEST(SrpPhatTest, getDelayTensorTest) {
   taylortrack::utils::RArray micsY(my, 4);
 
   taylortrack::localization::SrpPhat
-      srp = taylortrack::localization::SrpPhat(44100, micsX, micsY, 4.0, 4.0, 0.1, 256, 0.7);
+      srp;
+  taylortrack::utils::AudioSettings settings;
+  settings.beta = 0.7;
+  settings.sample_rate = 44100;
+  settings.grid_x = 4.0;
+  settings.grid_y = 4.0;
+  settings.interval = 0.1;
+  settings.mic_x = micsX;
+  settings.mic_y = micsY;
+  settings.frame_size = 2048;
+
+  srp.setParams(settings);
 
   std::vector<std::vector<std::vector<double>>> difference;
 
@@ -130,8 +189,19 @@ TEST(SrpPhatTest, getDelayTensorTest) {
 TEST(SrpPhatTest, getMicPairsTest) {
   taylortrack::utils::RArray mics(4);
 
-  taylortrack::localization::SrpPhat
-      srp = taylortrack::localization::SrpPhat(44100, mics, mics, 4.0, 4.0, 0.1, 256, 0.7);
+  taylortrack::localization::SrpPhat srp;
+
+  taylortrack::utils::AudioSettings settings;
+  settings.beta = 0.7;
+  settings.sample_rate = 44100;
+  settings.grid_x = 4.0;
+  settings.grid_y = 4.0;
+  settings.interval = 0.1;
+  settings.mic_x = mics;
+  settings.mic_y = mics;
+  settings.frame_size = 2048;
+
+  srp.setParams(settings);
 
   std::vector<std::tuple<int, int>> micP = srp.getMicPairs();
 
@@ -157,7 +227,18 @@ TEST(SrpPhatTest, gccGridTest) {
   taylortrack::utils::RArray micsX(mx, 4);
   taylortrack::utils::RArray micsY(my, 4);
   taylortrack::localization::SrpPhat
-      srp = taylortrack::localization::SrpPhat(44100, micsX, micsY, 4.0, 4.0, 0.1, 256, beta);
+      srp;
+  taylortrack::utils::AudioSettings settings;
+  settings.beta = 0.7;
+  settings.sample_rate = 44100;
+  settings.grid_x = 4.0;
+  settings.grid_y = 4.0;
+  settings.interval = 0.1;
+  settings.mic_x = micsX;
+  settings.mic_y = micsY;
+  settings.frame_size = 2048;
+
+  srp.setParams(settings);
 
   taylortrack::utils::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
   taylortrack::utils::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
@@ -170,8 +251,8 @@ TEST(SrpPhatTest, gccGridTest) {
   signals.push_back(sig3);
   signals.push_back(sig4);
   std::vector<std::vector<double>> gcca = srp.getGccGrid(signals);
-  ASSERT_TRUE(gcca[0][0] - 0.10463105 < 0.000001);
-  ASSERT_TRUE(gcca[18][0] - 0.0895043 < 0.000001);
+  ASSERT_TRUE(gcca[0][0] - 0.1636087 < 0.000001);
+  ASSERT_TRUE(gcca[18][0] - 0.14998061 < 0.000001);
 }
 
 TEST(SrpPhatTest, getPositionTest) {
@@ -181,7 +262,18 @@ TEST(SrpPhatTest, getPositionTest) {
   taylortrack::utils::FftLib::RArray micsY(my, 4);
   const int steps = 2048;
   taylortrack::localization::SrpPhat
-      srp = taylortrack::localization::SrpPhat(44100, micsX, micsY, 4.0, 4.0, 0.1, steps, 0.7);
+      srp;
+  taylortrack::utils::AudioSettings settings;
+  settings.beta = 0.7;
+  settings.sample_rate = 44100;
+  settings.grid_x = 4.0;
+  settings.grid_y = 4.0;
+  settings.interval = 0.1;
+  settings.mic_x = micsX;
+  settings.mic_y = micsY;
+  settings.frame_size = steps;
+
+  srp.setParams(settings);
 
   taylortrack::utils::FftLib::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
   taylortrack::utils::FftLib::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
@@ -207,8 +299,7 @@ TEST(SrpPhatTest, getPositionTest) {
     signals2.push_back(signalSlice2);
     signals2.push_back(signalSlice3);
     signals2.push_back(signalSlice4);
-    std::vector<std::vector<double>> gcca = srp.getGccGrid(signals2);
-    int pos = srp.getPosition(gcca);
+    int pos = srp.getPosition(signals2);
     estimates[step] = pos;
   }
   ASSERT_EQ(180, estimates[1]);
@@ -222,7 +313,18 @@ TEST(SrpPhatTest, getPositionDistributionTest) {
   taylortrack::utils::FftLib::RArray micsY(my, 4);
   const int steps = 2048;
   taylortrack::localization::SrpPhat
-      srp = taylortrack::localization::SrpPhat(44100, micsX, micsY, 4.0, 4.0, 0.1, steps, 0.7);
+      srp;
+  taylortrack::utils::AudioSettings settings;
+  settings.beta = 0.7;
+  settings.sample_rate = 44100;
+  settings.grid_x = 4.0;
+  settings.grid_y = 4.0;
+  settings.interval = 0.1;
+  settings.mic_x = micsX;
+  settings.mic_y = micsY;
+  settings.frame_size = steps;
+
+  srp.setParams(settings);
 
   taylortrack::utils::FftLib::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
   taylortrack::utils::FftLib::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
@@ -247,8 +349,7 @@ TEST(SrpPhatTest, getPositionDistributionTest) {
     signals2.push_back(signalSlice2);
     signals2.push_back(signalSlice3);
     signals2.push_back(signalSlice4);
-    std::vector<std::vector<double>> gcca = srp.getGccGrid(signals2);
-    taylortrack::utils::FftLib::RArray pos = srp.getPositionDistribution(gcca);
+    taylortrack::utils::FftLib::RArray pos = srp.getPositionDistribution(signals2);
     int maxpos = srp.findVal(pos, pos.max());
     estimates[step] = maxpos;
   }

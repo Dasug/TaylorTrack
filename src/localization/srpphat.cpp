@@ -11,24 +11,6 @@ const double kPI = 3.141592653589793238460;
 
 namespace taylortrack {
   namespace localization {
-    SrpPhat::SrpPhat(const int samplerate,
-                     const RArray &x_dim_mics,
-                     const RArray &y_dim_mics,
-                     const double x_length,
-                     const double y_length,
-                     double stepsize,
-                     int steps,
-                     double beta) {
-      samplerate_ = samplerate;
-      x_dim_mics_ = x_dim_mics;
-      y_dim_mics_ = y_dim_mics;
-      x_length_ = x_length;
-      y_length_ = y_length;
-      stepsize_ = stepsize;
-      steps_ = steps;
-      beta_ = beta;
-      delay_tensor_ = get_delay_tensor();
-    }
 
     double SrpPhat::imtdf(RArray &point, RArray &mic1, RArray &mic2) {
       return (std::sqrt(std::pow(point - mic1, 2).sum()) - std::sqrt(std::pow(point - mic2, 2).sum())) / kSpeedOfSound;
@@ -94,7 +76,8 @@ namespace taylortrack {
       return axisValues;
     }
 
-    RArray SrpPhat::getPositionDistribution(std::vector<std::vector<double>> &gcc_grid) {
+    RArray SrpPhat::getPositionDistribution(std::vector<RArray> &signals) {
+      std::vector<std::vector<double>> gcc_grid = getGccGrid(signals);
       RArray degreevals(360);
       std::vector<double> xAxisValues = getAxisvalues(true);
       std::vector<double> yAxisValues = getAxisvalues(false);
@@ -112,7 +95,8 @@ namespace taylortrack {
       return degreevals / res;
     };
 
-    int SrpPhat::getPosition(std::vector<std::vector<double>> &gcc_grid) {
+    int SrpPhat::getPosition(std::vector<RArray> &signals) {
+      std::vector<std::vector<double>> gcc_grid = getGccGrid(signals);
       RArray degreevals(360);
       std::vector<double> xAxisValues = getAxisvalues(true);
       std::vector<double> yAxisValues = getAxisvalues(false);
