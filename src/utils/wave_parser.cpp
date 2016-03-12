@@ -32,11 +32,11 @@ unsigned long taylortrack::utils::WaveParser::get_sample_num() {
 
 void taylortrack::utils::WaveParser::parse_file() {
   bool valid = true;
-  char four_byte_buffer[4];
+  char four_byte_buffer[5];
   unsigned long fmt_size = 0;
 
   // Read RIFF header indication
-  this->file_->read(four_byte_buffer, 4);
+  this->file_->read(four_byte_buffer, 4*sizeof(char));
   if (strcmp(four_byte_buffer, "RIFF") == 0) {
     // skip chunk size
     this->file_->seekg(8, std::ios_base::beg);
