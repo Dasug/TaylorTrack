@@ -11,24 +11,24 @@
 #include <valarray>
 
 namespace taylortrack {
-namespace utils {
-typedef std::complex<double> ComplexDouble;
-typedef std::valarray<double> RArray;
-typedef std::valarray<ComplexDouble> CArray;
-/**
-* @interface vad_strategy
-* @brief Interface for Voice Activity Trackers with parsed samples
-*/
-class VadStrategy {
- public:
-  /**
-   * @brief tracks voice activity for a given sample
-   * @param &sample
-   * @return true if voice activity has been tracked in given sample
-   */
-  virtual bool detect(RArray &sample) = 0;
-};
-}//namespace utils
+  namespace utils {
+  typedef std::complex<double> ComplexDouble;
+  typedef std::valarray<double> RArray;
+  typedef std::valarray<ComplexDouble> CArray;
+    /**
+    * @class vad_strategy
+    * @brief Interface for Voice Activity Trackers with parsed samples
+    */
+    class VadStrategy {
+     public:
+      /**
+       * @brief tracks voice activity for a given sample
+       * @param &sample
+       * @return true if voice activity has been tracked in given sample
+       */
+      virtual bool detect(RArray &sample) = 0;
+    };
+  }//namespace utils
 }//namespace taylortrack
 
 #endif //TAYLORTRACK_VADSTRATEGY_H
