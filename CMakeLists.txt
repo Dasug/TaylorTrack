@@ -3,6 +3,7 @@ project(TaylorTrack)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
 INCLUDE(CodeCoverage)
+INCLUDE(FindPortaudio)
 
 # find YARP
 find_package(YARP REQUIRED)
@@ -33,11 +34,14 @@ endif()
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
-find_package(ZLIB)
+find_package(ZLIB REQUIRED)
 include_directories(${ZLIB_INCLUDE_DIRS})
 
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIRS})
+
+find_package(Portaudio REQUIRED)
+include_directories(${PORTAUDIO_INCLUDE_DIRS})
 
 # activate debugging symbols and warnings
 set(CMAKE_CXX_FLAGS "-std=c++11 -g -Wall -g -O0 -fprofile-arcs -ftest-coverage -coverage")
