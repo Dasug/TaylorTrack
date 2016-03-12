@@ -167,7 +167,7 @@ namespace taylortrack {
       }
         /**
          * @brief Sets the length of the y axis used for the grid that models the room.
-         * @para y_length for setting the length
+         * @param y_length for setting the length
          */
       void setYLength(double y_length) {
         SrpPhat::y_length_ = y_length;
@@ -209,7 +209,7 @@ namespace taylortrack {
       }
         /**
         * @brief Sets the y axis values of the microphones in the room(grid).
-        * @return Returns a valarray with the corresponding y axis values of each microphone.
+        * @param y_dim_mics for setting the y values of the microphones
         */
       void setYDimMics(const RArray &y_dim_mics) {
         SrpPhat::y_dim_mics_ = y_dim_mics;
