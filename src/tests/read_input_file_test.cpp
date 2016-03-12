@@ -12,18 +12,14 @@ TEST(InputFileTest, CRC32Match) {
   yarp::os::ConstString stringdata = strategy.read(bottle).pop().asString();
   const char *data = stringdata.c_str();
   bool done = strategy.is_done();
-
-  std::cout << data << std::endl << std::endl;
   std::streampos size;
   std::ifstream file = std::ifstream("../Testdata/Test.txt", std::ios::in | std::ios::binary | std::ios::ate);
   if(file.is_open()) {
     size = file.tellg();
     file.close();
   }
-  std::cout << data << std::endl << std::endl;
   unsigned long crc = crc32(0L, Z_NULL, 0);
   crc = crc32(crc, (const unsigned char *) data, size);
-  std::cout << data << std::endl << std::endl;
   ASSERT_TRUE(done);
   ASSERT_EQ(crc, 0x1ed1ce7d);
 }
