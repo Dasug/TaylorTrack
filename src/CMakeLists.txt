@@ -1,6 +1,17 @@
-# Add Datastreamer executable
+# Set up dummy input tagert
+add_executable(dummy_input sim_datastreamer.cpp input/dummy_input_strategy.cpp sim/streamer.cpp utils/parameter_parser.cpp utils/config_parser.cpp)
+target_compile_definitions(dummy_input PUBLIC INPUT_DUMMY)
+target_link_libraries(dummy_input ${YARP_LIBRARIES})
 
-add_executable(sim_datastreamer sim_datastreamer.cpp input/dummy_input_strategy.cpp sim/streamer.cpp input/read_file_input_strategy.cpp utils/parameter_parser.cpp utils/wave_parser.cpp utils/wave_parser.h input/wave_input_strategy.cpp input/wave_input_strategy.h)
+# Set up file input target
+add_executable(read_file_input sim_datastreamer.cpp input/read_file_input_strategy.cpp sim/streamer.cpp utils/parameter_parser.cpp utils/config_parser.cpp)
+target_compile_definitions(read_file_input PUBLIC INPUT_READ_FILE)
+target_link_libraries(read_file_input ${YARP_LIBRARIES})
+
+# Set up file input target
+add_executable(wave_file_input sim_datastreamer.cpp utils/wave_parser.cpp input/wave_input_strategy.cpp sim/streamer.cpp utils/parameter_parser.cpp utils/config_parser.cpp)
+target_compile_definitions(wave_file_input PUBLIC INPUT_WAVE_FILE)
+target_link_libraries(wave_file_input ${YARP_LIBRARIES})
 
 # Add Datareceiver executable
 add_executable(sim_datareceiver sim_datareceiver.cpp utils/parameter_parser.cpp sim/data_receiver.cpp utils/config_parser.cpp localization/srpphat.cpp utils/fft_lib.cpp utils/fft_strategy.cpp)
@@ -14,7 +25,6 @@ add_executable(visualizer visualizer.cpp vis/OutputVisualizer.cpp sim/data_recei
 SETUP_TARGET_FOR_COVERAGE(testunit_coverage testunit coverage)
 
 # link Yarp libraries
-target_link_libraries(sim_datastreamer ${YARP_LIBRARIES})
 target_link_libraries(sim_datareceiver ${YARP_LIBRARIES})
 target_link_libraries(testunit ${YARP_LIBRARIES})
 target_link_libraries(visualizer ${YARP_LIBRARIES})
