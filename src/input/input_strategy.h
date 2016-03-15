@@ -8,6 +8,8 @@
 #define TAYLORTRACK_INPUT_INPUT_STRATEGY_H_
 
 #include <yarp/os/all.h>
+#include "../utils/parameters.h"
+#include "../utils/config_parser.h"
 
 namespace taylortrack {
   namespace input {
@@ -31,6 +33,10 @@ namespace taylortrack {
       * @return Status of the read method.
       */
       virtual bool is_done() = 0;
+
+      virtual void set_parameters(taylortrack::utils::Parameters &params) = 0;
+
+      virtual void set_config(taylortrack::utils::ConfigParser &config_parser) = 0;
     };
   } // namespace input
 } // namespace taylortrack

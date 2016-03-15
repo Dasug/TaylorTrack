@@ -6,21 +6,20 @@
 
 #include "wave_input_strategy.h"
 
-taylortrack::input::WaveInputStrategy::WaveInputStrategy(taylortrack::utils::Parameters &params) {
-  this->parameter_ = params;
-  this->waveParser_ = new taylortrack::utils::WaveParser(params.file);
-}
-
 bool taylortrack::input::WaveInputStrategy::is_done() {
-  return waveParser_->is_done();
+  if(waveParser_)
+    return waveParser_->is_done();
+  else
+    return true;
 }
 
 taylortrack::input::WaveInputStrategy::~WaveInputStrategy() {
-  delete this->waveParser_;
+  if(this->waveParser_)
+    delete this->waveParser_;
 }
 
 yarp::os::Bottle taylortrack::input::WaveInputStrategy::read(yarp::os::Bottle &bottle) {
-  if (waveParser_->is_valid() && !waveParser_->is_done()) {
+  if (waveParser_ && waveParser_->is_valid() && !waveParser_->is_done()) {
     unsigned long sample_amount;
     if (parameter_.size <= 0) {
       sample_amount = waveParser_->get_sample_num();
@@ -45,4 +44,11 @@ yarp::os::Bottle taylortrack::input::WaveInputStrategy::read(yarp::os::Bottle &b
     }
   }
   return bottle;
+}
+void taylortrack::input::WaveInputStrategy::set_parameters(taylortrack::utils::Parameters &params) {
+  this->parameter_ = params;
+  this->waveParser_ = new taylortrack::utils::WaveParser(params.file);
+}
+void taylortrack::input::WaveInputStrategy::set_config(taylortrack::utils::ConfigParser &config_parser) {
+  // ignored for now
 }

@@ -6,8 +6,8 @@ TEST(InputFileTest, CRC32Match) {
   taylortrack::utils::Parameters params;
   params.file = "../Testdata/Test.txt";
   params.size = 0;
-  taylortrack::input::ReadFileInputStrategy
-      strategy = taylortrack::input::ReadFileInputStrategy(params);
+  taylortrack::input::ReadFileInputStrategy strategy;
+  strategy.set_parameters(params);
   yarp::os::Bottle bottle;
   yarp::os::ConstString stringdata = strategy.read(bottle).pop().asString();
   const char *data = stringdata.c_str();
@@ -28,8 +28,8 @@ TEST(InputFileTest, ReadTwoTimes) {
   taylortrack::utils::Parameters params;
   params.file = "../Testdata/Test.txt";
   params.size = 0;
-  taylortrack::input::ReadFileInputStrategy
-      strategy = taylortrack::input::ReadFileInputStrategy(params);
+  taylortrack::input::ReadFileInputStrategy strategy;
+  strategy.set_parameters(params);
   yarp::os::Bottle bottle;
   const char *data = strategy.read(bottle).pop().asString().c_str();
   ASSERT_TRUE(strategy.is_done());
@@ -47,7 +47,8 @@ TEST(InputFileTest, NoFile) {
   taylortrack::utils::Parameters params;
   params.file = "nodata";
   params.size = 0;
-  taylortrack::input::ReadFileInputStrategy strategy = taylortrack::input::ReadFileInputStrategy(params);
+  taylortrack::input::ReadFileInputStrategy strategy;
+  strategy.set_parameters(params);
 
   yarp::os::Bottle bottle;
 
@@ -59,8 +60,8 @@ TEST(InputFileTest, CRC32VideoTest) {
   taylortrack::utils::Parameters params;
   params.file = "../Testdata/Test.mp4";
   params.size = 0;
-  taylortrack::input::ReadFileInputStrategy
-      strategy = taylortrack::input::ReadFileInputStrategy(params);
+  taylortrack::input::ReadFileInputStrategy strategy;
+  strategy.set_parameters(params);
   yarp::os::Bottle bottle;
   yarp::os::Bottle result = strategy.read(bottle);
   yarp::os::ConstString dataString = result.get(0).asString();
@@ -84,8 +85,8 @@ TEST(InputFileTest, CRC32AudioTest) {
   taylortrack::utils::Parameters params;
   params.file = "../Testdata/Test.wav";
   params.size = 0;
-  taylortrack::input::ReadFileInputStrategy
-      strategy = taylortrack::input::ReadFileInputStrategy(params);
+  taylortrack::input::ReadFileInputStrategy strategy;
+  strategy.set_parameters(params);
   yarp::os::Bottle bottle;
   yarp::os::Bottle result = strategy.read(bottle);
   yarp::os::ConstString dataString = result.get(0).asString();
@@ -109,8 +110,8 @@ TEST(InputFileTest, SizeUnequalZeroTest) {
   taylortrack::utils::Parameters params;
   params.file = "../Testdata/Test.txt";
   params.size = 5;
-  taylortrack::input::ReadFileInputStrategy
-      strategy = taylortrack::input::ReadFileInputStrategy(params);
+  taylortrack::input::ReadFileInputStrategy strategy;
+  strategy.set_parameters(params);
   yarp::os::Bottle bottle;
   const char *data = strategy.read(bottle).pop().asString().c_str();
   bool done = strategy.is_done();

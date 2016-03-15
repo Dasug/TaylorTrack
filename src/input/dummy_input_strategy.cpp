@@ -20,5 +20,13 @@ namespace taylortrack {
     bool DummyInputStrategy::is_done() {
       return done_;
     }
+
+    void DummyInputStrategy::set_parameters(taylortrack::utils::Parameters &params) {
+      // do nothing, we don't care about parameters
+    }
+
+    void DummyInputStrategy::set_config(taylortrack::utils::ConfigParser &config_parser) {
+      // do nothing, we don't care about configuration either
+    }
   }
 }

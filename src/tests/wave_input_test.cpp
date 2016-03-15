@@ -9,7 +9,8 @@ TEST(WaveInputTest, ValidExample) {
   // Read two samples at a time
   parameter.size = 2;
 
-  taylortrack::input::WaveInputStrategy input = taylortrack::input::WaveInputStrategy(parameter);
+  taylortrack::input::WaveInputStrategy input;
+  input.set_parameters(parameter);
 
   ASSERT_FALSE(input.is_done());
 
@@ -30,7 +31,8 @@ TEST(WaveInputTest, LargeExample) {
   // Read two samples at a time
   parameter.size = 999999999;
 
-  taylortrack::input::WaveInputStrategy input = taylortrack::input::WaveInputStrategy(parameter);
+  taylortrack::input::WaveInputStrategy input;
+  input.set_parameters(parameter);
 
   ASSERT_FALSE(input.is_done());
 
@@ -53,7 +55,8 @@ TEST(WaveInputTest, InvalidFile) {
   // Read two samples at a time
   parameter.size = 2;
 
-  taylortrack::input::WaveInputStrategy input = taylortrack::input::WaveInputStrategy(parameter);
+  taylortrack::input::WaveInputStrategy input;
+  input.set_parameters(parameter);
 
   ASSERT_TRUE(input.is_done());
 
@@ -71,7 +74,8 @@ TEST(WaveInputTest, NoSize) {
   // Read two samples at a time
   parameter.size = 0;
 
-  taylortrack::input::WaveInputStrategy input = taylortrack::input::WaveInputStrategy(parameter);
+  taylortrack::input::WaveInputStrategy input;
+  input.set_parameters(parameter);
 
   ASSERT_FALSE(input.is_done());
 

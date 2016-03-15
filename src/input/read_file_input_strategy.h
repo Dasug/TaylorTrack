@@ -12,6 +12,7 @@
 #include <stdbool.h>
 #include "input_strategy.h"
 #include "../utils/parameters.h"
+#include "../utils/config_parser.h"
 namespace taylortrack {
   namespace input {
     /**
@@ -22,13 +23,6 @@ namespace taylortrack {
     */
     class ReadFileInputStrategy: public InputStrategy {
      public:
-      /**
-      * @brief ReadFileInputStrategy Constructor
-      *
-      * Opens the input stream and initialise
-      * @param file_name Path to the file to be read.
-      */
-      ReadFileInputStrategy(taylortrack::utils::Parameters &params);
 
       /**
       * @brief Reads the entire file and returns the data.
@@ -45,6 +39,10 @@ namespace taylortrack {
       */
       bool is_done();
 
+      void set_parameters(taylortrack::utils::Parameters &params);
+
+      void set_config(taylortrack::utils::ConfigParser &config_parser);
+
       /**
       * @ReadFileInputStrategy Destructor
       *
@@ -53,9 +51,10 @@ namespace taylortrack {
       ~ReadFileInputStrategy();
 
      private:
-      bool done_;
+      bool done_ = true;
       long size_, package_size_;
       std::ifstream *file_;
+      taylortrack::utils::Parameters params;
     };
   } // namespace input
 } // namesapace taylortrack

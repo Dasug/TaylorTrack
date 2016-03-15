@@ -11,6 +11,7 @@
 #include <yarp/os/all.h>
 #include "../utils/parameters.h"
 #include "../utils/wave_parser.h"
+#include "../utils/config_parser.h"
 
 namespace taylortrack {
   namespace input {
@@ -22,14 +23,6 @@ namespace taylortrack {
     */
     class WaveInputStrategy: public InputStrategy {
      public:
-      /**
-      * @brief WaveInputStrategy Constructor
-      *
-      * Opens the input stream, parses the wave file header
-      * @param params taylortrack::utils::Parameters object
-      */
-      WaveInputStrategy(taylortrack::utils::Parameters &params);
-
       /**
       * @brief Reads samples from the input file
       *
@@ -46,6 +39,10 @@ namespace taylortrack {
       * @return Status of the read method.
       */
       bool is_done();
+
+      void set_parameters(taylortrack::utils::Parameters &params);
+
+      void set_config(taylortrack::utils::ConfigParser &config_parser);
 
       /**
       * @brief ~WaveInputStrategy Destructor

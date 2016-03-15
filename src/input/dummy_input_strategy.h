@@ -8,6 +8,8 @@
 #define TAYLORTRACK_INPUT_DUMMY_INPUT_STRATEGY_H_
 #include <stdbool.h>
 #include "input_strategy.h"
+#include "../utils/parameters.h"
+#include "../utils/config_parser.h"
 namespace taylortrack {
   namespace input {
     /**
@@ -42,6 +44,10 @@ namespace taylortrack {
       * @see read()
       */
       bool is_done();
+
+      void set_parameters(taylortrack::utils::Parameters &params);
+
+      void set_config(taylortrack::utils::ConfigParser &config_parser);
 
      private:
       bool done_;
