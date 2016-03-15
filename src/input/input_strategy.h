@@ -23,10 +23,10 @@ namespace taylortrack {
      public:
       /**
       * @brief Read data to be streamed.
-      * @return Simulation data.
+      * @param bottle yarp::os::Bottle to write data into
+      * @return Bottle supplied by parameter
       */
       virtual yarp::os::Bottle read(yarp::os::Bottle &bottle) = 0;
-      // TODO fix doxygen for changed method signature
 
       /**
       * @brief Detects if the read metod is done with reading the simulation data.
@@ -34,8 +34,20 @@ namespace taylortrack {
       */
       virtual bool is_done() = 0;
 
+      /**
+       * @brief Sets console parameters to be used for input strategy
+       *
+       * Might internally do more work to make sure new parameters are usable
+       * @param params parameters to be used
+       */
       virtual void set_parameters(taylortrack::utils::Parameters &params) = 0;
 
+      /**
+       * @brief Sets configuration to be used for input strategy
+       *
+       * Might internally do more work to make sure new config is usable
+       * @param config_parser taylortrack::utils::ConfigParser object. Provides strategy the configuration it needs.
+       */
       virtual void set_config(taylortrack::utils::ConfigParser &config_parser) = 0;
     };
   } // namespace input

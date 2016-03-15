@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief Simulation for streaming data
+ * @brief General data streamer main file
  */
 
 
