@@ -5,9 +5,11 @@
 
 #include <yarp/os/all.h>
 #include "utils/config_parser.h"
-#include "sim/data_receiver.h"
-#include "localization/srpphat.h"
-#include "utils/fft_strategy.h"
+#include "opencv2/objdetect.hpp"
+#include "opencv2/videoio.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
+#include <yarp/sig/Matrix.h>
 
 /**
  * @brief receiving data main method
@@ -18,34 +20,44 @@ int main(int argc, char *argv[]) {
     yarp::os::Network yarp;
     taylortrack::utils::ConfigParser config = taylortrack::utils::ConfigParser("../Testdata/real_config.conf");
     taylortrack::utils::CommunicationSettings in, out;
-    in = config.get_audio_communication_in();
-    out = config.get_audio_communication_out();
-    taylortrack::sim::DataReceiver rec = taylortrack::sim::DataReceiver(in);
-    taylortrack::utils::AudioSettings audio = config.get_audio_configuration();
-    taylortrack::localization::SrpPhat algorithm;// = taylortrack::localization::SrpPhat(audio.sample_rate, audio.mic_x, audio.mic_y, audio.grid_x, audio.grid_y, audio.interval, (int) audio.frame_size, audio.beta);
-    algorithm.setParams(audio);
-    int microphones = (int) audio.mic_x.size();
+    in = config.get_video_communication_in();
+    out = config.get_video_communication_out();
+    yarp::os::BufferedPort<yarp::os::Bottle> *buffered_port_  = new yarp::os::BufferedPort<yarp::os::Bottle>();
+    buffered_port_->open(in.port);
+    taylortrack::utils::VideoSettings vs = config.get_video_configuration();
+    /*taylortrack::localization::SrpPhat algorithm;// = taylortrack::localization::SrpPhat(audio.sample_rate, audio.mic_x, audio.mic_y, audio.grid_x, audio.grid_y, audio.interval, (int) audio.frame_size, audio.beta);
+    algorithm.setParams(audio);*/
+    /* visualizer
     yarp::os::BufferedPort<yarp::os::Bottle> outport;
     outport.open(out.port);
     yarp.connect(outport.getName(),yarp::os::ConstString(config.get_visualizer_communication_in().port));
-
+    */
     while (true) {
-        std::vector<taylortrack::utils::RArray> signals;
-        std::vector<double> new_data = rec.readData(true);
-        std::cout << "Got data: " << new_data[0] << " " << new_data[1] << std::endl;
-        for (int i = 0; i < microphones; ++i) {
-            taylortrack::utils::RArray volume(new_data.size() / microphones);
-            int c = 0;
-            for (int j = i; j < new_data.size(); j += microphones) {
-                volume[c] = new_data[j];
-                ++c;
+        yarp::sig::Matrix yarp_frame;
+        yarp::os::Bottle *input = buffered_port_->read(true);
+        /* non blocking
+        if(!input)
+            continue;
+         */
+        input->pop().asList()->write(yarp_frame);
+        cv::Mat frame = cv::Mat(yarp_frame.rows(), yarp_frame.cols(),16);
+        for(int i = 0; i < yarp_frame.rows(); i++)
+            for(int j = 0; j < yarp_frame.cols(); j++) {
+                uint32_t pixel = (uint32_t) yarp_frame[i][j];
+                cv::Vec3b pix;
+                pix.val[2] = (uchar) (pixel & 0xFF);
+                pixel >>= 8;
+                pix.val[1] = (uchar) (pixel & 0xFF);
+                pixel >>= 8;
+                pix.val[0] = (uchar) (pixel & 0xFF);
+                frame.at<cv::Vec3b>(i, j) = pix;
             }
-            signals.push_back(volume);
-        }
 
-        //auto grid = algorithm.getGccGrid(signals);
-        taylortrack::utils::RArray result = algorithm.getPositionDistribution(signals);
+        if(cv::waitKey(10) >= 0)
+            break;
+        cv::imshow("Recived frame", frame);
 
+        /* visualizer
         yarp::os::Bottle& bottle = outport.prepare();
         bottle.clear();
 
@@ -55,6 +67,7 @@ int main(int argc, char *argv[]) {
         }
 
         outport.write(true);
+         */
     }
     return 0;
 }
