@@ -34,6 +34,7 @@ SETUP_TARGET_FOR_COVERAGE(testunit_coverage testunit coverage)
 target_link_libraries(sim_datareceiver ${YARP_LIBRARIES})
 target_link_libraries(testunit ${YARP_LIBRARIES})
 target_link_libraries(visualizer ${YARP_LIBRARIES})
+target_link_libraries(sim_datareceiver ${OpenCV_LIBS})
 
 
 # link google libraries
