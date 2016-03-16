@@ -4,6 +4,8 @@
 #include <vector>
 #include <valarray>
 #include "../utils/config.h"
+#include "../utils/config_parser.h"
+
 namespace taylortrack {
   namespace localization {
     typedef std::valarray<double> RArray;
@@ -31,9 +33,10 @@ namespace taylortrack {
       /**
       * @brief Sets all relevant parameters of the implemented algorithm. Missing Parameters have to be placed inside
       *        the AudioSettings struct.
-      * @param  settings a struct of type AudioSettings
+      * @param config taylortrack::utils::ConfigParser object for the algorithm to take its configuration
+      * @pre taylortrack::utils::ConfigParser::is_valid() should return true
       */
-      virtual void setParams(taylortrack::utils::AudioSettings &settings) =0;
+      virtual void setConfig(utils::ConfigParser &config) =0;
     };
   } // namespace localization
 } // namespace taylortrack
