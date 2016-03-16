@@ -83,12 +83,54 @@ namespace taylortrack {
         return visualizer_communication_in_;
       }
 
+      void setGeneralOptions(const GeneralOptions &general_options_) {
+        ConfigParser::general_options_ = general_options_;
+      }
+      void setAudioSettings(const AudioSettings &audio_settings_) {
+        ConfigParser::audio_settings_ = audio_settings_;
+      }
+      void setVideoSettings(const VideoSettings &video_settings_) {
+        ConfigParser::video_settings_ = video_settings_;
+      }
+      void setCombinationSettings(const CombinationSettings &combination_settings_) {
+        ConfigParser::combination_settings_ = combination_settings_;
+      }
+      void setInputCommunicationOut(const CommunicationSettings &input_communication_out_) {
+        ConfigParser::input_communication_out_ = input_communication_out_;
+      }
+      void setAudioCommunicationIn(const CommunicationSettings &audio_communication_in_) {
+        ConfigParser::audio_communication_in_ = audio_communication_in_;
+      }
+      void setAudioCommunicationOut(const CommunicationSettings &audio_communication_out_) {
+        ConfigParser::audio_communication_out_ = audio_communication_out_;
+      }
+      void setVideoCommunicationIn(const CommunicationSettings &video_communication_in_) {
+        ConfigParser::video_communication_in_ = video_communication_in_;
+      }
+      void setVideoCommunicationOut(const CommunicationSettings &video_communication_out_) {
+        ConfigParser::video_communication_out_ = video_communication_out_;
+      }
+      void setCombinationCommunicationIn(const CommunicationSettings &combination_communication_in_) {
+        ConfigParser::combination_communication_in_ = combination_communication_in_;
+      }
+      void setCombinationCommunicationOut(const CommunicationSettings &combination_communication_out_) {
+        ConfigParser::combination_communication_out_ = combination_communication_out_;
+      }
+      void setVisualizerCommunicationIn(const CommunicationSettings &visualizer_communication_in_) {
+        ConfigParser::visualizer_communication_in_ = visualizer_communication_in_;
+      }
+
       /**
        * @brief Configuration parser constructor
        * Opens the supplied configuration file and parses it.
        * @param file_name Path to the file to be parsed.
       */
       ConfigParser(const char *file_name);
+
+      /**
+       * @brief Configuration parser constructor, uses only default values
+      */
+      ConfigParser();
 
       /**
       * @brief Gets the general configuration for the algorithms
