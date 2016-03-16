@@ -118,7 +118,7 @@ namespace taylortrack {
        * @var frame_skip
        * Defines the number of frames that should be skipped.
        */
-      int frame_skip = 5;
+      int frame_skip = 0;
 
       /**
        * @var camera_id
