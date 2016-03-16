@@ -8,6 +8,22 @@ INCLUDE(CodeCoverage)
 find_package(YARP REQUIRED)
 include_directories(${YARP_INCLUDE_DIRS})
 
+# find OpenCV
+find_package(OpenCV REQUIRED)
+# If the package has been found, several variables will
+# be set, you can find the full list with descriptions
+# in the OpenCVConfig.cmake file.
+# Print some message showing some of them
+message(STATUS "OpenCV library status:")
+message(STATUS "    version: ${OpenCV_VERSION}")
+message(STATUS "    libraries: ${OpenCV_LIBS}")
+message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
+
+if(CMAKE_VERSION VERSION_LESS "2.8.11")
+    # Add OpenCV headers location to your include paths
+    include_directories(${OpenCV_INCLUDE_DIRS})
+endif()
+
 # find googletest
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})

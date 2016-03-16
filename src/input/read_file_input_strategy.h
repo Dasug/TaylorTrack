@@ -54,7 +54,7 @@ namespace taylortrack {
       bool done_ = true;
       long size_, package_size_;
       std::ifstream *file_;
-      taylortrack::utils::Parameters params;
+      taylortrack::utils::Parameters params_;
     };
   } // namespace input
 } // namesapace taylortrack

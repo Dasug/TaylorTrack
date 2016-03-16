@@ -13,6 +13,12 @@ add_executable(wave_file_input sim_datastreamer.cpp utils/wave_parser.cpp input/
 target_compile_definitions(wave_file_input PUBLIC INPUT_WAVE_FILE)
 target_link_libraries(wave_file_input ${YARP_LIBRARIES})
 
+# Set up file input target
+add_executable(open_cv_input sim_datastreamer.cpp sim/streamer.cpp utils/parameter_parser.cpp utils/config_parser.cpp input/opencv_input_strategy.cpp)
+target_compile_definitions(open_cv_input PUBLIC INPUT_OPENCV)
+target_link_libraries(open_cv_input ${YARP_LIBRARIES})
+target_link_libraries(open_cv_input ${OpenCV_LIBS})
+
 # Add Datareceiver executable
 add_executable(sim_datareceiver sim_datareceiver.cpp utils/parameter_parser.cpp sim/data_receiver.cpp utils/config_parser.cpp localization/srpphat.cpp utils/fft_lib.cpp utils/fft_strategy.cpp)
 

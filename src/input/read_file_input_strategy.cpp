@@ -33,7 +33,7 @@ namespace taylortrack {
     }
 
     void ReadFileInputStrategy::set_parameters(taylortrack::utils::Parameters &params) {
-      this->params = params;
+      this->params_ = params;
       file_ = new std::ifstream(params.file, std::ios::in | std::ios::binary | std::ios::ate);
 
       if (file_->fail())
