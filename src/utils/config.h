@@ -107,6 +107,24 @@ namespace taylortrack {
        * @deprecated Use CommunicationSettings struct instead
       */
       std::string inport  = "/bp39_video_in";
+
+      /**
+       * @var face_cascade_name
+       * Defines the opencv cascade for face detection.
+       */
+      std::string face_cascade_name = "haarcascade_frontalface_alt.xml";
+
+      /**
+       * @var frame_skip
+       * Defines the number of frames that should be skipped.
+       */
+      int frame_skip = 5;
+
+      /**
+       * @var camera_id
+       * Defines the id of the camera which should be used.
+       */
+      int camera_id = -1;
     };
 
     /**
