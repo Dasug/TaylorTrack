@@ -23,7 +23,6 @@ namespace taylortrack {
         out_port.open(outport_);
 
         yarp.connect(out_port.getName(), yarp::os::ConstString(inport));
-          
         while (!strategy_->is_done()) {
           yarp::os::Bottle &output = out_port.prepare();
           output.clear();

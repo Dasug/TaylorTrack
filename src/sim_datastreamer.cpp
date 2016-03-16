@@ -11,6 +11,7 @@
 #include "utils/parameter_parser.h"
 #include "input/wave_input_strategy.h"
 #include "utils/config_parser.h"
+#include "input/opencv_input_strategy.h"
 
 /**
  * @brief streaming data main method
@@ -29,6 +30,8 @@ int main(int argc, const char *argv[]) {
         taylortrack::input::ReadFileInputStrategy strategy;
 #elif defined INPUT_WAVE_FILE
         taylortrack::input::WaveInputStrategy strategy;
+#elif defined INPUT_OPENCV
+        taylortrack::input::OpenCVInputStrategy strategy;
 #else
 #error Missing or unknown input strategy
 #endif
