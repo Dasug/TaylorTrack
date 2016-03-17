@@ -29,7 +29,7 @@ add_executable(testunit input/dummy_input_strategy.cpp sim/streamer.cpp tests/te
 add_executable(visualizer visualizer.cpp vis/OutputVisualizer.cpp sim/data_receiver.cpp utils/config_parser.cpp)
 
 # Accuracy Test Audio
-add_executable(accuracy_test tests/accuracy_test.cpp utils/fft_lib.cpp localization/srpphat.cpp input/wave_input_strategy.cpp utils/config_parser.cpp utils/fft_strategy.cpp utils/wave_parser.cpp)
+add_executable(accuracy_test tests/accuracy_test.cpp utils/fft_lib.cpp localization/srpphat.cpp input/wave_input_strategy.cpp utils/config_parser.cpp utils/fft_strategy.cpp utils/wave_parser.cpp utils/vad_simple.cpp)
 target_link_libraries(accuracy_test ${YARP_LIBRARIES})
 
 SETUP_TARGET_FOR_COVERAGE(testunit_coverage testunit coverage)
