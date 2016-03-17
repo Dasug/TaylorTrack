@@ -138,3 +138,15 @@ TEST(InputFileTest, SetConfigTest) {
   ASSERT_NO_FATAL_FAILURE(strategy.set_parameters(params));
   ASSERT_NO_FATAL_FAILURE(strategy.set_config(config));
 }
+
+TEST(InputFileTest, NoParamTest) {
+  taylortrack::input::ReadFileInputStrategy strategy;
+
+  ASSERT_TRUE(strategy.is_done());
+
+  // read hopefully empty bottle
+  yarp::os::Bottle bottle;
+  strategy.read(bottle);
+
+  ASSERT_EQ(0, bottle.size());
+}

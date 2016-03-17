@@ -53,7 +53,7 @@ namespace taylortrack {
      private:
       bool done_ = true;
       long size_, package_size_;
-      std::ifstream *file_;
+      std::ifstream *file_ = nullptr;
       taylortrack::utils::Parameters params_;
     };
   } // namespace input

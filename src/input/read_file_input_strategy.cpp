@@ -9,7 +9,7 @@ namespace taylortrack {
   namespace input {
 
     yarp::os::Bottle ReadFileInputStrategy::read(yarp::os::Bottle &bottle) {
-      if (file_->is_open() && file_->tellg() != size_) {
+      if (file_ && file_->is_open() && file_->tellg() != size_) {
         char *memblock = new char[package_size_];
         file_->read(memblock, package_size_);
         bottle.addString(yarp::os::ConstString(memblock, package_size_));
@@ -18,18 +18,19 @@ namespace taylortrack {
         done_ = true;
       }
 
-      if(done_ && file_->is_open())
+      if(file_ && done_ && file_->is_open())
         file_->close();
 
       return bottle;
     }
 
     bool ReadFileInputStrategy::is_done() {
-      return done_;
+      return !file_ || done_;
     }
 
     ReadFileInputStrategy::~ReadFileInputStrategy() {
-      delete file_;
+      if(file_)
+        delete file_;
     }
 
     void ReadFileInputStrategy::set_parameters(taylortrack::utils::Parameters &params) {
