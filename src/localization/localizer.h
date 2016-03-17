@@ -15,7 +15,7 @@ namespace taylortrack {
     *
     * Localization algorithm that will get used
     */
-    class AudioLocalizer {
+    class Localizer {
      public:
       /**
       * @brief return suspected position of speaker in degrees.

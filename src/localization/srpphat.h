@@ -6,7 +6,7 @@
 #ifndef TAYLORTRACK_SRPPHAT_H
 #define TAYLORTRACK_SRPPHAT_H
 
-#include "audio_localizer.h"
+#include "localizer.h"
 #include "../utils/config_parser.h"
 #include <complex>
 #include <valarray>
@@ -24,7 +24,7 @@ namespace taylortrack {
     *
     * Strategy that implements SrpPhat to localize a speaker.
     */
-    class SrpPhat: public AudioLocalizer {
+    class SrpPhat: public Localizer {
      public:
 
       /**
