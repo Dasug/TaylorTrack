@@ -3,7 +3,7 @@
 #define TAYLORTRACK_OPENCV_INPUT_STRATEGY_H
 
 #include "input_strategy.h"
-#ifdef USE_OLD_OBJ_DETETION_HEADER
+#ifdef OLD_OPENCV_HEADERS
 #include "opencv2/objdetect/objdetect.hpp"
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
@@ -11,8 +11,8 @@
 #include "opencv2/objdetect.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
-#endif
 #include "opencv2/videoio.hpp"
+#endif
 #include <yarp/sig/Matrix.h>
 #include <stdint.h>
 #include "../utils/config.h"

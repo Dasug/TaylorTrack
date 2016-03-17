@@ -21,7 +21,7 @@ message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 
 if(OpenCV_VERSION VERSION_LESS "3.0.0")
     # Add OpenCV headers location to your include paths
-    add_definitions(-DUSE_OLD_OBJ_DETETION_HEADER)
+    add_definitions(-DOLD_OPENCV_HEADERS)
 endif()
 
 if(CMAKE_VERSION VERSION_LESS "2.8.11")
