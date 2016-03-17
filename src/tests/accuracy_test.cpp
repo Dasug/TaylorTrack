@@ -35,15 +35,17 @@ int main (){
   params.size = 2049;
   params.valid = true;
   int mics = 4;
-  taylortrack::utils::VadSimple TestVad = taylortrack::utils::VadSimple(0.007);
+  taylortrack::utils::VadSimple TestVad = taylortrack::utils::VadSimple(0.000007);
   taylortrack::input::WaveInputStrategy strategy;
   strategy.set_parameters(params);
   strategy.set_config(config);
+  int count = 0;
   while(!strategy.is_done()){
+    count++;
     std::vector<taylortrack::utils::RArray> signals;
+    yarp::os::Bottle bottle;
+    strategy.read(bottle);
     for (int i = 0; i < mics; ++i) {
-      yarp::os::Bottle bottle;
-      strategy.read(bottle);
       taylortrack::utils::RArray volume(params.size);
       int c = 0;
       for (int j = i; j < params.size; j += mics) {
@@ -61,7 +63,7 @@ int main (){
       corrects++;
     }
   }
-  double acc = corrects / predictions.size();
-  std::cout<<acc<<std::endl;
+  double acc = (double) corrects / (double) predictions.size();
+  std::cout<< "count: " << count << " acc: " << acc<<std::endl;
   return 0;
 }
