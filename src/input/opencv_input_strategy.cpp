@@ -52,7 +52,7 @@ namespace taylortrack {
         }
         --frame_counter_;
       }
-      //return bottle;
+      return bottle;
     }
 
     bool OpenCVInputStrategy::is_done() {
