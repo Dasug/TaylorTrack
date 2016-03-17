@@ -45,11 +45,11 @@ namespace input {
     return done_;
   }
 
-  void DummyInputStrategy::set_parameters(const taylortrack::utils::Parameters &params) {
+  void DummyInputStrategy::set_parameters(const utils::Parameters &params) {
     // do nothing, we don't care about parameters
   }
 
-  void DummyInputStrategy::set_config(const taylortrack::utils::ConfigParser &config_parser) {
+  void DummyInputStrategy::set_config(const utils::ConfigParser &config_parser) {
     // do nothing, we don't care about configuration either
   }
 }  // namespace input

@@ -64,7 +64,7 @@ class InputStrategy {
    * Might internally do more work to make sure new parameters are usable
    * @param params parameters to be used
    */
-  virtual void set_parameters(const taylortrack::utils::Parameters &params) = 0;
+  virtual void set_parameters(const utils::Parameters &params) = 0;
 
   /**
    * @brief Sets configuration to be used for input strategy
@@ -72,7 +72,7 @@ class InputStrategy {
    * Might internally do more work to make sure new config is usable
    * @param config_parser taylortrack::utils::ConfigParser object. Provides strategy the configuration it needs.
    */
-  virtual void set_config(const taylortrack::utils::ConfigParser &config_parser) = 0;
+  virtual void set_config(const utils::ConfigParser &config_parser) = 0;
 };
 }  // namespace input
 }  // namespace taylortrack

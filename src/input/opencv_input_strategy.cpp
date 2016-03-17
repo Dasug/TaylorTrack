@@ -27,11 +27,11 @@ SOFTWARE.
 namespace taylortrack {
 namespace input {
 
-void OpenCVInputStrategy::set_parameters(const taylortrack::utils::Parameters &params) {
+void OpenCVInputStrategy::set_parameters(const utils::Parameters &params) {
   // Do nothing since this class doesn't need any of the parameters.
 }
 
-void OpenCVInputStrategy::set_config(const taylortrack::utils::ConfigParser &config_parser) {
+void OpenCVInputStrategy::set_config(const utils::ConfigParser &config_parser) {
   frame_skip_ = config_parser.get_video_configuration().frame_skip;
   camera_id_ = config_parser.get_video_configuration().camera_id;
   video_capture_.open(camera_id_);

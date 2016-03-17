@@ -69,9 +69,9 @@ class DummyInputStrategy: public InputStrategy {
   */
   bool is_done();
 
-  void set_parameters(const taylortrack::utils::Parameters &params);
+  void set_parameters(const utils::Parameters &params);
 
-  void set_config(const taylortrack::utils::ConfigParser &config_parser);
+  void set_config(const utils::ConfigParser &config_parser);
 
  private:
   bool done_;
