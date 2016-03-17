@@ -46,3 +46,8 @@ TEST(WaveParserTest, NoWaveFormat) {
   taylortrack::utils::WaveParser parser = taylortrack::utils::WaveParser("../Testdata/Testwave.wav");
   ASSERT_FALSE(parser.is_valid());
 }
+
+TEST(WaveParserTest, NonExistingFile) {
+  taylortrack::utils::WaveParser parser = taylortrack::utils::WaveParser("../Testdata/CertainlyNotExistingFile.wav");
+  ASSERT_FALSE(parser.is_valid());
+}
