@@ -129,7 +129,7 @@ namespace taylortrack {
 
     /**
      * @Struct
-     * @brief //TODO
+     * @brief Contains configuration for Audio and Video Combination tracking
      */
     struct CombinationSettings {
       /**

@@ -21,103 +21,182 @@ namespace taylortrack {
     class ConfigParser {
     public:
       /**
-       * @brief TODO: Marius
-       * @return TODO: Marius
+       * @brief Retrieves the outgoing communication settings for the input module
+       * @return taylortrack::utils::CommunicationSettings object, containing the outgoing communication settings for the input module
+       * @sa taylortrack::input::InputStrategy
        */
       const CommunicationSettings &get_input_communication_out() const {
         return input_communication_out_;
       }
 
       /**
-       * @brief TODO: Marius
-       * @return TODO: Marius
+       * @brief Retrieves the incoming communication settings for the audio tracking module
+       * @return taylortrack::utils::CommunicationSettings object, containing the incoming communication settings for the audio tracking module
+       * @sa taylortrack::localization::Localizer
        */
       const CommunicationSettings &get_audio_communication_in() const {
         return audio_communication_in_;
       }
 
       /**
-       * @brief TODO: Marius
-       * @return TODO: Marius
+       * @brief Retrieves the outgoing communication settings for the audio tracking module
+       * @return taylortrack::utils::CommunicationSettings object, containing the outgoing communication settings for the audio tracking module
+       * @sa taylortrack::localization::Localizer
        */
       const CommunicationSettings &get_audio_communication_out() const {
         return audio_communication_out_;
       }
+
       /**
-       * @brief TODO: Marius
-       * @return TODO: Marius
+       * @brief Retrieves the incoming communication settings for the video tracking module
+       * @return taylortrack::utils::CommunicationSettings object, containing the incoming communication settings for the video tracking module
+       * @sa taylortrack::localization::Localizer
        */
       const CommunicationSettings &get_video_communication_in() const {
         return video_communication_in_;
       }
 
       /**
-       * @brief TODO: Marius
-       * @return TODO: Marius
+       * @brief Retrieves the outgoing communication settings for the video tracking module
+       * @return taylortrack::utils::CommunicationSettings object, containing the outgoing communication settings for the video tracking module
+       * @sa taylortrack::localization::Localizer
        */
       const CommunicationSettings &get_video_communication_out() const {
         return video_communication_out_;
       }
 
       /**
-       * @brief TODO: Marius
-       * @return TODO: Marius
+       * @brief Retrieves the incoming communication settings for the tracking combination module
+       * @return taylortrack::utils::CommunicationSettings object, containing the incoming communication settings for the tracking combination module
+       * @sa taylortrack::localization::Localizer
        */
       const CommunicationSettings &get_combination_communication_in() const {
         return combination_communication_in_;
       }
 
       /**
-       * @brief TODO: Marius
-       * @return TODO: Marius
+       * @brief Retrieves the outgoing communication settings for the tracking combination module
+       * @return taylortrack::utils::CommunicationSettings object, containing the outgoing communication settings for the tracking combination module
+       * @sa taylortrack::localization::Localizer
        */
       const CommunicationSettings &get_combination_communication_out() const {
         return combination_communication_out_;
       }
 
       /**
-       * @brief TODO: Marius
-       * @return TODO: Marius
+       * @brief Retrieves the incoming communication settings for the visualizer
+       * @return taylortrack::utils::CommunicationSettings object, containing the incoming communication settings for the visualizer
+       * @sa taylortrack::vis::OutputVisualizer
        */
       const CommunicationSettings &get_visualizer_communication_in() const {
         return visualizer_communication_in_;
       }
 
-      void setGeneralOptions(const GeneralOptions &general_options_) {
-        ConfigParser::general_options_ = general_options_;
+      /**
+       * @brief Sets general options
+       * @param general_options taylortrack::utils::GeneralOptions to be set
+       */
+      void setGeneralOptions(const GeneralOptions &general_options) {
+        ConfigParser::general_options_ = general_options;
       }
-      void setAudioSettings(const AudioSettings &audio_settings_) {
-        ConfigParser::audio_settings_ = audio_settings_;
+
+      /**
+       * @brief Sets the settings for the audio tracking module
+       * @param audio_settings taylortrack::utils::AudioSettings to be set
+       * @sa taylortrack::localization::Localizer
+       */
+      void setAudioSettings(const AudioSettings &audio_settings) {
+        ConfigParser::audio_settings_ = audio_settings;
       }
-      void setVideoSettings(const VideoSettings &video_settings_) {
-        ConfigParser::video_settings_ = video_settings_;
+
+      /**
+       * @brief Sets the settings for the video tracking module
+       * @param video_settings taylortrack::utils::VideoSettings to be set
+       * @sa taylortrack::localization::Localizer
+       */
+      void setVideoSettings(const VideoSettings &video_settings) {
+        ConfigParser::video_settings_ = video_settings;
       }
-      void setCombinationSettings(const CombinationSettings &combination_settings_) {
-        ConfigParser::combination_settings_ = combination_settings_;
+
+      /**
+       * @brief Sets the settings for the tracking combination module
+       * @param combination_settings taylortrack::utils::CombinationSettings to be set
+       * @sa taylortrack::localization::Localizer
+       */
+      void setCombinationSettings(const CombinationSettings &combination_settings) {
+        ConfigParser::combination_settings_ = combination_settings;
       }
-      void setInputCommunicationOut(const CommunicationSettings &input_communication_out_) {
-        ConfigParser::input_communication_out_ = input_communication_out_;
+
+      /**
+       * @brief Sets the outgoing communication settings for the input module
+       * @param input_communication_out taylortrack::utils::CommunicationSettings to be set
+       * @sa taylortrack::input::InputStrategy
+       */
+      void setInputCommunicationOut(const CommunicationSettings &input_communication_out) {
+        ConfigParser::input_communication_out_ = input_communication_out;
       }
-      void setAudioCommunicationIn(const CommunicationSettings &audio_communication_in_) {
-        ConfigParser::audio_communication_in_ = audio_communication_in_;
+
+      /**
+       * @brief Sets the incoming communication settings for the audio tracking module
+       * @param audio_communication_in taylortrack::utils::CommunicationSettings to be set
+       * @sa taylortrack::localization::Localizer
+       */
+      void setAudioCommunicationIn(const CommunicationSettings &audio_communication_in) {
+        ConfigParser::audio_communication_in_ = audio_communication_in;
       }
-      void setAudioCommunicationOut(const CommunicationSettings &audio_communication_out_) {
-        ConfigParser::audio_communication_out_ = audio_communication_out_;
+
+      /**
+       * @brief Sets the outgoing communication settings for the audio tracking module
+       * @param audio_communication_out taylortrack::utils::CommunicationSettings to be set
+       * @sa taylortrack::localization::Localizer
+       */
+      void setAudioCommunicationOut(const CommunicationSettings &audio_communication_out) {
+        ConfigParser::audio_communication_out_ = audio_communication_out;
       }
-      void setVideoCommunicationIn(const CommunicationSettings &video_communication_in_) {
-        ConfigParser::video_communication_in_ = video_communication_in_;
+
+      /**
+       * @brief Sets the incoming communication settings for the video tracking module
+       * @param video_communication_in taylortrack::utils::CommunicationSettings to be set
+       * @sa taylortrack::localization::Localizer
+       */
+      void setVideoCommunicationIn(const CommunicationSettings &video_communication_in) {
+        ConfigParser::video_communication_in_ = video_communication_in;
       }
-      void setVideoCommunicationOut(const CommunicationSettings &video_communication_out_) {
-        ConfigParser::video_communication_out_ = video_communication_out_;
+
+      /**
+       * @brief Sets the outgoing communication settings for the video tracking module
+       * @param video_communication_out taylortrack::utils::CommunicationSettings to be set
+       * @sa taylortrack::localization::Localizer
+       */
+      void setVideoCommunicationOut(const CommunicationSettings &video_communication_out) {
+        ConfigParser::video_communication_out_ = video_communication_out;
       }
-      void setCombinationCommunicationIn(const CommunicationSettings &combination_communication_in_) {
-        ConfigParser::combination_communication_in_ = combination_communication_in_;
+
+      /**
+       * @brief Sets the incoming communication settings for the tracking combination module
+       * @param combination_communication_in taylortrack::utils::CommunicationSettings to be set
+       * @sa taylortrack::localization::Localizer
+       */
+      void setCombinationCommunicationIn(const CommunicationSettings &combination_communication_in) {
+        ConfigParser::combination_communication_in_ = combination_communication_in;
       }
-      void setCombinationCommunicationOut(const CommunicationSettings &combination_communication_out_) {
-        ConfigParser::combination_communication_out_ = combination_communication_out_;
+
+      /**
+       * @brief Sets the outgoing communication settings for the tracking combination module
+       * @param combination_communication_out taylortrack::utils::CommunicationSettings to be set
+       * @sa taylortrack::localization::Localizer
+       */
+      void setCombinationCommunicationOut(const CommunicationSettings &combination_communication_out) {
+        ConfigParser::combination_communication_out_ = combination_communication_out;
       }
-      void setVisualizerCommunicationIn(const CommunicationSettings &visualizer_communication_in_) {
-        ConfigParser::visualizer_communication_in_ = visualizer_communication_in_;
+
+      /**
+       * @brief Sets the incoming communication settings for the visualizer
+       * @param visualizer_communication_in taylortrack::utils::CommunicationSettings to be set
+       * @sa taylortrack::vis::OutputVisualizer
+       */
+      void setVisualizerCommunicationIn(const CommunicationSettings &visualizer_communication_in) {
+        ConfigParser::visualizer_communication_in_ = visualizer_communication_in;
       }
 
       /**
