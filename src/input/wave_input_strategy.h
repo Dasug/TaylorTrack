@@ -53,7 +53,7 @@ namespace taylortrack {
 
      private:
       taylortrack::utils::Parameters parameter_;
-      taylortrack::utils::WaveParser *waveParser_;
+      taylortrack::utils::WaveParser *waveParser_ = nullptr;
     };
   } // namespace input
 } // namespace taylortrack
