@@ -1,5 +1,5 @@
-#ifndef TAYLORTRACK_AUDIO_LOCALIZER_H
-#define TAYLORTRACK_AUDIO_LOCALIZER_H
+#ifndef TAYLORTRACK_LOCALIZER_H
+#define TAYLORTRACK_LOCALIZER_H
 
 #include <vector>
 #include <valarray>
@@ -10,8 +10,8 @@ namespace taylortrack {
   namespace localization {
     typedef std::valarray<double> RArray;
     /**
-    * @interface AudioLocalizer
-    * @brief Interface for different audio localization algorithms.
+    * @interface Localizer
+    * @brief Interface for different localization algorithms.
     *
     * Localization algorithm that will get used
     */
