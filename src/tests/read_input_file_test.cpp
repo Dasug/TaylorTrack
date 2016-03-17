@@ -126,3 +126,15 @@ TEST(InputFileTest, SizeUnequalZeroTest) {
   ASSERT_FALSE(done);
   ASSERT_EQ(5, strlen(data));
 }
+
+TEST(InputFileTest, SetConfigTest) {
+  taylortrack::input::ReadFileInputStrategy strategy;
+
+  taylortrack::utils::Parameters params;
+  params.file = "../Testdata/Test.txt";
+  params.size = 5;
+
+  taylortrack::utils::ConfigParser config;
+  ASSERT_NO_FATAL_FAILURE(strategy.set_parameters(params));
+  ASSERT_NO_FATAL_FAILURE(strategy.set_config(config));
+}
