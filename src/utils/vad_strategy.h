@@ -16,7 +16,7 @@ namespace taylortrack {
   typedef std::valarray<double> RArray;
   typedef std::valarray<ComplexDouble> CArray;
     /**
-    * @class vad_strategy
+    * @class VadStrategy
     * @brief Interface for Voice Activity Trackers with parsed samples
     */
     class VadStrategy {
