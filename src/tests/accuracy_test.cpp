@@ -6,11 +6,11 @@
 #include "../utils/fft_strategy.h"
 #include "../localization/srpphat.h"
 #include "../utils/vad_simple.h"
+#include "../utils/fft_lib.h"
 
 
 int main (){
   std::vector<int> predictions;
-  int correct_degree = 180;
   double mx[] = {0.055, 0.0, -0.055, 0.0};
   double my[] = {0.0, 0.055, 0.0, -0.055};
   taylortrack::utils::RArray micsX(mx, 4);
@@ -29,41 +29,52 @@ int main (){
   config.setAudioSettings(settings);
   taylortrack::localization::SrpPhat srp;
   srp.setConfig(config);
-  params.file = "../Testdata/2_2.wav";
   params.inport = "abc";
   params.outport = "def";
   params.size = 2049;
   params.valid = true;
   int mics = 4;
-  taylortrack::utils::VadSimple TestVad = taylortrack::utils::VadSimple(0.000007);
+  taylortrack::utils::VadSimple TestVad = taylortrack::utils::VadSimple(0.000004);
   taylortrack::input::WaveInputStrategy strategy;
-  strategy.set_parameters(params);
   strategy.set_config(config);
-  int count = 0;
-  while(!strategy.is_done()){
-    count++;
-    std::vector<taylortrack::utils::RArray> signals;
-    yarp::os::Bottle bottle;
-    strategy.read(bottle);
-    for (int i = 0; i < mics; ++i) {
-      taylortrack::utils::RArray volume(params.size);
-      int c = 0;
-      for (int j = i; j < params.size; j += mics) {
-        volume[c] = bottle.get(j).asDouble();
-        ++c;
+
+  std::string files[] = {"../Testdata/2_1.wav", "../Testdata/2_2.wav", "../Testdata/2_3ton.wav", "../Testdata/2_3log.wav", "../Testdata/2_4log.wav", "../Testdata/2_4ton.wav", "../Testdata/2_5ton.wav", "../Testdata/2_5log.wav", "../Testdata/2_6log.wav", "../Testdata/2_6ton.wav", "../Testdata/2_7ton.wav", "../Testdata/2_7log.wav", "../Testdata/2_8log.wav", "../Testdata/2_8ton.wav", "../Testdata/2_9ton.wav", "../Testdata/2_9log.wav"};
+  int degrees[] = {180, 180, 45, 45, 135, 135, 270, 270, 315, 315, 225, 225, 270, 270, 315, 315};
+
+  for (int cfile = 0; cfile < files->size(); cfile++) {
+    int correct_degree = degrees[cfile];
+    params.file = files[cfile].c_str();
+    strategy.set_parameters(params);
+    int count = 0;
+
+    while(!strategy.is_done()){
+      count++;
+      std::vector<taylortrack::utils::RArray> signals;
+      yarp::os::Bottle bottle;
+      bottle.clear();
+      strategy.read(bottle);
+      for (int i = 0; i < mics; ++i) {
+        taylortrack::utils::RArray volume(params.size);
+        int c = 0;
+        for (int j = i; j < params.size * 4; j += mics) {
+          volume[c] = bottle.get(j).asDouble();
+          ++c;
+        }
+
+        signals.push_back(volume);
       }
-      signals.push_back(volume);
+
+      if (TestVad.detect(signals[0]))
+        predictions.push_back(srp.getPosition(signals));
     }
-    if (TestVad.detect(signals[0]))
-      predictions.push_back(srp.getPosition(signals));
-  }
-  int corrects = 0;
-  for (int k=0;k<predictions.size();k++){
-    if (std::abs(predictions[k]-correct_degree) <=3 ){
-      corrects++;
+    int corrects = 0;
+    for (int k=0;k<predictions.size();k++){
+      if (std::abs(predictions[k]-correct_degree) <=3 ){
+        corrects++;
+      }
     }
+    double acc = (double) corrects / (double) predictions.size();
+    std::cout<< params.file << ": count: " << count << " acc: " << acc << " pred: " << predictions.size() <<std::endl;
   }
-  double acc = (double) corrects / (double) predictions.size();
-  std::cout<< "count: " << count << " acc: " << acc<<std::endl;
   return 0;
 }
