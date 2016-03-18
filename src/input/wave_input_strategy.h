@@ -28,8 +28,8 @@ SOFTWARE.
 * @version 1
 */
 
-#ifndef SRC_INPUT_WAVE_INPUT_STRATEGY_H_
-#define SRC_INPUT_WAVE_INPUT_STRATEGY_H_
+#ifndef TAYLORTRACK_SRC_INPUT_WAVE_INPUT_STRATEGY_H_
+#define TAYLORTRACK_SRC_INPUT_WAVE_INPUT_STRATEGY_H_
 
 #include <yarp/os/all.h>
 #include "input_strategy.h"
@@ -82,4 +82,4 @@ class WaveInputStrategy: public InputStrategy {
 }  // namespace input
 }  // namespace taylortrack
 
-#endif  // SRC_INPUT_WAVE_INPUT_STRATEGY_H_
+#endif  // TAYLORTRACK_SRC_INPUT_WAVE_INPUT_STRATEGY_H_

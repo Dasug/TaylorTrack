@@ -28,8 +28,8 @@ SOFTWARE.
 * @details
 * @version 1
 */
-#ifndef SRC_INPUT_INPUT_STRATEGY_H_
-#define SRC_INPUT_INPUT_STRATEGY_H_
+#ifndef TAYLORTRACK_SRC_INPUT_INPUT_STRATEGY_H_
+#define TAYLORTRACK_SRC_INPUT_INPUT_STRATEGY_H_
 
 #include <yarp/os/all.h>
 #include "../utils/parameters.h"
@@ -76,4 +76,4 @@ class InputStrategy {
 };
 }  // namespace input
 }  // namespace taylortrack
-#endif  // SRC_INPUT_INPUT_STRATEGY_H_
+#endif  // TAYLORTRACK_SRC_INPUT_INPUT_STRATEGY_H_

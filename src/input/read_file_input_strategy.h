@@ -29,8 +29,8 @@ SOFTWARE.
 * @version 1
 */
 
-#ifndef SRC_INPUT_READ_FILE_INPUT_STRATEGY_H_
-#define SRC_INPUT_READ_FILE_INPUT_STRATEGY_H_
+#ifndef TAYLORTRACK_SRC_INPUT_READ_FILE_INPUT_STRATEGY_H_
+#define TAYLORTRACK_SRC_INPUT_READ_FILE_INPUT_STRATEGY_H_
 #include <stdbool.h>
 #include <fstream>
 #include <iostream>
@@ -80,4 +80,4 @@ class ReadFileInputStrategy: public InputStrategy {
 };
 }  // namespace input
 }  // namespace taylortrack
-#endif  // SRC_INPUT_READ_FILE_INPUT_STRATEGY_H_
+#endif  // TAYLORTRACK_SRC_INPUT_READ_FILE_INPUT_STRATEGY_H_

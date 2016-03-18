@@ -28,8 +28,8 @@ SOFTWARE.
 * @details Implements a reading strategy input. This return a positive feedback if connection could be established.
 * @version 1
 */
-#ifndef SRC_INPUT_DUMMY_INPUT_STRATEGY_H_
-#define SRC_INPUT_DUMMY_INPUT_STRATEGY_H_
+#ifndef TAYLORTRACK_SRC_INPUT_DUMMY_INPUT_STRATEGY_H_
+#define TAYLORTRACK_SRC_INPUT_DUMMY_INPUT_STRATEGY_H_
 #include <stdbool.h>
 #include "input_strategy.h"
 #include "../utils/parameters.h"
@@ -78,4 +78,4 @@ class DummyInputStrategy: public InputStrategy {
 };
 }  // namespace input
 }  // namespace taylortrack
-#endif  // SRC_INPUT_DUMMY_INPUT_STRATEGY_H_
+#endif  // TAYLORTRACK_SRC_INPUT_DUMMY_INPUT_STRATEGY_H_
