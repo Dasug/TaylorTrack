@@ -298,11 +298,11 @@ TEST(SrpPhatTest, getPositionTest) {
 
   srp.setConfig(config);
 
-  taylortrack::utils::FftLib::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
-  taylortrack::utils::FftLib::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
-  taylortrack::utils::FftLib::RArray sig3 = srp.getMicSignal("../Testdata/180-180_short.txt");
-  taylortrack::utils::FftLib::RArray sig4 = srp.getMicSignal("../Testdata/270-180_short.txt");
-  taylortrack::utils::FftLib::RArray estimates(4);
+  taylortrack::utils::FftLib::RArray sig1 = srp.getMicSignal("../Testdata/0-180-long.txt");
+  taylortrack::utils::FftLib::RArray sig2 = srp.getMicSignal("../Testdata/90-180-long.txt");
+  taylortrack::utils::FftLib::RArray sig3 = srp.getMicSignal("../Testdata/180-180-long.txt");
+  taylortrack::utils::FftLib::RArray sig4 = srp.getMicSignal("../Testdata/270-180-long.txt");
+  taylortrack::utils::FftLib::RArray estimates(321);
 
   std::vector<taylortrack::utils::FftLib::RArray> signals;
   signals.push_back(sig1);
@@ -314,10 +314,10 @@ TEST(SrpPhatTest, getPositionTest) {
   for (int step = 1; step < sigsteps; step++) {
     std::vector<taylortrack::utils::FftLib::RArray> signals2;
 
-    taylortrack::utils::FftLib::RArray signalSlice1 = sig1[std::slice((2049 - 1) * (step - 1), 2049, 1)];
-    taylortrack::utils::FftLib::RArray signalSlice2 = sig2[std::slice((2049 - 1) * (step - 1), 2049, 1)];
-    taylortrack::utils::FftLib::RArray signalSlice3 = sig3[std::slice((2049 - 1) * (step - 1), 2049, 1)];
-    taylortrack::utils::FftLib::RArray signalSlice4 = sig4[std::slice((2049 - 1) * (step - 1), 2049, 1)];
+    taylortrack::utils::FftLib::RArray signalSlice1 = sig1[std::slice((2049) * (step - 1), 2049, 1)];
+    taylortrack::utils::FftLib::RArray signalSlice2 = sig2[std::slice((2049) * (step - 1), 2049, 1)];
+    taylortrack::utils::FftLib::RArray signalSlice3 = sig3[std::slice((2049) * (step - 1), 2049, 1)];
+    taylortrack::utils::FftLib::RArray signalSlice4 = sig4[std::slice((2049) * (step - 1), 2049, 1)];
     signals2.push_back(signalSlice1);
     signals2.push_back(signalSlice2);
     signals2.push_back(signalSlice3);
@@ -325,6 +325,13 @@ TEST(SrpPhatTest, getPositionTest) {
     int pos = srp.getPosition(signals2);
     estimates[step] = pos;
   }
+  int corrects = 0;
+  for (int k=0;k<estimates.size();k++){
+    if (std::abs(estimates[k]-180) <=3 ){
+      corrects++;
+    }
+  }
+  double acc = (double) corrects / (double) estimates.size();
   ASSERT_EQ(180, estimates[1]);
   ASSERT_EQ(180, estimates[2]);
 }
@@ -372,6 +379,7 @@ TEST(SrpPhatTest, getPositionDistributionTest) {
     taylortrack::utils::FftLib::RArray signalSlice3 = sig3[std::slice((2049 - 1) * (step - 1), 2049, 1)];
     taylortrack::utils::FftLib::RArray signalSlice4 = sig4[std::slice((2049 - 1) * (step - 1), 2049, 1)];
     signals2.push_back(signalSlice1);
+    int len = signalSlice1.size();
     signals2.push_back(signalSlice2);
     signals2.push_back(signalSlice3);
     signals2.push_back(signalSlice4);
@@ -379,6 +387,7 @@ TEST(SrpPhatTest, getPositionDistributionTest) {
     int maxpos = srp.findVal(pos, pos.max());
     estimates[step] = maxpos;
   }
+
   ASSERT_EQ(180, estimates[1]);
   ASSERT_EQ(180, estimates[2]);
 }
