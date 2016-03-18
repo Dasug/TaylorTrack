@@ -46,7 +46,7 @@ WaveInputStrategy::~WaveInputStrategy() {
     delete this->waveParser_;
 }
 
-yarp::os::Bottle WaveInputStrategy::read(yarp::os::Bottle &bottle) {
+yarp::os::Bottle taylortrack::input::WaveInputStrategy::read(yarp::os::Bottle &bottle) {
   if (waveParser_ && waveParser_->is_valid() && !waveParser_->is_done()) {
     unsigned long sample_amount;
     if (parameter_.size <= 0) {
@@ -60,10 +60,10 @@ yarp::os::Bottle WaveInputStrategy::read(yarp::os::Bottle &bottle) {
 
     // Convert to Floats, change endian
     for (int i = 0; i < sampleNum; ++i) {
-      long long temp = 0;
+      int64_t temp = 0;
       for (int j = waveParser_->get_bits_per_sample() - 8; j >= 0; j -= 8) {
         long samplePosition = i * sampleSize + (j / 8);
-        long long sample = samples[samplePosition];
+        long long sample = static_cast<unsigned char>(samples[samplePosition]);
         long long shift_distance = j;
         temp |= (sample << shift_distance);
       }
