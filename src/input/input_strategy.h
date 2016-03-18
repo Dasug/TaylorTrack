@@ -32,8 +32,8 @@ SOFTWARE.
 #define TAYLORTRACK_SRC_INPUT_INPUT_STRATEGY_H_
 
 #include <yarp/os/all.h>
-#include "../utils/parameters.h"
 #include "../utils/config_parser.h"
+#include "../utils/parameters.h"
 
 namespace taylortrack {
 namespace input {
@@ -53,7 +53,7 @@ class InputStrategy {
   virtual yarp::os::Bottle read(yarp::os::Bottle &bottle) = 0;
 
   /**
-  * @brief Detects if the read metod is done with reading the simulation data.
+  * @brief Detects if the read method is done with reading the simulation data.
   * @return Status of the read method.
   */
   virtual bool is_done() = 0;
