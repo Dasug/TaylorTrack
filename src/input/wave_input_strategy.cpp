@@ -36,7 +36,7 @@ namespace input {
 
 bool WaveInputStrategy::is_done() {
   if (waveParser_)
-    return waveParser_->is_done();
+    return error_ || waveParser_->is_done();
   else
     return true;
 }
@@ -48,35 +48,41 @@ WaveInputStrategy::~WaveInputStrategy() {
 
 yarp::os::Bottle taylortrack::input::WaveInputStrategy::read(yarp::os::Bottle &bottle) {
   if (waveParser_ && waveParser_->is_valid() && !waveParser_->is_done()) {
-    unsigned long sample_amount;
-    if (parameter_.size <= 0) {
-      sample_amount = waveParser_->get_sample_num();
-    } else {
-      sample_amount = (unsigned long) parameter_.size;
-    }
-    std::string samples = waveParser_->get_samples(sample_amount);
-    long sampleNum = samples.size() / (waveParser_->get_bits_per_sample() / 8);
-    long sampleSize = waveParser_->get_block_align() / waveParser_->get_num_channels();
-
-    // Convert to Floats, change endian
-    for (int i = 0; i < sampleNum; ++i) {
-      int16_t temp = 0;
-      for (int j = waveParser_->get_bits_per_sample() - 8; j >= 0; j -= 8) {
-        long samplePosition = i * sampleSize + (j / 8);
-        long long sample = static_cast<unsigned char>(samples[samplePosition]);
-        long long shift_distance = j;
-        temp |= (sample << shift_distance);
+    if (waveParser_->get_bits_per_sample() == 16) {
+      int64_t sample_amount;
+      if (parameter_.size <= 0) {
+        sample_amount = waveParser_->get_sample_num();
+      } else {
+        sample_amount = parameter_.size;
       }
-      double cfloat = temp / 32767.0;
-      bottle.addDouble(cfloat);
+      std::string samples = waveParser_->get_samples(sample_amount);
+      long sampleNum = samples.size() / (waveParser_->get_bits_per_sample() / 8);
+      long sampleSize = waveParser_->get_block_align() / waveParser_->get_num_channels();
+
+      // Convert to Floats, change endian
+      for (int i = 0; i < sampleNum; ++i) {
+        int16_t temp = 0;
+        for (int j = waveParser_->get_bits_per_sample() - 8; j >= 0; j -= 8) {
+          long samplePosition = i * sampleSize + (j / 8);
+          long long sample = static_cast<unsigned char>(samples[samplePosition]);
+          long long shift_distance = j;
+          temp |= (sample << shift_distance);
+        }
+        double cfloat = temp / 32767.0;
+        bottle.addDouble(cfloat);
+      }
+    } else {
+      std::cout << "Currently only wave files with 16 bits per sample are supported!" << std::endl;
+      this->error_ = true;
     }
   }
   return bottle;
 }
 
 void WaveInputStrategy::set_parameters(const utils::Parameters &params) {
-  this->parameter_ = params;
-  this->waveParser_ = new taylortrack::utils::WaveParser(params.file);
+  parameter_ = params;
+  waveParser_ = new taylortrack::utils::WaveParser(params.file);
+  error_ = false;
 }
 
 void WaveInputStrategy::set_config(const utils::ConfigParser &config_parser) {

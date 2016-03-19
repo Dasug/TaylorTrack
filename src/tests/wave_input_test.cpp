@@ -84,7 +84,7 @@ TEST(WaveInputTest, NoSize) {
   taylortrack::utils::Parameters parameter;
 
   parameter.file = "../Testdata/Test.wav";
-  // Read two samples at a time
+  // Read all samples at once
   parameter.size = 0;
 
   taylortrack::input::WaveInputStrategy input;
@@ -109,4 +109,25 @@ TEST(WaveInputTest, SetConfig) {
 
   taylortrack::utils::ConfigParser config;
   ASSERT_NO_FATAL_FAILURE(input.set_config(config));
+}
+
+TEST(WaveInputTest, 32BitPerSample) {
+  taylortrack::utils::Parameters parameter;
+
+  parameter.file = "../Testdata/Test32bit.wav";
+  // Read two samples at a time
+  parameter.size = 0;
+
+  taylortrack::input::WaveInputStrategy input;
+  input.set_parameters(parameter);
+
+  ASSERT_FALSE(input.is_done());
+
+  // read first two samples
+  yarp::os::Bottle bottle;
+  input.read(bottle);
+
+  ASSERT_EQ(0, bottle.size());
+
+  ASSERT_TRUE(input.is_done());
 }

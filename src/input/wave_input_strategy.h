@@ -44,6 +44,7 @@ namespace input {
 * @brief Reads a wave file and processes it to a format readable by the tracking algorithm.
 *
 * Returns a YARP bottle consisting of sample amplitude levels as float values
+* @warning Only supports Wave files with 16 Bits per sample at the moment!
 */
 class WaveInputStrategy: public InputStrategy {
  public:
@@ -78,6 +79,7 @@ class WaveInputStrategy: public InputStrategy {
  private:
   taylortrack::utils::Parameters parameter_;
   taylortrack::utils::WaveParser *waveParser_ = nullptr;
+  bool error_ = false;
 };
 }  // namespace input
 }  // namespace taylortrack
