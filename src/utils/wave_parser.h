@@ -33,28 +33,28 @@ namespace taylortrack {
       * @return The audio format code
       * @sa %Audio format code reference: https://de.wikipedia.org/wiki/RIFF_WAVE#Datenformate_.28Format-Tag.29
       */
-      unsigned short get_audio_format() const;
+      int get_audio_format() const;
 
       /**
       * @brief Gets the number of audio channels within the parsed wave file
       * @pre is_valid() returns true
       * @return Number of channels
       */
-      unsigned short get_num_channels() const;
+      int get_num_channels() const;
 
       /**
       * @brief Gets the parsed wave file's sample rate
       * @pre is_valid() returns true
       * @return Sample rate (Samples / second)
       */
-      unsigned long get_sample_rate() const;
+      int64_t get_sample_rate() const;
 
       /**
       * @brief Gets the parsed wave file's byte rate
       * @pre is_valid() returns true
       * @return Byte rate (Bytes / second)
       */
-      unsigned long get_byte_rate() const;
+      int64_t get_byte_rate() const;
 
       /**
       * @brief Gets the parsed wave file's number of bytes per sample frame
@@ -63,14 +63,14 @@ namespace taylortrack {
       * @pre is_valid() returns true
       * @return Sample frame size in bytes
       */
-      unsigned short get_block_align() const;
+      int get_block_align() const;
 
       /**
       * @brief Gets the parsed wave file's bits per sample
       * @pre is_valid() returns true
       * @return Number of Bits included in a single sample. Must be a multiple of 8
       */
-      unsigned short get_bits_per_sample() const;
+      int get_bits_per_sample() const;
 
 
       /**
@@ -92,7 +92,7 @@ namespace taylortrack {
       * @return String with raw binary data for all extracted samples. Exact encoding depends on audio format
       * @sa get_audio_format() for wave file's audio format
       */
-      std::string get_samples(unsigned long sample_num);
+      std::string get_samples(int64_t sample_num);
 
       /**
       * @brief WaveParser Destructor
@@ -113,17 +113,17 @@ namespace taylortrack {
       * @pre is_valid() returns true
       * @return Total number of samples within parsed wave file
       */
-      unsigned long get_sample_num();
+      int64_t get_sample_num() const;
 
      private:
       bool valid_ = false;
-      unsigned short audio_format_;
-      unsigned short num_channels_ = 1;
-      unsigned long sample_rate_;
-      unsigned long byte_rate_;
-      unsigned short block_align_;
-      unsigned short bits_per_sample_;
-      unsigned long data_size_;
+      uint16_t audio_format_ = 0x0001;
+      uint16_t num_channels_ = 1;
+      uint32_t sample_rate_ = 44100;
+      uint32_t byte_rate_ = 88200;
+      uint16_t block_align_;
+      uint16_t bits_per_sample_ = 16;
+      uint32_t data_size_ = 0;
       std::ifstream *file_;
       std::fpos<mbstate_t> data_offset_;
       void parse_file();
