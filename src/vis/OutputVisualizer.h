@@ -9,7 +9,7 @@
 
 #include <vector>
 #include <ncurses.h>
-#include "../utils/config.h"
+#include "utils/config.h"
 
 namespace taylortrack {
   namespace vis {

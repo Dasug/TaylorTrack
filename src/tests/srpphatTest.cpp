@@ -1,9 +1,9 @@
 #include "gtest/gtest.h"
 #include <math.h>
 #include <fstream>
-#include "../localization/srpphat.h"
-#include "../utils/fft_lib.h"
-#include "../utils/config.h"
+#include "localization/srpphat.h"
+#include "utils/fft_lib.h"
+#include "utils/config.h"
 
 TEST(SrpPhatTest, imtdfTest) {
   taylortrack::utils::RArray point(2);

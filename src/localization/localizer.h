@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <valarray>
-#include "../utils/config.h"
-#include "../utils/config_parser.h"
+#include "utils/config.h"
+#include "utils/config_parser.h"
 
 namespace taylortrack {
   namespace localization {

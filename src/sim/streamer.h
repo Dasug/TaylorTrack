@@ -6,7 +6,7 @@
 #ifndef TAYLORTRACK_SIM_STREAMER_H_
 #define TAYLORTRACK_SIM_STREAMER_H_
 #include <stdbool.h>
-#include "../input/input_strategy.h"
+#include "input/input_strategy.h"
 
 namespace taylortrack {
   namespace sim {

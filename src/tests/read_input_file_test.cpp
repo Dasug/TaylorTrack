@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "zlib.h"
-#include "../input/read_file_input_strategy.h"
+#include "input/read_file_input_strategy.h"
 
 TEST(InputFileTest, CRC32Match) {
   taylortrack::utils::Parameters params;

@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../utils/vad_simple.h"
+#include "utils/vad_simple.h"
 
 TEST(VadSimpleTest, SimpleDetectionTestPositive) {
   taylortrack::utils::VadSimple test_vad = taylortrack::utils::VadSimple(0);

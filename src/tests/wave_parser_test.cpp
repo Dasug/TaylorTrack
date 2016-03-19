@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../utils/wave_parser.h"
+#include "utils/wave_parser.h"
 
 TEST(WaveParserTest, ValidExample) {
   taylortrack::utils::WaveParser parser = taylortrack::utils::WaveParser("../Testdata/Test.wav");

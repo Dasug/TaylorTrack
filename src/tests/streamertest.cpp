@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "../input/dummy_input_strategy.h"
-#include "../sim/streamer.h"
+#include "input/dummy_input_strategy.h"
+#include "sim/streamer.h"
 
 
 TEST(StreamerTest, FailWhenDone) {

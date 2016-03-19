@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../utils/config_parser.h"
+#include "utils/config_parser.h"
 
 TEST(ConfigParserTest, ValidParsing) {
   taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("../Testdata/taylortrack.conf");

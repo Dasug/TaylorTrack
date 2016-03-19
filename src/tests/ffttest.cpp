@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "../utils/fft_lib.h"
+#include "utils/fft_lib.h"
 
 TEST(FftLibTest, FftTest) {
   taylortrack::utils::FftLib::CArray vec(8);

@@ -7,7 +7,7 @@ const double kPI = 3.141592653589793238460;
 
 #include "srpphat.h"
 #include <tuple>
-#include "../utils/fft_lib.h"
+#include "utils/fft_lib.h"
 
 namespace taylortrack {
   namespace localization {

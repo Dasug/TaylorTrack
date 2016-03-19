@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "../utils/parameter_parser.h"
+#include "utils/parameter_parser.h"
 
 TEST(ParserTest, StreamerParserSuccess) {
   const char *testArguments[] = {"../sim_datastreamer", "-s", "42", "path/to/file/file"};

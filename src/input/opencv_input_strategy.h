@@ -38,7 +38,7 @@ SOFTWARE.
 #endif
 #include <yarp/sig/Matrix.h>
 #include <stdint.h>
-#include "../utils/config.h"
+#include "utils/config.h"
 
 namespace taylortrack {
 namespace input {

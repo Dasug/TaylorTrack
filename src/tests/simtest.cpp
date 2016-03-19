@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../input/dummy_input_strategy.h"
+#include "input/dummy_input_strategy.h"
 
 TEST(DummyTest, InitialNotDone) {
   taylortrack::input::DummyInputStrategy dummy = taylortrack::input::DummyInputStrategy();

@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "../utils/parameters.h"
-#include "../input/wave_input_strategy.h"
+#include "utils/parameters.h"
+#include "input/wave_input_strategy.h"
 
 TEST(WaveInputTest, ValidExample) {
   taylortrack::utils::Parameters parameter;

@@ -2,7 +2,7 @@
 #define TAYLORTRACK_DATA_RECEIVER_H
 
 #include <yarp/os/all.h>
-#include "../utils/config.h"
+#include "utils/config.h"
 
 namespace taylortrack {
   namespace sim {

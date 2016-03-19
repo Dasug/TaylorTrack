@@ -7,7 +7,7 @@
 #define TAYLORTRACK_SRPPHAT_H
 
 #include "localizer.h"
-#include "../utils/config_parser.h"
+#include "utils/config_parser.h"
 #include <complex>
 #include <valarray>
 #include <vector>
