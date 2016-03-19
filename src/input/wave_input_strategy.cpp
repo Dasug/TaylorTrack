@@ -60,7 +60,7 @@ yarp::os::Bottle taylortrack::input::WaveInputStrategy::read(yarp::os::Bottle &b
 
     // Convert to Floats, change endian
     for (int i = 0; i < sampleNum; ++i) {
-      int64_t temp = 0;
+      int16_t temp = 0;
       for (int j = waveParser_->get_bits_per_sample() - 8; j >= 0; j -= 8) {
         long samplePosition = i * sampleSize + (j / 8);
         long long sample = static_cast<unsigned char>(samples[samplePosition]);
