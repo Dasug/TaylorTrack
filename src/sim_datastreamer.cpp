@@ -36,6 +36,7 @@ SOFTWARE.
 #include "input/wave_input_strategy.h"
 #include "utils/config_parser.h"
 #include "input/opencv_input_strategy.h"
+#include "input/microphone_input_strategy.h"
 
 /**
  * @brief streaming data main method
@@ -57,6 +58,8 @@ int main(int argc, const char *argv[]) {
         taylortrack::input::WaveInputStrategy strategy;
 #elif defined INPUT_OPENCV
         taylortrack::input::OpenCVInputStrategy strategy;
+#elif defined INPUT_MICROPHONE
+        taylortrack::input::MicrophoneInputStrategy strategy;
 #else
 #error Missing or unknown input strategy
 #endif
