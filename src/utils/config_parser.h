@@ -119,6 +119,15 @@ namespace taylortrack {
       }
 
       /**
+       * @brief Sets the settings for the microphone input module
+       * @param video_settings taylortrack::utils::MicrophoneInputSettings to be set
+       * @sa taylortrack::input::MicrophoneInputStrategy
+       */
+      void set_microphone_input_settings(const MicrophoneInputSettings &microphone_input_settings) {
+        ConfigParser::microphone_input_settings_ = microphone_input_settings;
+      }
+
+      /**
        * @brief Sets the settings for the tracking combination module
        * @param combination_settings taylortrack::utils::CombinationSettings to be set
        * @sa taylortrack::localization::Localizer
@@ -239,6 +248,15 @@ namespace taylortrack {
       }
 
       /**
+      * @brief Gets the configuration for the microphone input module
+      * @pre is_valid() returns true
+      * @return Configuration for the microphone input module
+      */
+      const MicrophoneInputSettings get_microphone_input_configuration() const {
+        return microphone_input_settings_;
+      }
+
+      /**
       * @brief Gets the configuration for the combination algorithm
       * @pre is_valid() returns true
       * @return Configuration for the algorithm
@@ -263,6 +281,7 @@ namespace taylortrack {
       bool valid_;
       std::ifstream file_;
       GeneralOptions general_options_;
+      MicrophoneInputSettings microphone_input_settings_;
       AudioSettings audio_settings_;
       VideoSettings video_settings_;
       CombinationSettings combination_settings_;
@@ -274,6 +293,8 @@ namespace taylortrack {
                             combination_communication_in_,
                             combination_communication_out_,
                             visualizer_communication_in_;
+      std::vector<int> microphone_input_device_ids_;
+      std::vector<int> microphone_input_device_delays_;
     };
   }
 }
