@@ -34,7 +34,7 @@ SOFTWARE.
 #include <stdbool.h>
 #include <fstream>
 #include <iostream>
-#include "input_strategy.h"
+#include "input/input_strategy.h"
 #include "utils/config_parser.h"
 #include "utils/parameters.h"
 namespace taylortrack {

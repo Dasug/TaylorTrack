@@ -28,7 +28,7 @@ SOFTWARE.
 * @version 1
 */
 
-#include "wave_input_strategy.h"
+#include "input/wave_input_strategy.h"
 #include <string>
 
 namespace taylortrack {
@@ -46,7 +46,8 @@ WaveInputStrategy::~WaveInputStrategy() {
     delete this->waveParser_;
 }
 
-yarp::os::Bottle taylortrack::input::WaveInputStrategy::read(yarp::os::Bottle &bottle) {
+yarp::os::Bottle
+taylortrack::input::WaveInputStrategy::read(yarp::os::Bottle &bottle) {
   if (waveParser_ && waveParser_->is_valid() && !waveParser_->is_done()) {
     if (waveParser_->get_bits_per_sample() == 16) {
       int64_t sample_amount;
@@ -56,23 +57,27 @@ yarp::os::Bottle taylortrack::input::WaveInputStrategy::read(yarp::os::Bottle &b
         sample_amount = parameter_.size;
       }
       std::string samples = waveParser_->get_samples(sample_amount);
-      long sampleNum = samples.size() / (waveParser_->get_bits_per_sample() / 8);
-      long sampleSize = waveParser_->get_block_align() / waveParser_->get_num_channels();
+      int64_t sampleNum = samples.size()
+          / (waveParser_->get_bits_per_sample() / 8);
+      int64_t sampleSize = waveParser_->get_block_align()
+          / waveParser_->get_num_channels();
 
       // Convert to Floats, change endian
       for (int i = 0; i < sampleNum; ++i) {
         int16_t temp = 0;
         for (int j = waveParser_->get_bits_per_sample() - 8; j >= 0; j -= 8) {
-          long samplePosition = i * sampleSize + (j / 8);
-          long long sample = static_cast<unsigned char>(samples[samplePosition]);
-          long long shift_distance = j;
+          int64_t samplePosition = i * sampleSize + (j / 8);
+          int64_t sample = static_cast<unsigned char>(samples[samplePosition]);
+          int64_t shift_distance = j;
           temp |= (sample << shift_distance);
         }
         double cfloat = temp / 32767.0;
         bottle.addDouble(cfloat);
       }
     } else {
-      std::cout << "Currently only wave files with 16 bits per sample are supported!" << std::endl;
+      std::cout <<
+          "Currently only wave files with 16 bits per sample are supported!"
+          << std::endl;
       this->error_ = true;
     }
   }

@@ -27,7 +27,7 @@ SOFTWARE.
 * @brief Implementation of the read_file_input_strategy.h
 */
 
-#include "read_file_input_strategy.h"
+#include "input/read_file_input_strategy.h"
 
 namespace taylortrack {
 namespace input {
@@ -58,7 +58,8 @@ ReadFileInputStrategy::~ReadFileInputStrategy() {
 }
 
 void ReadFileInputStrategy::set_parameters(const utils::Parameters &params) {
-  file_ = new std::ifstream(params.file, std::ios::in | std::ios::binary | std::ios::ate);
+  file_ = new std::ifstream(params.file,
+                            std::ios::in | std::ios::binary | std::ios::ate);
 
   if (file_->fail())
     file_->close();
@@ -73,7 +74,8 @@ void ReadFileInputStrategy::set_parameters(const utils::Parameters &params) {
   done_ = false;
 }
 
-void ReadFileInputStrategy::set_config(const utils::ConfigParser &config_parser) {
+void ReadFileInputStrategy::set_config(
+    const utils::ConfigParser &config_parser) {
   // do nothing, we don't need the config right now.
 }
 }  // namespace input
