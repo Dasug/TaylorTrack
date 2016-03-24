@@ -1,5 +1,6 @@
 
 #include "opencv_input_strategy.h"
+#include <ctime>
 
 namespace taylortrack {
   namespace input {
@@ -12,6 +13,7 @@ namespace taylortrack {
       frame_skip_ = config_parser.get_video_configuration().frame_skip;
       camera_id_ = config_parser.get_video_configuration().camera_id;
       video_capture_.open(camera_id_);
+      std::cout << video_capture_.get(cv::CAP_PROP_FPS) << std::endl;
       if (!video_capture_.isOpened()) {
         std::cout << "Error opening the video capture!" << std::endl;
         done_ = true;
@@ -19,40 +21,34 @@ namespace taylortrack {
     }
 
     yarp::os::Bottle OpenCVInputStrategy::read(yarp::os::Bottle &bottle) {
-      while (video_capture_.read(frame_)) {
-        if (frame_.empty()) {
-          std::cout << "Error: No captured frame!" << std::endl;
-          done_ = true;
-          break;
-        }
-        cv::Mat gray_frame;
-        cv::cvtColor(frame_, gray_frame, cv::COLOR_BGR2GRAY );
-        cv::equalizeHist(gray_frame, gray_frame);
-        cv::imshow(window_name_, gray_frame);
-        if (frame_counter_ == 0) {
-          yarp::sig::Matrix mat = yarp::sig::Matrix(gray_frame.rows, gray_frame.cols);
-          for (int i = 0; i < gray_frame.rows; i++)
-            for (int j = 0; j < gray_frame.cols; j++) {
-              /*
-              uint32_t pixel;
-              pixel = frame_.at<cv::Vec3b>(i,j).val[0];
-              pixel <<= 8;
-              pixel = pixel | frame_.at<cv::Vec3b>(i,j).val[1];
-              pixel <<= 8;
-              pixel = pixel | frame_.at<cv::Vec3b>(i,j).val[2];
-              mat[i][j] = pixel;*/
-              mat[i][j] = gray_frame.at<int>(i,j);
-            }
-          std::cout << gray_frame.type() << std::endl;
-          bottle.addList().read(mat);
-          frame_counter_ = frame_skip_;
-          if(cv::waitKey(10) >= 0)
-            break;
-          return bottle;
-        }
-        --frame_counter_;
+      clock_t begin = clock();
+      std::cout << video_capture_.get(cv::CAP_PROP_FPS) << std::endl;
+      video_capture_.read(frame_);
+      cv::imshow(window_name_, frame_);
+
+      if (frame_.empty()) {
+        std::cout << "Error: No captured frame!" << std::endl;
+        done_ = true;
+        return bottle;
       }
-      //return bottle;
+
+
+      cv::Mat gray_frame;
+      cv::cvtColor(frame_, gray_frame, cv::COLOR_BGR2GRAY);
+      cv::equalizeHist(gray_frame, gray_frame);
+      yarp::sig::Matrix mat = yarp::sig::Matrix(gray_frame.rows, gray_frame.cols);
+
+      for (int i = 0; i < gray_frame.rows; i++)
+        for (int j = 0; j < gray_frame.cols; j++) {
+          mat[i][j] = gray_frame.at<uchar>(i,j);
+        }
+      bottle.addList().read(mat);
+      frame_counter_ = frame_skip_;
+      cv::imshow(window_name_, gray_frame);
+      cv::waitKey(1);
+      clock_t end = clock();
+      std::cout << "Relevanter frame: " << (double) (end-begin)/CLOCKS_PER_SEC << std::endl;
+      return bottle;
     }
 
     bool OpenCVInputStrategy::is_done() {
