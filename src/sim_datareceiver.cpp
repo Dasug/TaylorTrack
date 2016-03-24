@@ -4,12 +4,14 @@
  */
 
 #include <yarp/os/all.h>
+#include <yarp/sig/all.h>
 #include "utils/config_parser.h"
 #include "opencv2/objdetect.hpp"
 #include "opencv2/videoio.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
-#include <yarp/sig/Matrix.h>
+#include "localization/vision_tracker.h"
+
 
 /**
  * @brief receiving data main method
@@ -17,57 +19,61 @@
  * Initialize and open a port, wait for input from input bottle, and print positive message if successful
  */
 int main(int argc, char *argv[]) {
-    yarp::os::Network yarp;
-    taylortrack::utils::ConfigParser config = taylortrack::utils::ConfigParser("../Testdata/real_config.conf");
-    taylortrack::utils::CommunicationSettings in, out;
-    in = config.get_video_communication_in();
-    out = config.get_video_communication_out();
-    yarp::os::BufferedPort<yarp::os::Bottle> *buffered_port_  = new yarp::os::BufferedPort<yarp::os::Bottle>();
-    buffered_port_->open(in.port);
-    taylortrack::utils::VideoSettings vs = config.get_video_configuration();
-    /*taylortrack::localization::SrpPhat algorithm;// = taylortrack::localization::SrpPhat(audio.sample_rate, audio.mic_x, audio.mic_y, audio.grid_x, audio.grid_y, audio.interval, (int) audio.frame_size, audio.beta);
-    algorithm.setParams(audio);*/
-    /* visualizer
-    yarp::os::BufferedPort<yarp::os::Bottle> outport;
-    outport.open(out.port);
-    yarp.connect(outport.getName(),yarp::os::ConstString(config.get_visualizer_communication_in().port));
-    */
-    while (true) {
-        yarp::sig::Matrix yarp_frame;
-        yarp::os::Bottle *input = buffered_port_->read(true);
-        /* non blocking
-        if(!input)
-            continue;
-         */
-        input->pop().asList()->write(yarp_frame);
-        cv::Mat frame = cv::Mat(yarp_frame.rows(), yarp_frame.cols(),16);
-        for(int i = 0; i < yarp_frame.rows(); i++)
-            for(int j = 0; j < yarp_frame.cols(); j++) {
-                uint32_t pixel = (uint32_t) yarp_frame[i][j];
-                cv::Vec3b pix;
-                pix.val[2] = (uchar) (pixel & 0xFF);
-                pixel >>= 8;
-                pix.val[1] = (uchar) (pixel & 0xFF);
-                pixel >>= 8;
-                pix.val[0] = (uchar) (pixel & 0xFF);
-                frame.at<cv::Vec3b>(i, j) = pix;
-            }
+  yarp::os::Network yarp;
+  taylortrack::utils::ConfigParser config = taylortrack::utils::ConfigParser("../Testdata/real_config.conf");
+  taylortrack::utils::CommunicationSettings in, out;
+  in = config.get_video_communication_in();
+  out = config.get_video_communication_out();
+#ifdef YARP_LITTLE_ENDIAN
+  yarp::os::BufferedPort<yarp::sig::ImageOf<yarp::sig::PixelBgra>>
+      *buffered_port_ = new yarp::os::BufferedPort<yarp::sig::ImageOf<yarp::sig::PixelBgra>>;
+  yarp::sig::ImageOf<yarp::sig::PixelBgra> *input;
+#else
+  yarp::os::BufferedPort<yarp::sig::ImageOf<yarp::sig::PixelRgba>> *buffered_port_ = new yarp::os::BufferedPort<yarp::sig::ImageOf<yarp::sig::PixelRgba>>;
+  yarp::sig::ImageOf<yarp::sig::PixelRgba> *input;
+#endif
+  //yarp::os::BufferedPort<yarp::os::Bottle> *buffered_port_  = new yarp::os::BufferedPort<yarp::os::Bottle>();
+  buffered_port_->open(in.port);
+  taylortrack::utils::VideoSettings vs = config.get_video_configuration();
+  taylortrack::localization::VisionTracker algorithm;
+  if (!algorithm.set_parameters(vs)) {
+    std::cout << "Error: Classifier couln't be loaded!" << std::endl;
+    return -1;
+  }
+  // visualizer
+  yarp::os::BufferedPort<yarp::os::Bottle> outport;
+  outport.open(out.port);
+  yarp.connect(outport.getName(),yarp::os::ConstString(config.get_visualizer_communication_in().port));
 
-        if(cv::waitKey(10) >= 0)
-            break;
-        cv::imshow("Recived frame", frame);
+  yarp.connect("/grabber", in.port);
+  while (true) {
+    input = buffered_port_->read(true);
+    cv::Mat frame = cv::Mat(input->width(), input->height(), 24);
 
-        /* visualizer
-        yarp::os::Bottle& bottle = outport.prepare();
-        bottle.clear();
-
-        std::cout << "Send data: " << result[0] << " " << result[1] << std::endl;
-        for (int k = 0; k < result.size(); ++k) {
-            bottle.addDouble(result[k]);
-        }
-
-        outport.write(true);
-         */
+    for (int i = 0; i < input->width(); i++)
+      for (int j = 0; j < input->height(); j++) {
+        cv::Vec4b pixel = {input->safePixel(i,j).b, input->safePixel(i,j).g, input->safePixel(i,j).r, input->safePixel(i,j).a};
+        frame.at<cv::Vec4b>(i, j) = pixel;
     }
-    return 0;
+
+    cv::transpose(frame, frame);
+    cv::flip(frame, frame, 1);
+    cv::cvtColor(frame, frame, cv::COLOR_BGRA2GRAY);
+    cv::equalizeHist(frame, frame);
+    algorithm.set_frame(frame);
+
+    cv::waitKey(1);
+    cv::imshow("Recived frame", frame);
+    if(algorithm.detect_person()) {
+      taylortrack::localization::RArray result = algorithm.get_position_distribution();
+
+      yarp::os::Bottle &bottle = outport.prepare();
+      bottle.clear();
+      for (int i = 0; i < static_cast<int>(result.size()); ++i)
+        bottle.addDouble(result[i]);
+
+      outport.write(true);
+    }
+  }
+  return 0;
 }
