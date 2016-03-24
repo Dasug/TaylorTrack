@@ -21,14 +21,14 @@ namespace taylortrack {
       * @brief return suspected position of speaker in degrees.
       * @return angle position of speaker in audiofiles.
       */
-      virtual int getPosition(std::vector<RArray> &signals) = 0;
+      virtual int getPosition(const std::vector<RArray> &signals) = 0;
 
       /**
       * @brief Returns a probability distribution for the position of the speaker over all degrees
       * @param  signals a vector of all microphone signals
       * @return A RArray with all probability values
       */
-      virtual RArray getPositionDistribution(std::vector<RArray> &signals) = 0;
+      virtual RArray getPositionDistribution(const std::vector<RArray> &signals) = 0;
 
       /**
       * @brief Sets all relevant parameters of the implemented algorithm. Missing Parameters have to be placed inside
@@ -36,7 +36,7 @@ namespace taylortrack {
       * @param config taylortrack::utils::ConfigParser object for the algorithm to take its configuration
       * @pre taylortrack::utils::ConfigParser::is_valid() should return true
       */
-      virtual void setConfig(utils::ConfigParser &config) =0;
+      virtual void setConfig(const utils::ConfigParser &config) =0;
     };
   } // namespace localization
 } // namespace taylortrack
