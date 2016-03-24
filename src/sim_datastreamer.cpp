@@ -1,3 +1,27 @@
+/*
+The MIT License (MIT)
+
+Copyright (c) 2015 Marius Kaufmann, Tamara Frieß, Jannis Hoppe, Christian Hack
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 /**
  * @file
  * @brief General data streamer main file
@@ -19,8 +43,9 @@
  * Reads a file with the Read_File_Input strategy and starts streaming the file
  */
 int main(int argc, const char *argv[]) {
-    taylortrack::utils::Parameters parameters = taylortrack::utils::ParameterParser::parse_streamer(argc,argv);
-    if(!parameters.valid) {
+    taylortrack::utils::Parameters parameters =
+        taylortrack::utils::ParameterParser::parse_streamer(argc, argv);
+    if (!parameters.valid) {
         std::cout << "Invalid parameter usage. Please check --help" << std::endl;
         return EXIT_FAILURE;
     } else {
@@ -35,11 +60,13 @@ int main(int argc, const char *argv[]) {
 #else
 #error Missing or unknown input strategy
 #endif
-        taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("../conf/input.conf");
-        if(parser.is_valid()) {
+        auto parser =
+            taylortrack::utils::ConfigParser("../conf/input.conf");
+        if (parser.is_valid()) {
           strategy.set_parameters(parameters);
           strategy.set_config(parser);
-          taylortrack::sim::Streamer streamer = taylortrack::sim::Streamer(&strategy, parameters.outport);
+          auto streamer =
+              taylortrack::sim::Streamer(&strategy, parameters.outport);
           streamer.start_streaming(parameters.inport);
           return EXIT_SUCCESS;
         } else {

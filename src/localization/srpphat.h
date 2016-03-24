@@ -6,7 +6,8 @@
 #ifndef TAYLORTRACK_SRPPHAT_H
 #define TAYLORTRACK_SRPPHAT_H
 
-#include "audio_localizer.h"
+#include "localizer.h"
+#include "../utils/config_parser.h"
 #include <complex>
 #include <valarray>
 #include <vector>
@@ -23,7 +24,7 @@ namespace taylortrack {
     *
     * Strategy that implements SrpPhat to localize a speaker.
     */
-    class SrpPhat: public AudioLocalizer {
+    class SrpPhat: public Localizer {
      public:
 
       /**
@@ -227,15 +228,16 @@ namespace taylortrack {
       * @brief Sets all relevant parameters of the srp phat algorithm.
       * @param  settings a struct of type AudioSettings
       */
-      void setParams(taylortrack::utils::AudioSettings &settings){
-        samplerate_ = settings.sample_rate;
-        x_length_ = settings.grid_x;
-        y_length_ = settings.grid_y;
-        stepsize_ = settings.interval;
-        x_dim_mics_ = settings.mic_x;
-        y_dim_mics_ = settings.mic_y;
-        steps_ = settings.frame_size;
-        beta_ = settings.beta;
+      void setConfig(taylortrack::utils::ConfigParser &config){
+        taylortrack::utils::AudioSettings audioConfig = config.get_audio_configuration();
+        samplerate_ = audioConfig.sample_rate;
+        x_length_ = audioConfig.grid_x;
+        y_length_ = audioConfig.grid_y;
+        stepsize_ = audioConfig.interval;
+        x_dim_mics_ = audioConfig.mic_x;
+        y_dim_mics_ = audioConfig.mic_y;
+        steps_ = audioConfig.frame_size;
+        beta_ = audioConfig.beta;
         delay_tensor_ = get_delay_tensor();
       }
 

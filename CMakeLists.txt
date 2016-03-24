@@ -19,6 +19,11 @@ message(STATUS "    version: ${OpenCV_VERSION}")
 message(STATUS "    libraries: ${OpenCV_LIBS}")
 message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 
+if(OpenCV_VERSION VERSION_LESS "3.0.0")
+    # Add OpenCV headers location to your include paths
+    add_definitions(-DOLD_OPENCV_HEADERS)
+endif()
+
 if(CMAKE_VERSION VERSION_LESS "2.8.11")
     # Add OpenCV headers location to your include paths
     include_directories(${OpenCV_INCLUDE_DIRS})

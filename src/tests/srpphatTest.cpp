@@ -27,8 +27,10 @@ TEST(SrpPhatTest, imtdfTest) {
   settings.mic_x = micsX;
   settings.mic_y = micsY;
   settings.frame_size = steps;
+  taylortrack::utils::ConfigParser config;
+  config.setAudioSettings(settings);
 
-  srp.setParams(settings);
+  srp.setConfig(config);
   point[0] = 0;
   point[1] = 339.42;
   mic1[0] = 1;
@@ -69,7 +71,10 @@ TEST(SrpPhatTest, axisValueTest) {
   settings.mic_y = micsY;
   settings.frame_size = steps;
 
-  srp.setParams(settings);
+  taylortrack::utils::ConfigParser config;
+  config.setAudioSettings(settings);
+
+  srp.setConfig(config);
 
   std::vector<double> xax = srp.getAxisvalues(true);
   std::vector<double> yax = srp.getAxisvalues(false);
@@ -101,7 +106,10 @@ TEST(SrpPhatTest, gccTest) {
   settings.mic_y = micsY;
   settings.frame_size = steps;
 
-  srp.setParams(settings);
+  taylortrack::utils::ConfigParser config;
+  config.setAudioSettings(settings);
+
+  srp.setConfig(config);
 
   taylortrack::utils::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
   taylortrack::utils::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
@@ -142,7 +150,10 @@ TEST(SrpPhatTest, pointToAngleTest) {
   settings.mic_y = micsY;
   settings.frame_size = steps;
 
-  srp.setParams(settings);
+  taylortrack::utils::ConfigParser config;
+  config.setAudioSettings(settings);
+
+  srp.setConfig(config);
   int deg = srp.pointToDegree(x, y);
   int deg2 = srp.pointToDegree(x2, y2);
   int deg3 = srp.pointToDegree(x3, y3);
@@ -176,7 +187,10 @@ TEST(SrpPhatTest, getDelayTensorTest) {
   settings.mic_y = micsY;
   settings.frame_size = 2048;
 
-  srp.setParams(settings);
+  taylortrack::utils::ConfigParser config;
+  config.setAudioSettings(settings);
+
+  srp.setConfig(config);
 
   std::vector<std::vector<std::vector<double>>> difference;
 
@@ -201,7 +215,10 @@ TEST(SrpPhatTest, getMicPairsTest) {
   settings.mic_y = mics;
   settings.frame_size = 2048;
 
-  srp.setParams(settings);
+  taylortrack::utils::ConfigParser config;
+  config.setAudioSettings(settings);
+
+  srp.setConfig(config);
 
   std::vector<std::tuple<int, int>> micP = srp.getMicPairs();
 
@@ -238,7 +255,10 @@ TEST(SrpPhatTest, gccGridTest) {
   settings.mic_y = micsY;
   settings.frame_size = 2048;
 
-  srp.setParams(settings);
+  taylortrack::utils::ConfigParser config;
+  config.setAudioSettings(settings);
+
+  srp.setConfig(config);
 
   taylortrack::utils::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
   taylortrack::utils::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
@@ -273,7 +293,10 @@ TEST(SrpPhatTest, getPositionTest) {
   settings.mic_y = micsY;
   settings.frame_size = steps;
 
-  srp.setParams(settings);
+  taylortrack::utils::ConfigParser config;
+  config.setAudioSettings(settings);
+
+  srp.setConfig(config);
 
   taylortrack::utils::FftLib::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
   taylortrack::utils::FftLib::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
@@ -324,7 +347,10 @@ TEST(SrpPhatTest, getPositionDistributionTest) {
   settings.mic_y = micsY;
   settings.frame_size = steps;
 
-  srp.setParams(settings);
+  taylortrack::utils::ConfigParser config;
+  config.setAudioSettings(settings);
+
+  srp.setConfig(config);
 
   taylortrack::utils::FftLib::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
   taylortrack::utils::FftLib::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");

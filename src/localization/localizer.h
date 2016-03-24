@@ -1,19 +1,21 @@
-#ifndef TAYLORTRACK_AUDIO_LOCALIZER_H
-#define TAYLORTRACK_AUDIO_LOCALIZER_H
+#ifndef TAYLORTRACK_LOCALIZER_H
+#define TAYLORTRACK_LOCALIZER_H
 
 #include <vector>
 #include <valarray>
 #include "../utils/config.h"
+#include "../utils/config_parser.h"
+
 namespace taylortrack {
   namespace localization {
     typedef std::valarray<double> RArray;
     /**
-    * @interface AudioLocalizer
-    * @brief Interface for different audio localization algorithms.
+    * @interface Localizer
+    * @brief Interface for different localization algorithms.
     *
     * Localization algorithm that will get used
     */
-    class AudioLocalizer {
+    class Localizer {
      public:
       /**
       * @brief return suspected position of speaker in degrees.
@@ -31,9 +33,10 @@ namespace taylortrack {
       /**
       * @brief Sets all relevant parameters of the implemented algorithm. Missing Parameters have to be placed inside
       *        the AudioSettings struct.
-      * @param  settings a struct of type AudioSettings
+      * @param config taylortrack::utils::ConfigParser object for the algorithm to take its configuration
+      * @pre taylortrack::utils::ConfigParser::is_valid() should return true
       */
-      virtual void setParams(taylortrack::utils::AudioSettings &settings) =0;
+      virtual void setConfig(utils::ConfigParser &config) =0;
     };
   } // namespace localization
 } // namespace taylortrack

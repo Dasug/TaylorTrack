@@ -66,13 +66,11 @@ int main(int argc, char *argv[]) {
     cv::imshow("Recived frame", frame);
     if(algorithm.detect_person()) {
       taylortrack::localization::RArray result = algorithm.get_position_distribution();
-
       yarp::os::Bottle &bottle = outport.prepare();
       bottle.clear();
       for (int i = 0; i < static_cast<int>(result.size()); ++i)
         bottle.addDouble(result[i]);
-
-      outport.write(true);
+        outport.write(true);
     }
   }
   return 0;

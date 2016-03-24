@@ -48,6 +48,19 @@ TEST(WaveInputTest, LargeExample) {
   ASSERT_TRUE(input.is_done());
 }
 
+TEST(WaveInputTest, NeverSetParameter) {
+
+  taylortrack::input::WaveInputStrategy input;
+
+  ASSERT_TRUE(input.is_done());
+
+  // read hopefully empty bottle
+  yarp::os::Bottle bottle;
+  input.read(bottle);
+
+  ASSERT_EQ(0, bottle.size());
+}
+
 TEST(WaveInputTest, InvalidFile) {
   taylortrack::utils::Parameters parameter;
 
@@ -89,4 +102,11 @@ TEST(WaveInputTest, NoSize) {
   ASSERT_FLOAT_EQ(-0.0006408887, bottle.get(1).asDouble());
   ASSERT_FLOAT_EQ(0.0028382214, bottle.get(90560).asDouble());
   ASSERT_TRUE(input.is_done());
+}
+
+TEST(WaveInputTest, SetConfig) {
+  taylortrack::input::WaveInputStrategy input;
+
+  taylortrack::utils::ConfigParser config;
+  ASSERT_NO_FATAL_FAILURE(input.set_config(config));
 }

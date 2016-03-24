@@ -1,7 +1,8 @@
 /**
 * @file
-* @brief Implementation of the fft_strategy using the cooley turkey algorithm. This implementation however only works with
-* signals that have a length equal to a power of two.
+* @brief Implementation of the FftStrategy using the cooley turkey algorithm.
+*
+* This implementation however only works with signals that have a length equal to a power of two.
 * @version 1
 */
 
@@ -15,11 +16,10 @@
 namespace taylortrack {
   namespace utils {
     /**
-    * @class fft_strategy
-    * @brief Implementation of the fft_strategy using the cooley turkey algorithm. This implementation however only works with
-    * signals that have a length equal to a power of two.
+    * @class FftLib
+    * @brief Implementation of the FftStrategy using the cooley turkey algorithm.
     *
-    *
+    * This implementation however only works with signals that have a length equal to a power of two.
     */
     class FftLib: public FftStrategy {
      public:

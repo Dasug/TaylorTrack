@@ -1,7 +1,6 @@
 /**
 * @file
-* @brief Implementation of the fft_strategy using the cooley turkey algorithm. This implementation however only works with
-* signals that have a length equal to a power of two.
+* @brief Fast Fourier Transformation Strategy.
 * @version 1
 */
 #ifndef TAYLORTRACK_FFT_STRATEGY_H
@@ -17,10 +16,10 @@ namespace taylortrack {
     typedef std::valarray<double> RArray;
     typedef std::valarray<ComplexDouble> CArray;
     /**
-    * @interface fft_strategy
-    * @brief Implementation of the fft_strategy using the cooley turkey algorithm. This implementation however only works with
-    * signals that have a length equal to a power of two.
+    * @interface FftStrategy
+    * @brief Interface for a Fast Fourier Transformation Strategy.
     *
+    * Already provides some pre-made functions that may also be overwritten if needed
     */
     class FftStrategy {
      public:

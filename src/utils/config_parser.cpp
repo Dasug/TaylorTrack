@@ -160,3 +160,7 @@ std::string taylortrack::utils::ConfigParser::trim(const std::string &s) {
 
   return (wsback<=wsfront ? std::string() : std::string(wsfront,wsback));
 }
+
+taylortrack::utils::ConfigParser::ConfigParser() {
+  valid_ = true;
+}
