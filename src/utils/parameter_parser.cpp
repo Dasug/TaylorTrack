@@ -2,8 +2,8 @@
  * @file
  * @brief Parser
  */
-#include <iostream>
 #include "parameter_parser.h"
+#include <iostream>
 
 taylortrack::utils::Parameters taylortrack::utils::ParameterParser::parse_streamer(int argc,const char **argv) {
   char *end;

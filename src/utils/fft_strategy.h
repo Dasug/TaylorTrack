@@ -6,9 +6,9 @@
 #ifndef TAYLORTRACK_FFT_STRATEGY_H
 #define TAYLORTRACK_FFT_STRATEGY_H
 
-#include <vector>
-#include <valarray>
 #include <complex>
+#include <valarray>
+#include <vector>
 
 namespace taylortrack {
   namespace utils {

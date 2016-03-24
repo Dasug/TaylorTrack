@@ -8,9 +8,9 @@
 
 #include <fstream>
 #include <iostream>
-#include "config.h"
 #include <sstream>
 #include <vector>
+#include "config.h"
 
 namespace taylortrack {
   namespace utils {

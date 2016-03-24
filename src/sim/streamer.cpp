@@ -3,8 +3,8 @@
  * @brief Implementation of the streamer.h
  */
 
-#include <unistd.h>
 #include "streamer.h"
+#include <unistd.h>
 
 namespace taylortrack {
   namespace sim {

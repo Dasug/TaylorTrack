@@ -28,14 +28,14 @@ SOFTWARE.
  */
 
 
-#include "input/input_strategy.h"
 #include "input/dummy_input_strategy.h"
+#include "input/input_strategy.h"
+#include "input/opencv_input_strategy.h"
 #include "input/read_file_input_strategy.h"
+#include "input/wave_input_strategy.h"
 #include "sim/streamer.h"
 #include "utils/parameter_parser.h"
-#include "input/wave_input_strategy.h"
 #include "utils/config_parser.h"
-#include "input/opencv_input_strategy.h"
 
 /**
  * @brief streaming data main method

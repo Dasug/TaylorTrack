@@ -4,8 +4,8 @@
 */
 
 #include "OutputVisualizer.h"
-#include <ncurses.h>
 #include <string.h>
+#include <ncurses.h>
 
 taylortrack::vis::OutputVisualizer::OutputVisualizer(taylortrack::utils::GeneralOptions general_options) {
   this->general_options_ = general_options;

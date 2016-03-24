@@ -32,8 +32,8 @@ SOFTWARE.
 #define TAYLORTRACK_SRC_INPUT_DUMMY_INPUT_STRATEGY_H_
 #include <stdbool.h>
 #include "input_strategy.h"
-#include "utils/parameters.h"
 #include "utils/config_parser.h"
+#include "utils/parameters.h"
 namespace taylortrack {
 namespace input {
 /**

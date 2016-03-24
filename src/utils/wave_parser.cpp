@@ -29,7 +29,6 @@ SOFTWARE.
 */
 
 #include "wave_parser.h"
-#include <string.h>
 #include <string>
 
 taylortrack::utils::WaveParser::WaveParser(const char *file_name) {

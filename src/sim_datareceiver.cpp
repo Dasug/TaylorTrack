@@ -3,10 +3,10 @@
  * @brief Simulation for receiving data
  */
 
-#include <yarp/os/all.h>
-#include "utils/config_parser.h"
 #include "sim/data_receiver.h"
+#include <yarp/os/all.h>
 #include "localization/srpphat.h"
+#include "utils/config_parser.h"
 #include "utils/fft_strategy.h"
 
 /**

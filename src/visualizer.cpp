@@ -3,11 +3,11 @@
 * @brief Contains main method for the visualizer.
 */
 
-#include <ncurses.h>
 #include <iostream>
-#include "vis/OutputVisualizer.h"
+#include <ncurses.h>
 #include "sim/data_receiver.h"
 #include "utils/config_parser.h"
+#include "vis/OutputVisualizer.h"
 
 #ifdef WIN32
 #include <windows.h>

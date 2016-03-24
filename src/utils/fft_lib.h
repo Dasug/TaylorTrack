@@ -9,9 +9,9 @@
 #ifndef TAYLORTRACK_FFT_LIB_H
 #define TAYLORTRACK_FFT_LIB_H
 
-#include "fft_strategy.h"
-#include <valarray>
 #include <complex>
+#include <valarray>
+#include "fft_strategy.h"
 
 namespace taylortrack {
   namespace utils {

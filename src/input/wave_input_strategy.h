@@ -33,9 +33,10 @@ SOFTWARE.
 
 #include <yarp/os/all.h>
 #include "input_strategy.h"
+#include "utils/config_parser.h"
 #include "utils/parameters.h"
 #include "utils/wave_parser.h"
-#include "utils/config_parser.h"
+
 
 namespace taylortrack {
 namespace input {

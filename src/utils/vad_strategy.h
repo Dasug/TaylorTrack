@@ -7,8 +7,8 @@
 #define TAYLORTRACK_VADSTRATEGY_H_
 
 #include <complex.h>
-#include <vector>
 #include <valarray>
+#include <vector>
 
 namespace taylortrack {
   namespace utils {

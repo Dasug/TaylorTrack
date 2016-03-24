@@ -6,12 +6,12 @@
 #ifndef TAYLORTRACK_SRPPHAT_H
 #define TAYLORTRACK_SRPPHAT_H
 
-#include "localizer.h"
-#include "utils/config_parser.h"
 #include <complex>
+#include <fstream>
 #include <valarray>
 #include <vector>
-#include <fstream>
+#include "localizer.h"
+#include "utils/config_parser.h"
 
 namespace taylortrack {
   namespace localization {

@@ -35,8 +35,8 @@ SOFTWARE.
 #include <fstream>
 #include <iostream>
 #include "input_strategy.h"
-#include "utils/parameters.h"
 #include "utils/config_parser.h"
+#include "utils/parameters.h"
 namespace taylortrack {
 namespace input {
 /**

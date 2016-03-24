@@ -5,8 +5,8 @@
 */
 
 #include <complex.h>
-#include <vector>
 #include <valarray>
+#include <vector>
 #include "vad_simple.h"
 
 namespace taylortrack {

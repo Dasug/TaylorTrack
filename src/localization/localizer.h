@@ -1,8 +1,8 @@
 #ifndef TAYLORTRACK_LOCALIZER_H
 #define TAYLORTRACK_LOCALIZER_H
 
-#include <vector>
 #include <valarray>
+#include <vector>
 #include "utils/config.h"
 #include "utils/config_parser.h"
 
