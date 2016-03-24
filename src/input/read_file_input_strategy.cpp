@@ -44,7 +44,6 @@ namespace taylortrack {
         size_ = (long) file_->tellg();
         file_->seekg(0, std::ios::beg);
         package_size_ = (params.size == 0) ? size_ : params.size;
-        //params.size == 0 ? package_size_ = size_ : package_size_ = params.size;
       }
 
       done_ = false;
