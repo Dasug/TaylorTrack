@@ -31,10 +31,10 @@ void FftStrategy::circshift(RArray &out,
                             int64_t ydim,
                             int64_t xshift,
                             int64_t yshift) {
-  for (long i = 0; i < xdim; i++) {
-    long ii = (i + xshift) % xdim;
-    for (long j = 0; j < ydim; j++) {
-      long jj = (j + yshift) % ydim;
+  for (int64_t i = 0; i < xdim; i++) {
+    int64_t ii = (i + xshift) % xdim;
+    for (int64_t j = 0; j < ydim; j++) {
+      int64_t jj = (j + yshift) % ydim;
       out[ii * ydim + jj] = in[i * ydim + j];
     }
   }
@@ -69,6 +69,6 @@ CArray FftStrategy::zeroPadding(const CArray &signal, int padamount) {
   }
   return paddedsignal;
 }
-} // namespace utils
-} // namespace taylortrack
+}  // namespace utils
+}  // namespace taylortrack
 
