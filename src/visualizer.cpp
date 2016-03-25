@@ -28,9 +28,6 @@ int main(int argc, char **argv) {
     taylortrack::sim::DataReceiver rec = taylortrack::sim::DataReceiver(config.get_visualizer_communication_in());
     taylortrack::vis::OutputVisualizer *out = new taylortrack::vis::OutputVisualizer(options);
 
-    // Generate vector with sample data
-    //std::vector<double> sampleVector;
-
     int i = 0;
     if(out->term_supports_color()) {
         while(!out->has_failed() && !out->user_has_quit()) {
