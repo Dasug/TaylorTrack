@@ -67,7 +67,7 @@ void FftLib::fftshift(const RArray &invec, RArray &outvec) {
   // xshift is 0 since we obviously never shift
   // vectors along the x or row axis.
   int64_t yshift = int64_t(floor(invec.size() / 2));
-  FftStrategy::circshift(outvec, invec, 1, invec.size(), 0, yshift);
+  FftStrategy::circshift(invec, 1, invec.size(), 0, yshift, outvec);
 }
 }  // namespace utils
 }  // namespace taylortrack

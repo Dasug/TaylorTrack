@@ -30,6 +30,7 @@ SOFTWARE.
 
 #include "wave_parser.h"
 #include <string>
+#include <cstring>
 
 namespace taylortrack {
 namespace utils {
