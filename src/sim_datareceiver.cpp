@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < microphones; ++i) {
             taylortrack::utils::RArray volume(new_data.size() / microphones);
             int c = 0;
-            for (int j = i; j < new_data.size(); j += microphones) {
+            for (int j = i; j < static_cast<int>(new_data.size()); j += microphones) {
                 volume[c] = new_data[j];
                 ++c;
             }
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
         bottle.clear();
 
         std::cout << "Send data: " << result[0] << " " << result[1] << std::endl;
-        for (int k = 0; k < result.size(); ++k) {
+        for (int k = 0; k < static_cast<int>(result.size()); ++k) {
             bottle.addDouble(result[k]);
         }
 
