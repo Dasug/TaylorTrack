@@ -52,8 +52,8 @@ int SrpPhat::pointToDegree(double x_coordinate, double y_coordinate) {
 std::vector<std::tuple<int, int>> SrpPhat::getMicPairs() {
   std::vector<std::tuple<int, int>> pairs;
   // iterating over microphones
-  for (int i = 0; i < x_dim_mics_.size(); i++) {
-    for (int j = 0; j < x_dim_mics_.size(); j++) {
+  for (int i = 0; i < static_cast<int>(x_dim_mics_.size()); i++) {
+    for (int j = 0; j < static_cast<int>(x_dim_mics_.size()); j++) {
       // only append pairs once and don't consider pairs of the same microphone
       if (j > i) {
         pairs.push_back(std::make_tuple(i, j));
@@ -93,17 +93,17 @@ RArray SrpPhat::gcc(const RArray &signal1, const RArray &signal2) {
   RArray result(temp.size());
   RArray temp3 = fft_obj.convertToReal(temp);
 
-  fft_obj.fftshift(result, temp3);
+  fft_obj.fftshift(temp3, result);
 
   return result;
 }
 
 std::vector<double> SrpPhat::getAxisvalues(bool xaxis) {
   std::vector<double> axisValues;
-  int vectorSize = static_cast<int>
-  (xaxis ? x_length_ / stepsize_ + 1 : y_length_ / stepsize_ + 1);
+  int vectorSize = static_cast<int>(
+      xaxis ? x_length_ / stepsize_ + 1 : y_length_ / stepsize_ + 1);
   double axStart = xaxis ? x_length_ / 2 * -1 : y_length_ / 2;
-  while (axisValues.size() < vectorSize) {
+  while (static_cast<int>(axisValues.size()) < vectorSize) {
     axisValues.push_back(axStart);
     axStart = xaxis ? axStart + stepsize_ : axStart - stepsize_;
   }
@@ -116,8 +116,8 @@ RArray SrpPhat::getPositionDistribution(const std::vector<RArray> &signals) {
   std::vector<double> xAxisValues = getAxisvalues(true);
   std::vector<double> yAxisValues = getAxisvalues(false);
 
-  for (int i = 0; i < xAxisValues.size(); i++) {
-    for (int j = 0; j < yAxisValues.size(); j++) {
+  for (int i = 0; i < static_cast<int>(xAxisValues.size()); i++) {
+    for (int j = 0; j < static_cast<int>(yAxisValues.size()); j++) {
       int deg = pointToDegree(xAxisValues[i], yAxisValues[j]);
       if (deg == 360)
         deg = 0;
@@ -152,7 +152,7 @@ int SrpPhat::getPosition(const std::vector<RArray> &signals) {
 }
 
 int SrpPhat::findVal(const RArray &ra, double val) {
-  for (int i = 0; i < ra.size(); i++) {
+  for (int i = 0; i < static_cast<int>(ra.size()); i++) {
     if (std::abs(ra[i] - val) < 0.0001) {
       return i;
     }
@@ -166,33 +166,22 @@ SrpPhat::getGccGrid(const std::vector<RArray> &signals) {
   std::vector<std::vector<double>> gccValues;
   int64_t vectorSize = int64_t(x_length_ / stepsize_ + 1);
   // initializing the gcc grid
-  gccValues.resize(vectorSize);
+  gccValues.resize(static_cast<unsigned long>(vectorSize));
   for (int i = 0; i < vectorSize; ++i) {
-    gccValues[i].resize(vectorSize);
+    gccValues[i].resize(static_cast<unsigned long>(vectorSize));
   }
-  size_t signalLength = signals[0].size();
-  int64_t steps = signalLength / steps_ + 1;
   std::vector<std::vector<std::vector<double>>> micDelays = delay_tensor_;
   // iterating over all microphone pairs
-  for (int i = 0; i < pairs.size(); i++) {
-    RArray mic1(2);
-    RArray mic2(2);
+  for (int i = 0; i < static_cast<int>(pairs.size()); i++) {
     int index1 = std::get<0>(pairs[i]);
     int index2 = std::get<1>(pairs[i]);
-    // getting the coordinates of the mic pair
-    mic1[0] = x_dim_mics_[index1];
-    mic1[1] = y_dim_mics_[index1];
-    mic2[0] = x_dim_mics_[index2];
-    mic2[1] = y_dim_mics_[index2];
     // assigning the corresponding signals
     RArray signal1 = signals[index1];
     RArray signal2 = signals[index2];
     // get the current frame from the complete signal
-    RArray signalSlice1 = signal1[std::slice(0, steps_ + 1, 1)];
-    RArray signalSlice2 = signal2[std::slice(0, steps_, 1)];
+    RArray signalSlice1 = signal1[std::slice(0, static_cast<size_t>(steps_ + 1), 1)];
+    RArray signalSlice2 = signal2[std::slice(0, static_cast<size_t>(steps_), 1)];
     // computing the cross correlation of both frames
-    int temp = signalSlice1.size();
-    int temp2 = signalSlice2.size();
     RArray gccTemp = gcc(signalSlice1, signalSlice2);
     // iterating over the whole x-y grid
     for (int x = 0; x < vectorSize; x++) {

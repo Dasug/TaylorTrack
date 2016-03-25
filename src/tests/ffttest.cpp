@@ -109,7 +109,7 @@ TEST(FftLibTest, Fftshifttest) {
   outvec[4] = 5;
   outvec[5] = 6;
   taylortrack::utils::FftLib FftLib = taylortrack::utils::FftLib();
-  FftLib.fftshift(outvec, vec);
+  FftLib.fftshift(vec, outvec);
 
   ASSERT_EQ(outvec[0], 4);
   ASSERT_EQ(outvec[1], 5);
