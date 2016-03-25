@@ -62,7 +62,7 @@ void FftLib::ifft(CArray &signal) {
   signal /= signal.size();
 }
 
-void FftLib::fftshift(RArray &outvec,const RArray &invec) {
+void FftLib::fftshift(const RArray &invec, RArray &outvec) {
   // xdim is 1 since we only deal with col vectors.
   // xshift is 0 since we obviously never shift
   // vectors along the x or row axis.

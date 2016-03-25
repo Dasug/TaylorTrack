@@ -47,6 +47,13 @@ namespace input {
 */
 class ReadFileInputStrategy: public InputStrategy {
  public:
+
+  /**
+  * @ReadFileInputStrategy Destructor
+  *
+  * Frees up memory.
+  */
+  ~ReadFileInputStrategy();
   /**
   * @brief Reads the entire file and returns the data.
   * @param bottle YARP bottle to store the read data
@@ -65,13 +72,6 @@ class ReadFileInputStrategy: public InputStrategy {
   void set_parameters(const utils::Parameters &params);
 
   void set_config(const utils::ConfigParser &config_parser);
-
-  /**
-  * @ReadFileInputStrategy Destructor
-  *
-  * Frees up memory.
-  */
-  ~ReadFileInputStrategy();
 
  private:
   bool done_ = true;

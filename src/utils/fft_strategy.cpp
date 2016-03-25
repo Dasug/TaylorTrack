@@ -25,12 +25,12 @@ SOFTWARE.
 
 namespace taylortrack {
 namespace utils {
-void FftStrategy::circshift(RArray &out,
-                            const RArray &in,
+void FftStrategy::circshift(const RArray &in,
                             int64_t xdim,
                             int64_t ydim,
                             int64_t xshift,
-                            int64_t yshift) {
+                            int64_t yshift,
+                            RArray &out) {
   for (int64_t i = 0; i < xdim; i++) {
     int64_t ii = (i + xshift) % xdim;
     for (int64_t j = 0; j < ydim; j++) {

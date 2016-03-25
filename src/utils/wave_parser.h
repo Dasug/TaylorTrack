@@ -46,6 +46,22 @@ namespace utils {
 */
 class WaveParser {
  public:
+
+  /**
+  * @brief Wave parser constructor
+  *
+  * Opens the supplied wave file and parses its header
+  * @param file_name Path to the file to be parsed.
+  */
+  explicit WaveParser(const char *file_name);
+
+  /**
+  * @brief WaveParser Destructor
+  *
+  * Releases wave file
+  */
+  virtual ~WaveParser();
+
   /**
   * @brief Checks whether the parsed file has a correct header.
   * @return true if file is valid, otherwise false
@@ -97,15 +113,6 @@ class WaveParser {
   */
   int get_bits_per_sample() const;
 
-
-  /**
-  * @brief Wave parser constructor
-  *
-  * Opens the supplied wave file and parses its header
-  * @param file_name Path to the file to be parsed.
-  */
-  explicit WaveParser(const char *file_name);
-
   /**
   * @brief Fetches the next n samples
   *
@@ -118,13 +125,6 @@ class WaveParser {
   * @sa get_audio_format() for wave file's audio format
   */
   std::string get_samples(int64_t sample_num);
-
-  /**
-  * @brief WaveParser Destructor
-  *
-  * Releases wave file
-  */
-  virtual ~WaveParser();
 
   /**
   * @brief Checks whether all samples have been extracted yet

@@ -67,7 +67,7 @@ class FftLib: public FftStrategy {
   * @param outvec The valarray that has to contain the shifted valarray
   * @param invec The valarray that contains the original valarray
   */
-  void fftshift(RArray &outvec, const RArray &invec);
+  void fftshift(const RArray &invec, RArray &outvec);
 };
 }  // namespace utils
 }  // namespace taylortrack

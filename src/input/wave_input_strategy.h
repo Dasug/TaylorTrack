@@ -50,6 +50,13 @@ namespace input {
 class WaveInputStrategy: public InputStrategy {
  public:
   /**
+  * @brief ~WaveInputStrategy Destructor
+  *
+  * Releases file pointer, frees memory
+  */
+  ~WaveInputStrategy();
+
+  /**
   * @brief Reads samples from the input file
   *
   * Number of samples to be read for every audio channel is defined in the taylortrack::utils::Parameters struct given to the constructor
@@ -69,13 +76,6 @@ class WaveInputStrategy: public InputStrategy {
   void set_parameters(const taylortrack::utils::Parameters &params);
 
   void set_config(const taylortrack::utils::ConfigParser &config_parser);
-
-  /**
-  * @brief ~WaveInputStrategy Destructor
-  *
-  * Releases file pointer, frees memory
-  */
-  ~WaveInputStrategy();
 
  private:
   taylortrack::utils::Parameters parameter_;

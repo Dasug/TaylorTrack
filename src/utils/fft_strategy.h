@@ -61,10 +61,10 @@ class FftStrategy {
 
   /**
   * @brief Perform a fftshift on a given signal.
-  * @param outvec The valarray that has to contain the shifted signal.
   * @param invec The valarray that contains the signal that has to be shifted.
+  * @param outvec The valarray that has to contain the shifted signal.
   */
-  virtual void fftshift(RArray &outvec, const RArray &invec) = 0;
+  virtual void fftshift(const RArray &invec,RArray &outvec) = 0;
 
 
     /**
@@ -76,9 +76,9 @@ class FftStrategy {
      * @param xshift The amount to shift in the x dimension.
      * @param yshift The amount to shift in the y dimension.
      */
-  virtual void circshift(RArray &out, const RArray &in,
+  virtual void circshift(const RArray &in,
                          int64_t xdim, int64_t ydim,
-                         int64_t xshift, int64_t yshift);
+                         int64_t xshift, int64_t yshift,RArray &out);
 
   /**
   * @brief creates a complex val array out of a real one by filling imaginary parts with zeros.

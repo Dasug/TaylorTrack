@@ -44,6 +44,17 @@ namespace utils {
 class ConfigParser {
  public:
   /**
+ * @brief Configuration parser constructor
+ * Opens the supplied configuration file and parses it.
+ * @param file_name Path to the file to be parsed.
+ */
+  explicit ConfigParser(const char *file_name);
+
+  /**
+   * @brief Configuration parser constructor, uses only default values
+  */
+  ConfigParser();
+  /**
    * @brief Retrieves the outgoing communication settings for the input module
    * @return taylortrack::utils::CommunicationSettings object, containing the outgoing communication settings for the input module
    * @sa taylortrack::input::InputStrategy
@@ -230,18 +241,6 @@ class ConfigParser {
       const CommunicationSettings &visualizer_communication_in) {
     ConfigParser::visualizer_communication_in_ = visualizer_communication_in;
   }
-
-  /**
-   * @brief Configuration parser constructor
-   * Opens the supplied configuration file and parses it.
-   * @param file_name Path to the file to be parsed.
-  */
-  explicit ConfigParser(const char *file_name);
-
-  /**
-   * @brief Configuration parser constructor, uses only default values
-  */
-  ConfigParser();
 
   /**
   * @brief Gets the general configuration for the algorithms
