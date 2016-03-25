@@ -35,7 +35,6 @@ void OpenCVInputStrategy::set_parameters(const utils::Parameters &params) {
 void OpenCVInputStrategy::set_config(const taylortrack::utils::ConfigParser &config_parser) {
   camera_id_ = config_parser.get_video_configuration().camera_id;
   video_capture_.open(camera_id_);
-  std::cout << video_capture_.get(cv::CAP_PROP_FPS) << std::endl;
   if (!video_capture_.isOpened()) {
     std::cout << "Error opening the video capture!" << std::endl;
     done_ = true;
