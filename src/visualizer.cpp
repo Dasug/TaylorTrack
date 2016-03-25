@@ -33,7 +33,6 @@ int main(int argc, char **argv) {
         while(!out->has_failed() && !out->user_has_quit()) {
             std::vector<double> new_data = rec.readData(false);
             if(!new_data.empty()) {
-                std::cout << "Y" << std::endl;
                 out->set_diagram_data(new_data);
             }
 

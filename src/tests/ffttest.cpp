@@ -83,7 +83,7 @@ TEST(FftLibTest, Circshifttest) {
   outvec[4] = 5;
   outvec[5] = 6;
   taylortrack::utils::FftLib FftLib = taylortrack::utils::FftLib();
-  FftLib.circshift(outvec, vec, 1, 6, 0, 2);
+  FftLib.circshift(vec, 1, 6, 0, 2, outvec);
 
   ASSERT_EQ(outvec[0], 5);
   ASSERT_EQ(outvec[1], 6);

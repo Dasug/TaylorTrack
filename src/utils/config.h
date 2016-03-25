@@ -147,7 +147,15 @@ struct VideoSettings {
    * @var camera_id
    * Defines the id of the camera which should be used.
    */
-  int camera_id = -1;
+  int camera_id = 0;
+
+  int width = 0;
+
+  double max_camera_view_angle = 0;
+
+  double camera_angle = 0;
+
+  double variance = 0;
 };
 
 /**
@@ -183,3 +191,4 @@ struct CommunicationSettings {
 }  // namespace utils
 }  // namespace taylortrack
 #endif  // TAYLORTRACK_CONFIG_H
+
