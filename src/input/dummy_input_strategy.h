@@ -28,8 +28,8 @@ SOFTWARE.
 * @details Implements a reading strategy input. This return a positive feedback if connection could be established.
 * @version 1
 */
-#ifndef TAYLORTRACK_SRC_INPUT_DUMMY_INPUT_STRATEGY_H_
-#define TAYLORTRACK_SRC_INPUT_DUMMY_INPUT_STRATEGY_H_
+#ifndef TAYLORTRACK_INPUT_DUMMY_INPUT_STRATEGY_H_
+#define TAYLORTRACK_INPUT_DUMMY_INPUT_STRATEGY_H_
 #include <stdbool.h>
 #include "input_strategy.h"
 #include "utils/config_parser.h"

@@ -45,19 +45,18 @@ WaveInputStrategy::~WaveInputStrategy() {
     delete this->waveParser_;
 }
 
-yarp::os::Bottle
-taylortrack::input::WaveInputStrategy::read(yarp::os::Bottle &bottle) {
+yarp::os::Bottle WaveInputStrategy::read(yarp::os::Bottle &bottle) {
   if (waveParser_ && waveParser_->is_valid() && !waveParser_->is_done()) {
     if (waveParser_->get_bits_per_sample() == 16) {
-      int64_t sample_amount;
+      int64_t sample_amount = 0;
       if (parameter_.size <= 0) {
         sample_amount = waveParser_->get_sample_num();
       } else {
         sample_amount = parameter_.size;
       }
       std::string samples = waveParser_->get_samples(sample_amount);
-      int64_t sampleNum = samples.size()
-          / (waveParser_->get_bits_per_sample() / 8);
+      int64_t sampleNum = static_cast<int64_t>(samples.size()
+          / (waveParser_->get_bits_per_sample() / 8));
       int64_t sampleSize = waveParser_->get_block_align()
           / waveParser_->get_num_channels();
 

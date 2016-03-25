@@ -71,4 +71,4 @@ class FftLib: public FftStrategy {
 };
 }  // namespace utils
 }  // namespace taylortrack
-#endif  // TAYLORTRACK_FFT_LIB_H
+#endif  // TAYLORTRACK_FFT_LIB_H_

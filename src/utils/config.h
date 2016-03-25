@@ -3,8 +3,8 @@
 * @brief Header file for the structs for the algorithm configuration.
 * @version 1
 */
-#ifndef TAYLORTRACK_CONFIG_H
-#define TAYLORTRACK_CONFIG_H
+#ifndef TAYLORTRACK_UTILS_CONFIG_H_
+#define TAYLORTRACK_UTILS_CONFIG_H_
 #include <valarray>
 #include <string>
 
@@ -87,7 +87,7 @@ namespace taylortrack {
        * @var frame_size
        * Defines the frame size for the speaker tracking algorithm.
       */
-      double frame_size = 2048;
+      int frame_size = 2048;
     };
 
   /**

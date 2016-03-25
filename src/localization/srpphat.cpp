@@ -36,7 +36,6 @@ const double kPI = 3.141592653589793238460;
 
 namespace taylortrack {
 namespace localization {
-
 double SrpPhat::imtdf(const RArray &point,
                       const RArray &mic1,
                       const RArray &mic2) {
@@ -46,7 +45,7 @@ double SrpPhat::imtdf(const RArray &point,
 }
 
 int SrpPhat::pointToDegree(double x_coordinate, double y_coordinate) {
-  return static_cast<int> (round(fmod(((atan2(y_coordinate, x_coordinate)
+  return static_cast<int>(round(fmod(((atan2(y_coordinate, x_coordinate)
       * 180 / kPI) + 360), 360.0)));
 }
 
@@ -84,7 +83,7 @@ RArray SrpPhat::gcc(const RArray &signal1, const RArray &signal2) {
 
   // computing nominator and denominator of the generalized cross correlation
   CArray nominator = csignal1 * csignal2.apply(std::conj);
-  CArray denominator = std::pow(abs(nominator), static_cast<float> (beta_));
+  CArray denominator = std::pow(abs(nominator), static_cast<float>(beta_));
 
   // reverse transfering to time domain
   CArray temp = nominator / denominator;
@@ -252,7 +251,7 @@ std::vector<std::vector<std::vector<double>>> SrpPhat::get_delay_tensor() {
 RArray SrpPhat::getMicSignal(const std::string &filepath_name) {
   std::vector<double> tmp;
   std::ifstream infile(filepath_name);
-  std::string line;
+  std::string line = "";
   while (std::getline(infile, line)) {
     std::istringstream ss(line);
     double a;

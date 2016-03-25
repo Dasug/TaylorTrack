@@ -28,8 +28,8 @@ SOFTWARE.
 * @brief Implements the SRP PHAT algorithm
 * @version 1
 */
-#ifndef TAYLORTRACK_SRPPHAT_H
-#define TAYLORTRACK_SRPPHAT_H
+#ifndef TAYLORTRACK_LOCALIZATION_SRPPHAT_H_
+#define TAYLORTRACK_LOCALIZATION_SRPPHAT_H_
 #include <complex>
 #include <fstream>
 #include <string>
@@ -249,6 +249,9 @@ class SrpPhat: public Localizer {
     SrpPhat::beta_ = beta;
   }
 
+  bool is_initialized(){
+    return intialized_;
+  }
 
   /**
   * @brief Sets all relevant parameters of the srp phat algorithm.
@@ -265,30 +268,33 @@ class SrpPhat: public Localizer {
     steps_ = audioConfig.frame_size;
     beta_ = audioConfig.beta;
     delay_tensor_ = get_delay_tensor();
+    intialized_ = true;
   }
 
  private:
   std::vector<std::vector<std::vector<double>>> delay_tensor_;
   // audio sample rate the algorithm should work with
-  int samplerate_;
+  int samplerate_ = 0;
   // size of the grids x axis to consider for the estimation
-  double x_length_;
+  double x_length_ = 0;
   // size of the grids y axis to consider for the estimation
-  double y_length_;
+  double y_length_ = 0;
   // sample length or the amount of discrete signals
   // to consider for each estimate
-  double stepsize_;
+  double stepsize_ = 0;
   // X coordinates of the microphones in the grid
   RArray x_dim_mics_;
   // Y coordinates of the microphones in the grid
   RArray y_dim_mics_;
   // steps The amount of sampled points an audio signal has
   // that needs to be evaluated.
-  int steps_;
+  int steps_ = 0;
   // beta The exponent of the weighting term of the cross correlation.
-  double beta_;
+  double beta_ = 0;
+  // boolean to check if an object has been initialized
+  bool intialized_ = false;
 };
 }  // namespace localization
 }  // namespace taylortrack
 
-#endif  // TAYLORTRACK_SRPPHAT_H
+#endif  // TAYLORTRACK_LOCALIZATION_SRPPHAT_H_

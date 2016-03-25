@@ -26,8 +26,8 @@ SOFTWARE.
  * @brief Provides a parser for the start parameters.
  * @version 1
  */
-#ifndef TAYLORTRACK_PARAMETER_PARSER_H
-#define TAYLORTRACK_PARAMETER_PARSER_H
+#ifndef TAYLORTRACK_UTILS_PARAMETER_PARSER_H_
+#define TAYLORTRACK_UTILS_PARAMETER_PARSER_H_
 #include "utils/parameters.h"
 namespace taylortrack {
 namespace utils {
@@ -49,5 +49,5 @@ class ParameterParser {
 }  // namespace utils
 }  // namespace taylortrack
 
-#endif  // TAYLORTRACK_PARAMETER_PARSER_H
+#endif  // TAYLORTRACK_UTILS_PARAMETER_PARSER_H_
 

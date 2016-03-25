@@ -28,8 +28,8 @@ SOFTWARE.
 * @version 1
 */
 
-#ifndef TAYLORTRACK_VAD_SIMPLE_H_
-#define TAYLORTRACK_VAD_SIMPLE_H_
+#ifndef TAYLORTRACK_UTILS_VAD_SIMPLE_H_
+#define TAYLORTRACK_UTILS_VAD_SIMPLE_H_
 #include "utils/vad_strategy.h"
 
 namespace taylortrack {
@@ -74,4 +74,4 @@ class VadSimple: public VadStrategy {
 };
 }  // namespace utils
 }  // namespace taylortrack
-#endif  // TAYLORTRACK_VAD_SIMPLE_H_
+#endif  // TAYLORTRACK_UTILS_VAD_SIMPLE_H_

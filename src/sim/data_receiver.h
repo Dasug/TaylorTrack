@@ -1,5 +1,5 @@
-#ifndef TAYLORTRACK_DATA_RECEIVER_H
-#define TAYLORTRACK_DATA_RECEIVER_H
+#ifndef TAYLORTRACK_SIM_DATA_RECEIVER_H_
+#define TAYLORTRACK_SIM_DATA_RECEIVER_H_
 
 #include <yarp/os/all.h>
 #include "utils/config.h"
@@ -20,4 +20,4 @@ namespace taylortrack {
   } // namespace sim
 } // namespace taylortrack
 
-#endif //TAYLORTRACK_DATA_RECEIVER_H
+#endif //TAYLORTRACK_DATA_RECEIVER_H_

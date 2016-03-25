@@ -26,8 +26,8 @@ SOFTWARE.
 * @brief Implementation of A Voice Activity Strategy
 * @version 1
 */
-#ifndef TAYLORTRACK_VADSTRATEGY_H_
-#define TAYLORTRACK_VADSTRATEGY_H_
+#ifndef TAYLORTRACK_UTILS_VADSTRATEGY_H_
+#define TAYLORTRACK_UTILS_VADSTRATEGY_H_
 
 #include <complex.h>
 #include <valarray>
@@ -54,4 +54,4 @@ class VadStrategy {
 }  // namespace utils
 }  // namespace taylortrack
 
-#endif  // TAYLORTRACK_VADSTRATEGY_H
+#endif  // TAYLORTRACK_UTILS_VADSTRATEGY_H

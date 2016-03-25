@@ -27,8 +27,8 @@ SOFTWARE.
 * @brief Fast Fourier Transformation Strategy.
 * @version 1
 */
-#ifndef TAYLORTRACK_FFT_STRATEGY_H
-#define TAYLORTRACK_FFT_STRATEGY_H
+#ifndef TAYLORTRACK_UTILS_FFT_STRATEGY_H_
+#define TAYLORTRACK_UTILS_FFT_STRATEGY_H_
 
 #include <complex>
 #include <valarray>
@@ -105,4 +105,4 @@ class FftStrategy {
 }  //  namespace utils
 }  //  namespace taylortrack
 
-#endif  // TAYLORTRACK_FFT_STRATEGY_H
+#endif  // TAYLORTRACK_UTILS_FFT_STRATEGY_H_

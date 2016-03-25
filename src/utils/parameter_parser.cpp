@@ -31,7 +31,7 @@ namespace taylortrack{
 namespace utils{
 Parameters
 ParameterParser::parse_streamer(int argc,
-                                                    const char **argv) {
+                                const char **argv) {
   char *end;
   Parameters parameters = utils::Parameters();
 

@@ -26,8 +26,8 @@ SOFTWARE.
 * @brief Header file for the configuration file parser.
 * @version 1
 */
-#ifndef TAYLORTRACK_CONFIG_PARSER_H
-#define TAYLORTRACK_CONFIG_PARSER_H
+#ifndef TAYLORTRACK_UTILS_CONFIG_PARSER_H_
+#define TAYLORTRACK_UTILS_CONFIG_PARSER_H_
 
 #include <fstream>
 #include <iostream>
@@ -310,4 +310,4 @@ class ConfigParser {
 }  // namespace utils
 }  // namespace taylortrack
 
-#endif  // TAYLORTRACK_CONFIG_PARSER_H
+#endif  // TAYLORTRACK_UTILS_CONFIG_PARSER_H_

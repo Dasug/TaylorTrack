@@ -28,8 +28,8 @@ SOFTWARE.
 * @version 1
 */
 
-#ifndef TAYLORTRACK_WAVE_PARSER_H
-#define TAYLORTRACK_WAVE_PARSER_H
+#ifndef TAYLORTRACK_UTILS_WAVE_PARSER_H
+#define TAYLORTRACK_UTILS_WAVE_PARSER_H
 
 #include <fstream>
 #include <iostream>
@@ -156,4 +156,4 @@ class WaveParser {
 }  // namespace utils
 }  // namespace taylortrack
 
-#endif  // TAYLORTRACK_WAVE_PARSER_H
+#endif  // TAYLORTRACK_UTILS_WAVE_PARSER_H

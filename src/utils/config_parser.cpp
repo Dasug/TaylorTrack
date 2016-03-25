@@ -48,7 +48,7 @@ bool ConfigParser::parse_file() {
   // 0 = options, 1 = audio, 2 = video,
   // 3 = combination, 4 = input, 5 = visualizer
   int section = -1;
-  std::string line;
+  std::string line = "";
   while (std::getline(file_, line)) {
     std::vector<std::string> x = split(line, '=');
 
@@ -134,7 +134,6 @@ bool ConfigParser::parse_file() {
           break;
       }
     }
-
     if (line.compare("[options]") == 0)
       section = 0;
     else if (line.compare("[audio]") == 0)
@@ -159,7 +158,7 @@ ConfigParser::split(const std::string &s,
                                         char delim) {
   std::vector<std::string> elems;
   std::stringstream ss(s);
-  std::string item;
+  std::string item = "";
 
   while (std::getline(ss, item, delim))
     elems.push_back(item);
