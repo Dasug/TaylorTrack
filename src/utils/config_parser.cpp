@@ -107,8 +107,19 @@ bool ConfigParser::parse_file() {
           } else if (x[0].compare("outport") == 0) {
             video_settings_.outport = x[1];
             video_communication_out_.port = x[1];
-          }
-          break;  // end section 2
+          } else if (x[0].compare("face_cascade_name") == 0)
+            video_settings_.face_cascade_name = x[1];
+          else if (x[0].compare("camera_id") == 0)
+            std::stringstream(x[1]) >> video_settings_.camera_id;
+          else if (x[0].compare("width") == 0)
+            std::stringstream(x[1]) >> video_settings_.width;
+          else if (x[0].compare("max_camera_view_angle") == 0)
+            std::stringstream(x[1]) >> video_settings_.max_camera_view_angle;
+          else if (x[0].compare("camera_angle") == 0)
+            std::stringstream(x[1]) >> video_settings_.camera_angle;
+          else if (x[0].compare("variance") == 0)
+            std::stringstream(x[1]) >> video_settings_.variance;
+          break; // end section 2
 
         case 3:  // [combination]
           if (x[0].compare("inport") == 0) {

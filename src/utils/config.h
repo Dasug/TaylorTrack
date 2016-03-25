@@ -112,19 +112,21 @@ namespace taylortrack {
        * @var face_cascade_name
        * Defines the opencv cascade for face detection.
        */
-      std::string face_cascade_name = "haarcascade_frontalface_alt.xml";
-
-      /**
-       * @var frame_skip
-       * Defines the number of frames that should be skipped.
-       */
-      int frame_skip = 0;
+      std::string face_cascade_name = "";
 
       /**
        * @var camera_id
        * Defines the id of the camera which should be used.
        */
-      int camera_id = -1;
+      int camera_id = 0;
+
+      int width = 0;
+
+      double max_camera_view_angle = 0;
+
+      double camera_angle = 0;
+
+      double variance = 0;
     };
 
     /**
