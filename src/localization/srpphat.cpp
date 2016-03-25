@@ -213,7 +213,7 @@ std::vector<std::vector<std::vector<double>>> SrpPhat::get_delay_tensor() {
   for (int x = 0; x < vectorSize; x++) {
     for (int y = 0; y < vectorSize; y++) {
       // iterating over microphone pairs
-      for (int i = 0; i < pairs.size(); i++) {
+      for (int i = 0; i < static_cast<int>(pairs.size()); i++) {
         //
         RArray point(2);
         RArray mic1(2);
@@ -250,7 +250,7 @@ RArray SrpPhat::getMicSignal(const std::string &filepath_name) {
   }
   infile.close();
   RArray signal(tmp.size());
-  for (int i = 0; i < tmp.size(); i++) {
+  for (int i = 0; i < static_cast<int>(tmp.size()); i++) {
     signal[i] = tmp[i];
   }
   return signal;
