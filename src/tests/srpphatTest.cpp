@@ -246,7 +246,7 @@ TEST(SrpPhatTest, gccGridTest) {
   taylortrack::localization::SrpPhat
       srp;
   taylortrack::utils::AudioSettings settings;
-  settings.beta = 0.7;
+  settings.beta = beta;
   settings.sample_rate = 44100;
   settings.grid_x = 4.0;
   settings.grid_y = 4.0;
