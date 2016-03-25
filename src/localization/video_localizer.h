@@ -25,7 +25,11 @@ SOFTWARE.
 #ifndef TAYLORTRACK_LOCALIZATION_VIDEO_LOCALIZER_H_
 #define TAYLORTRACK_LOCALIZATION_VIDEO_LOCALIZER_H_
 
-#include <opencv2/objdetect.hpp>
+#ifdef OLD_OPENCV_HEADERS
+#include "opencv2/objdetect/objdetect.hpp"
+#else
+#include "opencv2/objdetect.hpp"
+#endif
 #include <vector>
 #include <valarray>
 #include "../utils/config.h"
