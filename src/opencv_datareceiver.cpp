@@ -29,9 +29,16 @@ SOFTWARE.
 #include <yarp/os/all.h>
 #include <yarp/sig/all.h>
 #include <string>
+#ifdef OLD_OPENCV_HEADERS
+#include "opencv2/objdetect/objdetect.hpp"
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#else
+#include "opencv2/objdetect.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
-#include "opencv2/objdetect.hpp"
+#include "opencv2/videoio.hpp"
+#endif
 #include "localization/vision_tracker.h"
 #include "utils/config_parser.h"
 #include "utils/parameter_parser.h"
