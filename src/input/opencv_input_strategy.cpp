@@ -32,9 +32,7 @@ void OpenCVInputStrategy::set_parameters(const utils::Parameters &params) {
   // Do nothing since this class doesn't need any of the parameters.
 }
 
-<<<<<<< HEAD
     void OpenCVInputStrategy::set_config(taylortrack::utils::ConfigParser &config_parser) {
-      frame_skip_ = config_parser.get_video_configuration().frame_skip;
       camera_id_ = config_parser.get_video_configuration().camera_id;
       video_capture_.open(camera_id_);
       std::cout << video_capture_.get(cv::CAP_PROP_FPS) << std::endl;
