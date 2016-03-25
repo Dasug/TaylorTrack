@@ -42,7 +42,7 @@ void FftStrategy::circshift(const RArray &in,
 
 CArray FftStrategy::convertToComplex(const RArray &signal) {
   CArray converted(signal.size());
-  for (int i = 0; i < signal.size(); i++) {
+  for (int i = 0; i < static_cast<int>(signal.size()); i++) {
     converted[i] = signal[i];
   }
   return converted;
@@ -50,7 +50,7 @@ CArray FftStrategy::convertToComplex(const RArray &signal) {
 
 RArray FftStrategy::convertToReal(const CArray &signal) {
   RArray converted(signal.size());
-  for (int i = 0; i < signal.size(); i++) {
+  for (int i = 0; i < static_cast<int>(signal.size()); i++) {
     converted[i] = signal[i].real();
   }
   return converted;
