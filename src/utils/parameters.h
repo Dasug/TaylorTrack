@@ -41,6 +41,12 @@ namespace taylortrack {
        * Stores if the given parameters are valid.
       */
       bool valid = false;
+
+      /**
+       * @var config
+       * Path to the config file.
+       */
+      const char *config ="../Testdata/real_config.conf";
     };
   } // namespace utils
 } // namespace taylortrack

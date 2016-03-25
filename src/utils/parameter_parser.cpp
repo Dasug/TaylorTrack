@@ -36,6 +36,14 @@ taylortrack::utils::Parameters taylortrack::utils::ParameterParser::parse_stream
             parameters.inport = argv[i];
           }
           break;
+          // Input port
+        case 'c':
+          if(++i >= argc) {
+            parameters.valid = false;
+          } else {
+            parameters.config = argv[i];
+          }
+          break;
 
         default:
           parameters.valid = false;
