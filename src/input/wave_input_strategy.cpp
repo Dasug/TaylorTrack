@@ -27,7 +27,6 @@ SOFTWARE.
 * @brief Implementation of taylortrack::input::WaveInputStrategy class.
 * @version 1
 */
-
 #include "input/wave_input_strategy.h"
 #include <string>
 

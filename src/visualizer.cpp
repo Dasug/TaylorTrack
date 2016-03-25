@@ -3,8 +3,8 @@
 * @brief Contains main method for the visualizer.
 */
 
-#include <iostream>
 #include <ncurses.h>
+#include <iostream>
 #include "sim/data_receiver.h"
 #include "utils/config_parser.h"
 #include "vis/OutputVisualizer.h"

@@ -30,12 +30,12 @@ SOFTWARE.
 * @version 1
 */
 
-#ifndef TAYLORTRACK_FFT_LIB_H
-#define TAYLORTRACK_FFT_LIB_H
+#ifndef TAYLORTRACK_UTILS_FFT_LIB_H_
+#define TAYLORTRACK_UTILS_FFT_LIB_H_
 
 #include "utils/fft_strategy.h"
-#include <valarray>
 #include <complex>
+#include <valarray>
 
 namespace taylortrack {
 namespace utils {

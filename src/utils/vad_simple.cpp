@@ -26,10 +26,6 @@ SOFTWARE.
 * @brief Implementation of a simple voice activity tracker
 * @version 1
 */
-
-#include <complex.h>
-#include <valarray>
-#include <vector>
 #include "utils/vad_simple.h"
 
 namespace taylortrack {

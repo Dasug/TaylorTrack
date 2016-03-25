@@ -29,12 +29,12 @@ SOFTWARE.
 #ifndef TAYLORTRACK_CONFIG_PARSER_H
 #define TAYLORTRACK_CONFIG_PARSER_H
 
-#include "utils/config.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <vector>
 #include <string>
+#include "utils/config.h"
 namespace taylortrack {
 namespace utils {
 /**

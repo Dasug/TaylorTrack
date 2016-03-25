@@ -31,9 +31,9 @@ SOFTWARE.
 #ifndef TAYLORTRACK_WAVE_PARSER_H
 #define TAYLORTRACK_WAVE_PARSER_H
 
-#include <string>
 #include <fstream>
 #include <iostream>
+#include <string>
 
 namespace taylortrack {
 namespace utils {

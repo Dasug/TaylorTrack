@@ -28,10 +28,10 @@ SOFTWARE.
  */
 const double kSpeedOfSound = 340.42;
 const double kPI = 3.141592653589793238460;
+#include "localization/srpphat.h"
 #include <string>
 #include <tuple>
 #include <vector>
-#include "localization/srpphat.h"
 #include "utils/fft_lib.h"
 
 namespace taylortrack {

@@ -31,11 +31,11 @@ SOFTWARE.
 #ifndef TAYLORTRACK_SRPPHAT_H
 #define TAYLORTRACK_SRPPHAT_H
 #include <complex>
-#include <valarray>
-#include <vector>
 #include <fstream>
 #include <string>
 #include <tuple>
+#include <valarray>
+#include <vector>
 #include "localization/localizer.h"
 #include "utils/config_parser.h"
 
