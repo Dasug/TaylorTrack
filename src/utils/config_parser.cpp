@@ -30,7 +30,9 @@ SOFTWARE.
 #include <string>
 #include <vector>
 
-taylortrack::utils::ConfigParser::ConfigParser(const char *file_name) {
+namespace taylortrack{
+namespace utils{
+ConfigParser::ConfigParser(const char *file_name) {
   file_ = std::ifstream(file_name, std::ios::in|std::ios::binary);
 
   if (!file_.fail()) {
@@ -42,7 +44,7 @@ taylortrack::utils::ConfigParser::ConfigParser(const char *file_name) {
   }
 }
 
-bool taylortrack::utils::ConfigParser::parse_file() {
+bool ConfigParser::parse_file() {
   // 0 = options, 1 = audio, 2 = video,
   // 3 = combination, 4 = input, 5 = visualizer
   int section = -1;
@@ -153,7 +155,7 @@ bool taylortrack::utils::ConfigParser::parse_file() {
 
 // Method to split a string by the given delim.
 std::vector<std::string>
-taylortrack::utils::ConfigParser::split(const std::string &s,
+ConfigParser::split(const std::string &s,
                                         char delim) {
   std::vector<std::string> elems;
   std::stringstream ss(s);
@@ -166,7 +168,7 @@ taylortrack::utils::ConfigParser::split(const std::string &s,
 }
 
 std::vector<std::string>
-taylortrack::utils::ConfigParser::split_microphones(std::string s) {
+ConfigParser::split_microphones(std::string s) {
   std::vector<std::string> elems;
   int start = -1;
 
@@ -190,7 +192,7 @@ taylortrack::utils::ConfigParser::split_microphones(std::string s) {
 
 // Method to remove whitespaces,
 // tabulator etc. from the the front and back of the string.
-std::string taylortrack::utils::ConfigParser::trim(const std::string &s) {
+std::string ConfigParser::trim(const std::string &s) {
   auto wsfront =
       std::find_if_not(s.begin(),
                        s.end(), [](int c){return std::isspace(c);});
@@ -201,6 +203,9 @@ std::string taylortrack::utils::ConfigParser::trim(const std::string &s) {
   return (wsback <= wsfront ? std::string() : std::string(wsfront, wsback));
 }
 
-taylortrack::utils::ConfigParser::ConfigParser() {
+ConfigParser::ConfigParser() {
   valid_ = true;
 }
+}  // namespace utils
+}  // namespace taylortrack
+

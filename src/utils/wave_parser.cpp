@@ -31,7 +31,10 @@ SOFTWARE.
 #include "wave_parser.h"
 #include <string>
 
-taylortrack::utils::WaveParser::WaveParser(const char *file_name) {
+namespace taylortrack {
+namespace utils {
+
+WaveParser::WaveParser(const char *file_name) {
   this->file_ = new std::ifstream(file_name, std::ios::in | std::ios::binary);
 
   if (this->file_->fail())
@@ -40,21 +43,21 @@ taylortrack::utils::WaveParser::WaveParser(const char *file_name) {
     this->parse_file();
 }
 
-taylortrack::utils::WaveParser::~WaveParser() {
+WaveParser::~WaveParser() {
   delete this->file_;
 }
 
-bool taylortrack::utils::WaveParser::is_done() {
+bool WaveParser::is_done() {
   return !valid_ || this->file_->eof() ||
       (static_cast<int64_t>(this->data_offset_) +
           this->data_size_ <= static_cast<int64_t>(this->file_->tellg()));
 }
 
-int64_t taylortrack::utils::WaveParser::get_sample_num() const {
+int64_t WaveParser::get_sample_num() const {
   return this->data_size_ / this->block_align_;
 }
 
-void taylortrack::utils::WaveParser::parse_file() {
+void WaveParser::parse_file() {
   bool valid = true;
   char four_byte_buffer[5] = "";
   uint32_t fmt_size = 0;
@@ -115,7 +118,7 @@ void taylortrack::utils::WaveParser::parse_file() {
   this->valid_ = valid;
 }
 
-std::string taylortrack::utils::WaveParser::get_samples(int64_t sample_num) {
+std::string WaveParser::get_samples(int64_t sample_num) {
   int64_t transfered_sample_size =
       ((this->block_align_ * sample_num) <= this->data_size_ ?
        this->block_align_ * sample_num :
@@ -127,30 +130,34 @@ std::string taylortrack::utils::WaveParser::get_samples(int64_t sample_num) {
   return samples;
 }
 
-int taylortrack::utils::WaveParser::get_bits_per_sample() const {
+int WaveParser::get_bits_per_sample() const {
   return static_cast<int>(bits_per_sample_);
 }
 
-int taylortrack::utils::WaveParser::get_block_align() const {
+int WaveParser::get_block_align() const {
   return static_cast<int>(block_align_);
 }
 
-int64_t taylortrack::utils::WaveParser::get_byte_rate() const {
+int64_t WaveParser::get_byte_rate() const {
   return static_cast<int64_t>(byte_rate_);
 }
 
-int64_t taylortrack::utils::WaveParser::get_sample_rate() const {
+int64_t WaveParser::get_sample_rate() const {
   return static_cast<int64_t>(sample_rate_);
 }
 
-int taylortrack::utils::WaveParser::get_num_channels() const {
+int WaveParser::get_num_channels() const {
   return static_cast<int>(num_channels_);
 }
 
-int taylortrack::utils::WaveParser::get_audio_format() const {
+int WaveParser::get_audio_format() const {
   return static_cast<int>(audio_format_);
 }
 
-bool taylortrack::utils::WaveParser::is_valid() const {
+bool WaveParser::is_valid() const {
   return valid_;
 }
+
+}  // namespace utils
+}  // namespace taylortrack
+

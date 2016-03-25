@@ -27,9 +27,10 @@ SOFTWARE.
  */
 #include "utils/parameter_parser.h"
 #include <iostream>
-
-taylortrack::utils::Parameters
-taylortrack::utils::ParameterParser::parse_streamer(int argc,
+namespace taylortrack{
+namespace utils{
+Parameters
+ParameterParser::parse_streamer(int argc,
                                                     const char **argv) {
   char *end;
   Parameters parameters = utils::Parameters();
@@ -45,7 +46,7 @@ taylortrack::utils::ParameterParser::parse_streamer(int argc,
             parameters.size =  static_cast<int>(strtol(argv[i], &end, 10));
           }
           break;
-        // Output port
+          // Output port
         case 'o':
           if (++i >= argc) {
             parameters.valid = false;
@@ -53,7 +54,7 @@ taylortrack::utils::ParameterParser::parse_streamer(int argc,
             parameters.outport = argv[i];
           }
           break;
-        // Input port
+          // Input port
         case 'i':
           if (++i >= argc) {
             parameters.valid = false;
@@ -72,3 +73,5 @@ taylortrack::utils::ParameterParser::parse_streamer(int argc,
   }
   return parameters;
 }  // LCOV_EXCL_BR_LINE
+}  // namespace utils
+}  // namespace taylortrack
