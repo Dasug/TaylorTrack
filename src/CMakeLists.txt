@@ -1,3 +1,6 @@
+# Add current directory to include path
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
 # Set up dummy input tagert
 add_executable(dummy_input sim_datastreamer.cpp input/dummy_input_strategy.cpp sim/streamer.cpp utils/parameter_parser.cpp utils/config_parser.cpp)
 target_compile_definitions(dummy_input PUBLIC INPUT_DUMMY)
