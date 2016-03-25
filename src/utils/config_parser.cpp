@@ -30,8 +30,8 @@ SOFTWARE.
 #include <string>
 #include <vector>
 
-namespace taylortrack{
-namespace utils{
+namespace taylortrack {
+namespace utils {
 ConfigParser::ConfigParser(const char *file_name) {
   file_ = std::ifstream(file_name, std::ios::in|std::ios::binary);
 

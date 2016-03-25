@@ -47,7 +47,6 @@ namespace input {
 */
 class ReadFileInputStrategy: public InputStrategy {
  public:
-
   /**
   * @ReadFileInputStrategy Destructor
   *

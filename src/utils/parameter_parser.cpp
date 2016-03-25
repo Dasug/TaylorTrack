@@ -27,8 +27,8 @@ SOFTWARE.
  */
 #include "utils/parameter_parser.h"
 #include <iostream>
-namespace taylortrack{
-namespace utils{
+namespace taylortrack {
+namespace utils {
 Parameters
 ParameterParser::parse_streamer(int argc,
                                 const char **argv) {
@@ -43,7 +43,7 @@ ParameterParser::parse_streamer(int argc,
           if (++i >= argc) {
             parameters.valid = false;
           } else {
-            parameters.size =  static_cast<int>(strtol(argv[i], &end, 10));
+            parameters.size = static_cast<int>(strtol(argv[i], &end, 10));
           }
           break;
           // Output port

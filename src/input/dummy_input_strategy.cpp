@@ -27,7 +27,7 @@ SOFTWARE.
 * @brief Implementation of the dummy_input_strategy.h
 */
 
-#include "dummy_input_strategy.h"
+#include "input/dummy_input_strategy.h"
 
 namespace taylortrack {
 namespace input {
@@ -49,7 +49,8 @@ namespace input {
     // do nothing, we don't care about parameters
   }
 
-  void DummyInputStrategy::set_config(const utils::ConfigParser &config_parser) {
+  void DummyInputStrategy::set_config
+      (const utils::ConfigParser &config_parser) {
     // do nothing, we don't care about configuration either
   }
 }  // namespace input

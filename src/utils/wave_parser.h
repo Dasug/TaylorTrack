@@ -46,7 +46,6 @@ namespace utils {
 */
 class WaveParser {
  public:
-
   /**
   * @brief Wave parser constructor
   *
