@@ -26,8 +26,6 @@ SOFTWARE.
  * @file
  * @brief General data streamer main file
  */
-
-
 #include "input/dummy_input_strategy.h"
 #include "input/input_strategy.h"
 #include "input/opencv_input_strategy.h"

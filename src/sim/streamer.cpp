@@ -28,7 +28,6 @@ namespace taylortrack {
           output.clear();
           strategy_->read(output);
           out_port.write(true); //blocking statement
-          //usleep(1000000);
         } // while
         return true;
       } // if

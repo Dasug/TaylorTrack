@@ -25,8 +25,6 @@ SOFTWARE.
 /**
 * @file
 * @brief Contains the input strategy interface.
-* @details
-* @version 1
 */
 #ifndef TAYLORTRACK_SRC_INPUT_INPUT_STRATEGY_H_
 #define TAYLORTRACK_SRC_INPUT_INPUT_STRATEGY_H_

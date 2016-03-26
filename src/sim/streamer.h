@@ -1,7 +1,6 @@
 /**
  * @file
  * @brief Handles Streaming
- * @version 1
  */
 #ifndef TAYLORTRACK_SIM_STREAMER_H_
 #define TAYLORTRACK_SIM_STREAMER_H_
