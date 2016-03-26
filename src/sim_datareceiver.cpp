@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     taylortrack::sim::DataReceiver rec = taylortrack::sim::DataReceiver(in);
     taylortrack::utils::AudioSettings audio = config.get_audio_configuration();
     taylortrack::localization::SrpPhat algorithm;// = taylortrack::localization::SrpPhat(audio.sample_rate, audio.mic_x, audio.mic_y, audio.grid_x, audio.grid_y, audio.interval, (int) audio.frame_size, audio.beta);
-    algorithm.setConfig(config);
+    algorithm.set_config(config);
     int microphones = (int) audio.mic_x.size();
     yarp::os::BufferedPort<yarp::os::Bottle> outport;
     outport.open(out.port);
@@ -43,8 +43,8 @@ int main(int argc, char *argv[]) {
             signals.push_back(volume);
         }
 
-        //auto grid = algorithm.getGccGrid(signals);
-        taylortrack::utils::RArray result = algorithm.getPositionDistribution(signals);
+        //auto grid = algorithm.get_generalized_cross_correlation(signals);
+        taylortrack::utils::RArray result = algorithm.get_position_distribution(signals);
 
         yarp::os::Bottle& bottle = outport.prepare();
         bottle.clear();

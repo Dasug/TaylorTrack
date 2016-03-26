@@ -30,7 +30,7 @@ TEST(SrpPhatTest, imtdfTest) {
   taylortrack::utils::ConfigParser config;
   config.setAudioSettings(settings);
 
-  srp.setConfig(config);
+  srp.set_config(config);
   point[0] = 0;
   point[1] = 339.42;
   mic1[0] = 1;
@@ -38,7 +38,7 @@ TEST(SrpPhatTest, imtdfTest) {
   mic2[0] = -1;
   mic2[1] = 0;
 
-  double difference = srp.imtdf(point, mic1, mic2);
+  double difference = srp.inter_microphone_time_delay(point, mic1, mic2);
   ASSERT_EQ(0.0, difference);
 
   point2[0] = -2;
@@ -47,7 +47,7 @@ TEST(SrpPhatTest, imtdfTest) {
   mic1[1] = 0;
   mic2[0] = 0.05;
   mic2[1] = 0;
-  double difference2 = srp.imtdf(point2, mic1, mic2);
+  double difference2 = srp.inter_microphone_time_delay(point2, mic1, mic2);
   ASSERT_TRUE(abs(difference2 - 0.0002077) < 0.000001);
 }
 
@@ -74,10 +74,10 @@ TEST(SrpPhatTest, axisValueTest) {
   taylortrack::utils::ConfigParser config;
   config.setAudioSettings(settings);
 
-  srp.setConfig(config);
+  srp.set_config(config);
 
-  std::vector<double> xax = srp.getAxisvalues(true);
-  std::vector<double> yax = srp.getAxisvalues(false);
+  std::vector<double> xax = srp.get_axis_values(true);
+  std::vector<double> yax = srp.get_axis_values(false);
 
   ASSERT_EQ(41, xax.size());
   ASSERT_EQ(41, yax.size());
@@ -109,15 +109,15 @@ TEST(SrpPhatTest, gccTest) {
   taylortrack::utils::ConfigParser config;
   config.setAudioSettings(settings);
 
-  srp.setConfig(config);
+  srp.set_config(config);
 
-  taylortrack::utils::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
-  taylortrack::utils::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
+  taylortrack::utils::RArray sig1 = srp.get_microphone_signal("../Testdata/0-180_short.txt");
+  taylortrack::utils::RArray sig2 = srp.get_microphone_signal("../Testdata/90-180_short.txt");
 
   taylortrack::utils::RArray temp1 = sig1[std::slice(0, 257, 1)];
   taylortrack::utils::RArray temp2 = sig2[std::slice(0, 256, 1)];
 
-  taylortrack::utils::RArray gcca = srp.gcc(temp1, temp2);
+  taylortrack::utils::RArray gcca = srp.generalized_cross_correlation(temp1, temp2);
 
   ASSERT_TRUE(abs(gcca.max() - 0.0529023) < 0.0001);
 }
@@ -153,13 +153,13 @@ TEST(SrpPhatTest, pointToAngleTest) {
   taylortrack::utils::ConfigParser config;
   config.setAudioSettings(settings);
 
-  srp.setConfig(config);
-  int deg = srp.pointToDegree(x, y);
-  int deg2 = srp.pointToDegree(x2, y2);
-  int deg3 = srp.pointToDegree(x3, y3);
-  int deg4 = srp.pointToDegree(x4, y4);
-  int deg5 = srp.pointToDegree(x4, -y4);
-  int deg6 = srp.pointToDegree(x5, y5);
+  srp.set_config(config);
+  int deg = srp.point_to_degree(x, y);
+  int deg2 = srp.point_to_degree(x2, y2);
+  int deg3 = srp.point_to_degree(x3, y3);
+  int deg4 = srp.point_to_degree(x4, y4);
+  int deg5 = srp.point_to_degree(x4, -y4);
+  int deg6 = srp.point_to_degree(x5, y5);
   ASSERT_EQ(45, deg);
   ASSERT_EQ(270, deg2);
   ASSERT_EQ(180, deg3);
@@ -190,7 +190,7 @@ TEST(SrpPhatTest, getDelayTensorTest) {
   taylortrack::utils::ConfigParser config;
   config.setAudioSettings(settings);
 
-  srp.setConfig(config);
+  srp.set_config(config);
 
   std::vector<std::vector<std::vector<double>>> difference;
 
@@ -218,9 +218,9 @@ TEST(SrpPhatTest, getMicPairsTest) {
   taylortrack::utils::ConfigParser config;
   config.setAudioSettings(settings);
 
-  srp.setConfig(config);
+  srp.set_config(config);
 
-  std::vector<std::tuple<int, int>> micP = srp.getMicPairs();
+  std::vector<std::tuple<int, int>> micP = srp.get_mic_pairs();
 
   ASSERT_EQ(0, std::get<0>(micP[0]));
   ASSERT_EQ(1, std::get<1>(micP[0]));
@@ -258,19 +258,19 @@ TEST(SrpPhatTest, gccGridTest) {
   taylortrack::utils::ConfigParser config;
   config.setAudioSettings(settings);
 
-  srp.setConfig(config);
+  srp.set_config(config);
 
-  taylortrack::utils::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
-  taylortrack::utils::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
-  taylortrack::utils::RArray sig3 = srp.getMicSignal("../Testdata/180-180_short.txt");
-  taylortrack::utils::RArray sig4 = srp.getMicSignal("../Testdata/270-180_short.txt");
+  taylortrack::utils::RArray sig1 = srp.get_microphone_signal("../Testdata/0-180_short.txt");
+  taylortrack::utils::RArray sig2 = srp.get_microphone_signal("../Testdata/90-180_short.txt");
+  taylortrack::utils::RArray sig3 = srp.get_microphone_signal("../Testdata/180-180_short.txt");
+  taylortrack::utils::RArray sig4 = srp.get_microphone_signal("../Testdata/270-180_short.txt");
 
   std::vector<taylortrack::utils::RArray> signals;
   signals.push_back(sig1);
   signals.push_back(sig2);
   signals.push_back(sig3);
   signals.push_back(sig4);
-  std::vector<std::vector<double>> gcca = srp.getGccGrid(signals);
+  std::vector<std::vector<double>> gcca = srp.get_generalized_cross_correlation(signals);
   ASSERT_TRUE(gcca[0][0] - 0.1636087 < 0.000001);
   ASSERT_TRUE(gcca[18][0] - 0.14998061 < 0.000001);
 }
@@ -296,12 +296,12 @@ TEST(SrpPhatTest, getPositionTest) {
   taylortrack::utils::ConfigParser config;
   config.setAudioSettings(settings);
 
-  srp.setConfig(config);
+  srp.set_config(config);
 
-  taylortrack::utils::FftLib::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
-  taylortrack::utils::FftLib::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
-  taylortrack::utils::FftLib::RArray sig3 = srp.getMicSignal("../Testdata/180-180_short.txt");
-  taylortrack::utils::FftLib::RArray sig4 = srp.getMicSignal("../Testdata/270-180_short.txt");
+  taylortrack::utils::FftLib::RArray sig1 = srp.get_microphone_signal("../Testdata/0-180_short.txt");
+  taylortrack::utils::FftLib::RArray sig2 = srp.get_microphone_signal("../Testdata/90-180_short.txt");
+  taylortrack::utils::FftLib::RArray sig3 = srp.get_microphone_signal("../Testdata/180-180_short.txt");
+  taylortrack::utils::FftLib::RArray sig4 = srp.get_microphone_signal("../Testdata/270-180_short.txt");
   taylortrack::utils::FftLib::RArray estimates(4);
 
   std::vector<taylortrack::utils::FftLib::RArray> signals;
@@ -322,7 +322,7 @@ TEST(SrpPhatTest, getPositionTest) {
     signals2.push_back(signalSlice2);
     signals2.push_back(signalSlice3);
     signals2.push_back(signalSlice4);
-    int pos = srp.getPosition(signals2);
+    int pos = srp.get_position(signals2);
     estimates[step] = pos;
   }
   ASSERT_EQ(180, estimates[1]);
@@ -350,12 +350,12 @@ TEST(SrpPhatTest, getPositionDistributionTest) {
   taylortrack::utils::ConfigParser config;
   config.setAudioSettings(settings);
 
-  srp.setConfig(config);
+  srp.set_config(config);
 
-  taylortrack::utils::FftLib::RArray sig1 = srp.getMicSignal("../Testdata/0-180_short.txt");
-  taylortrack::utils::FftLib::RArray sig2 = srp.getMicSignal("../Testdata/90-180_short.txt");
-  taylortrack::utils::FftLib::RArray sig3 = srp.getMicSignal("../Testdata/180-180_short.txt");
-  taylortrack::utils::FftLib::RArray sig4 = srp.getMicSignal("../Testdata/270-180_short.txt");
+  taylortrack::utils::FftLib::RArray sig1 = srp.get_microphone_signal("../Testdata/0-180_short.txt");
+  taylortrack::utils::FftLib::RArray sig2 = srp.get_microphone_signal("../Testdata/90-180_short.txt");
+  taylortrack::utils::FftLib::RArray sig3 = srp.get_microphone_signal("../Testdata/180-180_short.txt");
+  taylortrack::utils::FftLib::RArray sig4 = srp.get_microphone_signal("../Testdata/270-180_short.txt");
   taylortrack::utils::FftLib::RArray estimates(4);
   std::vector<taylortrack::utils::FftLib::RArray> signals;
   signals.push_back(sig1);
@@ -375,8 +375,8 @@ TEST(SrpPhatTest, getPositionDistributionTest) {
     signals2.push_back(signalSlice2);
     signals2.push_back(signalSlice3);
     signals2.push_back(signalSlice4);
-    taylortrack::utils::FftLib::RArray pos = srp.getPositionDistribution(signals2);
-    int maxpos = srp.findVal(pos, pos.max());
+    taylortrack::utils::FftLib::RArray pos = srp.get_position_distribution(signals2);
+    int maxpos = srp.find_value(pos, pos.max());
     estimates[step] = maxpos;
   }
   ASSERT_EQ(180, estimates[1]);

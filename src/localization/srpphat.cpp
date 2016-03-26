@@ -36,20 +36,20 @@ const double kPI = 3.141592653589793238460;
 
 namespace taylortrack {
 namespace localization {
-double SrpPhat::imtdf(const RArray &point,
-                      const RArray &mic1,
-                      const RArray &mic2) {
-  return (std::sqrt(std::pow(point - mic1, 2).sum())
-      - std::sqrt(std::pow(point - mic2, 2).sum()))
+double SrpPhat::inter_microphone_time_delay(const RArray &point,
+                                            const RArray &microphone1,
+                                            const RArray &microphone2) {
+  return (std::sqrt(std::pow(point - microphone1, 2).sum())
+      - std::sqrt(std::pow(point - microphone2, 2).sum()))
       / kSpeedOfSound;
 }
 
-int SrpPhat::pointToDegree(double x_coordinate, double y_coordinate) {
+int SrpPhat::point_to_degree(double x_coordinate, double y_coordinate) {
   return static_cast<int>(round(fmod(((atan2(y_coordinate, x_coordinate)
       * 180 / kPI) + 360), 360.0)));
 }
 
-std::vector<std::tuple<int, int>> SrpPhat::getMicPairs() {
+std::vector<std::tuple<int, int>> SrpPhat::get_mic_pairs() {
   std::vector<std::tuple<int, int>> pairs;
   // iterating over microphones
   for (int i = 0; i < static_cast<int>(x_dim_mics_.size()); i++) {
@@ -63,7 +63,7 @@ std::vector<std::tuple<int, int>> SrpPhat::getMicPairs() {
   return pairs;
 }
 
-RArray SrpPhat::gcc(const RArray &signal1, const RArray &signal2) {
+RArray SrpPhat::generalized_cross_correlation(const RArray &signal1, const RArray &signal2) {
   size_t corr_length = signal1.size() + signal2.size() - 1;
   /* bringing the signals into the right shape to work with the fftlib
    first making them complex and pad with necessary zeros */
@@ -98,7 +98,7 @@ RArray SrpPhat::gcc(const RArray &signal1, const RArray &signal2) {
   return result;
 }
 
-std::vector<double> SrpPhat::getAxisvalues(bool xaxis) {
+std::vector<double> SrpPhat::get_axis_values(bool xaxis) {
   std::vector<double> axisValues;
   int vectorSize = static_cast<int>(
       xaxis ? x_length_ / stepsize_ + 1 : y_length_ / stepsize_ + 1);
@@ -110,50 +110,50 @@ std::vector<double> SrpPhat::getAxisvalues(bool xaxis) {
   return axisValues;
 }
 
-RArray SrpPhat::getPositionDistribution(const std::vector<RArray> &signals) {
-  std::vector<std::vector<double>> gcc_grid = getGccGrid(signals);
-  RArray degreevals(360);
-  std::vector<double> xAxisValues = getAxisvalues(true);
-  std::vector<double> yAxisValues = getAxisvalues(false);
+RArray SrpPhat::get_position_distribution(const std::vector<RArray> &signals) {
+  std::vector<std::vector<double>> gcc_grid = get_generalized_cross_correlation(signals);
+  RArray degreevalues(360);
+  std::vector<double> xAxisValues = get_axis_values(true);
+  std::vector<double> yAxisValues = get_axis_values(false);
 
   for (int i = 0; i < static_cast<int>(xAxisValues.size()); i++) {
     for (int j = 0; j < static_cast<int>(yAxisValues.size()); j++) {
-      int deg = pointToDegree(xAxisValues[i], yAxisValues[j]);
-      if (deg == 360)
-        deg = 0;
-      degreevals[deg] += gcc_grid[i][j];
+      int degree = point_to_degree(xAxisValues[i], yAxisValues[j]);
+      if (degree == 360)
+        degree = 0;
+      degreevalues[degree] += gcc_grid[i][j];
     }
   }
   // get maximum for normalization of values
-  double res = degreevals.sum();
-  return degreevals / res;
+  double res = degreevalues.sum();
+  return degreevalues / res;
 }
 
-int SrpPhat::getPosition(const std::vector<RArray> &signals) {
-  std::vector<std::vector<double>> gcc_grid = getGccGrid(signals);
-  RArray degreevals(360);
-  std::vector<double> xAxisValues = getAxisvalues(true);
-  std::vector<double> yAxisValues = getAxisvalues(false);
+int SrpPhat::get_position(const std::vector<RArray> &signals) {
+  std::vector<std::vector<double>> gcc_grid = get_generalized_cross_correlation(signals);
+  RArray degree_values(360);
+  std::vector<double> xAxisValues = get_axis_values(true);
+  std::vector<double> yAxisValues = get_axis_values(false);
   for (int i = 0; i < 360; i++) {
-    degreevals[i] = 0;
+    degree_values[i] = 0;
   }
   int vectorSize = static_cast<int> (x_length_ / stepsize_ + 1);
   for (int i = 0; i < vectorSize; i++) {
     for (int j = 0; j < vectorSize; j++) {
-      int deg = pointToDegree(xAxisValues[j],
-                              static_cast<double> (yAxisValues[i]));
-      if (deg == 360)
-        deg = 0;
-      degreevals[deg] += gcc_grid[j][i];
+      int degree = point_to_degree(xAxisValues[j],
+                                   static_cast<double> (yAxisValues[i]));
+      if (degree == 360)
+        degree = 0;
+      degree_values[degree] += gcc_grid[j][i];
     }
   }
-  double res = degreevals.max();
-  return findVal(degreevals, res);
+  double res = degree_values.max();
+  return find_value(degree_values, res);
 }
 
-int SrpPhat::findVal(const RArray &ra, double val) {
-  for (int i = 0; i < static_cast<int>(ra.size()); i++) {
-    if (std::abs(ra[i] - val) < 0.0001) {
+int SrpPhat::find_value(const RArray &in_vector, double value) {
+  for (int i = 0; i < static_cast<int>(in_vector.size()); i++) {
+    if (std::abs(in_vector[i] - value) < 0.0001) {
       return i;
     }
   }
@@ -161,14 +161,14 @@ int SrpPhat::findVal(const RArray &ra, double val) {
 }
 
 std::vector<std::vector<double>>
-SrpPhat::getGccGrid(const std::vector<RArray> &signals) {
-  std::vector<std::tuple<int, int>> pairs = getMicPairs();
-  std::vector<std::vector<double>> gccValues;
+SrpPhat::get_generalized_cross_correlation(const std::vector<RArray> &signals) {
+  std::vector<std::tuple<int, int>> pairs = get_mic_pairs();
+  std::vector<std::vector<double>> generalized_cross_correlation_values;
   int64_t vectorSize = int64_t(x_length_ / stepsize_ + 1);
   // initializing the gcc grid
-  gccValues.resize(static_cast<unsigned long>(vectorSize));
+  generalized_cross_correlation_values.resize(static_cast<unsigned long>(vectorSize));
   for (int i = 0; i < vectorSize; ++i) {
-    gccValues[i].resize(static_cast<unsigned long>(vectorSize));
+    generalized_cross_correlation_values[i].resize(static_cast<unsigned long>(vectorSize));
   }
   std::vector<std::vector<std::vector<double>>> micDelays = delay_tensor_;
   // iterating over all microphone pairs
@@ -182,76 +182,76 @@ SrpPhat::getGccGrid(const std::vector<RArray> &signals) {
     RArray signalSlice1 = signal1[std::slice(0, static_cast<size_t>(steps_ + 1), 1)];
     RArray signalSlice2 = signal2[std::slice(0, static_cast<size_t>(steps_), 1)];
     // computing the cross correlation of both frames
-    RArray gccTemp = gcc(signalSlice1, signalSlice2);
+    RArray generalized_cross_temp = generalized_cross_correlation(signalSlice1, signalSlice2);
     // iterating over the whole x-y grid
     for (int x = 0; x < vectorSize; x++) {
       for (int y = 0; y < vectorSize; y++) {
-        double del = micDelays[x][y][i];
+        double delay = micDelays[x][y][i];
         // adding the corresponding cross correlation value to the grid
-        gccValues[x][y] += gccTemp[(steps_ - 1) +
-            round(del / (1.0 / samplerate_))];
+        generalized_cross_correlation_values[x][y] += generalized_cross_temp[(steps_ - 1) +
+            round(delay / (1.0 / samplerate_))];
       }
     }
   }
-  return gccValues;
+  return generalized_cross_correlation_values;
 }
 
 std::vector<std::vector<std::vector<double>>> SrpPhat::get_delay_tensor() {
-  std::vector<std::vector<std::vector<double>>> delayTensor;
-  std::vector<double> xAxisValues = getAxisvalues(true);
-  std::vector<double> yAxisValues = getAxisvalues(false);
-  std::vector<std::tuple<int, int>> pairs = getMicPairs();
-  int vectorSize = x_length_ / stepsize_ + 1;
+  std::vector<std::vector<std::vector<double>>> delay_tensor;
+  std::vector<double> xAxisValues = get_axis_values(true);
+  std::vector<double> yAxisValues = get_axis_values(false);
+  std::vector<std::tuple<int, int>> pairs = get_mic_pairs();
+  int vector_size = x_length_ / stepsize_ + 1;
   int depth = pairs.size();
-  delayTensor.resize(vectorSize);
-  for (int i = 0; i < vectorSize; ++i) {
-    delayTensor[i].resize(vectorSize);
-    for (int j = 0; j < vectorSize; ++j)
-      delayTensor[i][j].resize(depth);
+  delay_tensor.resize(vector_size);
+  for (int i = 0; i < vector_size; ++i) {
+    delay_tensor[i].resize(vector_size);
+    for (int j = 0; j < vector_size; ++j)
+      delay_tensor[i][j].resize(depth);
   }
   // iterating over the grid
-  for (int x = 0; x < vectorSize; x++) {
-    for (int y = 0; y < vectorSize; y++) {
+  for (int x = 0; x < vector_size; x++) {
+    for (int y = 0; y < vector_size; y++) {
       // iterating over microphone pairs
       for (int i = 0; i < static_cast<int>(pairs.size()); i++) {
         //
         RArray point(2);
-        RArray mic1(2);
-        RArray mic2(2);
+        RArray microphone1(2);
+        RArray microphone2(2);
         // assigning the current point in the grid
         point[0] = xAxisValues[x];
         point[1] = yAxisValues[y];
         // assigning the microphone values
         int index1 = std::get<0>(pairs[i]);
         int index2 = std::get<1>(pairs[i]);
-        mic1[0] = x_dim_mics_[index1];
-        mic1[1] = y_dim_mics_[index1];
-        mic2[0] = x_dim_mics_[index2];
-        mic2[1] = y_dim_mics_[index2];
-        double delay = imtdf(point, mic1, mic2);
-        delayTensor[x][y][i] = delay;
+        microphone1[0] = x_dim_mics_[index1];
+        microphone1[1] = y_dim_mics_[index1];
+        microphone2[0] = x_dim_mics_[index2];
+        microphone2[1] = y_dim_mics_[index2];
+        double delay = inter_microphone_time_delay(point, microphone1, microphone2);
+        delay_tensor[x][y][i] = delay;
       }
     }
   }
   // iterating over all microphone pairs
-  return delayTensor;
+  return delay_tensor;
 }
 
-RArray SrpPhat::getMicSignal(const std::string &filepath_name) {
-  std::vector<double> tmp;
+RArray SrpPhat::get_microphone_signal(const std::string &filepath_name) {
+  std::vector<double> temporary_vector;
   std::ifstream infile(filepath_name);
   std::string line = "";
   while (std::getline(infile, line)) {
-    std::istringstream ss(line);
-    double a;
-    if (!(ss >> a))
+    std::istringstream string_stream(line);
+    double temporary_value;
+    if (!(string_stream >> temporary_value))
       break;
-    tmp.push_back(a);
+    temporary_vector.push_back(temporary_value);
   }
   infile.close();
-  RArray signal(tmp.size());
-  for (int i = 0; i < static_cast<int>(tmp.size()); i++) {
-    signal[i] = tmp[i];
+  RArray signal(temporary_vector.size());
+  for (int i = 0; i < static_cast<int>(temporary_vector.size()); i++) {
+    signal[i] = temporary_vector[i];
   }
   return signal;
 }

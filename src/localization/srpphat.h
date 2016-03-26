@@ -57,21 +57,21 @@ class SrpPhat: public Localizer {
   * @param gcc_grid Matrix modeled as two nested vectors that contains every point of the room(grid) and the corresponding cross correlation value.
   * @return speaker position in degree
   */
-  int getPosition(const std::vector<RArray> &signals);
+  int get_position(const std::vector<RArray> &signals);
 
   /**
   * @brief Returns a probability distribution for the position of the speaker over all degrees
   * @param  gcc_grid a vector of all microphone signals
   * @return A RArray with all probability values
   */
-  RArray getPositionDistribution(const std::vector<RArray> &signals);
+  RArray get_position_distribution(const std::vector<RArray> &signals);
 
   /**
   * @brief Returns an RAarray filled with values from a given filepath_name. Only works for one value per column
   * @param  filepath_name A string with the path to the file containing the values
   * @return RArray with all values in that file
   */
-  RArray getMicSignal(const std::string &filepath_name);
+  RArray get_microphone_signal(const std::string &filepath_name);
 
   /**
   * @brief Returns a tensor containing all delays for all possible microphone pairs.
@@ -85,7 +85,7 @@ class SrpPhat: public Localizer {
   * @brief Returns a vector of tuples containing all possible microphone pairs indices
   * @return vector of microphone pair tuples
   */
-  std::vector<std::tuple<int, int>> getMicPairs();
+  std::vector<std::tuple<int, int>> get_mic_pairs();
 
   /**
   * @brief converts a 2 dimensional point in space to degree
@@ -93,7 +93,7 @@ class SrpPhat: public Localizer {
   * @param y_coordinate y coordinate of a point in x y grid
   * @return speaker position in degree
   */
-  int pointToDegree(double x_coordinate, double y_coordinate);
+  int point_to_degree(double x_coordinate, double y_coordinate);
 
   /**
   * @brief Returns the expected delay of sound arrival given that the noise source stands at the given point
@@ -102,7 +102,7 @@ class SrpPhat: public Localizer {
   * @param mic2 coordinates of the second microphone
   * @return the expected delay in seconds
   */
-  double imtdf(const RArray &point, const RArray &mic1, const RArray &mic2);
+  double inter_microphone_time_delay(const RArray &point, const RArray &microphone1, const RArray &microphone2);
 
   /**
   * @brief Returns the generalized cross correlation between two audio signals
@@ -110,7 +110,7 @@ class SrpPhat: public Localizer {
   * @param signal2 second discrete audio signal
   * @return returns the shifted cross correlation vector so that the end length has to be length(signal1)+ length(signal2) -1
   */
-  RArray gcc(const RArray &signal1, const RArray &signal2);
+  RArray generalized_cross_correlation(const RArray &signal1, const RArray &signal2);
 
   /**
   * @brief Returns a x-y grid with the summed up gcc values for each point and each microphone pair
@@ -118,7 +118,7 @@ class SrpPhat: public Localizer {
   * @return The GccGrid Matrix modeled as two nested vectors that contains every point of the room(grid) and the corresponding cross correlation value.
   */
   std::vector<std::vector<double>>
-      getGccGrid(const std::vector<RArray> &signals);
+      get_generalized_cross_correlation(const std::vector<RArray> &signals);
 
   /**
    * @brief Returns values for a given axis
@@ -126,7 +126,7 @@ class SrpPhat: public Localizer {
    * @return A vector of all X-, or Y values of the grid depending on the specified axis,length of the axis and stepsize specified in the constructor.
    */
 
-  std::vector<double> getAxisvalues(bool xaxis);
+  std::vector<double> get_axis_values(bool xaxis);
 
   /**
    * @brief function that search for a specific val in a given valarray of doubles
@@ -134,7 +134,7 @@ class SrpPhat: public Localizer {
    * @param val value to look for in the RArray
    * @return Returns index of the value in the RArray. If value is not found returns -1
    */
-  int findVal(const RArray &ra, double val);
+  int find_value(const RArray &in_vector, double value);
 
     /**
     * @brief Gets the audio samplerate the algorithm is working with
@@ -257,7 +257,7 @@ class SrpPhat: public Localizer {
   * @brief Sets all relevant parameters of the srp phat algorithm.
   * @param  settings a struct of type AudioSettings
   */
-  void setConfig(const taylortrack::utils::ConfigParser &config) {
+  void set_config(const taylortrack::utils::ConfigParser &config) {
     utils::AudioSettings audioConfig = config.get_audio_configuration();
     samplerate_ = audioConfig.sample_rate;
     x_length_ = audioConfig.grid_x;
