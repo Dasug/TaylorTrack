@@ -49,7 +49,7 @@ int SrpPhat::point_to_degree(double x_coordinate, double y_coordinate) {
       * 180 / kPI) + 360), 360.0)));
 }
 
-std::vector<std::tuple<int, int>> SrpPhat::get_mic_pairs() {
+std::vector<std::tuple<int, int>> SrpPhat::get_microphone_pairs() {
   std::vector<std::tuple<int, int>> pairs;
   // iterating over microphones
   for (int i = 0; i < static_cast<int>(x_dim_mics_.size()); i++) {
@@ -162,7 +162,7 @@ int SrpPhat::find_value(const RArray &in_vector, double value) {
 
 std::vector<std::vector<double>>
 SrpPhat::get_generalized_cross_correlation(const std::vector<RArray> &signals) {
-  std::vector<std::tuple<int, int>> pairs = get_mic_pairs();
+  std::vector<std::tuple<int, int>> pairs = get_microphone_pairs();
   std::vector<std::vector<double>> generalized_cross_correlation_values;
   int64_t vectorSize = int64_t(x_length_ / stepsize_ + 1);
   // initializing the gcc grid
@@ -200,7 +200,7 @@ std::vector<std::vector<std::vector<double>>> SrpPhat::get_delay_tensor() {
   std::vector<std::vector<std::vector<double>>> delay_tensor;
   std::vector<double> xAxisValues = get_axis_values(true);
   std::vector<double> yAxisValues = get_axis_values(false);
-  std::vector<std::tuple<int, int>> pairs = get_mic_pairs();
+  std::vector<std::tuple<int, int>> pairs = get_microphone_pairs();
   int vector_size = x_length_ / stepsize_ + 1;
   int depth = pairs.size();
   delay_tensor.resize(vector_size);

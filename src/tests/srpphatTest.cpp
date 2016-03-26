@@ -220,7 +220,7 @@ TEST(SrpPhatTest, getMicPairsTest) {
 
   srp.set_config(config);
 
-  std::vector<std::tuple<int, int>> micP = srp.get_mic_pairs();
+  std::vector<std::tuple<int, int>> micP = srp.get_microphone_pairs();
 
   ASSERT_EQ(0, std::get<0>(micP[0]));
   ASSERT_EQ(1, std::get<1>(micP[0]));

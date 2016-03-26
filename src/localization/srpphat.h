@@ -85,7 +85,7 @@ class SrpPhat: public Localizer {
   * @brief Returns a vector of tuples containing all possible microphone pairs indices
   * @return vector of microphone pair tuples
   */
-  std::vector<std::tuple<int, int>> get_mic_pairs();
+  std::vector<std::tuple<int, int>> get_microphone_pairs();
 
   /**
   * @brief converts a 2 dimensional point in space to degree
