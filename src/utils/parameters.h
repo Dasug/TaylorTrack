@@ -1,7 +1,6 @@
 /**
 * @file
 * @brief Header file for the structs for the parameters.
-* @version 1
 */
 #ifndef TAYLORTRACK_PARAMETERS_H
 #define TAYLORTRACK_PARAMETERS_H
