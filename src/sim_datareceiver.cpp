@@ -42,8 +42,7 @@ int main(int argc, char *argv[]) {
             }
             signals.push_back(volume);
         }
-
-        //auto grid = algorithm.get_generalized_cross_correlation(signals);
+        
         taylortrack::utils::RArray result = algorithm.get_position_distribution(signals);
 
         yarp::os::Bottle& bottle = outport.prepare();
