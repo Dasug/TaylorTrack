@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief Contains the header for the class taylortrack::input::MicrophoneInputStrategy
+ * as well as the struct taylortrack::input::MicrophoneStreamData used within the class.
+ */
+
 #ifndef TAYLORTRACK_MICROPHONE_INPUT_STRATEGY_H_
 #define TAYLORTRACK_MICROPHONE_INPUT_STRATEGY_H_
 
@@ -6,16 +12,50 @@
 namespace taylortrack {
 namespace input {
 
+/**
+ * @Struct
+ * @brief Contains some necessary data for a recording device and stores its audio samples
+ */
 struct MicrophoneStreamData {
-  utils::MicrophoneDevice device;
+  /**
+   * @var values
+   * A vector of vectors containing the recorded sample for each channel
+   */
   std::vector<std::vector<double>> values;
+
+  /**
+   * @var channel_number
+   * Number of channels on which this device is recording
+   */
   int channel_number = 0;
+
+  /**
+   * @var has_written
+   * Determines whether data has alsready been written into the values vectors.
+   * Values should only be written into when has_written is false and only be read when has_written is true.
+   * Otherwise it might cause race-conditions.
+   */
   bool has_written = false;
 };
 
+/**
+ * @class MicrophoneInputStrategy
+ * @brief Records Audio using the PortAudio Library
+*/
 class MicrophoneInputStrategy : public InputStrategy {
  public:
+  /**
+   * @brief Constructor
+   *
+   * Initializes PortAudio and displays available audio input devices
+  */
   MicrophoneInputStrategy();
+
+  /**
+   * @brief Destructor
+   *
+   * Frees memory and terminates PortAudio
+  */
   virtual ~MicrophoneInputStrategy();
   virtual yarp::os::Bottle read(yarp::os::Bottle &bottle) override;
   virtual bool is_done() override;

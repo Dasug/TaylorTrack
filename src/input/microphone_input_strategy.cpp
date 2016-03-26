@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief Contains the implementation for the class taylortrack::input::MicrophoneInputStrategy
+ * as well as a callback function used within the class.
+ */
+
 #include <strings.h>
 #include "microphone_input_strategy.h"
 
@@ -5,6 +11,10 @@ namespace taylortrack {
 namespace input {
 
 namespace {
+/**
+ * @brief Callback function called when receiving audio data.
+ * @sa For a more detailed Documentation of this method please refer to http://portaudio.com/docs/v19-doxydocs/
+ */
 int PaStreamCallback(const void *input, void *output, unsigned long frameSamples,
                      const PaStreamCallbackTimeInfo* timeInfo,
                      PaStreamCallbackFlags statusFlags, void *userData) {
@@ -51,7 +61,6 @@ yarp::os::Bottle MicrophoneInputStrategy::read(yarp::os::Bottle &bottle) {
 
       // Initialize Stream Data
       MicrophoneStreamData* stream_data = new MicrophoneStreamData;
-      stream_data->device = microphone_device;
       stream_data->channel_number = microphone_device.channels;
       stream_data->values.resize(
           static_cast<unsigned long>(microphone_device.channels));
