@@ -25,8 +25,6 @@ SOFTWARE.
 /**
 * @file
 * @brief Contains the read input from file strategy.
-* @details Constructor (and Destructor) to read and return data (with a specific strategy) and status of reading
-* @version 1
 */
 
 #ifndef TAYLORTRACK_INPUT_READ_FILE_INPUT_STRATEGY_H_
