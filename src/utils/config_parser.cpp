@@ -80,12 +80,12 @@ bool ConfigParser::parse_file() {
           } else if (x[0].compare("mic_x") == 0) {
             std::vector<std::string> mic = split_microphones(x[1]);
             audio_settings_.mic_x.resize(mic.size());
-            for (int i = 0; i < mic.size(); i++)
+            for (int i = 0; i < static_cast<int>(mic.size()); i++)
               std::stringstream(mic[i]) >> audio_settings_.mic_x[i];
           } else if (x[0].compare("mic_y") == 0) {
             std::vector<std::string> mic = split_microphones(x[1]);
             audio_settings_.mic_y.resize(mic.size());
-            for (int i = 0; i < mic.size(); i++)
+            for (int i = 0; i < static_cast<int>(mic.size()); i++)
               std::stringstream(mic[i]) >> audio_settings_.mic_y[i];
           } else if (x[0].compare("beta") == 0) {
             std::stringstream(x[1]) >> audio_settings_.beta;
