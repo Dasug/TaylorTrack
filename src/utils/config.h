@@ -26,6 +26,12 @@ struct MicrophoneDevice {
    * number of samples that input device should be delayed when combining audio streams of several input devices
   */
   int delay = 0;
+
+  /**
+   * @var channels
+   * number of channels within the input device
+   */
+  int channels = 0;
 };
 
 /**
