@@ -7,6 +7,7 @@
 #define TAYLORTRACK_CONFIG_H_
 #include <valarray>
 #include <string>
+#include <vector>
 
 namespace taylortrack {
 namespace utils {

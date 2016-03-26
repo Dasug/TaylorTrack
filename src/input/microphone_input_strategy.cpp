@@ -1,5 +1,5 @@
 #include <zconf.h>
-#include <tkPort.h>
+//#include <tkPort.h>
 #include "microphone_input_strategy.h"
 
 namespace taylortrack {
