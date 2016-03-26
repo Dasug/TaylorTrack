@@ -43,7 +43,6 @@ int main(int argc, char *argv[]) {
             signals.push_back(volume);
         }
 
-        //auto grid = algorithm.getGccGrid(signals);
         taylortrack::utils::RArray result = algorithm.getPositionDistribution(signals);
 
         yarp::os::Bottle& bottle = outport.prepare();
