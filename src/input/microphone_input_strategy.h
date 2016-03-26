@@ -4,8 +4,8 @@
  * as well as the struct taylortrack::input::MicrophoneStreamData used within the class.
  */
 
-#ifndef TAYLORTRACK_MICROPHONE_INPUT_STRATEGY_H_
-#define TAYLORTRACK_MICROPHONE_INPUT_STRATEGY_H_
+#ifndef TAYLORTRACK_INPUT_MICROPHONE_INPUT_STRATEGY_H_
+#define TAYLORTRACK_INPUT_MICROPHONE_INPUT_STRATEGY_H_
 
 #include <portaudio.h>
 #include "input_strategy.h"
@@ -76,4 +76,4 @@ class MicrophoneInputStrategy : public InputStrategy {
 }  // namespace taylortrack
 
 
-#endif //TAYLORTRACK_MICROPHONE_INPUT_STRATEGY_H
+#endif //TAYLORTRACK_INPUT_MICROPHONE_INPUT_STRATEGY_H
