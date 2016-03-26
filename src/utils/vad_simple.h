@@ -38,7 +38,7 @@ namespace utils {
 * @class VadSimple
 * @brief Implements a simple Voice Activity Detection
 */
-class VadSimple: public VadStrategy {
+class VadSimple : public VadStrategy {
  public:
   /**
    * @brief Constructor

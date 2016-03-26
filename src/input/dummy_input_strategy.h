@@ -42,7 +42,7 @@ namespace input {
 *
 * Strategy which streams the string: "Dummy Test successful".
 */
-class DummyInputStrategy: public InputStrategy {
+class DummyInputStrategy : public InputStrategy {
  public:
   /**
   * @brief DummyInputStrategy Constructor .

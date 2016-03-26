@@ -45,7 +45,7 @@ namespace utils {
 *
 * This implementation however only works with signals that have a length equal to a power of two.
 */
-class FftLib: public FftStrategy {
+class FftLib : public FftStrategy {
  public:
 /**
  * @typedef ComplexDouble

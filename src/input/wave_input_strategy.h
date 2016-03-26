@@ -47,7 +47,7 @@ namespace input {
 * Returns a YARP bottle consisting of sample amplitude levels as float values
 * @warning Only supports Wave files with 16 Bits per sample at the moment!
 */
-class WaveInputStrategy: public InputStrategy {
+class WaveInputStrategy : public InputStrategy {
  public:
   /**
   * @brief ~WaveInputStrategy Destructor

@@ -62,7 +62,7 @@ typedef std::valarray<Complex> CArray;
 *
 * Strategy that implements SrpPhat to localize a speaker.
 */
-class SrpPhat: public Localizer {
+class SrpPhat : public Localizer {
  public:
   /**
   * @brief Gets most likely position of the recorded speaker in degrees

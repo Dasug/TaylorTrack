@@ -43,7 +43,7 @@ namespace input {
 *
 * Strategy which reads the simulation data from a given file and returns the entire file content at once.
 */
-class ReadFileInputStrategy: public InputStrategy {
+class ReadFileInputStrategy : public InputStrategy {
  public:
   /**
   * @ReadFileInputStrategy Destructor

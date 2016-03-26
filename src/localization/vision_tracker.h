@@ -40,7 +40,7 @@ namespace localization {
 *
 * Strategy that utilizes OpenCV to localize a person in front of the camera.
 */
-class VisionTracker: public VideoLocalizer {
+class VisionTracker : public VideoLocalizer {
  public:
   /**
   * @brief Gets most likely position of the located person in degrees
