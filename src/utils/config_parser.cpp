@@ -210,7 +210,7 @@ std::string ConfigParser::trim(const std::string &s) {
       std::find_if_not(s.rbegin(),
                        s.rend(), [](int c){return std::isspace(c);}).base();
 
-  return (wsback <= wsfront ? std::string() : std::string(wsfront, wsback));
+  return wsback <= wsfront ? std::string() : std::string(wsfront, wsback);
 }
 
 ConfigParser::ConfigParser() {

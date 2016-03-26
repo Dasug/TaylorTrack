@@ -1,6 +1,6 @@
 #include "data_receiver.h"
-namespace taylortrack{
-namespace sim{
+namespace taylortrack {
+namespace sim {
 DataReceiver::DataReceiver(const taylortrack::utils::CommunicationSettings &in_settings) {
   this->in_settings_ = in_settings;
   this->buffered_port_ = new yarp::os::BufferedPort<yarp::os::Bottle>();
