@@ -1,5 +1,4 @@
-#include <zconf.h>
-//#include <tkPort.h>
+#include <strings.h>
 #include "microphone_input_strategy.h"
 
 namespace taylortrack {
@@ -14,7 +13,7 @@ int PaStreamCallback(const void *input, void *output, unsigned long frameCount,
 
   // Do we need new data? If not, just skip it.
   if (!stream_data->has_written) {
-    //std::cout << "Writing into Stream Data #" << stream_data->device.microphone_id << std::endl;
+
     // Create one vector for each channel
     std::vector<std::vector<double>> values;
     for (int channel = 0; channel < stream_data->channel_number; ++channel) {
