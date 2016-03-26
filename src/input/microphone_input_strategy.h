@@ -30,8 +30,6 @@ class MicrophoneInputStrategy : public InputStrategy {
   std::vector<MicrophoneStreamData*> stream_datas_;
   int channels_ = 0;
   std::vector<PaStream*> streams_;
-  std::vector<std::vector<double>> channel_values_;
-  std::vector<bool> device_data_available_;
   bool running_ = false;
 };
 }  // namespace input
