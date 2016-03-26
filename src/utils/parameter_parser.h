@@ -24,7 +24,6 @@ SOFTWARE.
 /**
  * @file
  * @brief Provides a parser for the start parameters.
- * @version 1
  */
 #ifndef TAYLORTRACK_UTILS_PARAMETER_PARSER_H_
 #define TAYLORTRACK_UTILS_PARAMETER_PARSER_H_

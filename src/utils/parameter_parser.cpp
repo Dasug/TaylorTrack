@@ -23,7 +23,7 @@ SOFTWARE.
 */
 /**
  * @file
- * @brief Parser
+ * @brief Parses the given start parameters and assigns the values to the parameter struct.
  */
 #include "utils/parameter_parser.h"
 #include <iostream>
