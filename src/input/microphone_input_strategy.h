@@ -1,3 +1,26 @@
+/*
+The MIT License (MIT)
+
+Copyright (c) 2015 Marius Kaufmann, Tamara Frieß, Jannis Hoppe, Christian Hack
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 /**
  * @file
  * @brief Contains the header for the class taylortrack::input::MicrophoneInputStrategy
@@ -8,7 +31,8 @@
 #define TAYLORTRACK_INPUT_MICROPHONE_INPUT_STRATEGY_H_
 
 #include <portaudio.h>
-#include "input_strategy.h"
+#include <vector>
+#include "input/input_strategy.h"
 namespace taylortrack {
 namespace input {
 
@@ -57,10 +81,10 @@ class MicrophoneInputStrategy : public InputStrategy {
    * Frees memory and terminates PortAudio
   */
   virtual ~MicrophoneInputStrategy();
-  virtual yarp::os::Bottle read(yarp::os::Bottle &bottle) override;
-  virtual bool is_done() override;
-  virtual void set_parameters(const utils::Parameters &params) override;
-  virtual void set_config(const utils::ConfigParser &config_parser) override;
+  yarp::os::Bottle read(yarp::os::Bottle &bottle) override;
+  bool is_done() override;
+  void set_parameters(const utils::Parameters &params) override;
+  void set_config(const utils::ConfigParser &config_parser) override;
 
  private:
   bool done_ = false;
@@ -75,5 +99,4 @@ class MicrophoneInputStrategy : public InputStrategy {
 }  // namespace input
 }  // namespace taylortrack
 
-
-#endif //TAYLORTRACK_INPUT_MICROPHONE_INPUT_STRATEGY_H
+#endif  // TAYLORTRACK_INPUT_MICROPHONE_INPUT_STRATEGY_H_
