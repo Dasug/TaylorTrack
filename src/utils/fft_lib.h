@@ -47,8 +47,20 @@ namespace utils {
 */
 class FftLib: public FftStrategy {
  public:
+/**
+ * @typedef ComplexDouble
+ * Complex number type
+ */
   typedef std::complex<double> ComplexDouble;
+/**
+ * @typedef RArray
+ * valarray filled with double values.
+ */
   typedef std::valarray<double> RArray;
+/**
+ * @typedef CArray
+ * valarray filled with complex values.
+ */
   typedef std::valarray<ComplexDouble> CArray;
 
   /**

@@ -41,8 +41,20 @@ SOFTWARE.
 
 namespace taylortrack {
 namespace localization {
+/**
+ * @typedef Complex
+ * Complex number type
+ */
 typedef std::complex<double> Complex;
+/**
+ * @typedef RArray
+ * valarray filled with double values.
+ */
 typedef std::valarray<double> RArray;
+/**
+ * @typedef CArray
+ * valarray filled with complex values.
+ */
 typedef std::valarray<Complex> CArray;
 /**
 * @class SrpPhat
