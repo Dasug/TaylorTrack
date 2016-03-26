@@ -261,6 +261,24 @@ class ConfigParser {
   }
 
   /**
+   * @brief Sets the settings for the microphone input module
+   * @param video_settings taylortrack::utils::MicrophoneInputSettings to be set
+   * @sa taylortrack::input::MicrophoneInputStrategy
+   */
+  void set_microphone_input_settings(const MicrophoneInputSettings &microphone_input_settings) {
+    ConfigParser::microphone_input_settings_ = microphone_input_settings;
+  }
+
+  /**
+  * @brief Gets the configuration for the microphone input module
+  * @pre is_valid() returns true
+  * @return Configuration for the microphone input module
+  */
+  const MicrophoneInputSettings get_microphone_input_configuration() const {
+    return microphone_input_settings_;
+  }
+
+  /**
   * @brief Gets the configuration for the vision tracking algorithm
   * @pre is_valid() returns true
   * @return Configuration for the vision tracking algorithm
@@ -295,6 +313,7 @@ class ConfigParser {
   std::ifstream file_;
   GeneralOptions general_options_;
   AudioSettings audio_settings_;
+  MicrophoneInputSettings microphone_input_settings_;
   VideoSettings video_settings_;
   CombinationSettings combination_settings_;
   CommunicationSettings input_communication_out_,
@@ -305,6 +324,8 @@ class ConfigParser {
                         combination_communication_in_,
                         combination_communication_out_,
                         visualizer_communication_in_;
+  std::vector<int> microphone_input_device_ids_;
+  std::vector<int> microphone_input_device_delays_;
 };
 }  // namespace utils
 }  // namespace taylortrack
