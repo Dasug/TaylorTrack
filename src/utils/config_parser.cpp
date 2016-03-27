@@ -141,7 +141,25 @@ bool ConfigParser::parse_file() {
             visualizer_communication_in_.port = x[1];
           break;  // end section 5
 
-        default:  // Do nothing
+        case 6:
+          if (x[0].compare("devices") == 0) {
+            std::vector<std::string> mic = split_microphones(x[1]);
+            for (uint i = 0; i < mic.size(); i++) {
+              int microphone_id = 0;
+              std::stringstream(mic[i]) >> microphone_id;
+              microphone_input_device_ids_.push_back(microphone_id);
+            }
+          } else if (x[0].compare("delays") == 0) {
+            std::vector<std::string> mic = split_microphones(x[1]);
+            for (uint i = 0; i < mic.size(); i++) {
+              int microphone_delay = 0;
+              std::stringstream(mic[i]) >> microphone_delay;
+              microphone_input_device_delays_.push_back(microphone_delay);
+            }
+          }
+          break;  // end section 6
+
+        default: // Do nothing
           break;
       }
     }
@@ -157,7 +175,23 @@ bool ConfigParser::parse_file() {
       section = 4;
     else if (line.compare("[visualizer]") == 0)
       section = 5;
+    else if(line.compare("[microphone input]") == 0)
+      section = 6;
   }  // end while
+
+  // create proper microphone device objects
+  for (int device_index = 0; device_index < static_cast<int>(microphone_input_device_ids_.size()); ++device_index) {
+    MicrophoneDevice device;
+    device.microphone_id = microphone_input_device_ids_.at(static_cast<unsigned long>(device_index));
+    if(static_cast<int>(microphone_input_device_delays_.size()) > device_index) {
+      device.delay = microphone_input_device_delays_.at(static_cast<unsigned long>(device_index));
+    } else {
+      device.delay = 0;
+    }
+
+    microphone_input_settings_.devices.push_back(device);
+  }
+
   return audio_settings_.mic_x.size() == audio_settings_.mic_y.size()
       && audio_settings_.mic_x.size() > 0
       && audio_settings_.mic_y.size() > 0;

@@ -11,16 +11,23 @@ add_executable(read_file_input sim_datastreamer.cpp input/read_file_input_strate
 target_compile_definitions(read_file_input PUBLIC INPUT_READ_FILE)
 target_link_libraries(read_file_input ${YARP_LIBRARIES})
 
-# Set up file input target
+# Set up wave file input target
 add_executable(wave_file_input sim_datastreamer.cpp utils/wave_parser.cpp input/wave_input_strategy.cpp sim/streamer.cpp utils/parameter_parser.cpp utils/config_parser.cpp)
 target_compile_definitions(wave_file_input PUBLIC INPUT_WAVE_FILE)
 target_link_libraries(wave_file_input ${YARP_LIBRARIES})
 
-# Set up file input target
+# Set up openCV input target
 add_executable(open_cv_input sim_datastreamer.cpp sim/streamer.cpp utils/parameter_parser.cpp utils/config_parser.cpp input/opencv_input_strategy.cpp)
 target_compile_definitions(open_cv_input PUBLIC INPUT_OPENCV)
 target_link_libraries(open_cv_input ${YARP_LIBRARIES})
 target_link_libraries(open_cv_input ${OpenCV_LIBS})
+
+# Set up microphone input target
+add_executable(microphone_input sim_datastreamer.cpp sim/streamer.cpp utils/parameter_parser.cpp utils/config_parser.cpp input/microphone_input_strategy.cpp input/microphone_input_strategy.h)
+target_compile_definitions(microphone_input PUBLIC INPUT_MICROPHONE)
+target_link_libraries(microphone_input ${YARP_LIBRARIES})
+target_link_libraries(microphone_input ${PORTAUDIO_LIBRARIES})
+
 
 # Add Datareceiver executable
 add_executable(sim_datareceiver sim_datareceiver.cpp utils/parameter_parser.cpp sim/data_receiver.cpp utils/config_parser.cpp localization/srpphat.cpp utils/fft_lib.cpp utils/fft_strategy.cpp)
