@@ -25,7 +25,6 @@ SOFTWARE.
 /**
 * @file
 * @brief Header file for taylortrack::input::WaveInputStrategy class.
-* @version 1
 */
 
 #ifndef TAYLORTRACK_INPUT_WAVE_INPUT_STRATEGY_H_

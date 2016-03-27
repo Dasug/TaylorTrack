@@ -25,7 +25,6 @@ SOFTWARE.
 /**
 * @file
 * @brief Header file for taylortrack::utils::WaveParser class.
-* @version 1
 */
 
 #ifndef TAYLORTRACK_UTILS_WAVE_PARSER_H

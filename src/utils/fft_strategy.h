@@ -52,7 +52,7 @@ typedef std::valarray<double> RArray;
  */
 typedef std::valarray<ComplexDouble> CArray;
 /**
-* @interface FftStrategy
+* @class FftStrategy
 * @brief Interface for a Fast Fourier Transformation Strategy.
 *
 * Already provides some pre-made functions that may also be overwritten if needed

@@ -24,7 +24,6 @@ SOFTWARE.
 /**
 * @file
 * @brief Header file for the structs for the algorithm configuration.
-* @version 1
 */
 #ifndef TAYLORTRACK_UTILS_CONFIG_H_
 #define TAYLORTRACK_UTILS_CONFIG_H_
@@ -149,12 +148,29 @@ struct VideoSettings {
    */
   int camera_id = 0;
 
+  /**
+   * @var width
+   * Defines the width of frame from the camera.
+   */
   int width = 0;
 
+  /**
+   * @var max_camera_vew_angle
+   * Defines the maximum angle the camera can record.
+   */
   double max_camera_view_angle = 0;
 
+  /**
+   * @var
+   * Defines the start camera angle.
+   */
   double camera_angle = 0;
 
+  /**
+   * @var
+   * Defines the variance used for the position distribution calculation
+   * from the vision tracker.
+   */
   double variance = 0;
 };
 
