@@ -430,9 +430,9 @@ TEST(SrpPhatTest, getPosandDistributionTest) {
     signals2.push_back(signalSlice3);
     signals2.push_back(signalSlice4);
     srp.calculate_position_and_distribution(signals2);
-    estimates[step] = srp.get_last_position_();
+    estimates[step] = srp.get_last_position();
   }
   ASSERT_EQ(180, estimates[1]);
   ASSERT_EQ(180, estimates[2]);
-  ASSERT_EQ(360, srp.get_last_distribution_().size());
+  ASSERT_EQ(360, srp.get_last_distribution().size());
 }
