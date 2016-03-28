@@ -37,7 +37,7 @@ namespace taylortrack {
 namespace input {
 
 /**
- * @Struct
+ * @struct
  * @brief Contains some necessary data for a recording device and stores its audio samples
  */
 struct MicrophoneStreamData {

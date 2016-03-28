@@ -63,13 +63,13 @@ typedef std::valarray<Complex> CArray;
 */
 class SrpPhat : public Localizer {
  public:
-  /*
+  /**
    * @var kSpeedOfSound
    * @brief Speed of Sound used for calculations within the class.
    */
   const double kSpeedOfSound = 340.42;
 
-  /*
+  /**
    * @var kPI
    * @brief PI constant used for caltulations within the class.
    */
@@ -127,8 +127,8 @@ class SrpPhat : public Localizer {
   /**
   * @brief Returns the expected delay of sound arrival given that the noise source stands at the given point
   * @param point The coordinates of the noise source
-  * @param mic1 coordinates of the first microphone
-  * @param mic2 coordinates of the second microphone
+  * @param microphone1 coordinates of the first microphone
+  * @param microphone2 coordinates of the second microphone
   * @return the expected delay in seconds
   */
   double inter_microphone_time_delay(const RArray &point, const RArray &microphone1, const RArray &microphone2);
@@ -151,16 +151,15 @@ class SrpPhat : public Localizer {
 
   /**
    * @brief Returns values for a given axis
-   * @param axis defines which axis you want values for xaxis=true means x axis and xaxis=false returns values for the y axis
+   * @param xaxis defines which axis you want values for xaxis=true means x axis and xaxis=false returns values for the y axis
    * @return A vector of all X-, or Y values of the grid depending on the specified axis,length of the axis and stepsize specified in the constructor.
    */
-
   std::vector<double> get_axis_values(bool xaxis);
 
   /**
    * @brief function that search for a specific val in a given valarray of doubles
-   * @param ra RArray that contains values to be searched
-   * @param val value to look for in the RArray
+   * @param in_vector RArray that contains values to be searched
+   * @param value value to look for in the RArray
    * @return Returns index of the value in the RArray. If value is not found returns -1
    */
   int find_value(const RArray &in_vector, double value);
@@ -291,7 +290,7 @@ class SrpPhat : public Localizer {
 
   /**
   * @brief Sets all relevant parameters of the srp phat algorithm.
-  * @param  settings a struct of type AudioSettings
+  * @param config object containing the configuration from a config file
   */
   void set_config(const taylortrack::utils::ConfigParser &config) {
     utils::AudioSettings audioConfig = config.get_audio_configuration();
