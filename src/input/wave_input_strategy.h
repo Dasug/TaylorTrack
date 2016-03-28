@@ -64,17 +64,17 @@ class WaveInputStrategy : public InputStrategy {
   * @return YARP bottle consisting of sample amplitude levels as float values
   * @see is_done()
   */
-  yarp::os::Bottle read(yarp::os::Bottle &bottle);
+  yarp::os::Bottle read(yarp::os::Bottle &bottle) override;
 
   /**
   * @brief Detects if the read method is done with reading the simulation data.
   * @return Status of the read method.
   */
-  bool is_done();
+  bool is_done() override;
 
-  void set_parameters(const taylortrack::utils::Parameters &params);
+  void set_parameters(const taylortrack::utils::Parameters &params) override;
 
-  void set_config(const taylortrack::utils::ConfigParser &config_parser);
+  void set_config(const taylortrack::utils::ConfigParser &config_parser) override;
 
  private:
   taylortrack::utils::Parameters parameter_;

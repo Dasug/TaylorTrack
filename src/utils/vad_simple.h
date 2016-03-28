@@ -51,7 +51,7 @@ class VadSimple : public VadStrategy {
    * @param &sample
    * @return true if voice is detected
    */
-  bool detect(const RArray &sample);
+  bool detect(const RArray &sample) override;
 
   /**
    * @brief Getter Method for threshold

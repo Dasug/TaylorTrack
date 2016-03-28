@@ -86,14 +86,14 @@ class SrpPhat : public Localizer {
   * @param  signals a vector of all microphone signals with each being a RArray
   * @return speaker position in degree
   */
-  int get_position(const std::vector<RArray> &signals);
+  int get_position(const std::vector<RArray> &signals) override;
 
   /**
   * @brief Returns a probability distribution for the position of the speaker over all degrees
   * @param  signals a vector of all microphone signals with each being a RArray
   * @return A RArray with all probability values
   */
-  RArray get_position_distribution(const std::vector<RArray> &signals);
+  RArray get_position_distribution(const std::vector<RArray> &signals) override;
 
   /**
   * @brief Returns an RAarray filled with values from a given filepath_name. Only works for one value per column
@@ -280,10 +280,17 @@ class SrpPhat : public Localizer {
   bool is_initialized(){
     return intialized_;
   }
-
+  /**
+   * @brief Returns the speaker position distribution of the last calculated frame.
+   * @return the last calculated speaker position distribution
+   */
   const RArray &get_last_distribution() const {
     return last_distribution_;
   }
+  /**
+   * @brief Returns the last calculated speaker position.
+   * @return the calculated speaker position of the last frame
+   */
   int get_last_position() const {
     return last_position_;
   }
@@ -292,7 +299,7 @@ class SrpPhat : public Localizer {
   * @brief Sets all relevant parameters of the srp phat algorithm.
   * @param config object containing the configuration from a config file
   */
-  void set_config(const taylortrack::utils::ConfigParser &config) {
+  void set_config(const taylortrack::utils::ConfigParser &config) override {
     utils::AudioSettings audioConfig = config.get_audio_configuration();
     samplerate_ = audioConfig.sample_rate;
     x_length_ = audioConfig.grid_x;
