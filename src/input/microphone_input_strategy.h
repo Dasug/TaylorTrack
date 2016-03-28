@@ -75,6 +75,11 @@ class MicrophoneInputStrategy : public InputStrategy {
   MicrophoneInputStrategy();
 
   /**
+   * @brief Default Copy constructor
+   */
+  MicrophoneInputStrategy(const MicrophoneInputStrategy& that) = default;
+
+  /**
    * @brief Destructor
    *
    * Frees memory and terminates PortAudio
@@ -83,8 +88,8 @@ class MicrophoneInputStrategy : public InputStrategy {
   yarp::os::Bottle read(yarp::os::Bottle &bottle) override;
   bool is_done() override;
   void set_parameters(const utils::Parameters &params) override;
+
   void set_config(const utils::ConfigParser &config_parser) override;
-  MicrophoneInputStrategy(const MicrophoneInputStrategy& that) = default;
 
  private:
   bool done_ = false;

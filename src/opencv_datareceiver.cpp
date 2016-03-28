@@ -56,7 +56,7 @@ int main(int argc,  const char *argv[]) {
     std::cout << "Invalid parameter usage. Please check --help" << std::endl;
     return EXIT_FAILURE;
   }
-  auto config = taylortrack::utils::ConfigParser(parameters.config);
+  taylortrack::utils::ConfigParser config(parameters.config);
   taylortrack::utils::CommunicationSettings in, out;
   in = config.get_video_communication_in();
   out = config.get_video_communication_out();

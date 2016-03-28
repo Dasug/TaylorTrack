@@ -64,17 +64,23 @@ typedef std::valarray<Complex> CArray;
 class SrpPhat : public Localizer {
  public:
   SrpPhat() = default;
+
+  /**
+   * @brief Default Copy constructor
+   */
+  SrpPhat(const SrpPhat& that) = default;
+
   /**
    * @var kSpeedOfSound
    * @brief Speed of Sound used for calculations within the class.
    */
   const double kSpeedOfSound = 340.42;
-
   /**
    * @var kPI
    * @brief PI constant used for caltulations within the class.
    */
   const double kPI = 3.141592653589793238460;
+
   /**
   * @brief Gets most likely position of the recorded speaker in degrees and a probability distribution
   * over angles and stores those values in appropiate class variables
@@ -103,13 +109,13 @@ class SrpPhat : public Localizer {
   */
   RArray get_microphone_signal(const std::string &filepath_name);
 
+
   /**
   * @brief Returns a tensor containing all delays for all possible microphone pairs.
   * @details Returns a (X,Y,Z) tensor with matrices modelling the room(X,Y) with each entry containing the appropriate delay for that point given a certain microphone pair. The third dimension(Z) of the tensor models all the possible microphone pairs.
   * @return Returns the delay tensor modelled by a 3 dimensional vector
   */
   std::vector<std::vector<std::vector<double>>> get_delay_tensor();
-
 
   /**
   * @brief Returns a vector of tuples containing all possible microphone pairs indices
@@ -164,112 +170,112 @@ class SrpPhat : public Localizer {
    * @return Returns index of the value in the RArray. If value is not found returns -1
    */
   int find_value(const RArray &in_vector, double value);
-
-    /**
+  /**
     * @brief Gets the audio samplerate the algorithm is working with
     * @return Returns the audio samplerate (samples per second)
     */
   int get_samplerate() const {
     return samplerate_;
   }
-    /**
+  /**
     * @brief Sets the audio samplerate the algorithm is working with
     * @param samplerate
     */
   void set_samplerate(int samplerate) {
     samplerate_ = samplerate;
   }
-    /**
+  /**
     * @brief Gets the length of the x axis used for the grid that models the room.
     * @return Returns the x axis length in meters
     */
   double get_x_length() const {
     return x_length_;
   }
-    /**
+  /**
      * @brief Sets the length of the x axis used for the grid that models the room.
      * @param x_length for setting the length
      */
   void set_x_length(double x_length) {
     x_length_ = x_length;
   }
-    /**
+  /**
     * @brief Gets the length of the y axis used for the grid that models the room.
     * @return Returns the y axis length in meters
     */
   double get_y_length() const {
     return y_length_;
   }
-    /**
+  /**
      * @brief Sets the length of the y axis used for the grid that models the room.
      * @param y_length for setting the length
      */
   void set_y_length(double y_length) {
     y_length_ = y_length;
   }
-    /**
+  /**
     * @brief Gets the stepsize resolution for points in the room.
     * @return Returns the stepsize in meters.
     */
   double get_step_size() const {
     return stepsize_;
   }
-    /**
+  /**
     * @brief Sets the stepsize resolution for points to be considered in the room. The lower the more points used.
     * @param stepsize for setting the stepsize
     */
   void set_step_size(double stepsize) {
     stepsize_ = stepsize;
   }
-    /**
+  /**
     * @brief Gets the x axis values of the microphones in the room(grid).
     * @return Returns a valarray with the corresponding x axis values of each microphone.
     */
   const RArray &get_x_dim_mics() const {
     return x_dim_mics_;
   }
-    /**
+  /**
     * @brief Sets the x axis values of the microphones in the room(grid).
     * @param x_dim_mics for setting the x values of the microphones
     */
   void set_x_dim_mics(const RArray &x_dim_mics) {
     x_dim_mics_ = x_dim_mics;
   }
-    /**
+  /**
     * @brief Gets the y axis values of the microphones in the room(grid).
     * @return Returns a valarray with the corresponding y axis values of each microphone.
     */
   const RArray &get_y_dim_mics() const {
     return y_dim_mics_;
   }
-    /**
+  /**
     * @brief Sets the y axis values of the microphones in the room(grid).
     * @param y_dim_mics for setting the y values of the microphones
     */
   void setY_dim_mics(const RArray &y_dim_mics) {
     y_dim_mics_ = y_dim_mics;
   }
-    /**
+  /**
     * @brief Gets the length of the audio signals the algorithm is working with.
     * @return Returns the number of samples per frame for which a localization estimation is done.
     */
   int get_steps() const {
     return steps_;
   }
-    /**
+  /**
     * @brief Sets the length of the audio signals the algorithm is working with (samples per frame).
     * @param steps for setting length of audio signal
     */
   void set_steps(int steps) {
     steps_ = steps;
   }
-    /**
+  /**
     * @brief Gets the beta exponent used in the cross correlation weighting.
     * @return Returns the beta exponent.
     */
   double get_beta() const {
     return beta_;
   }
+
     /**
     * @brief Sets the beta exponent used in the cross correlation weighting.
     * @param beta for setting beta exponent
@@ -277,7 +283,6 @@ class SrpPhat : public Localizer {
   void set_beta(double beta) {
     beta_ = beta;
   }
-
   bool is_initialized(){
     return intialized_;
   }
@@ -288,6 +293,7 @@ class SrpPhat : public Localizer {
   const RArray &get_last_distribution() const {
     return last_distribution_;
   }
+
   /**
    * @brief Returns the last calculated speaker position.
    * @return the calculated speaker position of the last frame
@@ -313,8 +319,6 @@ class SrpPhat : public Localizer {
     delay_tensor_ = get_delay_tensor();
     intialized_ = true;
   }
-
-  SrpPhat(const SrpPhat& that) = default;
  private:
 // last computed position distribution of the speaker;
   RArray last_distribution_ = RArray(360);

@@ -44,11 +44,15 @@ namespace taylortrack {
 namespace input {
 class OpenCVInputStrategy : public InputStrategy {
  public:
+  OpenCVInputStrategy() = default;
+  /**
+   * @brief Default Copy constructor
+   */
+  OpenCVInputStrategy(const OpenCVInputStrategy& that) = default;
   yarp::os::Bottle read(yarp::os::Bottle &bottle) override;
   bool is_done() override;
   void set_parameters(const taylortrack::utils::Parameters &params) override;
   void set_config(const taylortrack::utils::ConfigParser &config_parser) override;
-  OpenCVInputStrategy(const OpenCVInputStrategy& that) = default;
  private:
   cv::VideoCapture video_capture_;
   cv::Mat frame_;

@@ -54,6 +54,11 @@ class WaveParser {
   explicit WaveParser(const char *file_name);
 
   /**
+   * @brief Default copy constructor
+   */
+  WaveParser(const WaveParser& that) = default;
+
+  /**
   * @brief WaveParser Destructor
   *
   * Releases wave file
@@ -137,8 +142,6 @@ class WaveParser {
   * @return Total number of samples within parsed wave file
   */
   int64_t get_sample_num() const;
-
-  WaveParser(const WaveParser& that) = default;
  private:
   bool valid_ = false;
   uint16_t audio_format_ = 0x0001;
