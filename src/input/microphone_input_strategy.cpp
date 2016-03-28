@@ -40,7 +40,7 @@ namespace {
  */
 int PaStreamCallback(const void *input,
                      void *output,
-                     uint64_t frameSamples,
+                     unsigned long frameSamples,
                      const PaStreamCallbackTimeInfo *timeInfo,
                      PaStreamCallbackFlags statusFlags,
                      void *userData) {
