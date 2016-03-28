@@ -284,6 +284,7 @@ class SrpPhat : public Localizer {
   }
 
  private:
+  // nested vector containing delays for each point in the considered space considering each microphone pair
   std::vector<std::vector<std::vector<double>>> delay_tensor_;
   // audio sample rate the algorithm should work with
   int samplerate_ = 0;
