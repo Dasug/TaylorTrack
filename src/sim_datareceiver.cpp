@@ -5,7 +5,7 @@
 
 #include "sim/data_receiver.h"
 #include <yarp/os/all.h>
-#include "localization/srpphat.h"
+#include "localization/srp_phat.h"
 #include "utils/config_parser.h"
 #include "utils/fft_strategy.h"
 

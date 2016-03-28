@@ -30,13 +30,13 @@ target_link_libraries(microphone_input ${PORTAUDIO_LIBRARIES})
 
 
 # Add Datareceiver executable
-add_executable(sim_datareceiver sim_datareceiver.cpp utils/parameter_parser.cpp sim/data_receiver.cpp utils/config_parser.cpp localization/srpphat.cpp utils/fft_lib.cpp utils/fft_strategy.cpp)
+add_executable(sim_datareceiver sim_datareceiver.cpp utils/parameter_parser.cpp sim/data_receiver.cpp utils/config_parser.cpp localization/srp_phat.cpp utils/fft_lib.cpp utils/fft_strategy.cpp)
 
 # Add OpenCv Datareceiver executeable
 add_executable(opencv_datareceiver opencv_datareceiver.cpp utils/parameter_parser.cpp sim/data_receiver.cpp utils/config_parser.cpp localization/vision_tracker.cpp)
 
 # Add test executable
-add_executable(testunit input/dummy_input_strategy.cpp sim/streamer.cpp tests/testinit.cpp tests/simtest.cpp tests/streamertest.cpp utils/parameter_parser.cpp utils/fft_lib.cpp localization/srpphat.cpp tests/parsertest.cpp tests/read_input_file_test.cpp input/read_file_input_strategy.cpp tests/ffttest.cpp utils/wave_parser.cpp tests/wave_parser_test.cpp input/wave_input_strategy.cpp tests/wave_input_test.cpp utils/config_parser.cpp tests/config_parser_test.cpp tests/srpphatTest.cpp utils/fft_strategy.cpp sim/data_receiver.cpp utils/vad_strategy.h utils/vad_simple.cpp utils/vad_simple.h tests/vadSimpleTest.cpp)
+add_executable(testunit input/dummy_input_strategy.cpp sim/streamer.cpp tests/testinit.cpp tests/simulation_test.cpp tests/streamer_test.cpp utils/parameter_parser.cpp utils/fft_lib.cpp localization/srp_phat.cpp tests/parser_test.cpp tests/read_input_file_test.cpp input/read_file_input_strategy.cpp tests/fft_test.cpp utils/wave_parser.cpp tests/wave_parser_test.cpp input/wave_input_strategy.cpp tests/wave_input_test.cpp utils/config_parser.cpp tests/config_parser_test.cpp tests/srp_phat_test.cpp utils/fft_strategy.cpp sim/data_receiver.cpp utils/vad_strategy.h utils/vad_simple.cpp utils/vad_simple.h tests/vad_simple_test.cpp)
 
 # Result Visualizer
 add_executable(visualizer visualizer.cpp vis/OutputVisualizer.cpp sim/data_receiver.cpp utils/config_parser.cpp)

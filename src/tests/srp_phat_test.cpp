@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include <math.h>
 #include <fstream>
-#include "localization/srpphat.h"
+#include "localization/srp_phat.h"
 #include "utils/fft_lib.h"
 #include "utils/config.h"
 
