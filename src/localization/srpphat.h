@@ -26,7 +26,6 @@ SOFTWARE.
 /**
 * @file
 * @brief Implements the SRP PHAT algorithm
-* @version 1
 */
 #ifndef TAYLORTRACK_LOCALIZATION_SRPPHAT_H_
 #define TAYLORTRACK_LOCALIZATION_SRPPHAT_H_
@@ -152,113 +151,113 @@ class SrpPhat : public Localizer {
     * @brief Gets the audio samplerate the algorithm is working with
     * @return Returns the audio samplerate (samples per second)
     */
-  int getSamplerate() const {
+  int get_samplerate() const {
     return samplerate_;
   }
     /**
     * @brief Sets the audio samplerate the algorithm is working with
     * @param samplerate
     */
-  void setSamplerate(int samplerate) {
-    SrpPhat::samplerate_ = samplerate;
+  void set_samplerate(int samplerate) {
+    samplerate_ = samplerate;
   }
     /**
     * @brief Gets the length of the x axis used for the grid that models the room.
     * @return Returns the x axis length in meters
     */
-  double getXLength() const {
+  double get_x_length() const {
     return x_length_;
   }
     /**
      * @brief Sets the length of the x axis used for the grid that models the room.
      * @param x_length for setting the length
      */
-  void setXLength(double x_length) {
-    SrpPhat::x_length_ = x_length;
+  void set_x_length(double x_length) {
+    x_length_ = x_length;
   }
     /**
     * @brief Gets the length of the y axis used for the grid that models the room.
     * @return Returns the y axis length in meters
     */
-  double getYLength() const {
+  double get_y_length() const {
     return y_length_;
   }
     /**
      * @brief Sets the length of the y axis used for the grid that models the room.
      * @param y_length for setting the length
      */
-  void setYLength(double y_length) {
-    SrpPhat::y_length_ = y_length;
+  void set_y_length(double y_length) {
+    y_length_ = y_length;
   }
     /**
     * @brief Gets the stepsize resolution for points in the room.
     * @return Returns the stepsize in meters.
     */
-  double getStepSize() const {
+  double get_step_size() const {
     return stepsize_;
   }
     /**
     * @brief Sets the stepsize resolution for points to be considered in the room. The lower the more points used.
     * @param stepsize for setting the stepsize
     */
-  void setStepSize(double stepsize) {
-    SrpPhat::stepsize_ = stepsize;
+  void set_step_size(double stepsize) {
+    stepsize_ = stepsize;
   }
     /**
     * @brief Gets the x axis values of the microphones in the room(grid).
     * @return Returns a valarray with the corresponding x axis values of each microphone.
     */
-  const RArray &getXDimMics() const {
+  const RArray &get_x_dim_mics() const {
     return x_dim_mics_;
   }
     /**
     * @brief Sets the x axis values of the microphones in the room(grid).
     * @param x_dim_mics for setting the x values of the microphones
     */
-  void setXDimMics(const RArray &x_dim_mics) {
-    SrpPhat::x_dim_mics_ = x_dim_mics;
+  void set_x_dim_mics(const RArray &x_dim_mics) {
+    x_dim_mics_ = x_dim_mics;
   }
     /**
     * @brief Gets the y axis values of the microphones in the room(grid).
     * @return Returns a valarray with the corresponding y axis values of each microphone.
     */
-  const RArray &getYDimMics() const {
+  const RArray &get_y_dim_mics() const {
     return y_dim_mics_;
   }
     /**
     * @brief Sets the y axis values of the microphones in the room(grid).
     * @param y_dim_mics for setting the y values of the microphones
     */
-  void setYDimMics(const RArray &y_dim_mics) {
-    SrpPhat::y_dim_mics_ = y_dim_mics;
+  void setY_dim_mics(const RArray &y_dim_mics) {
+    y_dim_mics_ = y_dim_mics;
   }
     /**
     * @brief Gets the length of the audio signals the algorithm is working with.
     * @return Returns the number of samples per frame for which a localization estimation is done.
     */
-  int getSteps() const {
+  int get_steps() const {
     return steps_;
   }
     /**
     * @brief Sets the length of the audio signals the algorithm is working with (samples per frame).
     * @param steps for setting length of audio signal
     */
-  void setSteps(int steps) {
-    SrpPhat::steps_ = steps;
+  void set_steps(int steps) {
+    steps_ = steps;
   }
     /**
     * @brief Gets the beta exponent used in the cross correlation weighting.
     * @return Returns the beta exponent.
     */
-  double getBeta() const {
+  double get_beta() const {
     return beta_;
   }
     /**
     * @brief Sets the beta exponent used in the cross correlation weighting.
     * @param beta for setting beta exponent
     */
-  void setBeta(double beta) {
-    SrpPhat::beta_ = beta;
+  void set_beta(double beta) {
+    beta_ = beta;
   }
 
   bool is_initialized(){

@@ -24,7 +24,6 @@ SOFTWARE.
 /**
 * @file
 * @brief Header file for the configuration file parser.
-* @version 1
 */
 #ifndef TAYLORTRACK_UTILS_CONFIG_PARSER_H_
 #define TAYLORTRACK_UTILS_CONFIG_PARSER_H_
@@ -130,7 +129,7 @@ class ConfigParser {
    * @brief Sets general options
    * @param general_options taylortrack::utils::GeneralOptions to be set
    */
-  void setGeneralOptions(const GeneralOptions &general_options) {
+  void set_general_options(const GeneralOptions &general_options) {
     ConfigParser::general_options_ = general_options;
   }
 
@@ -139,7 +138,7 @@ class ConfigParser {
    * @param audio_settings taylortrack::utils::AudioSettings to be set
    * @sa taylortrack::localization::Localizer
    */
-  void setAudioSettings(const AudioSettings &audio_settings) {
+  void set_audio_settings(const AudioSettings &audio_settings) {
     ConfigParser::audio_settings_ = audio_settings;
   }
 
@@ -148,7 +147,7 @@ class ConfigParser {
    * @param video_settings taylortrack::utils::VideoSettings to be set
    * @sa taylortrack::localization::Localizer
    */
-  void setVideoSettings(const VideoSettings &video_settings) {
+  void set_video_settings(const VideoSettings &video_settings) {
     ConfigParser::video_settings_ = video_settings;
   }
 
@@ -157,7 +156,7 @@ class ConfigParser {
    * @param combination_settings taylortrack::utils::CombinationSettings to be set
    * @sa taylortrack::localization::Localizer
    */
-  void setCombinationSettings(const CombinationSettings &combination_settings) {
+  void set_combination_settings(const CombinationSettings &combination_settings) {
     ConfigParser::combination_settings_ = combination_settings;
   }
 
@@ -166,7 +165,7 @@ class ConfigParser {
    * @param input_communication_out taylortrack::utils::CommunicationSettings to be set
    * @sa taylortrack::input::InputStrategy
    */
-  void setInputCommunicationOut(
+  void set_input_communication_out(
       const CommunicationSettings &input_communication_out) {
     ConfigParser::input_communication_out_ = input_communication_out;
   }
@@ -176,7 +175,7 @@ class ConfigParser {
    * @param audio_communication_in taylortrack::utils::CommunicationSettings to be set
    * @sa taylortrack::localization::Localizer
    */
-  void setAudioCommunicationIn(
+  void set_audio_communication_in(
       const CommunicationSettings &audio_communication_in) {
     ConfigParser::audio_communication_in_ = audio_communication_in;
   }
@@ -186,7 +185,7 @@ class ConfigParser {
    * @param audio_communication_out taylortrack::utils::CommunicationSettings to be set
    * @sa taylortrack::localization::Localizer
    */
-  void setAudioCommunicationOut(
+  void set_audio_communication_out(
       const CommunicationSettings &audio_communication_out) {
     ConfigParser::audio_communication_out_ = audio_communication_out;
   }
@@ -196,7 +195,7 @@ class ConfigParser {
    * @param video_communication_in taylortrack::utils::CommunicationSettings to be set
    * @sa taylortrack::localization::Localizer
    */
-  void setVideoCommunicationIn(
+  void set_video_communication_in(
       const CommunicationSettings &video_communication_in) {
     ConfigParser::video_communication_in_ = video_communication_in;
   }
@@ -206,7 +205,7 @@ class ConfigParser {
    * @param video_communication_out taylortrack::utils::CommunicationSettings to be set
    * @sa taylortrack::localization::Localizer
    */
-  void setVideoCommunicationOut(
+  void set_video_communication_out(
       const CommunicationSettings &video_communication_out) {
     ConfigParser::video_communication_out_ = video_communication_out;
   }
@@ -216,7 +215,7 @@ class ConfigParser {
    * @param combination_communication_in taylortrack::utils::CommunicationSettings to be set
    * @sa taylortrack::localization::Localizer
    */
-  void setCombinationCommunicationIn(
+  void set_combination_communication_in(
       const CommunicationSettings &combination_communication_in) {
     ConfigParser::combination_communication_in_ = combination_communication_in;
   }
@@ -226,7 +225,7 @@ class ConfigParser {
    * @param combination_communication_out taylortrack::utils::CommunicationSettings to be set
    * @sa taylortrack::localization::Localizer
    */
-  void setCombinationCommunicationOut(
+  void set_combination_communication_out(
       const CommunicationSettings &combination_communication_out) {
     ConfigParser::combination_communication_out_
         = combination_communication_out;
@@ -237,7 +236,7 @@ class ConfigParser {
    * @param visualizer_communication_in taylortrack::utils::CommunicationSettings to be set
    * @sa taylortrack::vis::OutputVisualizer
    */
-  void setVisualizerCommunicationIn(
+  void set_visualizer_communication_in(
       const CommunicationSettings &visualizer_communication_in) {
     ConfigParser::visualizer_communication_in_ = visualizer_communication_in;
   }
@@ -258,6 +257,24 @@ class ConfigParser {
   */
   const AudioSettings get_audio_configuration() const {
     return audio_settings_;
+  }
+
+  /**
+   * @brief Sets the settings for the microphone input module
+   * @param video_settings taylortrack::utils::MicrophoneInputSettings to be set
+   * @sa taylortrack::input::MicrophoneInputStrategy
+   */
+  void set_microphone_input_settings(const MicrophoneInputSettings &microphone_input_settings) {
+    ConfigParser::microphone_input_settings_ = microphone_input_settings;
+  }
+
+  /**
+  * @brief Gets the configuration for the microphone input module
+  * @pre is_valid() returns true
+  * @return Configuration for the microphone input module
+  */
+  const MicrophoneInputSettings get_microphone_input_configuration() const {
+    return microphone_input_settings_;
   }
 
   /**
@@ -295,6 +312,7 @@ class ConfigParser {
   std::ifstream file_;
   GeneralOptions general_options_;
   AudioSettings audio_settings_;
+  MicrophoneInputSettings microphone_input_settings_;
   VideoSettings video_settings_;
   CombinationSettings combination_settings_;
   CommunicationSettings input_communication_out_,
@@ -305,6 +323,8 @@ class ConfigParser {
                         combination_communication_in_,
                         combination_communication_out_,
                         visualizer_communication_in_;
+  std::vector<int> microphone_input_device_ids_;
+  std::vector<int> microphone_input_device_delays_;
 };
 }  // namespace utils
 }  // namespace taylortrack

@@ -40,7 +40,7 @@ void FftStrategy::circshift(const RArray &in,
   }
 }
 
-CArray FftStrategy::convertToComplex(const RArray &signal) {
+CArray FftStrategy::convert_to_complex(const RArray &signal) {
   CArray converted(signal.size());
   for (int i = 0; i < static_cast<int>(signal.size()); i++) {
     converted[i] = signal[i];
@@ -48,7 +48,7 @@ CArray FftStrategy::convertToComplex(const RArray &signal) {
   return converted;
 }
 
-RArray FftStrategy::convertToReal(const CArray &signal) {
+RArray FftStrategy::convert_to_real(const CArray &signal) {
   RArray converted(signal.size());
   for (int i = 0; i < static_cast<int>(signal.size()); i++) {
     converted[i] = signal[i].real();
@@ -56,7 +56,7 @@ RArray FftStrategy::convertToReal(const CArray &signal) {
   return converted;
 }
 
-CArray FftStrategy::zeroPadding(const CArray &signal, int padamount) {
+CArray FftStrategy::zero_padding(const CArray &signal, int padamount) {
   size_t newsize = padamount + signal.size();
   CArray paddedsignal(newsize);
   // copying the signal

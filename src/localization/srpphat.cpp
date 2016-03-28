@@ -68,14 +68,14 @@ RArray SrpPhat::generalized_cross_correlation(const RArray &signal1, const RArra
   /* bringing the signals into the right shape to work with the fftlib
    first making them complex and pad with necessary zeros */
   taylortrack::utils::FftLib fft_obj = taylortrack::utils::FftLib();
-  CArray tempsignal1 = fft_obj.convertToComplex(signal1);
-  CArray tempsignal2 = fft_obj.convertToComplex(signal2);
+  CArray tempsignal1 = fft_obj.convert_to_complex(signal1);
+  CArray tempsignal2 = fft_obj.convert_to_complex(signal2);
   CArray csignal1 =
-      fft_obj.zeroPadding(tempsignal1,
-                          static_cast<int> (corr_length - signal1.size()));
+      fft_obj.zero_padding(tempsignal1,
+                           static_cast<int> (corr_length - signal1.size()));
   CArray csignal2 =
-      fft_obj.zeroPadding(tempsignal2,
-                          static_cast<int> (corr_length - signal2.size()));
+      fft_obj.zero_padding(tempsignal2,
+                           static_cast<int> (corr_length - signal2.size()));
 
   // perform FFT on the converted signals
   fft_obj.fft(csignal1);
@@ -91,7 +91,7 @@ RArray SrpPhat::generalized_cross_correlation(const RArray &signal1, const RArra
   fft_obj.ifft(temp);
 
   RArray result(temp.size());
-  RArray temp3 = fft_obj.convertToReal(temp);
+  RArray temp3 = fft_obj.convert_to_real(temp);
 
   fft_obj.fftshift(temp3, result);
 

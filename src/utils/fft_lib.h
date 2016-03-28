@@ -27,7 +27,6 @@ SOFTWARE.
 * @brief Implementation of the FftStrategy using the cooley turkey algorithm.
 *
 * This implementation however only works with signals that have a length equal to a power of two.
-* @version 1
 */
 
 #ifndef TAYLORTRACK_UTILS_FFT_LIB_H_

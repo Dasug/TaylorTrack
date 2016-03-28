@@ -24,7 +24,6 @@ SOFTWARE.
 /**
 * @file
 * @brief Implementation of A Voice Activity Strategy
-* @version 1
 */
 #ifndef TAYLORTRACK_UTILS_VADSTRATEGY_H_
 #define TAYLORTRACK_UTILS_VADSTRATEGY_H_
@@ -39,7 +38,7 @@ typedef std::complex<double> ComplexDouble;
 typedef std::valarray<double> RArray;
 typedef std::valarray<ComplexDouble> CArray;
 /**
-* @class VadStrategy
+* @interface VadStrategy
 * @brief Interface for Voice Activity Trackers with parsed samples
 */
 class VadStrategy {

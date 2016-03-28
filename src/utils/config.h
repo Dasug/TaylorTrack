@@ -24,15 +24,39 @@ SOFTWARE.
 /**
 * @file
 * @brief Header file for the structs for the algorithm configuration.
-* @version 1
 */
 #ifndef TAYLORTRACK_UTILS_CONFIG_H_
 #define TAYLORTRACK_UTILS_CONFIG_H_
 #include <valarray>
 #include <string>
+#include <vector>
 
 namespace taylortrack {
 namespace utils {
+/**
+ * @Struct
+ * @brief Contains settings for a single microphone device.
+ */
+struct MicrophoneDevice {
+  /**
+   * @var name
+   * id of the device (starting the Taylortrack Microphone Input program will show a list of all available sound devices).
+  */
+  int microphone_id = 0;
+
+  /**
+   * @var delay
+   * number of samples that input device should be delayed when combining audio streams of several input devices
+  */
+  int delay = 0;
+
+  /**
+   * @var channels
+   * number of channels within the input device
+   */
+  int channels = 0;
+};
+
 /**
  * @Struct
  * @brief Contains general options.
@@ -43,6 +67,31 @@ struct GeneralOptions {
    * Defines whether the user wants to have a console output for the results of the algorithm.
   */
   bool console_output = true;
+};
+
+
+/**
+ * @Struct
+ * @brief Contains the parameters for the microphone input.
+ */
+struct MicrophoneInputSettings {
+  /**
+   * @var devices
+   * A std::vector including settings for all microphone devices to be used
+   */
+  std::vector<MicrophoneDevice> devices = {};
+
+  /**
+   * @var sample_rate
+   * Defines the sample rate for the microphone input.
+  */
+  int sample_rate = 44100;
+
+  /**
+   * @var frame_size
+   * Defines the amount of samples per channel that are being recorded per frame.
+  */
+  int frame_size = 2048;
 };
 
 /**
@@ -149,12 +198,29 @@ struct VideoSettings {
    */
   int camera_id = 0;
 
+  /**
+   * @var width
+   * Defines the width of frame from the camera.
+   */
   int width = 0;
 
+  /**
+   * @var max_camera_vew_angle
+   * Defines the maximum angle the camera can record.
+   */
   double max_camera_view_angle = 0;
 
+  /**
+   * @var
+   * Defines the start camera angle.
+   */
   double camera_angle = 0;
 
+  /**
+   * @var
+   * Defines the variance used for the position distribution calculation
+   * from the vision tracker.
+   */
   double variance = 0;
 };
 

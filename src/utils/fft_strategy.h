@@ -25,7 +25,6 @@ SOFTWARE.
 /**
 * @file
 * @brief Fast Fourier Transformation Strategy.
-* @version 1
 */
 #ifndef TAYLORTRACK_UTILS_FFT_STRATEGY_H_
 #define TAYLORTRACK_UTILS_FFT_STRATEGY_H_
@@ -52,7 +51,7 @@ typedef std::valarray<double> RArray;
  */
 typedef std::valarray<ComplexDouble> CArray;
 /**
-* @interface FftStrategy
+* @class FftStrategy
 * @brief Interface for a Fast Fourier Transformation Strategy.
 *
 * Already provides some pre-made functions that may also be overwritten if needed
@@ -97,14 +96,14 @@ class FftStrategy {
   * @param x a valarray filled with complex values
   * @return a valarray filled with complex numbers.
   */
-  virtual CArray convertToComplex(const RArray &signal);
+  virtual CArray convert_to_complex(const RArray &signal);
 
   /**
   * @brief creates a real val array out of a complex one by cutting of all imaginary values.
   * @param x a valarray filled with complex values
   * @return a valarray filled with doubles which represent the real parts of the input valarray
   */
-  virtual RArray convertToReal(const CArray &signal);
+  virtual RArray convert_to_real(const CArray &signal);
 
   /**
   * @brief Zero pad a signal with a variable amount.
@@ -112,7 +111,7 @@ class FftStrategy {
   * @param padamount amount of leading zeros
   * @return a zero padded signal
   */
-  virtual CArray zeroPadding(const CArray &signal, int padamount);
+  virtual CArray zero_padding(const CArray &signal, int padamount);
 };
 }  //  namespace utils
 }  //  namespace taylortrack

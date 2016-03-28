@@ -25,7 +25,6 @@ SOFTWARE.
 /**
 * @file
 * @brief Implementation of for taylortrack::utils::WaveParser class.
-* @version 1
 */
 
 #include "wave_parser.h"
@@ -161,4 +160,3 @@ bool WaveParser::is_valid() const {
 
 }  // namespace utils
 }  // namespace taylortrack
-

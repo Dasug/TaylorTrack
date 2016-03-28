@@ -28,7 +28,7 @@ TEST(SrpPhatTest, imtdfTest) {
   settings.mic_y = micsY;
   settings.frame_size = steps;
   taylortrack::utils::ConfigParser config;
-  config.setAudioSettings(settings);
+  config.set_audio_settings(settings);
 
   srp.set_config(config);
   point[0] = 0;
@@ -72,7 +72,7 @@ TEST(SrpPhatTest, axisValueTest) {
   settings.frame_size = steps;
 
   taylortrack::utils::ConfigParser config;
-  config.setAudioSettings(settings);
+  config.set_audio_settings(settings);
 
   srp.set_config(config);
 
@@ -107,7 +107,7 @@ TEST(SrpPhatTest, gccTest) {
   settings.frame_size = steps;
 
   taylortrack::utils::ConfigParser config;
-  config.setAudioSettings(settings);
+  config.set_audio_settings(settings);
 
   srp.set_config(config);
 
@@ -151,7 +151,7 @@ TEST(SrpPhatTest, pointToAngleTest) {
   settings.frame_size = steps;
 
   taylortrack::utils::ConfigParser config;
-  config.setAudioSettings(settings);
+  config.set_audio_settings(settings);
 
   srp.set_config(config);
   int deg = srp.point_to_degree(x, y);
@@ -188,7 +188,7 @@ TEST(SrpPhatTest, getDelayTensorTest) {
   settings.frame_size = 2048;
 
   taylortrack::utils::ConfigParser config;
-  config.setAudioSettings(settings);
+  config.set_audio_settings(settings);
 
   srp.set_config(config);
 
@@ -216,7 +216,7 @@ TEST(SrpPhatTest, getMicPairsTest) {
   settings.frame_size = 2048;
 
   taylortrack::utils::ConfigParser config;
-  config.setAudioSettings(settings);
+  config.set_audio_settings(settings);
 
   srp.set_config(config);
 
@@ -256,7 +256,7 @@ TEST(SrpPhatTest, gccGridTest) {
   settings.frame_size = 2048;
 
   taylortrack::utils::ConfigParser config;
-  config.setAudioSettings(settings);
+  config.set_audio_settings(settings);
 
   srp.set_config(config);
 
@@ -294,7 +294,7 @@ TEST(SrpPhatTest, getPositionTest) {
   settings.frame_size = steps;
 
   taylortrack::utils::ConfigParser config;
-  config.setAudioSettings(settings);
+  config.set_audio_settings(settings);
 
   srp.set_config(config);
 
@@ -348,7 +348,7 @@ TEST(SrpPhatTest, getPositionDistributionTest) {
   settings.frame_size = steps;
 
   taylortrack::utils::ConfigParser config;
-  config.setAudioSettings(settings);
+  config.set_audio_settings(settings);
 
   srp.set_config(config);
 
