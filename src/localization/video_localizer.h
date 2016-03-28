@@ -38,7 +38,7 @@ namespace taylortrack {
 namespace localization {
 typedef std::valarray<double> RArray;
 /**
-* @interface Video Localizer
+* @interface VideoLocalizer
 * @brief Interface for different video localization algorithms.
 *
 * Localization algorithm that will get used
