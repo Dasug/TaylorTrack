@@ -26,8 +26,6 @@ SOFTWARE.
  * @file
  * @brief Implementation of srpphat.h
  */
-const double kSpeedOfSound = 340.42;
-const double kPI = 3.141592653589793238460;
 #include "srp_phat.h"
 #include <string>
 #include <tuple>

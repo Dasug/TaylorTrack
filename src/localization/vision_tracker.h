@@ -43,6 +43,11 @@ namespace localization {
 class VisionTracker : public VideoLocalizer {
  public:
   /**
+   * @var kPI
+   * @brief PI constant used for caltulations within the class.
+   */
+  const double kPI = 3.141592653589793238460;
+  /**
   * @brief Gets most likely position of the located person in degrees
   * @return Position of the person in degree
   */

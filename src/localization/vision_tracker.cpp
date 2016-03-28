@@ -29,7 +29,6 @@ SOFTWARE.
 #include "localization/vision_tracker.h"
 #include <algorithm>
 #include <iostream>
-const double kPI = 3.141592653589793238460;
 
 namespace taylortrack {
 namespace localization {
