@@ -46,12 +46,19 @@ namespace input {
 class ReadFileInputStrategy : public InputStrategy {
  public:
   ReadFileInputStrategy() = default;
+
+  /**
+   * @brief Default Copy constructor
+   */
+  ReadFileInputStrategy(const ReadFileInputStrategy& that) = default;
+
   /**
   * @brief Destructor
   *
   * Frees up memory.
   */
   ~ReadFileInputStrategy();
+
   /**
   * @brief Reads the entire file and returns the data.
   * @param bottle YARP bottle to store the read data
@@ -70,8 +77,6 @@ class ReadFileInputStrategy : public InputStrategy {
   void set_parameters(const utils::Parameters &params) override;
 
   void set_config(const utils::ConfigParser &config_parser) override;
-
-  ReadFileInputStrategy(const ReadFileInputStrategy& that) = default;
 
  private:
   bool done_ = true;

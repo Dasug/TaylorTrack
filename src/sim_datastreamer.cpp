@@ -61,13 +61,11 @@ int main(int argc, const char *argv[]) {
 #else
 #error Missing or unknown input strategy
 #endif
-        auto parser =
-            taylortrack::utils::ConfigParser("../conf/input.conf");
+        taylortrack::utils::ConfigParser parser("../conf/input.conf");
         if (parser.is_valid()) {
           strategy.set_parameters(parameters);
           strategy.set_config(parser);
-          auto streamer =
-              taylortrack::sim::Streamer(&strategy, parameters.outport);
+          taylortrack::sim::Streamer streamer(&strategy, parameters.outport);
           streamer.start_streaming(parameters.inport);
           return EXIT_SUCCESS;
         } else {

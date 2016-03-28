@@ -47,6 +47,11 @@ class VadSimple : public VadStrategy {
   explicit VadSimple(double threshold);
 
   /**
+   * @brief Default copy constructor
+   */
+  VadSimple(const VadSimple& that) = default;
+
+  /**
    * @brief energy based detection
    * @param &sample
    * @return true if voice is detected
@@ -57,7 +62,7 @@ class VadSimple : public VadStrategy {
    * @brief Getter Method for threshold
    * @return threshold value
    */
-  double get_Threshold() const {
+  double get_threshold() const {
     return threshold_;
   }
 
@@ -65,11 +70,9 @@ class VadSimple : public VadStrategy {
    * @brief Setter Method for threshold
    * @param threshold wanted threshold
    */
-  void set_Threshold(double threshold) {
+  void set_threshold(double threshold) {
     threshold_ = threshold;
   }
-
-  VadSimple(const VadSimple& that) = default;
  private:
   double threshold_ = 0.0;  // significant value for classifying as voice
 };
