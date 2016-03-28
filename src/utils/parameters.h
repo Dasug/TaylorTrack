@@ -7,7 +7,6 @@
 namespace taylortrack {
   namespace utils {
     /**
-     * @Struct
      * @brief Contains the given start parameters.
     */
     struct Parameters {

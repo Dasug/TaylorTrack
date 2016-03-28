@@ -261,7 +261,7 @@ class ConfigParser {
 
   /**
    * @brief Sets the settings for the microphone input module
-   * @param video_settings taylortrack::utils::MicrophoneInputSettings to be set
+   * @param microphone_input_settings taylortrack::utils::MicrophoneInputSettings to be set
    * @sa taylortrack::input::MicrophoneInputStrategy
    */
   void set_microphone_input_settings(const MicrophoneInputSettings &microphone_input_settings) {

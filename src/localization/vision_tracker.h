@@ -59,13 +59,13 @@ class VisionTracker : public VideoLocalizer {
   RArray get_position_distribution() override;
   /**
   * @brief Sets all relevant parameters of the person tracking algorithm.
-  * @param  Settings a struct of type VideoSettings
+  * @param vs Settings a struct of type VideoSettings
   * @return True if the video settings have been set and if the CascadeCassifier was loaded correctly.
   */
   bool set_parameters(const utils::VideoSettings &vs) override;
   /**
   * @brief Sets the frame for the person detection.
-  * @param  A OpenCV Matrix containing the frame to be used for the detection.
+  * @param frame A OpenCV Matrix containing the frame to be used for the detection.
   */
   void set_frame(cv::Mat frame);
   /**

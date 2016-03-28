@@ -80,12 +80,12 @@ class FftStrategy {
 
     /**
      * @brief Perform a circular shift on a given signal. The shifted signal will be placed in the parameter out.
-     * @param outvec The valarray that has to contain the shifted signal.
-     * @param invec The valarray that contains the signal that has to be shifted.
+     * @param in The valarray that contains the signal that has to be shifted.
      * @param xdim The x dimension of the given vector.
      * @param ydim The y dimension of the given vector.
      * @param xshift The amount to shift in the x dimension.
      * @param yshift The amount to shift in the y dimension.
+     * @param out The valarray that has to contain the shifted signal.
      */
   virtual void circshift(const RArray &in,
                          int64_t xdim, int64_t ydim,
@@ -93,14 +93,14 @@ class FftStrategy {
 
   /**
   * @brief creates a complex val array out of a real one by filling imaginary parts with zeros.
-  * @param x a valarray filled with complex values
+  * @param signal a valarray filled with complex values
   * @return a valarray filled with complex numbers.
   */
   virtual CArray convert_to_complex(const RArray &signal);
 
   /**
   * @brief creates a real val array out of a complex one by cutting of all imaginary values.
-  * @param x a valarray filled with complex values
+  * @param signal a valarray filled with complex values
   * @return a valarray filled with doubles which represent the real parts of the input valarray
   */
   virtual RArray convert_to_real(const CArray &signal);
