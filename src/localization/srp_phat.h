@@ -277,7 +277,11 @@ class SrpPhat : public Localizer {
   void set_beta(double beta) {
     beta_ = beta;
   }
-
+  /**
+   * @brief Checks whether the algorithm has been properly initialized
+   * by the config setter
+   * @return true if the configuration has been properly initialized, false otherwise.
+   */
   bool is_initialized(){
     return intialized_;
   }
