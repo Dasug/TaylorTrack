@@ -80,7 +80,6 @@ class SrpPhat : public Localizer {
    * @brief PI constant used for caltulations within the class.
    */
   const double kPI = 3.141592653589793238460;
-
   /**
   * @brief Gets most likely position of the recorded speaker in degrees and a probability distribution
   * over angles and stores those values in appropiate class variables
@@ -108,7 +107,6 @@ class SrpPhat : public Localizer {
   * @return RArray with all values in that file
   */
   RArray get_microphone_signal(const std::string &filepath_name);
-
 
   /**
   * @brief Returns a tensor containing all delays for all possible microphone pairs.
@@ -275,7 +273,6 @@ class SrpPhat : public Localizer {
   double get_beta() const {
     return beta_;
   }
-
     /**
     * @brief Sets the beta exponent used in the cross correlation weighting.
     * @param beta for setting beta exponent
@@ -283,6 +280,11 @@ class SrpPhat : public Localizer {
   void set_beta(double beta) {
     beta_ = beta;
   }
+  /**
+   * @brief Checks whether the algorithm has been properly initialized
+   * by the config setter
+   * @return true if the configuration has been properly initialized, false otherwise.
+   */
   bool is_initialized(){
     return intialized_;
   }
@@ -293,7 +295,6 @@ class SrpPhat : public Localizer {
   const RArray &get_last_distribution() const {
     return last_distribution_;
   }
-
   /**
    * @brief Returns the last calculated speaker position.
    * @return the calculated speaker position of the last frame
