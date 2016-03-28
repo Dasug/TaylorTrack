@@ -63,6 +63,17 @@ typedef std::valarray<Complex> CArray;
 */
 class SrpPhat : public Localizer {
  public:
+  /*
+   * @var kSpeedOfSound
+   * @brief Speed of Sound used for calculations within the class.
+   */
+  const double kSpeedOfSound = 340.42;
+
+  /*
+   * @var kPI
+   * @brief PI constant used for caltulations within the class.
+   */
+  const double kPI = 3.141592653589793238460;
   /**
   * @brief Gets most likely position of the recorded speaker in degrees and a probability distribution
   * over angles and stores those values in appropiate class variables
