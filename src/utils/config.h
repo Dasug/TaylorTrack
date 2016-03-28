@@ -34,12 +34,12 @@ SOFTWARE.
 namespace taylortrack {
 namespace utils {
 /**
- * @Struct
+ * @struct MicrophoneDevice
  * @brief Contains settings for a single microphone device.
  */
 struct MicrophoneDevice {
   /**
-   * @var name
+   * @var microphone_id
    * id of the device (starting the Taylortrack Microphone Input program will show a list of all available sound devices).
   */
   int microphone_id = 0;
@@ -58,7 +58,7 @@ struct MicrophoneDevice {
 };
 
 /**
- * @Struct
+ * @struct GeneralOptions
  * @brief Contains general options.
  */
 struct GeneralOptions {
@@ -71,7 +71,7 @@ struct GeneralOptions {
 
 
 /**
- * @Struct
+ * @struct MicrophoneInputSettings
  * @brief Contains the parameters for the microphone input.
  */
 struct MicrophoneInputSettings {
@@ -95,7 +95,7 @@ struct MicrophoneInputSettings {
 };
 
 /**
-* @Struct
+* @struct AudioSettings
 * @brief Contains the parameters for the audio tracking algorithm.
 */
 struct AudioSettings {
@@ -163,7 +163,7 @@ struct AudioSettings {
 };
 
 /**
-* @Struct
+* @struct VideoSettings
 * @brief Contains the parameters for the vision tracking algorithm.
 */
 struct VideoSettings {
@@ -205,7 +205,7 @@ struct VideoSettings {
   int width = 0;
 
   /**
-   * @var max_camera_vew_angle
+   * @var max_camera_view_angle
    * Defines the maximum angle the camera can record.
    */
   double max_camera_view_angle = 0;
@@ -225,7 +225,7 @@ struct VideoSettings {
 };
 
 /**
- * @Struct
+ * @struct CombinationSettings
  * @brief Contains configuration for Audio and Video Combination tracking
  */
 struct CombinationSettings {
@@ -244,7 +244,7 @@ struct CombinationSettings {
 };
 
 /**
- * @Struct
+ * @struct CommunicationSettings
  * @brief Contains parameters for network communication.
  */
 struct CommunicationSettings {
