@@ -303,6 +303,7 @@ class ConfigParser {
     return valid_;
   }
 
+  ConfigParser(const ConfigParser& that) = delete;
  private:
   std::string trim(const std::string &s);
   std::vector<std::string> split(const std::string &s, char delim);

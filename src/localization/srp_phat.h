@@ -63,6 +63,7 @@ typedef std::valarray<Complex> CArray;
 */
 class SrpPhat : public Localizer {
  public:
+  SrpPhat() = default;
   /**
    * @var kSpeedOfSound
    * @brief Speed of Sound used for calculations within the class.
@@ -313,6 +314,7 @@ class SrpPhat : public Localizer {
     intialized_ = true;
   }
 
+  SrpPhat(const SrpPhat& that) = default;
  private:
 // last computed position distribution of the speaker;
   RArray last_distribution_ = RArray(360);

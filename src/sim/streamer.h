@@ -32,9 +32,11 @@ namespace taylortrack {
        */
       bool start_streaming(const char *inport);
 
+      Streamer(const Streamer& that) = default;
      private:
       taylortrack::input::InputStrategy *strategy_;
       const char *outport_;
+
     };
   } // namespace sim
 } // namespace taylortrack

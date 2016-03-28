@@ -69,6 +69,7 @@ class VadSimple : public VadStrategy {
     threshold_ = threshold;
   }
 
+  VadSimple(const VadSimple& that) = default;
  private:
   double threshold_;  // significant value for classifying as voice
 };

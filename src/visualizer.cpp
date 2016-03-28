@@ -24,7 +24,7 @@
  */
 int main(int argc, char **argv) {
     taylortrack::utils::GeneralOptions options = taylortrack::utils::GeneralOptions();
-    taylortrack::utils::ConfigParser config = taylortrack::utils::ConfigParser("../Testdata/real_config.conf");
+    taylortrack::utils::ConfigParser config("../Testdata/real_config.conf");
     taylortrack::sim::DataReceiver<yarp::os::Bottle> rec;
     bool data_receiver_initialized = rec.init(config.get_visualizer_communication_in());
 

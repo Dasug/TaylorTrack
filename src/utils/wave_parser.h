@@ -138,6 +138,7 @@ class WaveParser {
   */
   int64_t get_sample_num() const;
 
+  WaveParser(const WaveParser& that) = default;
  private:
   bool valid_ = false;
   uint16_t audio_format_ = 0x0001;

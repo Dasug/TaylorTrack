@@ -17,7 +17,7 @@
  */
 int main(int argc, char *argv[]) {
     yarp::os::Network yarp;
-    taylortrack::utils::ConfigParser config = taylortrack::utils::ConfigParser("../Testdata/real_config.conf");
+    taylortrack::utils::ConfigParser config("../Testdata/real_config.conf");
     taylortrack::utils::CommunicationSettings out;
     out = config.get_audio_communication_out();
     taylortrack::sim::DataReceiver<yarp::os::Bottle> rec;

@@ -48,6 +48,7 @@ namespace input {
 */
 class WaveInputStrategy : public InputStrategy {
  public:
+  WaveInputStrategy() = default;
   /**
   * @brief ~WaveInputStrategy Destructor
   *
@@ -76,6 +77,7 @@ class WaveInputStrategy : public InputStrategy {
 
   void set_config(const taylortrack::utils::ConfigParser &config_parser) override;
 
+  WaveInputStrategy(const WaveInputStrategy& that) = default;
  private:
   taylortrack::utils::Parameters parameter_;
   taylortrack::utils::WaveParser *waveParser_ = nullptr;

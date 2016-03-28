@@ -2,7 +2,7 @@
 #include "utils/config_parser.h"
 
 TEST(ConfigParserTest, ValidParsing) {
-  taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("../Testdata/taylortrack.conf");
+  taylortrack::utils::ConfigParser parser("../Testdata/taylortrack.conf");
   taylortrack::utils::GeneralOptions general = parser.get_general_configuration();
   taylortrack::utils::AudioSettings audio = parser.get_audio_configuration();
   taylortrack::utils::VideoSettings video = parser.get_video_configuration();
@@ -74,21 +74,21 @@ TEST(ConfigParserTest, ValidParsing) {
 }
 
 TEST(ConfigParserTest, UnequalMicNumber) {
-  taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("../Testdata/taylortrack2.conf");
+  taylortrack::utils::ConfigParser parser("../Testdata/taylortrack2.conf");
   ASSERT_FALSE(parser.is_valid());
 }
 
 TEST(ConfigParserTest, NoMic) {
-  taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("../Testdata/taylortrack3.conf");
+  taylortrack::utils::ConfigParser parser("../Testdata/taylortrack3.conf");
   ASSERT_FALSE(parser.is_valid());
 }
 
 TEST(ConfigParserTest, NoFileToParse) {
-  taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("");
+  taylortrack::utils::ConfigParser parser("");
   ASSERT_FALSE(parser.is_valid());
 }
 
 TEST(ConfigParserTest, DoubleEquals) {
-  taylortrack::utils::ConfigParser parser = taylortrack::utils::ConfigParser("../Testdata/taylortrack4.conf");
+  taylortrack::utils::ConfigParser parser("../Testdata/taylortrack4.conf");
   ASSERT_FALSE(parser.is_valid());
 }

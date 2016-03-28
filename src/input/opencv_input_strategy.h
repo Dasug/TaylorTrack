@@ -48,6 +48,7 @@ class OpenCVInputStrategy : public InputStrategy {
   bool is_done() override;
   void set_parameters(const taylortrack::utils::Parameters &params) override;
   void set_config(const taylortrack::utils::ConfigParser &config_parser) override;
+  OpenCVInputStrategy(const OpenCVInputStrategy& that) = default;
  private:
   cv::VideoCapture video_capture_;
   cv::Mat frame_;

@@ -45,6 +45,7 @@ namespace input {
 */
 class ReadFileInputStrategy : public InputStrategy {
  public:
+  ReadFileInputStrategy() = default;
   /**
   * @brief Destructor
   *
@@ -69,6 +70,8 @@ class ReadFileInputStrategy : public InputStrategy {
   void set_parameters(const utils::Parameters &params) override;
 
   void set_config(const utils::ConfigParser &config_parser) override;
+
+  ReadFileInputStrategy(const ReadFileInputStrategy& that) = default;
 
  private:
   bool done_ = true;

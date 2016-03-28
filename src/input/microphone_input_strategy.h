@@ -84,6 +84,7 @@ class MicrophoneInputStrategy : public InputStrategy {
   bool is_done() override;
   void set_parameters(const utils::Parameters &params) override;
   void set_config(const utils::ConfigParser &config_parser) override;
+  MicrophoneInputStrategy(const MicrophoneInputStrategy& that) = default;
 
  private:
   bool done_ = false;
