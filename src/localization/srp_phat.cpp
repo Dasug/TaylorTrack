@@ -28,7 +28,7 @@ SOFTWARE.
  */
 const double kSpeedOfSound = 340.42;
 const double kPI = 3.141592653589793238460;
-#include "localization/srpphat.h"
+#include "srp_phat.h"
 #include <string>
 #include <tuple>
 #include <vector>
@@ -254,6 +254,26 @@ RArray SrpPhat::get_microphone_signal(const std::string &filepath_name) {
     signal[i] = temporary_vector[i];
   }
   return signal;
+}
+void SrpPhat::set_position_and_distribution(const std::vector<RArray> &signals) {
+  std::vector<std::vector<double>> gcc_grid = get_generalized_cross_correlation(signals);
+  RArray degree_values(360);
+  std::vector<double> xAxisValues = get_axis_values(true);
+  std::vector<double> yAxisValues = get_axis_values(false);
+
+  for (int i = 0; i < static_cast<int>(xAxisValues.size()); i++) {
+    for (int j = 0; j < static_cast<int>(yAxisValues.size()); j++) {
+      int degree = point_to_degree(xAxisValues[i], yAxisValues[j]);
+      if (degree == 360)
+        degree = 0;
+      degree_values[degree] += gcc_grid[i][j];
+    }
+  }
+  // get maximum for normalization of values
+  double normalization = degree_values.sum();
+  last_distribution_ = degree_values / normalization;
+  double maximum_position = degree_values.max();
+  last_position_ = find_value(degree_values, maximum_position);
 }
 }  // namespace localization
 }  // namespace taylortrack

@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include <math.h>
 #include <fstream>
-#include "localization/srpphat.h"
+#include "localization/srp_phat.h"
 #include "utils/fft_lib.h"
 #include "utils/config.h"
 
@@ -381,4 +381,58 @@ TEST(SrpPhatTest, getPositionDistributionTest) {
   }
   ASSERT_EQ(180, estimates[1]);
   ASSERT_EQ(180, estimates[2]);
+}
+
+TEST(SrpPhatTest, getPosandDistributionTest) {
+  double mx[] = {0.055, 0.0, -0.055, 0.0};
+  double my[] = {0.0, 0.055, 0.0, -0.055};
+  taylortrack::utils::FftLib::RArray micsX(mx, 4);
+  taylortrack::utils::FftLib::RArray micsY(my, 4);
+  const int steps = 2048;
+  taylortrack::localization::SrpPhat
+      srp;
+  taylortrack::utils::AudioSettings settings;
+  settings.beta = 0.7;
+  settings.sample_rate = 44100;
+  settings.grid_x = 4.0;
+  settings.grid_y = 4.0;
+  settings.interval = 0.1;
+  settings.mic_x = micsX;
+  settings.mic_y = micsY;
+  settings.frame_size = steps;
+
+  taylortrack::utils::ConfigParser config;
+  config.set_audio_settings(settings);
+
+  srp.set_config(config);
+
+  taylortrack::utils::FftLib::RArray sig1 = srp.get_microphone_signal("../Testdata/0-180_short.txt");
+  taylortrack::utils::FftLib::RArray sig2 = srp.get_microphone_signal("../Testdata/90-180_short.txt");
+  taylortrack::utils::FftLib::RArray sig3 = srp.get_microphone_signal("../Testdata/180-180_short.txt");
+  taylortrack::utils::FftLib::RArray sig4 = srp.get_microphone_signal("../Testdata/270-180_short.txt");
+  taylortrack::utils::FftLib::RArray estimates(4);
+  std::vector<taylortrack::utils::FftLib::RArray> signals;
+  signals.push_back(sig1);
+  signals.push_back(sig2);
+  signals.push_back(sig3);
+  signals.push_back(sig4);
+  int signalLength = signals[0].size();
+  int sigsteps = signalLength / steps + 1;
+  for (int step = 1; step < sigsteps; step++) {
+    std::vector<taylortrack::utils::FftLib::RArray> signals2;
+
+    taylortrack::utils::FftLib::RArray signalSlice1 = sig1[std::slice((2049 - 1) * (step - 1), 2049, 1)];
+    taylortrack::utils::FftLib::RArray signalSlice2 = sig2[std::slice((2049 - 1) * (step - 1), 2049, 1)];
+    taylortrack::utils::FftLib::RArray signalSlice3 = sig3[std::slice((2049 - 1) * (step - 1), 2049, 1)];
+    taylortrack::utils::FftLib::RArray signalSlice4 = sig4[std::slice((2049 - 1) * (step - 1), 2049, 1)];
+    signals2.push_back(signalSlice1);
+    signals2.push_back(signalSlice2);
+    signals2.push_back(signalSlice3);
+    signals2.push_back(signalSlice4);
+    srp.set_position_and_distribution(signals2);
+    estimates[step] = srp.get_last_position_();
+  }
+  ASSERT_EQ(180, estimates[1]);
+  ASSERT_EQ(180, estimates[2]);
+  ASSERT_EQ(360, srp.get_last_distribution_().size());
 }
