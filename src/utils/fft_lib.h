@@ -75,8 +75,8 @@ class FftLib : public FftStrategy {
 
   /**
   * @brief Performs a fftshift on a given valarray and writes the shifted vector into another given valarray.
-  * @param outvec The valarray that has to contain the shifted valarray
-  * @param invec The valarray that contains the original valarray
+  * @param invector The valarray that contains the original valarray
+  * @param outvector The valarray that has to contain the shifted valarray
   */
   void fftshift(const RArray &invector, RArray &outvector);
 };
