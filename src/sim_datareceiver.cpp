@@ -47,10 +47,9 @@ int main(int argc, char *argv[]) {
 
             taylortrack::utils::VadSimple test_vad = taylortrack::utils::VadSimple(0.0000007);
             if(test_vad.detect(signals[0])) {
-              algorithm.set_position_and_distribution(signals);
+              algorithm.calculate_position_and_distribution(signals);
 
-              taylortrack::utils::RArray result = algorithm.get_last_distribution_();
-              std::cout << "Position: " << algorithm.get_last_position_() << "°" << std::endl;
+              taylortrack::utils::RArray result = algorithm.get_last_distribution();
               yarp::os::Bottle& bottle = outport.prepare();
               bottle.clear();
 
