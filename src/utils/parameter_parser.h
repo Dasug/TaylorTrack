@@ -30,20 +30,15 @@ SOFTWARE.
 #include "utils/parameters.h"
 namespace taylortrack {
 namespace utils {
+namespace parameter_parser {
 /**
-* @class ParameterParser
-* @brief Provides parser for the start parameters.
-*/
-class ParameterParser {
- public:
-  /**
-   * @brief Parser for the streaming module.
-   *
-   * @param argc Amount of passed parameters
-   * @param argv Passed Parameters.
-   * @return Returns file path, the size in which the packets shall be streamed, the port name and a valid flag.
-   */
-  static Parameters parse_streamer(int argc, const char **argv);
+ * @brief Parameter Parser for the streaming module.
+ *
+ * @param argc Amount of passed parameters
+ * @param argv Passed Parameters.
+ * @return Returns file path, the size in which the packets shall be streamed, the port name and a valid flag.
+ */
+Parameters parse_streamer(int argc, const char **argv);
 };
 }  // namespace utils
 }  // namespace taylortrack

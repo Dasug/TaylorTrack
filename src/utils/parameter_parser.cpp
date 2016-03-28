@@ -29,9 +29,9 @@ SOFTWARE.
 #include <iostream>
 namespace taylortrack {
 namespace utils {
-Parameters
-ParameterParser::parse_streamer(int argc,
-                                const char **argv) {
+namespace parameter_parser {
+Parameters parse_streamer(int argc,
+                          const char **argv) {
   char *end;
   Parameters parameters = utils::Parameters();
 
@@ -64,7 +64,7 @@ ParameterParser::parse_streamer(int argc,
           break;
           // Input port
         case 'c':
-          if(++i >= argc) {
+          if (++i >= argc) {
             parameters.valid = false;
           } else {
             parameters.config = argv[i];
@@ -81,5 +81,6 @@ ParameterParser::parse_streamer(int argc,
   }
   return parameters;
 }  // LCOV_EXCL_BR_LINE
+}  // namespace parameter_parser
 }  // namespace utils
 }  // namespace taylortrack

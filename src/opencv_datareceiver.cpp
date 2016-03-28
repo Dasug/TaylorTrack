@@ -51,7 +51,7 @@ SOFTWARE.
 int main(int argc,  const char *argv[]) {
   yarp::os::Network yarp;
   taylortrack::utils::Parameters parameters =
-      taylortrack::utils::ParameterParser::parse_streamer(argc, argv);
+      taylortrack::utils::parameter_parser::parse_streamer(argc, argv);
   if (!parameters.valid) {
     std::cout << "Invalid parameter usage. Please check --help" << std::endl;
     return EXIT_FAILURE;
