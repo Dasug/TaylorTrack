@@ -58,13 +58,13 @@ class VideoLocalizer {
   /**
   * @brief Sets all relevant parameters of the implemented algorithm. Missing Parameters have to be placed inside
   *        the VideoSettings struct.
-  * @param taylortrack::utils::VideoSettings struct for the algorithm to take its configuration.
+  * @param vs taylortrack::utils::VideoSettings struct for the algorithm to take its configuration.
   * @pre taylortrack::utils::ConfigParser::is_valid() should return true
   */
   virtual bool set_parameters(const utils::VideoSettings &vs) = 0;
   /**
   * @brief Sets the frame for the person detection.
-  * @param  A OpenCV Matrix containing the frame to be used for the detection.
+  * @param frame An OpenCV Matrix containing the frame to be used for the detection.
   */
   virtual void set_frame(cv::Mat frame) = 0;
 };
