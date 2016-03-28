@@ -64,15 +64,22 @@ typedef std::valarray<Complex> CArray;
 class SrpPhat : public Localizer {
  public:
   /**
+  * @brief Gets most likely position of the recorded speaker in degrees and a probability distribution
+  * over angles and stores those values in appropiate class variables
+  * @param  signals a vector of all microphone signals with each being a RArray
+  */
+  void set_position_and_distribution(const std::vector<RArray> &signals);
+
+  /**
   * @brief Gets most likely position of the recorded speaker in degrees
-  * @param gcc_grid Matrix modeled as two nested vectors that contains every point of the room(grid) and the corresponding cross correlation value.
+  * @param  signals a vector of all microphone signals with each being a RArray
   * @return speaker position in degree
   */
   int get_position(const std::vector<RArray> &signals);
 
   /**
   * @brief Returns a probability distribution for the position of the speaker over all degrees
-  * @param  gcc_grid a vector of all microphone signals
+  * @param  signals a vector of all microphone signals with each being a RArray
   * @return A RArray with all probability values
   */
   RArray get_position_distribution(const std::vector<RArray> &signals);
@@ -264,6 +271,13 @@ class SrpPhat : public Localizer {
     return intialized_;
   }
 
+  const RArray &get_last_distribution_() const {
+    return last_distribution_;
+  }
+  int get_last_position_() const {
+    return last_position_;
+  }
+
   /**
   * @brief Sets all relevant parameters of the srp phat algorithm.
   * @param  settings a struct of type AudioSettings
@@ -283,6 +297,10 @@ class SrpPhat : public Localizer {
   }
 
  private:
+// last computed position distribution of the speaker;
+  RArray last_distribution_;
+  // last computed position of the speaker
+  int last_position_ = 0;
   // nested vector containing delays for each point in the considered space considering each microphone pair
   std::vector<std::vector<std::vector<double>>> delay_tensor_;
   // audio sample rate the algorithm should work with
