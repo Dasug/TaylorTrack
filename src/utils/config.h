@@ -211,13 +211,13 @@ struct VideoSettings {
   double max_camera_view_angle = 0;
 
   /**
-   * @var
+   * @var camera_angle
    * Defines the start camera angle.
    */
   double camera_angle = 0;
 
   /**
-   * @var
+   * @var variance
    * Defines the variance used for the position distribution calculation
    * from the vision tracker.
    */
