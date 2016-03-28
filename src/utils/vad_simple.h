@@ -74,7 +74,7 @@ class VadSimple : public VadStrategy {
     threshold_ = threshold;
   }
  private:
-  double threshold_;  // significant value for classifying as voice
+  double threshold_ = 0.0;  // significant value for classifying as voice
 };
 }  // namespace utils
 }  // namespace taylortrack
