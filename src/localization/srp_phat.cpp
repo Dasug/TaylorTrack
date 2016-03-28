@@ -112,7 +112,7 @@ std::vector<double> SrpPhat::get_axis_values(bool xaxis) {
 
 RArray SrpPhat::get_position_distribution(const std::vector<RArray> &signals) {
   std::vector<std::vector<double>> gcc_grid = get_generalized_cross_correlation(signals);
-  RArray degreevalues(360);
+  RArray degree_values(360);
   std::vector<double> xAxisValues = get_axis_values(true);
   std::vector<double> yAxisValues = get_axis_values(false);
 
@@ -121,12 +121,12 @@ RArray SrpPhat::get_position_distribution(const std::vector<RArray> &signals) {
       int degree = point_to_degree(xAxisValues[i], yAxisValues[j]);
       if (degree == 360)
         degree = 0;
-      degreevalues[degree] += gcc_grid[i][j];
+      degree_values[degree] += gcc_grid[i][j];
     }
   }
   // get maximum for normalization of values
-  double res = degreevalues.sum();
-  return degreevalues / res;
+  double res = degree_values.sum();
+  return degree_values / res;
 }
 
 int SrpPhat::get_position(const std::vector<RArray> &signals) {
@@ -255,7 +255,7 @@ RArray SrpPhat::get_microphone_signal(const std::string &filepath_name) {
   }
   return signal;
 }
-void SrpPhat::set_position_and_distribution(const std::vector<RArray> &signals) {
+void SrpPhat::calculate_position_and_distribution(const std::vector<RArray> &signals) {
   std::vector<std::vector<double>> gcc_grid = get_generalized_cross_correlation(signals);
   RArray degree_values(360);
   std::vector<double> xAxisValues = get_axis_values(true);
