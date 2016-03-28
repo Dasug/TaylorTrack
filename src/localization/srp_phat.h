@@ -325,12 +325,12 @@ class SrpPhat : public Localizer {
   // audio sample rate the algorithm should work with
   int samplerate_ = 0;
   // size of the grids x axis to consider for the estimation
-  double x_length_ = 0;
+  double x_length_ = 0.0;
   // size of the grids y axis to consider for the estimation
-  double y_length_ = 0;
+  double y_length_ = 0.0;
   // sample length or the amount of discrete signals
   // to consider for each estimate
-  double stepsize_ = 0;
+  double stepsize_ = 0.0;
   // X coordinates of the microphones in the grid
   RArray x_dim_mics_;
   // Y coordinates of the microphones in the grid
@@ -339,7 +339,7 @@ class SrpPhat : public Localizer {
   // that needs to be evaluated.
   int steps_ = 0;
   // beta The exponent of the weighting term of the cross correlation.
-  double beta_ = 0;
+  double beta_ = 0.0;
   // boolean to check if an object has been initialized
   bool intialized_ = false;
 };
