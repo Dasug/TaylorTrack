@@ -137,9 +137,6 @@ yarp::os::Bottle MicrophoneInputStrategy::read(yarp::os::Bottle &bottle) {
     }
   }
 
-  // Sleep for 200 ms in order to not overwhelm the receiver with messages
-  Pa_Sleep(200);
-
   // Check if all devices are ready for reading the data
   bool all_devices_available = true;
   for (auto stream_data : stream_datas_) {

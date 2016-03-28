@@ -5,6 +5,7 @@
 
 #include "sim/data_receiver.h"
 #include <yarp/os/all.h>
+#include <utils/vad_simple.h>
 #include "localization/srp_phat.h"
 #include "utils/config_parser.h"
 #include "utils/fft_strategy.h"
@@ -44,16 +45,23 @@ int main(int argc, char *argv[]) {
                 signals.push_back(volume);
             }
 
-            taylortrack::utils::RArray result = algorithm.get_position_distribution(signals);
+            taylortrack::utils::VadSimple test_vad = taylortrack::utils::VadSimple(0.0000007);
+            if(test_vad.detect(signals[0])) {
+              algorithm.set_position_and_distribution(signals);
 
-            yarp::os::Bottle& bottle = outport.prepare();
-            bottle.clear();
+              taylortrack::utils::RArray result = algorithm.get_last_distribution_();
+              std::cout << "Position: " << algorithm.get_last_position_() << "°" << std::endl;
+              yarp::os::Bottle& bottle = outport.prepare();
+              bottle.clear();
 
-            for (int k = 0; k < static_cast<int>(result.size()); ++k) {
+              for (int k = 0; k < static_cast<int>(result.size()); ++k) {
                 bottle.addDouble(result[k]);
-            }
+              }
 
-            outport.write(true);
+              outport.write(true);
+            } else {
+              std::cout << "No voice activity detected." << std::endl;
+            }
         }
     } else {
         std::cout << "Error initializing incoming communication..." << std::endl;

@@ -30,7 +30,7 @@ target_link_libraries(microphone_input ${PORTAUDIO_LIBRARIES})
 
 
 # Add Datareceiver executable
-add_executable(sim_datareceiver sim_datareceiver.cpp utils/parameter_parser.cpp utils/config_parser.cpp localization/srp_phat.cpp utils/fft_lib.cpp utils/fft_strategy.cpp)
+add_executable(sim_datareceiver sim_datareceiver.cpp utils/parameter_parser.cpp utils/config_parser.cpp localization/srp_phat.cpp utils/fft_lib.cpp utils/fft_strategy.cpp utils/vad_simple.cpp)
 
 # Add OpenCv Datareceiver executeable
 add_executable(opencv_datareceiver opencv_datareceiver.cpp utils/parameter_parser.cpp utils/config_parser.cpp localization/vision_tracker.cpp)
