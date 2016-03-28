@@ -66,19 +66,19 @@ class FftLib : public FftStrategy {
   * @brief Perform a fast fourier transformation on a signal in place.
   * @param x Discrete audio signal.
   */
-  void fft(CArray &x);
+  void fft(CArray &x) override;
   /**
   * @brief Perform an inverse fast fourier transformation on a signal in place.
   * @param x Discrete audio signal.
   */
-  void ifft(CArray &x);
+  void ifft(CArray &x) override;
 
   /**
   * @brief Performs a fftshift on a given valarray and writes the shifted vector into another given valarray.
   * @param outvec The valarray that has to contain the shifted valarray
   * @param invec The valarray that contains the original valarray
   */
-  void fftshift(const RArray &invector, RArray &outvector);
+  void fftshift(const RArray &invector, RArray &outvector) override;
 };
 }  // namespace utils
 }  // namespace taylortrack

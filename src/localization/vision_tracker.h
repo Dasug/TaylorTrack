@@ -51,18 +51,18 @@ class VisionTracker : public VideoLocalizer {
   * @brief Gets most likely position of the located person in degrees
   * @return Position of the person in degree
   */
-  double get_position();
+  double get_position() override;
   /**
   * @brief Returns a probability distribution for the position of the person over all degrees
   * @return A RArray with all probability values
   */
-  RArray get_position_distribution();
+  RArray get_position_distribution() override;
   /**
   * @brief Sets all relevant parameters of the person tracking algorithm.
   * @param  Settings a struct of type VideoSettings
   * @return True if the video settings have been set and if the CascadeCassifier was loaded correctly.
   */
-  bool set_parameters(const utils::VideoSettings &vs);
+  bool set_parameters(const utils::VideoSettings &vs) override;
   /**
   * @brief Sets the frame for the person detection.
   * @param  A OpenCV Matrix containing the frame to be used for the detection.

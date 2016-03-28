@@ -44,10 +44,10 @@ namespace taylortrack {
 namespace input {
 class OpenCVInputStrategy : public InputStrategy {
  public:
-  yarp::os::Bottle read(yarp::os::Bottle &bottle);
-  bool is_done();
-  void set_parameters(const taylortrack::utils::Parameters &params);
-  void set_config(const taylortrack::utils::ConfigParser &config_parser);
+  yarp::os::Bottle read(yarp::os::Bottle &bottle) override;
+  bool is_done() override;
+  void set_parameters(const taylortrack::utils::Parameters &params) override;
+  void set_config(const taylortrack::utils::ConfigParser &config_parser) override;
  private:
   cv::VideoCapture video_capture_;
   cv::Mat frame_;

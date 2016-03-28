@@ -60,18 +60,18 @@ class DummyInputStrategy : public InputStrategy {
   * @return "Dummy Test successful"
   * @see is_done()
   */
-  yarp::os::Bottle read(yarp::os::Bottle &bottle);
+  yarp::os::Bottle read(yarp::os::Bottle &bottle) override;
 
   /**
   * @brief Detects if the read method returned "Dummy Test successful".
   * @return Status of the read method.
   * @see read()
   */
-  bool is_done();
+  bool is_done() override;
 
-  void set_parameters(const utils::Parameters &params);
+  void set_parameters(const utils::Parameters &params) override;
 
-  void set_config(const utils::ConfigParser &config_parser);
+  void set_config(const utils::ConfigParser &config_parser) override;
 
  private:
   bool done_;
