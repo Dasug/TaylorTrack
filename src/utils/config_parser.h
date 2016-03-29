@@ -303,19 +303,30 @@ class ConfigParser {
     return valid_;
   }
 
+
+  virtual ~ConfigParser();
+
   ConfigParser(const ConfigParser &that) = delete;
  private:
   std::string trim(const std::string &temporary_string);
   std::vector<std::string> split(const std::string &temporary_string, char delimiter);
   std::vector<std::string> split_microphones(std::string temporary_string);
+  // signals if a config file has been parsed correctly
   bool parse_file();
+  // signals if the configuration file is valid
   bool valid_;
-  std::ifstream file_;
+  std::ifstream *file_ = new std::ifstream();
+  // struct to store console output settings
   GeneralOptions general_options_;
+  // struct containing the audio algorithm parameters and input port/output port
   AudioSettings audio_settings_;
+  // struct containing the microphone devices and audio samplerate and framesize
   MicrophoneInputSettings microphone_input_settings_;
+  // contains the video algorithm parameters and the input port / output port
   VideoSettings video_settings_;
+  // Contains parameters for the combination of the audio and video algorithm
   CombinationSettings combination_settings_;
+  // Contains parameters for network communication.
   CommunicationSettings input_communication_out_,
                         audio_communication_in_,
                         audio_communication_out_,
@@ -324,7 +335,9 @@ class ConfigParser {
                         combination_communication_in_,
                         combination_communication_out_,
                         visualizer_communication_in_;
+  // a vector storing all microphone input device ids
   std::vector<int> microphone_input_device_ids_;
+  // a vector storing the delays for each microphone
   std::vector<int> microphone_input_device_delays_;
 };
 }  // namespace utils

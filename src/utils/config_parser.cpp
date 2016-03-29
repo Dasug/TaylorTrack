@@ -33,23 +33,26 @@ SOFTWARE.
 namespace taylortrack {
 namespace utils {
 ConfigParser::ConfigParser(const char *file_name) {
-  file_ = std::ifstream(file_name, std::ios::in|std::ios::binary);
+  file_->open(file_name, std::ios::in|std::ios::binary);
 
-  if (!file_.fail()) {
+  if (!file_->fail()) {
     valid_ = parse_file();
   } else {
     std::cout << "Error could not parse file." << std::endl;
     valid_ = false;
-    file_.close();
+    file_->close();
   }
 }
 
 bool ConfigParser::parse_file() {
+  if (!file_->is_open())
+    return false;
+
   // 0 = options, 1 = audio, 2 = video,
   // 3 = combination, 4 = input, 5 = visualizer
   int section = -1;
   std::string line = "";
-  while (std::getline(file_, line)) {
+  while (std::getline(*file_, line)) {
     std::vector<std::string> splitted_string = split(line, '=');
 
     if (splitted_string.size() < 2 && line.find('[') == std::string::npos)
@@ -216,7 +219,7 @@ ConfigParser::split_microphones(std::string temporary_string) {
   std::vector<std::string> elements;
   int start = -1;
 
-  for (unsigned int i = 0; i < temporary_string.length(); ++i) {
+  for (int i = 0; i < static_cast<int>(temporary_string.length()); ++i) {
     if (std::isspace(temporary_string[i]) == 0 && start == -1) {
       if (i == temporary_string.length() - 1)
         elements.push_back(temporary_string.substr(i));
@@ -225,9 +228,9 @@ ConfigParser::split_microphones(std::string temporary_string) {
         && start != -1)
         || i == temporary_string.length() - 1) {
       if (i == temporary_string.length() -1)
-        elements.push_back(temporary_string.substr((unsigned int) start, i + 1 - start));
+        elements.push_back(temporary_string.substr(static_cast<unsigned int>(start), static_cast<unsigned long>(i + 1 - start)));
       else
-        elements.push_back(temporary_string.substr((unsigned int) start, i - start));
+        elements.push_back(temporary_string.substr(static_cast<unsigned int>(start), static_cast<unsigned long>(i - start)));
       start = -1;
     }
   }
@@ -250,6 +253,10 @@ std::string ConfigParser::trim(const std::string &temporary_string) {
 ConfigParser::ConfigParser() {
   valid_ = true;
 }
+ConfigParser::~ConfigParser() {
+  delete file_;
+}
+
 }  // namespace utils
 }  // namespace taylortrack
 

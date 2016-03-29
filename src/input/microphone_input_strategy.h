@@ -93,13 +93,21 @@ class MicrophoneInputStrategy : public InputStrategy {
   void set_config(const utils::ConfigParser &config_parser) override;
 
  private:
+  // signals if all data has been transfered/read
   bool done_ = false;
+  // Portaudio error
   PaError error_ = paNoError;
+  // a struct containing all microphone devices the sample rate and length of the frame
   utils::MicrophoneInputSettings settings_;
+  // a vector containing all microphones with their specific parameters such as ID, delay and number of channels
   std::vector<utils::MicrophoneDevice> microphone_devices_;
+  // a vector of microphonestreamdata structs where each entry contains the recorded samples
   std::vector<MicrophoneStreamData*> stream_datas_;
+  // number of channels in the transmitted data
   int channels_ = 0;
+  // a vector of portaudio streams for all microphones
   std::vector<PaStream*> streams_;
+  // signals if data is currently being transmitted
   bool running_ = false;
 };
 }  // namespace input

@@ -33,8 +33,11 @@ namespace taylortrack {
       bool start_streaming(const char *inport);
 
      private:
+      // an implementation of the input strategy
       taylortrack::input::InputStrategy *strategy_;
+      // the yarp port to which the data has to be streamed
       const char *outport_;
+      // the default copy constructor
       Streamer(const Streamer &that) = delete;
 
     };

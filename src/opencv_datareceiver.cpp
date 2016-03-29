@@ -102,7 +102,11 @@ int main(int argc,  const char *argv[]) {
     cv::equalizeHist(frame, frame);
     algorithm.set_frame(frame);
 
+    cv::waitKey(1);
+    cv::imshow("Preview", frame);
+
     if (algorithm.detect_person()) {
+      std::cout << algorithm.get_position() << std::endl;
       taylortrack::localization::RArray result =
           algorithm.get_position_distribution();
 
