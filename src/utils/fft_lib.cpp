@@ -28,8 +28,6 @@ SOFTWARE.
 #include "utils/fft_lib.h"
 #include <iostream>
 
-const double kPI = 3.141592653589793238460;
-
 namespace taylortrack {
 namespace utils {
 void FftLib::fft(CArray &signal) {

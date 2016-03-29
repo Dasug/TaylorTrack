@@ -61,7 +61,11 @@ class FftLib : public FftStrategy {
  * valarray filled with complex values.
  */
   typedef std::valarray<ComplexDouble> CArray;
-
+  /**
+   * @var kPI
+   * @brief A constant defining PI
+   */
+  const double kPI = 3.141592653589793238460;
   /**
   * @brief Perform a fast fourier transformation on a signal in place.
   * @param x Discrete audio signal.
