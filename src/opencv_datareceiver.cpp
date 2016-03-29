@@ -93,7 +93,7 @@ int main(int argc,  const char *argv[]) {
                            input->safePixel(i, j).g,
                            input->safePixel(i, j).r,
                            input->safePixel(i, j).a};
-        frame.at<cv::Vec4b>(i, j) = pixel;
+        frame.at<cv::Vec4b>((input->width() - i) - 1, j) = pixel;
     }
 
     cv::transpose(frame, frame);
