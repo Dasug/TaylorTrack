@@ -22,6 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+/**
+* @file
+* @brief Contains the OpenCV input strategy.
+*/
+
 #ifndef TAYLORTRACK_SRC_INPUT_OPENCV_INPUT_STRATEGY_H_
 #define TAYLORTRACK_SRC_INPUT_OPENCV_INPUT_STRATEGY_H_
 
@@ -36,22 +41,47 @@ SOFTWARE.
 #include "opencv2/imgproc.hpp"
 #include "opencv2/videoio.hpp"
 #endif
-#include <stdint.h>
 #include <yarp/sig/Matrix.h>
+#include <stdint.h>
 #include "utils/config.h"
 
 namespace taylortrack {
 namespace input {
+/**
+* @class OpenCVInputStrategy
+* @brief Implements the OpenCV input from Input Strategy.
+*
+* Strategy which reads OpenCV data
+*/
 class OpenCVInputStrategy : public InputStrategy {
  public:
+  /**
+   * @brief standard constructor
+   */
   OpenCVInputStrategy() = default;
   /**
    * @brief Default Copy constructor
+   * @param that file that needs to be copied
    */
   OpenCVInputStrategy(const OpenCVInputStrategy &that) = default;
+  /**
+  * @brief Reads samples from the input file
+  *
+  * Number of samples to be read for every audio channel is defined in the taylortrack::utils::Parameters struct given to the constructor
+  * @param bottle YARP bottle to store the read data
+  * @pre is_done() returns false
+  * @return YARP bottle consisting of sample amplitude levels as float values
+  * @see is_done()
+  */
   yarp::os::Bottle read(yarp::os::Bottle *bottle) override;
+  /**
+  * @brief Detects if the read method is done with reading the simulation data.
+  * @return Status of the read method.
+  */
   bool is_done() override;
+
   void set_parameters(const taylortrack::utils::Parameters &params) override;
+
   void set_config(const taylortrack::utils::ConfigParser &config_parser) override;
  private:
   cv::VideoCapture video_capture_;
