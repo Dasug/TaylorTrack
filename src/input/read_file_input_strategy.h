@@ -45,13 +45,16 @@ namespace input {
 */
 class ReadFileInputStrategy : public InputStrategy {
  public:
+  /**
+   * @brief standard constructor
+   */
   ReadFileInputStrategy() = default;
 
   /**
    * @brief Default Copy constructor
+   * @param that object to be copied
    */
   ReadFileInputStrategy(const ReadFileInputStrategy &that) = default;
-
   /**
   * @brief Destructor
   *

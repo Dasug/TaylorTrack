@@ -40,7 +40,7 @@ SOFTWARE.
 namespace taylortrack {
 namespace input {
 /**
-* @class WaveInputStrategy
+* @interface WaveInputStrategy
 * @brief Reads a wave file and processes it to a format readable by the tracking algorithm.
 *
 * Returns a YARP bottle consisting of sample amplitude levels as float values
@@ -49,7 +49,6 @@ namespace input {
 class WaveInputStrategy : public InputStrategy {
  public:
   WaveInputStrategy() = default;
-
   /**
    * @brief Default Copy constructor
    */
