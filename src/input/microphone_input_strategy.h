@@ -36,7 +36,6 @@ SOFTWARE.
 namespace taylortrack {
 namespace input {
 /**
- * @struct todo
  * @brief Contains some necessary data for a recording device and stores its audio samples
  */
 struct MicrophoneStreamData {
