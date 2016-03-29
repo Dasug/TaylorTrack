@@ -51,6 +51,7 @@ class WaveInputStrategy : public InputStrategy {
   WaveInputStrategy() = default;
   /**
    * @brief Default Copy constructor
+   * @param that object to be copied
    */
   WaveInputStrategy(const WaveInputStrategy &that) = default;
 

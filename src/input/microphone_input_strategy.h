@@ -35,8 +35,8 @@ SOFTWARE.
 #include "input/input_strategy.h"
 namespace taylortrack {
 namespace input {
-
 /**
+ * @struct todo
  * @brief Contains some necessary data for a recording device and stores its audio samples
  */
 struct MicrophoneStreamData {
@@ -76,6 +76,7 @@ class MicrophoneInputStrategy : public InputStrategy {
 
   /**
    * @brief Default Copy constructor
+   * @param that object that is copied
    */
   MicrophoneInputStrategy(const MicrophoneInputStrategy &that) = default;
 
