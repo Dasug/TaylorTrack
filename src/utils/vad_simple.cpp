@@ -24,7 +24,6 @@ SOFTWARE.
 /**
 * @file
 * @brief Implementation of a simple voice activity tracker
-* @version 1
 */
 #include "utils/vad_simple.h"
 

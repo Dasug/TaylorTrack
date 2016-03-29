@@ -3,7 +3,7 @@
 * @brief Contains implementation for taylortrack::vis::OutputVisualizer class.
 */
 
-#include "OutputVisualizer.h"
+#include "vis/output_visualizer.h"
 #include <string.h>
 #include <ncurses.h>
 

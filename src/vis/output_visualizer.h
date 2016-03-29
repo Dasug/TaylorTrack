@@ -1,7 +1,6 @@
 /**
 * @file
 * @brief Header file for taylortrack::vis::OutputVisualizer class.
-* @version 1
 */
 
 #ifndef TAYLORTRACK_OUTPUTVISUALIZER_H

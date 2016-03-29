@@ -25,7 +25,6 @@ SOFTWARE.
 /**
 * @file
 * @brief Simple Voice Activity Detection Implementation
-* @version 1
 */
 
 #ifndef TAYLORTRACK_UTILS_VAD_SIMPLE_H_

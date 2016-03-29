@@ -7,7 +7,7 @@
 #include <iostream>
 #include "sim/data_receiver.h"
 #include "utils/config_parser.h"
-#include "vis/OutputVisualizer.h"
+#include "vis/output_visualizer.h"
 
 #ifdef WIN32
 #include <windows.h>
