@@ -61,8 +61,18 @@ class OpenCVInputStrategy : public InputStrategy {
   OpenCVInputStrategy() = default;
   /**
    * @brief Default Copy constructor
+   * @param that file that needs to be copied
    */
-  OpenCVInputStrategy(const OpenCVInputStrategy& that) = default;
+  OpenCVInputStrategy(const OpenCVInputStrategy &that) = default;
+  /**
+  * @brief Reads samples from the input file
+  *
+  * Number of samples to be read for every audio channel is defined in the taylortrack::utils::Parameters struct given to the constructor
+  * @param bottle YARP bottle to store the read data
+  * @pre is_done() returns false
+  * @return YARP bottle consisting of sample amplitude levels as float values
+  * @see is_done()
+  */
   yarp::os::Bottle read(yarp::os::Bottle *bottle) override;
   /**
   * @brief Detects if the read method is done with reading the simulation data.
