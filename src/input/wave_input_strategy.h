@@ -82,6 +82,7 @@ class WaveInputStrategy : public InputStrategy {
   void set_parameters(const taylortrack::utils::Parameters &params) override;
 
   void set_config(const taylortrack::utils::ConfigParser &config_parser) override;
+
  private:
   taylortrack::utils::Parameters parameter_;
   taylortrack::utils::WaveParser *waveParser_ = nullptr;
