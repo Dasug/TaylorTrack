@@ -29,6 +29,7 @@ SOFTWARE.
 #include "localization/vision_tracker.h"
 #include <algorithm>
 #include <iostream>
+#include <opencv2/imgproc.hpp>
 
 namespace taylortrack {
 namespace localization {
@@ -39,6 +40,7 @@ double VisionTracker::get_position() {
   angle_difference *= angle_per_pixel_;
   angle_difference += 360 + camera_angle_;
   angle_difference = fmod(angle_difference, 360);
+
   return  angle_difference;
 }
 
@@ -84,6 +86,9 @@ bool VisionTracker::detect_person() {
 
 bool VisionTracker::is_initialised() {
   return initialised_;
+}
+std::vector<cv::Rect> VisionTracker::get_faces() {
+  return faces_;
 }
 
 }  // namespace localization

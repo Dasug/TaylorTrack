@@ -79,6 +79,8 @@ class VisionTracker : public VideoLocalizer {
   */
   bool is_initialised();
 
+  std::vector<cv::Rect> get_faces();
+
  private:
   // signals if the vision tracker has been properly initialized
   bool initialised_ = false;
