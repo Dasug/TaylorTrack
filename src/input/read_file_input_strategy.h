@@ -74,7 +74,7 @@ class ReadFileInputStrategy : public InputStrategy {
   */
   bool is_done() override;
 
-  void set_parameters(const utils::Parameters &params) override;
+  void set_parameters(const utils::Parameters &parameters) override;
 
   void set_config(const utils::ConfigParser &config_parser) override;
 

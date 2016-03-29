@@ -34,9 +34,9 @@ namespace input {
 
 yarp::os::Bottle ReadFileInputStrategy::read(yarp::os::Bottle *bottle) {
   if (file_ && file_->is_open() && file_->tellg() != size_) {
-    char *memblock = new char[package_size_];
-    file_->read(memblock, package_size_);
-    bottle->addString(yarp::os::ConstString(memblock, package_size_));
+    char *memory_block = new char[package_size_];
+    file_->read(memory_block, package_size_);
+    bottle->addString(yarp::os::ConstString(memory_block, package_size_));
     done_ = file_->eof() || file_->tellg() == size_;
   } else {
     done_ = true;
@@ -57,8 +57,8 @@ ReadFileInputStrategy::~ReadFileInputStrategy() {
     delete file_;
 }
 
-void ReadFileInputStrategy::set_parameters(const utils::Parameters &params) {
-  file_ = new std::ifstream(params.file,
+void ReadFileInputStrategy::set_parameters(const utils::Parameters &parameters) {
+  file_ = new std::ifstream(parameters.file,
                             std::ios::in | std::ios::binary | std::ios::ate);
 
   if (file_->fail())
@@ -68,7 +68,7 @@ void ReadFileInputStrategy::set_parameters(const utils::Parameters &params) {
   if (file_->is_open()) {
     size_ = static_cast<int64_t>(file_->tellg());
     file_->seekg(0, std::ios::beg);
-    package_size_ = (params.size == 0) ? size_ : params.size;
+    package_size_ = (parameters.size == 0) ? size_ : parameters.size;
   }
 
   done_ = false;
