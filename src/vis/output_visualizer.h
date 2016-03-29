@@ -109,17 +109,17 @@ class OutputVisualizer {
  private:
   // the amount of rows and columns the visualizer needs to visualize
   int rows_, cols_;
-  // TODO
+  // Top Window object pointer (includes title and explanation)
   WINDOW *top_window_;
-  // TODO
+  // Main window object pointer (includes diagram)
   WINDOW *main_window_;
   // signals whether the user requested to terminate the visualization.
   bool user_quit_ = false;
   // signals whether something failed while trying to display the visualization.
   bool failed_ = false;
-  // TODO
+  // saves the original cursor state to reset it once
   int original_cursor_state_;
-  // TODO
+  // determines whether the top window should be displayed right now
   bool show_top_window_ = true;
   // The position distribution
   std::vector<double> diagram_data_;
