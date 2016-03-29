@@ -27,7 +27,7 @@ namespace taylortrack {
           usleep(200000);
           yarp::os::Bottle &output = out_port.prepare();
           output.clear();
-          strategy_->read(output);
+          strategy_->read(&output);
           out_port.write(true); //blocking statement
         } // while
         return true;

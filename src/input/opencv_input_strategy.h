@@ -49,7 +49,7 @@ class OpenCVInputStrategy : public InputStrategy {
    * @brief Default Copy constructor
    */
   OpenCVInputStrategy(const OpenCVInputStrategy& that) = default;
-  yarp::os::Bottle read(yarp::os::Bottle &bottle) override;
+  yarp::os::Bottle read(yarp::os::Bottle *bottle) override;
   bool is_done() override;
   void set_parameters(const taylortrack::utils::Parameters &params) override;
   void set_config(const taylortrack::utils::ConfigParser &config_parser) override;

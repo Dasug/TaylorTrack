@@ -48,7 +48,7 @@ class InputStrategy {
   * @param bottle yarp::os::Bottle to write data into
   * @return Bottle supplied by parameter
   */
-  virtual yarp::os::Bottle read(yarp::os::Bottle &bottle) = 0;
+  virtual yarp::os::Bottle read(yarp::os::Bottle *bottle) = 0;
 
   /**
   * @brief Detects if the read method is done with reading the simulation data.

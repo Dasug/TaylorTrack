@@ -31,7 +31,7 @@ SOFTWARE.
 #ifndef TAYLORTRACK_INPUT_DUMMY_INPUT_STRATEGY_H_
 #define TAYLORTRACK_INPUT_DUMMY_INPUT_STRATEGY_H_
 #include <stdbool.h>
-#include "input_strategy.h"
+#include "input/input_strategy.h"
 #include "utils/config_parser.h"
 #include "utils/parameters.h"
 namespace taylortrack {
@@ -60,7 +60,7 @@ class DummyInputStrategy : public InputStrategy {
   * @return "Dummy Test successful"
   * @see is_done()
   */
-  yarp::os::Bottle read(yarp::os::Bottle &bottle) override;
+  yarp::os::Bottle read(yarp::os::Bottle *bottle) override;
 
   /**
   * @brief Detects if the read method returned "Dummy Test successful".

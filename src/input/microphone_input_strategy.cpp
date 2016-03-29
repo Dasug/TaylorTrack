@@ -78,7 +78,7 @@ int PaStreamCallback(const void *input,
 }
 }  // namespace
 
-yarp::os::Bottle MicrophoneInputStrategy::read(yarp::os::Bottle &bottle) {
+yarp::os::Bottle MicrophoneInputStrategy::read(yarp::os::Bottle *bottle) {
   // Are we recording? If not, start recording
   if (!running_) {
     running_ = true;
@@ -153,7 +153,7 @@ yarp::os::Bottle MicrophoneInputStrategy::read(yarp::os::Bottle &bottle) {
         for (int current_channel_id = 0;
              current_channel_id < stream_data->channel_number;
              ++current_channel_id) {
-          bottle.addDouble(stream_data->values[current_channel_id][sample_id]);
+          bottle->addDouble(stream_data->values[current_channel_id][sample_id]);
         }
       }
     }
@@ -163,7 +163,7 @@ yarp::os::Bottle MicrophoneInputStrategy::read(yarp::os::Bottle &bottle) {
       stream_data->has_written = false;
     }
   }
-  return bottle;
+  return *bottle;
 }
 
 bool MicrophoneInputStrategy::is_done() {

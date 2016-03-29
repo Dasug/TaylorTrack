@@ -53,7 +53,7 @@ class WaveInputStrategy : public InputStrategy {
   /**
    * @brief Default Copy constructor
    */
-  WaveInputStrategy(const WaveInputStrategy& that) = default;
+  WaveInputStrategy(const WaveInputStrategy &that) = default;
 
   /**
   * @brief ~WaveInputStrategy Destructor
@@ -71,7 +71,7 @@ class WaveInputStrategy : public InputStrategy {
   * @return YARP bottle consisting of sample amplitude levels as float values
   * @see is_done()
   */
-  yarp::os::Bottle read(yarp::os::Bottle &bottle) override;
+  yarp::os::Bottle read(yarp::os::Bottle *bottle) override;
 
   /**
   * @brief Detects if the read method is done with reading the simulation data.
@@ -82,6 +82,7 @@ class WaveInputStrategy : public InputStrategy {
   void set_parameters(const taylortrack::utils::Parameters &params) override;
 
   void set_config(const taylortrack::utils::ConfigParser &config_parser) override;
+
  private:
   taylortrack::utils::Parameters parameter_;
   taylortrack::utils::WaveParser *waveParser_ = nullptr;
