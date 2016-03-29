@@ -49,11 +49,11 @@ template <typename T> class DataReceiver {
    * Frees memory and closes YARP connections
    */
   ~DataReceiver() {
-    if(buffered_port_) {
+    if (buffered_port_) {
       buffered_port_->close();
       delete buffered_port_;
     }
-  };
+  }
 
   /**
    * @brief Init method
@@ -84,13 +84,13 @@ template <typename T> class DataReceiver {
    * @return Pointer to read data. Can be Null Pointer in case of an error or if object has not been initialized
    */
   T* read_data(bool blocking = true) const {
-    if(buffered_port_) {
+    if (buffered_port_) {
       T* input = buffered_port_->read(blocking);
       return input;
     } else {
       return nullptr;
     }
-  };
+  }
 
  private:
   taylortrack::utils::CommunicationSettings in_settings_;
@@ -101,4 +101,4 @@ template <typename T> class DataReceiver {
 }  // namespace sim
 }  // namespace taylortrack
 
-#endif //TAYLORTRACK_SIM_DATA_RECEIVER_H_
+#endif  // TAYLORTRACK_SIM_DATA_RECEIVER_H_
