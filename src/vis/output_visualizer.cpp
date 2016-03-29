@@ -245,7 +245,7 @@ void taylortrack::vis::OutputVisualizer::update_main_window() {
     height -= 4;
 
     // Calculate values per character
-    int vpc = static_cast<int>(ceil(x_axis_size) / static_cast<double>(width));
+    int vpc = static_cast<int>(ceil(x_axis_size / static_cast<double>(width)));
     int actual_size = static_cast<int>(x_axis_size / vpc);
 
     // Calculate max value
