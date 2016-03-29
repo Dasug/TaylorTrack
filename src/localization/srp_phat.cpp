@@ -26,7 +26,7 @@ SOFTWARE.
  * @file
  * @brief Implementation of srpphat.h
  */
-#include "srp_phat.h"
+#include "localization/srp_phat.h"
 #include <string>
 #include <tuple>
 #include <vector>
@@ -61,7 +61,8 @@ std::vector<std::tuple<int, int>> SrpPhat::get_microphone_pairs() {
   return pairs;
 }
 
-RArray SrpPhat::generalized_cross_correlation(const RArray &signal1, const RArray &signal2) {
+RArray SrpPhat::generalized_cross_correlation(const RArray &signal1,
+                                              const RArray &signal2) {
   size_t corr_length = signal1.size() + signal2.size() - 1;
   /* bringing the signals into the right shape to work with the fftlib
    first making them complex and pad with necessary zeros */
@@ -109,7 +110,8 @@ std::vector<double> SrpPhat::get_axis_values(bool xaxis) {
 }
 
 RArray SrpPhat::get_position_distribution(const std::vector<RArray> &signals) {
-  std::vector<std::vector<double>> gcc_grid = get_generalized_cross_correlation(signals);
+  std::vector<std::vector<double>> gcc_grid =
+      get_generalized_cross_correlation(signals);
   RArray degree_values(360);
   std::vector<double> xAxisValues = get_axis_values(true);
   std::vector<double> yAxisValues = get_axis_values(false);
@@ -128,7 +130,8 @@ RArray SrpPhat::get_position_distribution(const std::vector<RArray> &signals) {
 }
 
 int SrpPhat::get_position(const std::vector<RArray> &signals) {
-  std::vector<std::vector<double>> gcc_grid = get_generalized_cross_correlation(signals);
+  std::vector<std::vector<double>> gcc_grid =
+      get_generalized_cross_correlation(signals);
   RArray degree_values(360);
   std::vector<double> xAxisValues = get_axis_values(true);
   std::vector<double> yAxisValues = get_axis_values(false);
@@ -164,9 +167,11 @@ SrpPhat::get_generalized_cross_correlation(const std::vector<RArray> &signals) {
   std::vector<std::vector<double>> generalized_cross_correlation_values;
   int64_t vectorSize = int64_t(x_length_ / stepsize_ + 1);
   // initializing the gcc grid
-  generalized_cross_correlation_values.resize(static_cast<unsigned long>(vectorSize));
+  generalized_cross_correlation_values.
+      resize(static_cast<int64_t>(vectorSize));
   for (int i = 0; i < vectorSize; ++i) {
-    generalized_cross_correlation_values[i].resize(static_cast<unsigned long>(vectorSize));
+    generalized_cross_correlation_values[i].
+        resize(static_cast<int64_t>(vectorSize));
   }
   std::vector<std::vector<std::vector<double>>> micDelays = delay_tensor_;
   // iterating over all microphone pairs
@@ -177,17 +182,21 @@ SrpPhat::get_generalized_cross_correlation(const std::vector<RArray> &signals) {
     RArray signal1 = signals[index1];
     RArray signal2 = signals[index2];
     // get the current frame from the complete signal
-    RArray signalSlice1 = signal1[std::slice(0, static_cast<size_t>(steps_ + 1), 1)];
-    RArray signalSlice2 = signal2[std::slice(0, static_cast<size_t>(steps_), 1)];
+    RArray signalSlice1 =
+        signal1[std::slice(0, static_cast<size_t>(steps_ + 1), 1)];
+    RArray signalSlice2 =
+        signal2[std::slice(0, static_cast<size_t>(steps_), 1)];
     // computing the cross correlation of both frames
-    RArray generalized_cross_temp = generalized_cross_correlation(signalSlice1, signalSlice2);
+    RArray generalized_cross_temp =
+        generalized_cross_correlation(signalSlice1, signalSlice2);
     // iterating over the whole x-y grid
     for (int x = 0; x < vectorSize; x++) {
       for (int y = 0; y < vectorSize; y++) {
         double delay = micDelays[x][y][i];
         // adding the corresponding cross correlation value to the grid
-        generalized_cross_correlation_values[x][y] += generalized_cross_temp[(steps_ - 1) +
-            round(delay / (1.0 / samplerate_))];
+        generalized_cross_correlation_values[x][y] +=
+            generalized_cross_temp[(steps_ - 1) +
+                round(delay / (1.0 / samplerate_))];
       }
     }
   }
@@ -226,7 +235,8 @@ std::vector<std::vector<std::vector<double>>> SrpPhat::get_delay_tensor() {
         microphone1[1] = y_dim_mics_[index1];
         microphone2[0] = x_dim_mics_[index2];
         microphone2[1] = y_dim_mics_[index2];
-        double delay = inter_microphone_time_delay(point, microphone1, microphone2);
+        double delay =
+            inter_microphone_time_delay(point, microphone1, microphone2);
         delay_tensor[x][y][i] = delay;
       }
     }
@@ -253,8 +263,10 @@ RArray SrpPhat::get_microphone_signal(const std::string &filepath_name) {
   }
   return signal;
 }
-void SrpPhat::calculate_position_and_distribution(const std::vector<RArray> &signals) {
-  std::vector<std::vector<double>> gcc_grid = get_generalized_cross_correlation(signals);
+void SrpPhat::calculate_position_and_distribution(
+    const std::vector<RArray> &signals) {
+  std::vector<std::vector<double>> gcc_grid =
+      get_generalized_cross_correlation(signals);
   RArray degree_values(360);
   std::vector<double> xAxisValues = get_axis_values(true);
   std::vector<double> yAxisValues = get_axis_values(false);
