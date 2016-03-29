@@ -38,8 +38,6 @@ namespace taylortrack {
 namespace vis {
 
 OutputVisualizer::OutputVisualizer(utils::GeneralOptions general_options) {
-  this->general_options_ = general_options;
-
   // Initialize console window
   initscr();
 
