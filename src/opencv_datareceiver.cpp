@@ -81,7 +81,7 @@ int main(int argc,  const char *argv[]) {
   outport.open(out.port);
   std::string inport = config.get_visualizer_communication_in().port;
   yarp.connect(outport.getName(), yarp::os::ConstString(inport));
-  yarp.connect("/grabber", in.port);
+  yarp.connect("/icub/camcalib/left/out", in.port);
 
   while (true) {
     input = buffered_port_->read(true);
@@ -102,6 +102,20 @@ int main(int argc,  const char *argv[]) {
     cv::equalizeHist(frame, frame);
     algorithm.set_frame(frame);
 
+    std::vector<cv::Rect> faces = algorithm.get_faces();
+    for ( size_t i = 0; i < faces.size(); i++ ) {
+      cv::Point center(faces[i].x + faces[i].width / 2, faces[i].y + faces[i].height / 2);
+      cv::ellipse(frame,
+                  center,
+                  cv::Size(faces[i].width / 2, faces[i].height / 2),
+                  0,
+                  0,
+                  360,
+                  cv::Scalar(255, 0, 255),
+                  4,
+                  8,
+                  0);
+    }
     cv::waitKey(1);
     cv::imshow("Preview", frame);
 
