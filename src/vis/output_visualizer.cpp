@@ -31,6 +31,8 @@ SOFTWARE.
 #include <string.h>
 #include <string>
 #include <vector>
+#include <ncurses.h>
+
 
 namespace taylortrack {
 namespace vis {
@@ -197,7 +199,7 @@ void OutputVisualizer::print_center(WINDOW *window, const char *string) {
 
   int cols = getmaxx(window);
 
-  int position = ((cols - 2 * cx) - static_cast<int>(strlen(string)) / 2);
+  int position = ((cols - 2 * cx) - static_cast<int>(strlen(string))) / 2;
 
   wmove(window, cy, cx + position);
 
