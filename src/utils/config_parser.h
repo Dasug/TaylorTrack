@@ -310,7 +310,7 @@ class ConfigParser {
   std::vector<std::string> split_microphones(std::string temporary_string);
   bool parse_file();
   bool valid_;
-  std::ifstream file_;
+  std::ifstream file_ = std::ifstream();;
   GeneralOptions general_options_;
   AudioSettings audio_settings_;
   MicrophoneInputSettings microphone_input_settings_;

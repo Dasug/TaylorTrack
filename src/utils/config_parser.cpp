@@ -33,7 +33,7 @@ SOFTWARE.
 namespace taylortrack {
 namespace utils {
 ConfigParser::ConfigParser(const char *file_name) {
-  file_ = std::ifstream(file_name, std::ios::in|std::ios::binary);
+  file_.open(file_name, std::ios::in|std::ios::binary);
 
   if (!file_.fail()) {
     valid_ = parse_file();
@@ -45,6 +45,9 @@ ConfigParser::ConfigParser(const char *file_name) {
 }
 
 bool ConfigParser::parse_file() {
+  if (!file_.is_open())
+    return false;
+
   // 0 = options, 1 = audio, 2 = video,
   // 3 = combination, 4 = input, 5 = visualizer
   int section = -1;
