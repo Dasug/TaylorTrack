@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
         taylortrack::utils::AudioSettings audio = config.get_audio_configuration();
         taylortrack::localization::SrpPhat algorithm;// = taylortrack::localization::SrpPhat(audio.sample_rate, audio.mic_x, audio.mic_y, audio.grid_x, audio.grid_y, audio.interval, (int) audio.frame_size, audio.beta);
         algorithm.set_config(config);
-        int microphones = (int) audio.mic_x.size();
+        int microphones = static_cast<int>(audio.mic_x.size());
         yarp::os::BufferedPort<yarp::os::Bottle> outport;
         outport.open(out.port);
         yarp.connect(outport.getName(),yarp::os::ConstString(config.get_visualizer_communication_in().port));
