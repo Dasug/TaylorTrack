@@ -107,7 +107,6 @@ class OutputVisualizer {
   virtual ~OutputVisualizer();
 
  private:
-  taylortrack::utils::GeneralOptions general_options_;
   // the amount of rows and columns the visualizer needs to visualize
   int rows_, cols_;
   // TODO
