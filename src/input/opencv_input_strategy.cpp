@@ -58,13 +58,13 @@ yarp::os::Bottle OpenCVInputStrategy::read(yarp::os::Bottle *bottle) {
   cv::Mat gray_frame;
   cv::cvtColor(frame_, gray_frame, cv::COLOR_BGR2GRAY);
   cv::equalizeHist(gray_frame, gray_frame);
-  yarp::sig::Matrix mat = yarp::sig::Matrix(gray_frame.rows, gray_frame.cols);
+  yarp::sig::Matrix matrix = yarp::sig::Matrix(gray_frame.rows, gray_frame.cols);
 
   for (int i = 0; i < gray_frame.rows; i++)
     for (int j = 0; j < gray_frame.cols; j++) {
-      mat[i][j] = gray_frame.at<uchar>(i,j);
+      matrix[i][j] = gray_frame.at<uchar>(i, j);
     }
-  bottle->addList().read(mat);
+  bottle->addList().read(matrix);
   frame_counter_ = frame_skip_;
   cv::imshow(window_name_, gray_frame);
   cv::waitKey(1);

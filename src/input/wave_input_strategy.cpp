@@ -54,21 +54,21 @@ yarp::os::Bottle WaveInputStrategy::read(yarp::os::Bottle *bottle) {
         sample_amount = parameter_.size;
       }
       std::string samples = waveParser_->get_samples(sample_amount);
-      int64_t sampleNum = static_cast<int64_t>(samples.size()
+      int64_t sample_number = static_cast<int64_t>(samples.size()
           / (waveParser_->get_bits_per_sample() / 8));
-      int64_t sampleSize = waveParser_->get_block_align()
+      int64_t sample_size = waveParser_->get_block_align()
           / waveParser_->get_num_channels();
 
       // Convert to Floats, change endian
-      for (int i = 0; i < sampleNum; ++i) {
-        int16_t temp = 0;
+      for (int i = 0; i < sample_number; ++i) {
+        int16_t temporary_value = 0;
         for (int j = waveParser_->get_bits_per_sample() - 8; j >= 0; j -= 8) {
-          int64_t samplePosition = i * sampleSize + (j / 8);
+          int64_t samplePosition = i * sample_size + (j / 8);
           int64_t sample = static_cast<unsigned char>(samples[samplePosition]);
           int64_t shift_distance = j;
-          temp |= (sample << shift_distance);
+          temporary_value |= (sample << shift_distance);
         }
-        double cfloat = temp / 32767.0;
+        double cfloat = temporary_value / 32767.0;
         bottle->addDouble(cfloat);
       }
     } else {
@@ -81,9 +81,9 @@ yarp::os::Bottle WaveInputStrategy::read(yarp::os::Bottle *bottle) {
   return *bottle;
 }
 
-void WaveInputStrategy::set_parameters(const utils::Parameters &params) {
-  parameter_ = params;
-  waveParser_ = new taylortrack::utils::WaveParser(params.file);
+void WaveInputStrategy::set_parameters(const utils::Parameters &parameters) {
+  parameter_ = parameters;
+  waveParser_ = new taylortrack::utils::WaveParser(parameters.file);
   error_ = false;
 }
 

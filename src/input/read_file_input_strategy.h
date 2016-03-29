@@ -49,6 +49,7 @@ class ReadFileInputStrategy : public InputStrategy {
    * @brief standard constructor
    */
   ReadFileInputStrategy() = default;
+
   /**
    * @brief Default Copy constructor
    * @param that object to be copied
@@ -76,7 +77,7 @@ class ReadFileInputStrategy : public InputStrategy {
   */
   bool is_done() override;
 
-  void set_parameters(const utils::Parameters &params) override;
+  void set_parameters(const utils::Parameters &parameters) override;
 
   void set_config(const utils::ConfigParser &config_parser) override;
 

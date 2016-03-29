@@ -60,17 +60,9 @@ class OpenCVInputStrategy : public InputStrategy {
    */
   OpenCVInputStrategy() = default;
   /**
-  * @brief Default Copy constructor
-  * @param that object to be copied
-  */
-  OpenCVInputStrategy(const OpenCVInputStrategy &that) = default;
-  /**
-  * @brief Reads the entire file and returns the data.
-  * @param bottle YARP bottle to store the read data
-  * @pre Should only be called if is_done() returns false
-  * @return Simulation data.
-  * @see is_done()
-  */
+   * @brief Default Copy constructor
+   */
+  OpenCVInputStrategy(const OpenCVInputStrategy& that) = default;
   yarp::os::Bottle read(yarp::os::Bottle *bottle) override;
   /**
   * @brief Detects if the read method is done with reading the simulation data.

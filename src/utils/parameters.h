@@ -2,8 +2,8 @@
 * @file
 * @brief Header file for the structs for the parameters.
 */
-#ifndef TAYLORTRACK_PARAMETERS_H
-#define TAYLORTRACK_PARAMETERS_H
+#ifndef TAYLORTRACK_UTILS_PARAMETERS_H
+#define TAYLORTRACK_UTILS_PARAMETERS_H
 namespace taylortrack {
   namespace utils {
     /**
