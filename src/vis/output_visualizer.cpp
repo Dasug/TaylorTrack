@@ -1,3 +1,27 @@
+/*
+The MIT License (MIT)
+
+Copyright (c) 2015 Marius Kaufmann, Tamara Frieß, Jannis Hoppe, Christian Hack
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 /**
 * @file
 * @brief Contains implementation for taylortrack::vis::OutputVisualizer class.
@@ -5,9 +29,13 @@
 
 #include "vis/output_visualizer.h"
 #include <string.h>
-#include <ncurses.h>
+#include <string>
+#include <vector>
 
-taylortrack::vis::OutputVisualizer::OutputVisualizer(taylortrack::utils::GeneralOptions general_options) {
+namespace taylortrack {
+namespace vis {
+
+OutputVisualizer::OutputVisualizer(utils::GeneralOptions general_options) {
   this->general_options_ = general_options;
 
   // Initialize console window
@@ -38,9 +66,12 @@ taylortrack::vis::OutputVisualizer::OutputVisualizer(taylortrack::utils::General
     // Define color pair 2 as blue on white
     init_pair(2, COLOR_BLUE, COLOR_WHITE);
 
-    // Redefine colors if terminal supports it (We only have 8 colors available, so the names might be a bit unfitting)
-    init_color(COLOR_RED, 933, 461, 0); // Dark Orange
-    init_color(COLOR_YELLOW, 1000, 645, 0); // Light Orange
+    /*
+     * Redefine colors if terminal supports it
+     * (We only have 8 colors available, so the names might be a bit unfitting)
+    */
+    init_color(COLOR_RED, 933, 461, 0);  // Dark Orange
+    init_color(COLOR_YELLOW, 1000, 645, 0);  // Light Orange
 
     // Define color pair 3 and 4 for use in the diagram
     init_pair(3, COLOR_WHITE, COLOR_RED);
@@ -85,9 +116,6 @@ void taylortrack::vis::OutputVisualizer::draw_frame() {
   this->handle_resize();
   this->handle_user_input();
   werase(this->main_window_);
-
-  // TODO Actual visualisation
-
   this->update_main_window();
 }
 
@@ -98,7 +126,6 @@ void taylortrack::vis::OutputVisualizer::handle_resize() {
   getmaxyx(stdscr, rows, cols);
 
   if (rows != this->rows_ || cols != this->cols_) {
-
     if (this->show_top_window_) {
       wresize(this->top_window_, 4, cols);
       wresize(this->main_window_, rows - 4, cols);
@@ -110,7 +137,6 @@ void taylortrack::vis::OutputVisualizer::handle_resize() {
     }
     this->rows_ = rows;
     this->cols_ = cols;
-
   }
 }
 
@@ -118,7 +144,7 @@ void taylortrack::vis::OutputVisualizer::handle_user_input() {
   int chr = getch();
   if (chr != ERR) {
     switch (chr) {
-      case 27: // ESC key or ALT key
+      case 27:  // ESC key or ALT key
         // If we can't read another character right away it was the ESC-Key
         if (getch() == ERR)
           this->user_quit_ = true;
@@ -154,7 +180,8 @@ void taylortrack::vis::OutputVisualizer::update_top_window() {
 
   this->print_center(this->top_window_, "TaylorTrack - Tracking Visualizer");
 
-  this->print_center(this->top_window_, "Press 'q' or ESC to quit and 'h' to toggle this window.");
+  this->print_center(this->top_window_,
+                     "Press 'q' or ESC to quit and 'h' to toggle this window.");
 
   wrefresh(this->top_window_);
 }
@@ -163,14 +190,14 @@ void taylortrack::vis::OutputVisualizer::update_top_window() {
  * Assumes a necessary padding in the size of the current cursor position (for box lines etc.)
  * Sets the cursor to the next same x position in the next line afterwards
  * */
-void taylortrack::vis::OutputVisualizer::print_center(WINDOW *window, const char *string) {
+void OutputVisualizer::print_center(WINDOW *window, const char *string) {
   int cy, cx;
 
   getyx(window, cy, cx);
 
   int cols = getmaxx(window);
 
-  int position = ((cols - 2 * cx) - (int) strlen(string)) / 2;
+  int position = ((cols - 2 * cx) - static_cast<int>(strlen(string)) / 2);
 
   wmove(window, cy, cx + position);
 
@@ -216,8 +243,8 @@ void taylortrack::vis::OutputVisualizer::update_main_window() {
     height -= 4;
 
     // Calculate values per character
-    int vpc = (int) ceil(x_axis_size / (double) width);
-    int actual_size = (int) (x_axis_size / vpc);
+    int vpc = static_cast<int>(ceil(x_axis_size) / static_cast<double>(width));
+    int actual_size = static_cast<int>(x_axis_size / vpc);
 
     // Calculate max value
     double max_value = 0.0f;
@@ -246,7 +273,6 @@ void taylortrack::vis::OutputVisualizer::update_main_window() {
       // Add the vpc next values together and draw block if value high enough
       for (int y = 0; y < height; ++y) {
         for (int x = 0; x < actual_size; ++x) {
-
           double current_value = 0;
           for (int j = 0; j < vpc; ++j) {
             current_value += diagram_data_[x * vpc + j];
@@ -283,7 +309,10 @@ void taylortrack::vis::OutputVisualizer::update_main_window() {
   wrefresh(this->main_window_);
 }
 
-void taylortrack::vis::OutputVisualizer::set_diagram_data(const std::vector<double> &diagram_data) {
+void OutputVisualizer::set_diagram_data(
+    const std::vector<double> &diagram_data) {
   this->diagram_data_ = diagram_data;
   this->data_set_ = true;
 }
+}  // namespace vis
+}  // namespace taylortrack
