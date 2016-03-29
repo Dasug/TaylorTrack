@@ -74,6 +74,7 @@ class DummyInputStrategy : public InputStrategy {
   void set_config(const utils::ConfigParser &config_parser) override;
 
  private:
+  // signals if all data has been transfered/read
   bool done_;
 };
 }  // namespace input

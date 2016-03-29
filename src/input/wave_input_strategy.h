@@ -83,8 +83,11 @@ class WaveInputStrategy : public InputStrategy {
   void set_config(const taylortrack::utils::ConfigParser &config_parser) override;
 
  private:
+  // a struct containing the input and output port and other relevant parameters for the data stream
   taylortrack::utils::Parameters parameter_;
+  // a pointer to a waveparser object
   taylortrack::utils::WaveParser *waveParser_ = nullptr;
+  // signals if an error happened during data transmission
   bool error_ = false;
 };
 }  // namespace input
