@@ -56,7 +56,7 @@ class WaveParser {
   /**
    * @brief Default copy constructor
    */
-  WaveParser(const WaveParser& that) = default;
+  WaveParser(const WaveParser &that) = default;
 
   /**
   * @brief WaveParser Destructor

@@ -35,12 +35,16 @@ SOFTWARE.
 namespace taylortrack {
 namespace sim {
 /**
+ * @interface todo
  * @brief Receives any type of data from a YARP buffered port and sends it back to the client
  *
  * Needs taylortrack::utils::CommunicationSettings to
  */
 template <typename T> class DataReceiver {
  public:
+  /**
+   * @brief Constructor
+   */
   DataReceiver() = default;
 
   /**

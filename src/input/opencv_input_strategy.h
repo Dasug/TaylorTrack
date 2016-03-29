@@ -22,6 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+/**
+* @file
+* @brief Contains the OpenCV input strategy.
+*/
+
 #ifndef TAYLORTRACK_SRC_INPUT_OPENCV_INPUT_STRATEGY_H_
 #define TAYLORTRACK_SRC_INPUT_OPENCV_INPUT_STRATEGY_H_
 
@@ -42,16 +47,39 @@ SOFTWARE.
 
 namespace taylortrack {
 namespace input {
+/**
+* @class OpenCVInputStrategy
+* @brief Implements the OpenCV input from Input Strategy.
+*
+* Strategy which reads OpenCV data
+*/
 class OpenCVInputStrategy : public InputStrategy {
  public:
+  /**
+   * @brief standard constructor
+   */
   OpenCVInputStrategy() = default;
   /**
-   * @brief Default Copy constructor
-   */
-  OpenCVInputStrategy(const OpenCVInputStrategy& that) = default;
+  * @brief Default Copy constructor
+  * @param that object to be copied
+  */
+  OpenCVInputStrategy(const OpenCVInputStrategy &that) = default;
+  /**
+  * @brief Reads the entire file and returns the data.
+  * @param bottle YARP bottle to store the read data
+  * @pre Should only be called if is_done() returns false
+  * @return Simulation data.
+  * @see is_done()
+  */
   yarp::os::Bottle read(yarp::os::Bottle *bottle) override;
+  /**
+  * @brief Detects if the read method is done with reading the simulation data.
+  * @return Status of the read method.
+  */
   bool is_done() override;
+
   void set_parameters(const taylortrack::utils::Parameters &params) override;
+
   void set_config(const taylortrack::utils::ConfigParser &config_parser) override;
  private:
   cv::VideoCapture video_capture_;

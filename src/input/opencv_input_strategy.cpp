@@ -22,6 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+/**
+* @file
+* @brief Implementation of taylortrack::input::opencv_input_strategy class.
+*/
 #include "opencv_input_strategy.h"
 #include <ctime>
 
