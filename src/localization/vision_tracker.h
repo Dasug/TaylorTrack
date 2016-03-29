@@ -80,11 +80,17 @@ class VisionTracker : public VideoLocalizer {
   bool is_initialised();
 
  private:
+  // signals if the vision tracker has been properly initialized
   bool initialised_ = false;
+  // an opencv cascade classifier
   cv::CascadeClassifier face_cascade_;
+  // an opencv matrix containing the current frame
   cv::Mat frame_;
+  // a vector containing opencv rectangles for all tracked faces
   std::vector<cv::Rect> faces_;
+  // camera parameters that store the camera position and the width of its vision radius
   int width_ = 0, camera_center_ = 0;
+  // storing the uncertainty
   double angle_per_pixel_ = 0, variance_ = 0,
       max_camera_view_angle_ = 0, camera_angle_ = 0;
 };

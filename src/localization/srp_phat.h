@@ -63,13 +63,15 @@ typedef std::valarray<Complex> CArray;
 */
 class SrpPhat : public Localizer {
  public:
+  /**
+   * @brief Standard constructor
+   */
   SrpPhat() = default;
-
   /**
    * @brief Default Copy constructor
+   * @param that object to be copied
    */
   SrpPhat(const SrpPhat &that) = default;
-
   /**
    * @var kSpeedOfSound
    * @brief Speed of Sound used for calculations within the class.
