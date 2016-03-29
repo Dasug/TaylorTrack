@@ -312,6 +312,9 @@ class ConfigParser {
   }
 
 
+  /**
+   * @brief Destructor frees the memory of file pointer.
+   */
   virtual ~ConfigParser();
 
   ConfigParser(const ConfigParser &that) = delete;

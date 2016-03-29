@@ -79,6 +79,10 @@ class VisionTracker : public VideoLocalizer {
   */
   bool is_initialised();
 
+  /**
+   * @brief Returns the all Rectangles of the located persons.
+   * @return Returns the all Rectangles of the located persons.
+   */
   std::vector<cv::Rect> get_faces();
 
  private:
