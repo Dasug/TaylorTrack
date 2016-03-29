@@ -143,15 +143,25 @@ class WaveParser {
   */
   int64_t get_sample_num() const;
  private:
+  // signals whether the parsed file has a correct header.
   bool valid_ = false;
+  // specifies the audio sample encoding
   uint16_t audio_format_ = 0x0001;
+  // specifies the amount of audio channels
   uint16_t num_channels_ = 1;
+  // specifies the samplerate per second
   uint32_t sample_rate_ = 44100;
+  // specifies the byterate per second
   uint32_t byte_rate_ = 88200;
+  // the parsed wave file's number of bytes per sample frame
   uint16_t block_align_;
+  // the parsed wave file's bits per sample
   uint16_t bits_per_sample_ = 16;
+  // the parsed wave file's datasize
   uint32_t data_size_ = 0;
+  // a stream of the wave file
   std::ifstream *file_;
+  //
   std::fpos<mbstate_t> data_offset_;
   void parse_file();
 };
