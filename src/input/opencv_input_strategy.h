@@ -70,7 +70,7 @@ class OpenCVInputStrategy : public InputStrategy {
   * Number of samples to be read for every audio channel is defined in the taylortrack::utils::Parameters struct given to the constructor
   * @param bottle YARP bottle to store the read data
   * @pre is_done() returns false
-  * @return YARP bottle consisting of sample amplitude levels as float values
+  * @return YARP bottle consisting of sample amplitude levels as double values
   * @see is_done()
   */
   yarp::os::Bottle read(yarp::os::Bottle *bottle) override;

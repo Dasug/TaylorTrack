@@ -12,6 +12,17 @@ namespace taylortrack {
     /**
      * @class Streamer
      * @brief Starts streaming with specific strategy
+     * @code
+     * // Example usage:
+     * // first initialize a streamer object with its output port and an input strategy
+     * taylortrack::input::DummyInputStrategy dummy = taylortrack::input::DummyInputStrategy();
+     * taylortrack::sim::Streamer streamer(&dummy, "/test_out");
+     *
+     * // afterwards you can read in data into the strategy and start streaming it by assigning a
+     * // port from which one can retrieve the streamed data
+     * yarp::os::Bottle bottle;
+     * dummy.read(&bottle);
+     * streamer.start_streaming("/test_in");
      */
     class Streamer {
      public:
