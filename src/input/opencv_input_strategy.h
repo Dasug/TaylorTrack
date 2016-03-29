@@ -36,8 +36,8 @@ SOFTWARE.
 #include "opencv2/imgproc.hpp"
 #include "opencv2/videoio.hpp"
 #endif
-#include <yarp/sig/Matrix.h>
 #include <stdint.h>
+#include <yarp/sig/Matrix.h>
 #include "utils/config.h"
 
 namespace taylortrack {
@@ -48,7 +48,7 @@ class OpenCVInputStrategy : public InputStrategy {
   /**
    * @brief Default Copy constructor
    */
-  OpenCVInputStrategy(const OpenCVInputStrategy& that) = default;
+  OpenCVInputStrategy(const OpenCVInputStrategy &that) = default;
   yarp::os::Bottle read(yarp::os::Bottle *bottle) override;
   bool is_done() override;
   void set_parameters(const taylortrack::utils::Parameters &params) override;

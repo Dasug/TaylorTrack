@@ -50,7 +50,7 @@ class ReadFileInputStrategy : public InputStrategy {
   /**
    * @brief Default Copy constructor
    */
-  ReadFileInputStrategy(const ReadFileInputStrategy& that) = default;
+  ReadFileInputStrategy(const ReadFileInputStrategy &that) = default;
 
   /**
   * @brief Destructor

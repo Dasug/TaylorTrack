@@ -50,110 +50,110 @@ bool ConfigParser::parse_file() {
   int section = -1;
   std::string line = "";
   while (std::getline(file_, line)) {
-    std::vector<std::string> x = split(line, '=');
+    std::vector<std::string> splitted_string = split(line, '=');
 
-    if (x.size() < 2 && line.find('[') == std::string::npos)
+    if (splitted_string.size() < 2 && line.find('[') == std::string::npos)
       continue;
 
-    if (x.size() > 2 || (x.size() == 2 && trim(x[1]).empty()))
+    if (splitted_string.size() > 2 || (splitted_string.size() == 2 && trim(splitted_string[1]).empty()))
       return false;
 
     if (!line.empty() && line.at(0) != '[' && line.at(0)
         != '#' && !isspace(line.at(0))) {
-      x[0] = trim(x[0]);
-      x[1] = trim(x[1]);
+      splitted_string[0] = trim(splitted_string[0]);
+      splitted_string[1] = trim(splitted_string[1]);
       switch (section) {
         case 0:  // [options]
-          if (x[0].compare("console_output") == 0)
-            general_options_.console_output = x[1].compare("true") == 0;
+          if (splitted_string[0].compare("console_output") == 0)
+            general_options_.console_output = splitted_string[1].compare("true") == 0;
           break;  // end section 0
 
         case 1:  // [audio]
-          if (x[0].compare("inport") == 0) {
-            audio_settings_.inport = x[1];
-            audio_communication_in_.port = x[1];
-          } else if (x[0].compare("outport") == 0) {
-            audio_settings_.outport = x[1];
-            audio_communication_out_.port = x[1];
-          } else if (x[0].compare("sample_rate") == 0) {
-            std::istringstream(x[1]) >> audio_settings_.sample_rate;
-          } else if (x[0].compare("mic_x") == 0) {
-            std::vector<std::string> mic = split_microphones(x[1]);
+          if (splitted_string[0].compare("inport") == 0) {
+            audio_settings_.inport = splitted_string[1];
+            audio_communication_in_.port = splitted_string[1];
+          } else if (splitted_string[0].compare("outport") == 0) {
+            audio_settings_.outport = splitted_string[1];
+            audio_communication_out_.port = splitted_string[1];
+          } else if (splitted_string[0].compare("sample_rate") == 0) {
+            std::istringstream(splitted_string[1]) >> audio_settings_.sample_rate;
+          } else if (splitted_string[0].compare("mic_x") == 0) {
+            std::vector<std::string> mic = split_microphones(splitted_string[1]);
             audio_settings_.mic_x.resize(mic.size());
             for (int i = 0; i < static_cast<int>(mic.size()); i++)
               std::stringstream(mic[i]) >> audio_settings_.mic_x[i];
-          } else if (x[0].compare("mic_y") == 0) {
-            std::vector<std::string> mic = split_microphones(x[1]);
+          } else if (splitted_string[0].compare("mic_y") == 0) {
+            std::vector<std::string> mic = split_microphones(splitted_string[1]);
             audio_settings_.mic_y.resize(mic.size());
             for (int i = 0; i < static_cast<int>(mic.size()); i++)
               std::stringstream(mic[i]) >> audio_settings_.mic_y[i];
-          } else if (x[0].compare("beta") == 0) {
-            std::stringstream(x[1]) >> audio_settings_.beta;
-          } else if (x[0].compare("grid_x") == 0) {
-            std::stringstream(x[1]) >> audio_settings_.grid_x;
-          } else if (x[0].compare("grid_y") == 0) {
-            std::stringstream(x[1]) >> audio_settings_.grid_y;
-          } else if (x[0].compare("interval") == 0) {
-            std::stringstream(x[1]) >> audio_settings_.interval;
-          } else if (x[0].compare("frame_size") == 0) {
-            std::stringstream(x[1]) >> audio_settings_.frame_size;
+          } else if (splitted_string[0].compare("beta") == 0) {
+            std::stringstream(splitted_string[1]) >> audio_settings_.beta;
+          } else if (splitted_string[0].compare("grid_x") == 0) {
+            std::stringstream(splitted_string[1]) >> audio_settings_.grid_x;
+          } else if (splitted_string[0].compare("grid_y") == 0) {
+            std::stringstream(splitted_string[1]) >> audio_settings_.grid_y;
+          } else if (splitted_string[0].compare("interval") == 0) {
+            std::stringstream(splitted_string[1]) >> audio_settings_.interval;
+          } else if (splitted_string[0].compare("frame_size") == 0) {
+            std::stringstream(splitted_string[1]) >> audio_settings_.frame_size;
           }
           break;  // end section 1
 
         case 2:  // [video]
-          if (x[0].compare("inport") == 0) {
-            video_settings_.inport = x[1];
-            video_communication_in_.port = x[1];
-          } else if (x[0].compare("outport") == 0) {
-            video_settings_.outport = x[1];
-            video_communication_out_.port = x[1];
-          } else if (x[0].compare("face_cascade_name") == 0)
-            video_settings_.face_cascade_name = x[1];
-          else if (x[0].compare("camera_id") == 0)
-            std::stringstream(x[1]) >> video_settings_.camera_id;
-          else if (x[0].compare("width") == 0)
-            std::stringstream(x[1]) >> video_settings_.width;
-          else if (x[0].compare("max_camera_view_angle") == 0)
-            std::stringstream(x[1]) >> video_settings_.max_camera_view_angle;
-          else if (x[0].compare("camera_angle") == 0)
-            std::stringstream(x[1]) >> video_settings_.camera_angle;
-          else if (x[0].compare("variance") == 0)
-            std::stringstream(x[1]) >> video_settings_.variance;
+          if (splitted_string[0].compare("inport") == 0) {
+            video_settings_.inport = splitted_string[1];
+            video_communication_in_.port = splitted_string[1];
+          } else if (splitted_string[0].compare("outport") == 0) {
+            video_settings_.outport = splitted_string[1];
+            video_communication_out_.port = splitted_string[1];
+          } else if (splitted_string[0].compare("face_cascade_name") == 0)
+            video_settings_.face_cascade_name = splitted_string[1];
+          else if (splitted_string[0].compare("camera_id") == 0)
+            std::stringstream(splitted_string[1]) >> video_settings_.camera_id;
+          else if (splitted_string[0].compare("width") == 0)
+            std::stringstream(splitted_string[1]) >> video_settings_.width;
+          else if (splitted_string[0].compare("max_camera_view_angle") == 0)
+            std::stringstream(splitted_string[1]) >> video_settings_.max_camera_view_angle;
+          else if (splitted_string[0].compare("camera_angle") == 0)
+            std::stringstream(splitted_string[1]) >> video_settings_.camera_angle;
+          else if (splitted_string[0].compare("variance") == 0)
+            std::stringstream(splitted_string[1]) >> video_settings_.variance;
           break; // end section 2
 
         case 3:  // [combination]
-          if (x[0].compare("inport") == 0) {
-            combination_settings_.inport = x[1];
-            combination_communication_in_.port = x[1];
-          } else if (x[0].compare("outport") == 0) {
-            combination_settings_.outport = x[1];
-            combination_communication_out_.port = x[1];
+          if (splitted_string[0].compare("inport") == 0) {
+            combination_settings_.inport = splitted_string[1];
+            combination_communication_in_.port = splitted_string[1];
+          } else if (splitted_string[0].compare("outport") == 0) {
+            combination_settings_.outport = splitted_string[1];
+            combination_communication_out_.port = splitted_string[1];
           }
           break;  // end section 3
 
         case 4:
-          if (x[0].compare("outport") == 0)
-            input_communication_out_.port = x[1];
+          if (splitted_string[0].compare("outport") == 0)
+            input_communication_out_.port = splitted_string[1];
           break;  // end section 4
 
         case 5:
-          if (x[0].compare("inport") == 0)
-            visualizer_communication_in_.port = x[1];
+          if (splitted_string[0].compare("inport") == 0)
+            visualizer_communication_in_.port = splitted_string[1];
           break;  // end section 5
 
         case 6:
-          if (x[0].compare("devices") == 0) {
-            std::vector<std::string> mic = split_microphones(x[1]);
+          if (splitted_string[0].compare("devices") == 0) {
+            std::vector<std::string> mic = split_microphones(splitted_string[1]);
             for (uint i = 0; i < mic.size(); i++) {
               int microphone_id = 0;
               std::stringstream(mic[i]) >> microphone_id;
               microphone_input_device_ids_.push_back(microphone_id);
             }
-          } else if (x[0].compare("delays") == 0) {
-            std::vector<std::string> mic = split_microphones(x[1]);
-            for (uint i = 0; i < mic.size(); i++) {
+          } else if (splitted_string[0].compare("delays") == 0) {
+            std::vector<std::string> microphones = split_microphones(splitted_string[1]);
+            for (uint i = 0; i < microphones.size(); i++) {
               int microphone_delay = 0;
-              std::stringstream(mic[i]) >> microphone_delay;
+              std::stringstream(microphones[i]) >> microphone_delay;
               microphone_input_device_delays_.push_back(microphone_delay);
             }
           }
@@ -199,52 +199,52 @@ bool ConfigParser::parse_file() {
 
 // Method to split a string by the given delim.
 std::vector<std::string>
-ConfigParser::split(const std::string &s,
-                                        char delim) {
-  std::vector<std::string> elems;
-  std::stringstream ss(s);
+ConfigParser::split(const std::string &temporary_string,
+                    char delimiter) {
+  std::vector<std::string> elements;
+  std::stringstream stringstream(temporary_string);
   std::string item = "";
 
-  while (std::getline(ss, item, delim))
-    elems.push_back(item);
+  while (std::getline(stringstream, item, delimiter))
+    elements.push_back(item);
 
-  return elems;
+  return elements;
 }
 
 std::vector<std::string>
-ConfigParser::split_microphones(std::string s) {
-  std::vector<std::string> elems;
+ConfigParser::split_microphones(std::string temporary_string) {
+  std::vector<std::string> elements;
   int start = -1;
 
-  for (unsigned int i = 0; i < s.length(); ++i) {
-    if (std::isspace(s[i]) == 0 && start == -1) {
-      if (i == s.length() - 1)
-        elems.push_back(s.substr(i));
+  for (unsigned int i = 0; i < temporary_string.length(); ++i) {
+    if (std::isspace(temporary_string[i]) == 0 && start == -1) {
+      if (i == temporary_string.length() - 1)
+        elements.push_back(temporary_string.substr(i));
       start = i;
-    } else if ((std::isspace(s[i]) != 0
+    } else if ((std::isspace(temporary_string[i]) != 0
         && start != -1)
-        || i == s.length() - 1) {
-      if (i == s.length() -1)
-        elems.push_back(s.substr((unsigned int) start, i + 1 - start));
+        || i == temporary_string.length() - 1) {
+      if (i == temporary_string.length() -1)
+        elements.push_back(temporary_string.substr((unsigned int) start, i + 1 - start));
       else
-        elems.push_back(s.substr((unsigned int) start, i - start));
+        elements.push_back(temporary_string.substr((unsigned int) start, i - start));
       start = -1;
     }
   }
-  return elems;
+  return elements;
 }
 
 // Method to remove whitespaces,
 // tabulator etc. from the the front and back of the string.
-std::string ConfigParser::trim(const std::string &s) {
-  auto wsfront =
-      std::find_if_not(s.begin(),
-                       s.end(), [](int c){return std::isspace(c);});
-  auto wsback =
-      std::find_if_not(s.rbegin(),
-                       s.rend(), [](int c){return std::isspace(c);}).base();
+std::string ConfigParser::trim(const std::string &temporary_string) {
+  auto whitespace_front =
+      std::find_if_not(temporary_string.begin(),
+                       temporary_string.end(), [](int c){return std::isspace(c);});
+  auto whitespace_back =
+      std::find_if_not(temporary_string.rbegin(),
+                       temporary_string.rend(), [](int c){return std::isspace(c);}).base();
 
-  return wsback <= wsfront ? std::string() : std::string(wsfront, wsback);
+  return whitespace_back <= whitespace_front ? std::string() : std::string(whitespace_front, whitespace_back);
 }
 
 ConfigParser::ConfigParser() {

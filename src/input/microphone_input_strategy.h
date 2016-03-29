@@ -77,7 +77,7 @@ class MicrophoneInputStrategy : public InputStrategy {
   /**
    * @brief Default Copy constructor
    */
-  MicrophoneInputStrategy(const MicrophoneInputStrategy& that) = default;
+  MicrophoneInputStrategy(const MicrophoneInputStrategy &that) = default;
 
   /**
    * @brief Destructor

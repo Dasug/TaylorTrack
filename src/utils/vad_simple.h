@@ -48,7 +48,7 @@ class VadSimple : public VadStrategy {
   /**
    * @brief Default copy constructor
    */
-  VadSimple(const VadSimple& that) = default;
+  VadSimple(const VadSimple &that) = default;
 
   /**
    * @brief energy based detection

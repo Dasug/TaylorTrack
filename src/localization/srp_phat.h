@@ -68,7 +68,7 @@ class SrpPhat : public Localizer {
   /**
    * @brief Default Copy constructor
    */
-  SrpPhat(const SrpPhat& that) = default;
+  SrpPhat(const SrpPhat &that) = default;
 
   /**
    * @var kSpeedOfSound

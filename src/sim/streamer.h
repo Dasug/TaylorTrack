@@ -35,7 +35,7 @@ namespace taylortrack {
      private:
       taylortrack::input::InputStrategy *strategy_;
       const char *outport_;
-      Streamer(const Streamer& that) = delete;
+      Streamer(const Streamer &that) = delete;
 
     };
   } // namespace sim
