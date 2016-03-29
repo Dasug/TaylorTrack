@@ -57,7 +57,7 @@ typedef std::valarray<double> RArray;
 typedef std::valarray<Complex> CArray;
 /**
 * @class SrpPhat
-* @brief Implements the getposition function from the AudioLocalizer interface.
+* @brief Implements the speaker tracking functions from the AudioLocalizer interface.
 *
 * Strategy that implements SrpPhat to localize a speaker.
 * @code

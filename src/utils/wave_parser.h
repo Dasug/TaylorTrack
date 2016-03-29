@@ -42,6 +42,15 @@ namespace utils {
 *
 * Helper class to deal with .wav files. Parses the RIFF header and the wave chunk headers.
 * However, it only extracts raw sample data and doesn't decode the samples.
+*
+ * @code
+ * // Example usage:
+ * //   Simply create a class instance with a string that contains the path to the wav file which should be parsed
+ * taylortrack::utils::WaveParser parser = taylortrack::utils::WaveParser("../Testdata/Test.wav");
+ *
+ * //   afterwards you can read the data with the function get_samples like this
+ * std::string samples = parser.get_samples(2);
+ * @endcode
 */
 class WaveParser {
  public:
