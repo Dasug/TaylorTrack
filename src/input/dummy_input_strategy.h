@@ -60,7 +60,7 @@ class DummyInputStrategy : public InputStrategy {
   * @return "Dummy Test successful"
   * @see is_done()
   */
-  yarp::os::Bottle read(yarp::os::Bottle &bottle) override;
+  yarp::os::Bottle read(yarp::os::Bottle *bottle) override;
 
   /**
   * @brief Detects if the read method returned "Dummy Test successful".

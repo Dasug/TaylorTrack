@@ -32,11 +32,11 @@ SOFTWARE.
 namespace taylortrack {
 namespace input {
 
-yarp::os::Bottle ReadFileInputStrategy::read(yarp::os::Bottle &bottle) {
+yarp::os::Bottle ReadFileInputStrategy::read(yarp::os::Bottle *bottle) {
   if (file_ && file_->is_open() && file_->tellg() != size_) {
     char *memblock = new char[package_size_];
     file_->read(memblock, package_size_);
-    bottle.addString(yarp::os::ConstString(memblock, package_size_));
+    bottle->addString(yarp::os::ConstString(memblock, package_size_));
     done_ = file_->eof() || file_->tellg() == size_;
   } else {
     done_ = true;
@@ -45,7 +45,7 @@ yarp::os::Bottle ReadFileInputStrategy::read(yarp::os::Bottle &bottle) {
   if (file_ && done_ && file_->is_open())
     file_->close();
 
-  return bottle;
+  return *bottle;
 }
 
 bool ReadFileInputStrategy::is_done() {

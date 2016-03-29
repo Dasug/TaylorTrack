@@ -44,7 +44,7 @@ WaveInputStrategy::~WaveInputStrategy() {
     delete this->waveParser_;
 }
 
-yarp::os::Bottle WaveInputStrategy::read(yarp::os::Bottle &bottle) {
+yarp::os::Bottle WaveInputStrategy::read(yarp::os::Bottle *bottle) {
   if (waveParser_ && waveParser_->is_valid() && !waveParser_->is_done()) {
     if (waveParser_->get_bits_per_sample() == 16) {
       int64_t sample_amount = 0;
@@ -69,7 +69,7 @@ yarp::os::Bottle WaveInputStrategy::read(yarp::os::Bottle &bottle) {
           temp |= (sample << shift_distance);
         }
         double cfloat = temp / 32767.0;
-        bottle.addDouble(cfloat);
+        bottle->addDouble(cfloat);
       }
     } else {
       std::cout <<
@@ -78,7 +78,7 @@ yarp::os::Bottle WaveInputStrategy::read(yarp::os::Bottle &bottle) {
       this->error_ = true;
     }
   }
-  return bottle;
+  return *bottle;
 }
 
 void WaveInputStrategy::set_parameters(const utils::Parameters &params) {

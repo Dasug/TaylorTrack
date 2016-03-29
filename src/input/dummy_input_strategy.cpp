@@ -35,10 +35,10 @@ namespace input {
     done_ = false;
   }
 
-  yarp::os::Bottle DummyInputStrategy::read(yarp::os::Bottle &bottle) {
+  yarp::os::Bottle DummyInputStrategy::read(yarp::os::Bottle *bottle) {
     done_ = true;
-    bottle.addString("Dummy Test successful");
-    return bottle;
+    bottle->addString("Dummy Test successful");
+    return *bottle;
   }
 
   bool DummyInputStrategy::is_done() {

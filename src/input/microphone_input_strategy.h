@@ -85,7 +85,7 @@ class MicrophoneInputStrategy : public InputStrategy {
    * Frees memory and terminates PortAudio
   */
   virtual ~MicrophoneInputStrategy();
-  yarp::os::Bottle read(yarp::os::Bottle &bottle) override;
+  yarp::os::Bottle read(yarp::os::Bottle *bottle) override;
   bool is_done() override;
   void set_parameters(const utils::Parameters &params) override;
 

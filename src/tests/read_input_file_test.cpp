@@ -9,7 +9,7 @@ TEST(InputFileTest, CRC32Match) {
   taylortrack::input::ReadFileInputStrategy strategy;
   strategy.set_parameters(params);
   yarp::os::Bottle bottle;
-  yarp::os::ConstString stringdata = strategy.read(bottle).pop().asString();
+  yarp::os::ConstString stringdata = strategy.read(&bottle).pop().asString();
   const char *data = stringdata.c_str();
   bool done = strategy.is_done();
   std::streampos size;
@@ -31,10 +31,10 @@ TEST(InputFileTest, ReadTwoTimes) {
   taylortrack::input::ReadFileInputStrategy strategy;
   strategy.set_parameters(params);
   yarp::os::Bottle bottle;
-  const char *data = strategy.read(bottle).pop().asString().c_str();
+  const char *data = strategy.read(&bottle).pop().asString().c_str();
   ASSERT_TRUE(strategy.is_done());
   bottle.clear();
-  data = strategy.read(bottle).pop().asString().c_str();
+  data = strategy.read(&bottle).pop().asString().c_str();
 
   unsigned long crc = crc32(0L, Z_NULL, 0);
   crc = crc32(crc, (const unsigned char *) data, 0);
@@ -52,7 +52,7 @@ TEST(InputFileTest, NoFile) {
 
   yarp::os::Bottle bottle;
 
-  ASSERT_STREQ("", strategy.read(bottle).pop().asString().c_str());
+  ASSERT_STREQ("", strategy.read(&bottle).pop().asString().c_str());
   ASSERT_TRUE(strategy.is_done());
 }
 
@@ -63,7 +63,7 @@ TEST(InputFileTest, CRC32VideoTest) {
   taylortrack::input::ReadFileInputStrategy strategy;
   strategy.set_parameters(params);
   yarp::os::Bottle bottle;
-  yarp::os::Bottle result = strategy.read(bottle);
+  yarp::os::Bottle result = strategy.read(&bottle);
   yarp::os::ConstString dataString = result.get(0).asString();
   const char *data = dataString.c_str();
 
@@ -88,7 +88,7 @@ TEST(InputFileTest, CRC32AudioTest) {
   taylortrack::input::ReadFileInputStrategy strategy;
   strategy.set_parameters(params);
   yarp::os::Bottle bottle;
-  yarp::os::Bottle result = strategy.read(bottle);
+  yarp::os::Bottle result = strategy.read(&bottle);
   yarp::os::ConstString dataString = result.get(0).asString();
   const char *data = dataString.c_str();
 
@@ -113,14 +113,14 @@ TEST(InputFileTest, SizeUnequalZeroTest) {
   taylortrack::input::ReadFileInputStrategy strategy;
   strategy.set_parameters(params);
   yarp::os::Bottle bottle;
-  const char *data = strategy.read(bottle).pop().asString().c_str();
+  const char *data = strategy.read(&bottle).pop().asString().c_str();
   bool done = strategy.is_done();
 
   ASSERT_STREQ("Lorem",data);
   ASSERT_FALSE(done);
   ASSERT_EQ(5, strlen(data));
 
-  data = strategy.read(bottle).pop().asString().c_str();
+  data = strategy.read(&bottle).pop().asString().c_str();
   done = strategy.is_done();
   ASSERT_STREQ(" ipsu",data);
   ASSERT_FALSE(done);
@@ -146,7 +146,7 @@ TEST(InputFileTest, NoParamTest) {
 
   // read hopefully empty bottle
   yarp::os::Bottle bottle;
-  strategy.read(bottle);
+  strategy.read(&bottle);
 
   ASSERT_EQ(0, bottle.size());
 }
