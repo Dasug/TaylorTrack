@@ -81,7 +81,7 @@ int main(int argc,  const char *argv[]) {
   outport.open(out.port);
   std::string inport = config.get_visualizer_communication_in().port;
   yarp.connect(outport.getName(), yarp::os::ConstString(inport));
-  yarp.connect("/grabber", in.port);
+  yarp.connect("/icub/camlib/left/out", in.port);
 
   while (true) {
     input = buffered_port_->read(true);
