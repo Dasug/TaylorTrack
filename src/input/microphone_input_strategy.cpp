@@ -26,9 +26,8 @@ SOFTWARE.
  * @brief Contains the implementation for the class taylortrack::input::MicrophoneInputStrategy
  * as well as a callback function used within the class.
  */
-
-#include <strings.h>
 #include "input/microphone_input_strategy.h"
+#include <strings.h>
 
 namespace taylortrack {
 namespace input {
@@ -115,7 +114,8 @@ yarp::os::Bottle MicrophoneInputStrategy::read(yarp::os::Bottle *bottle) {
       // Open Stream and check for error
       error_ = Pa_OpenStream(&stream,
                              &input_parameters,
-                             nullptr,  // We don't need any output, so we pass a null pointer
+          // We don't need any output, so we pass a null pointer
+                             nullptr,
                              settings_.sample_rate,
                              static_cast<uint64_t>(settings_.frame_size),
                              flags,

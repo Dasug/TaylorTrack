@@ -35,14 +35,23 @@ namespace taylortrack {
 namespace utils {
 /**
 * @class VadSimple
-* @brief Implements a simple Voice Activity Detection
-*/
+* @brief Implements a simple Voice Activity Detection using the power of a signal.
+  * @code
+  * // Example usage:
+  * //   Simply create a class instance with a threshold suiting your microphone
+  * taylortrack::utils::VadSimple TestVad = taylortrack::utils::VadSimple(0.25);
+  * taylortrack::utils::RArray data(4);
+  * // afterwards you can call the detect function to decide if a given RArray with audio data
+  * // contains speech.
+  * bool speech = TestVad.detect(data);
+  * @endcode
+  */
 class VadSimple : public VadStrategy {
  public:
-  /**
-   * @brief Constructor
-   * @param threshold for audio signal to be classified as voice
-   */
+/**
+  * @brief Constructor
+  * @param threshold for audio signal to be classified as voice
+*/
   explicit VadSimple(double threshold);
 
   /**

@@ -107,16 +107,23 @@ class OutputVisualizer {
   virtual ~OutputVisualizer();
 
  private:
-  taylortrack::utils::GeneralOptions general_options_;
+  // the amount of rows and columns the visualizer needs to visualize
   int rows_, cols_;
+  // Top Window object pointer (includes title and explanation)
   WINDOW *top_window_;
+  // Main window object pointer (includes diagram)
   WINDOW *main_window_;
+  // signals whether the user requested to terminate the visualization.
   bool user_quit_ = false;
+  // signals whether something failed while trying to display the visualization.
   bool failed_ = false;
+  // saves the original cursor state to reset it once
   int original_cursor_state_;
+  // determines whether the top window should be displayed right now
   bool show_top_window_ = true;
-
+  // The position distribution
   std::vector<double> diagram_data_;
+  // signals whether the diagram data to be displayed has been set
   bool data_set_ = false;
 
   void handle_resize();

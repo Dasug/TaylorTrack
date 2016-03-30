@@ -42,6 +42,18 @@ namespace input {
 * @brief Implements the read input from file strategy.
 *
 * Strategy which reads the simulation data from a given file and returns the entire file content at once.
+* @code
+* // Example usage:
+* // initiliaze a parameter object with the file to parse and a file size
+* taylortrack::utils::Parameters params;
+* params.file = "../Testdata/Test.txt";
+* params.size = 0;
+* // afterwards you can initialize the strategy with the parameter object and start to read data as following
+* taylortrack::input::ReadFileInputStrategy strategy;
+* strategy.set_parameters(params);
+* yarp::os::Bottle bottle;
+* yarp::os::ConstString stringdata = strategy.read(&bottle).pop().asString();
+* @endcode
 */
 class ReadFileInputStrategy : public InputStrategy {
  public:

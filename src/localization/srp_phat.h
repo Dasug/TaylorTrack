@@ -57,9 +57,36 @@ typedef std::valarray<double> RArray;
 typedef std::valarray<Complex> CArray;
 /**
 * @class SrpPhat
-* @brief Implements the getposition function from the AudioLocalizer interface.
+* @brief Implements the speaker tracking functions from the AudioLocalizer interface.
 *
 * Strategy that implements SrpPhat to localize a speaker.
+* @code
+*  //Example usage:
+*  // simply assign a srp class instance and assign the settings you wish to use
+*  // afterwards tell the srp instance to use these settings with set_config
+*
+*  taylortrack::localization::SrpPhat srp;
+*  taylortrack::utils::AudioSettings settings;
+*  settings.beta = 0.7;
+*  settings.sample_rate = 44100;
+*  settings.grid_x = 4.0;
+*  settings.grid_y = 4.0;
+*  settings.interval = 0.1;
+*  settings.mic_x = micsX;
+*  settings.mic_y = micsY;
+*  settings.frame_size = steps;
+*
+*  taylortrack::utils::ConfigParser config;
+*  config.set_audio_settings(settings);
+*
+*  srp.set_config(config);
+*  // some vector containing an RArray entry for each microphone channel you have
+*  std::vector<taylortrack::utils::FftLib::RArray> signals;
+*
+*  // afterwards you can track people with get_position or other methods like this
+*
+*  int position = srp.get_position(signals);
+* @endcode
 */
 class SrpPhat : public Localizer {
  public:
@@ -138,15 +165,19 @@ class SrpPhat : public Localizer {
   * @param microphone2 coordinates of the second microphone
   * @return the expected delay in seconds
   */
-  double inter_microphone_time_delay(const RArray &point, const RArray &microphone1, const RArray &microphone2);
+  double inter_microphone_time_delay(const RArray &point,
+                                     const RArray &microphone1,
+                                     const RArray &microphone2);
 
   /**
   * @brief Returns the generalized cross correlation between two audio signals
   * @param signal1 first discrete audio signal
   * @param signal2 second discrete audio signal
-  * @return returns the shifted cross correlation vector so that the end length has to be length(signal1)+ length(signal2) -1
+  * @return returns the shifted cross correlation vector
+  * so that the end length has to be length(signal1)+ length(signal2) -1
   */
-  RArray generalized_cross_correlation(const RArray &signal1, const RArray &signal2);
+  RArray generalized_cross_correlation(const RArray &signal1,
+                                       const RArray &signal2);
 
   /**
   * @brief Returns a x-y grid with the summed up gcc values for each point and each microphone pair
@@ -287,7 +318,7 @@ class SrpPhat : public Localizer {
    * by the config setter
    * @return true if the configuration has been properly initialized, false otherwise.
    */
-  bool is_initialized(){
+  bool is_initialized() {
     return intialized_;
   }
   /**
@@ -322,12 +353,14 @@ class SrpPhat : public Localizer {
     delay_tensor_ = get_delay_tensor();
     intialized_ = true;
   }
+
  private:
-// last computed position distribution of the speaker;
+  // last computed position distribution of the speaker;
   RArray last_distribution_ = RArray(360);
   // last computed position of the speaker
   int last_position_ = 0;
-  // nested vector containing delays for each point in the considered space considering each microphone pair
+  // nested vector containing delays for each
+  // point in the considered space considering each microphone pair
   std::vector<std::vector<std::vector<double>>> delay_tensor_;
   // audio sample rate the algorithm should work with
   int samplerate_ = 0;

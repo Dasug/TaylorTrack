@@ -70,7 +70,7 @@ class OpenCVInputStrategy : public InputStrategy {
   * Number of samples to be read for every audio channel is defined in the taylortrack::utils::Parameters struct given to the constructor
   * @param bottle YARP bottle to store the read data
   * @pre is_done() returns false
-  * @return YARP bottle consisting of sample amplitude levels as float values
+  * @return YARP bottle consisting of sample amplitude levels as double values
   * @see is_done()
   */
   yarp::os::Bottle read(yarp::os::Bottle *bottle) override;
@@ -84,11 +84,16 @@ class OpenCVInputStrategy : public InputStrategy {
 
   void set_config(const taylortrack::utils::ConfigParser &config_parser) override;
  private:
+  // OpenCV VideoCapture class to grab a live feed from the camera.
   cv::VideoCapture video_capture_;
+  // Matrix which encodes one frame from the live video feed.
   cv::Mat frame_;
-  int frame_counter_ = 0, frame_skip_, camera_id_;
+  // Frame_counter and frame_skip can be used to send only every n frames from the live feed.
+  int frame_counter_ = 0, frame_skip_;
+  // Stores the id of the camera which should be used for the live feed.
+  int camera_id_;
+  // Represents the status of the read function.
   bool done_ = false;
-  cv::String window_name_ = "Capture - Face detection";
 };
 }  // namespace input
 }  // namespace taylortrack

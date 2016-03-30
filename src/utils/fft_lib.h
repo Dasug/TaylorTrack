@@ -43,6 +43,15 @@ namespace utils {
 * @brief Implementation of the FftStrategy using the cooley turkey algorithm.
 *
 * This implementation however only works with signals that have a length equal to a power of two.
+* @code
+*  //Example usage:
+*  // simply assign a FftLib class instance and call its function fft with some CArray that
+*  // contains the signal you want to transform
+*
+*  taylortrack::utils::FftLib::CArray vec(8);
+*  taylortrack::utils::FftLib fft_lib = taylortrack::utils::FftLib();
+*  fft_lib.fft(vec);
+* @endcode
 */
 class FftLib : public FftStrategy {
  public:
