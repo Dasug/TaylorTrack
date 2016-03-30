@@ -204,7 +204,8 @@ class ConfigParser {
    * @param combination_settings taylortrack::utils::CombinationSettings to be set
    * @sa taylortrack::localization::Localizer
    */
-  void set_combination_settings(const CombinationSettings &combination_settings) {
+  void set_combination_settings(
+      const CombinationSettings &combination_settings) {
     ConfigParser::combination_settings_ = combination_settings;
   }
 
@@ -312,7 +313,8 @@ class ConfigParser {
    * @param microphone_input_settings taylortrack::utils::MicrophoneInputSettings to be set
    * @sa taylortrack::input::MicrophoneInputStrategy
    */
-  void set_microphone_input_settings(const MicrophoneInputSettings &microphone_input_settings) {
+  void set_microphone_input_settings(
+      const MicrophoneInputSettings &microphone_input_settings) {
     ConfigParser::microphone_input_settings_ = microphone_input_settings;
   }
 
@@ -376,9 +378,11 @@ class ConfigParser {
   virtual ~ConfigParser();
 
   ConfigParser(const ConfigParser &that) = delete;
+
  private:
   std::string trim(const std::string &temporary_string);
-  std::vector<std::string> split(const std::string &temporary_string, char delimiter);
+  std::vector<std::string> split(const std::string &temporary_string,
+                                 char delimiter);
   std::vector<std::string> split_microphones(std::string temporary_string);
   // signals if a config file has been parsed correctly
   bool parse_file();
