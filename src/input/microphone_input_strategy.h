@@ -63,6 +63,32 @@ struct MicrophoneStreamData {
 /**
  * @class MicrophoneInputStrategy
  * @brief Records Audio using the PortAudio Library
+ *
+ * @code
+ * // Example usage:
+ * // initialize a parameter object using default values
+ * taylortrack::utils::Parameters params;
+ * // initialize default configuration object
+ * taylortrack::utils::MicrophoneInputSettings input_settings;
+ * // Create microphone device
+ * taylortrack::utils::MicrophoneDevice device;
+ * device.microphone_id = 2; // use your respective microphone id
+ * input_settings.devices.push_back(device);
+ * // Initialize Config parser on default values
+ * taylortrack::utils::ConfigParser config;
+ * // Apply Microphone settings
+ * config.set_microphone_input_settings(input_settings);
+ *
+ * // afterwards you can initialize the strategy with the parameter and settings objects and start to read data as following
+ * taylortrack::input::MicrophoneInputStrategy strategy;
+ * strategy.set_parameters(params);
+ * strategy.set_config(config);
+ * yarp::os::Bottle bottle;
+ * strategy.read(&bottle);
+ * for (int i = 0; i < bottle.size(); i++) {
+ *  std::cout << bottle.get(i).asDouble() << std::endl;
+ * }
+ * @endcode
 */
 class MicrophoneInputStrategy : public InputStrategy {
  public:
@@ -85,6 +111,14 @@ class MicrophoneInputStrategy : public InputStrategy {
    * Frees memory and terminates PortAudio
   */
   virtual ~MicrophoneInputStrategy();
+  /**
+   * @brief Read data to be streamed.
+   *
+   * Will add sample values as doubles to the bottle. Each channel will write one sample in turns
+   * until each channel has written the amount of samples specified when calling set_config.
+   * @param bottle yarp::os::Bottle to write data into
+   * @return Bottle supplied by parameter
+   */
   yarp::os::Bottle read(yarp::os::Bottle *bottle) override;
   bool is_done() override;
   void set_parameters(const utils::Parameters &params) override;
