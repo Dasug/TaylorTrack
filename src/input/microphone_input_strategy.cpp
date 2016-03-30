@@ -114,7 +114,8 @@ yarp::os::Bottle MicrophoneInputStrategy::read(yarp::os::Bottle *bottle) {
       // Open Stream and check for error
       error_ = Pa_OpenStream(&stream,
                              &input_parameters,
-                             nullptr,  // We don't need any output, so we pass a null pointer
+          // We don't need any output, so we pass a null pointer
+                             nullptr,
                              settings_.sample_rate,
                              static_cast<uint64_t>(settings_.frame_size),
                              flags,
