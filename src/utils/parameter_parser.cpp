@@ -62,7 +62,7 @@ Parameters parse_streamer(int argc,
             parameters.inport = argv[i];
           }
           break;
-          // Input port
+          // config file path
         case 'c':
           if (++i >= argc) {
             parameters.valid = false;
