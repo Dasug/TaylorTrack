@@ -58,7 +58,9 @@ bool ConfigParser::parse_file() {
     if (splitted_string.size() < 2 && line.find('[') == std::string::npos)
       continue;
 
-    if (splitted_string.size() > 2 || (splitted_string.size() == 2 && trim(splitted_string[1]).empty()))
+    if (splitted_string.size() > 2 ||
+        (splitted_string.size() == 2 &&
+            trim(splitted_string[1]).empty()))
       return false;
 
     if (!line.empty() && line.at(0) != '[' && line.at(0)
@@ -68,7 +70,8 @@ bool ConfigParser::parse_file() {
       switch (section) {
         case 0:  // [options]
           if (splitted_string[0].compare("console_output") == 0)
-            general_options_.console_output = splitted_string[1].compare("true") == 0;
+            general_options_.console_output =
+                splitted_string[1].compare("true") == 0;
           break;  // end section 0
 
         case 1:  // [audio]
@@ -79,14 +82,17 @@ bool ConfigParser::parse_file() {
             audio_settings_.outport = splitted_string[1];
             audio_communication_out_.port = splitted_string[1];
           } else if (splitted_string[0].compare("sample_rate") == 0) {
-            std::istringstream(splitted_string[1]) >> audio_settings_.sample_rate;
+            std::istringstream(splitted_string[1]) >>
+                audio_settings_.sample_rate;
           } else if (splitted_string[0].compare("mic_x") == 0) {
-            std::vector<std::string> mic = split_microphones(splitted_string[1]);
+            std::vector<std::string> mic =
+                split_microphones(splitted_string[1]);
             audio_settings_.mic_x.resize(mic.size());
             for (int i = 0; i < static_cast<int>(mic.size()); i++)
               std::stringstream(mic[i]) >> audio_settings_.mic_x[i];
           } else if (splitted_string[0].compare("mic_y") == 0) {
-            std::vector<std::string> mic = split_microphones(splitted_string[1]);
+            std::vector<std::string> mic =
+                split_microphones(splitted_string[1]);
             audio_settings_.mic_y.resize(mic.size());
             for (int i = 0; i < static_cast<int>(mic.size()); i++)
               std::stringstream(mic[i]) >> audio_settings_.mic_y[i];
@@ -97,9 +103,11 @@ bool ConfigParser::parse_file() {
           } else if (splitted_string[0].compare("grid_y") == 0) {
             std::stringstream(splitted_string[1]) >> audio_settings_.grid_y;
           } else if (splitted_string[0].compare("interval") == 0) {
-            std::stringstream(splitted_string[1]) >> audio_settings_.interval;
+            std::stringstream(splitted_string[1]) >>
+                audio_settings_.interval;
           } else if (splitted_string[0].compare("frame_size") == 0) {
-            std::stringstream(splitted_string[1]) >> audio_settings_.frame_size;
+            std::stringstream(splitted_string[1]) >>
+                audio_settings_.frame_size;
           }
           break;  // end section 1
 
@@ -110,19 +118,25 @@ bool ConfigParser::parse_file() {
           } else if (splitted_string[0].compare("outport") == 0) {
             video_settings_.outport = splitted_string[1];
             video_communication_out_.port = splitted_string[1];
-          } else if (splitted_string[0].compare("face_cascade_name") == 0)
+          } else if (splitted_string[0].compare("face_cascade_name") == 0) {
             video_settings_.face_cascade_name = splitted_string[1];
-          else if (splitted_string[0].compare("camera_id") == 0)
-            std::stringstream(splitted_string[1]) >> video_settings_.camera_id;
-          else if (splitted_string[0].compare("width") == 0)
-            std::stringstream(splitted_string[1]) >> video_settings_.width;
-          else if (splitted_string[0].compare("max_camera_view_angle") == 0)
-            std::stringstream(splitted_string[1]) >> video_settings_.max_camera_view_angle;
-          else if (splitted_string[0].compare("camera_angle") == 0)
-            std::stringstream(splitted_string[1]) >> video_settings_.camera_angle;
-          else if (splitted_string[0].compare("variance") == 0)
-            std::stringstream(splitted_string[1]) >> video_settings_.variance;
-          break; // end section 2
+          } else if (splitted_string[0].compare("camera_id") == 0) {
+            std::stringstream(splitted_string[1]) >>
+                video_settings_.camera_id;
+          } else if (splitted_string[0].compare("width") == 0) {
+            std::stringstream(splitted_string[1]) >>
+                video_settings_.width;
+          } else if (splitted_string[0].compare("max_camera_view_angle") == 0) {
+            std::stringstream(splitted_string[1]) >>
+                video_settings_.max_camera_view_angle;
+          } else if (splitted_string[0].compare("camera_angle") == 0) {
+            std::stringstream(splitted_string[1]) >>
+                video_settings_.camera_angle;
+          } else if (splitted_string[0].compare("variance") == 0) {
+            std::stringstream(splitted_string[1]) >>
+                video_settings_.variance;
+          }
+          break;  // end section 2
 
         case 3:  // [combination]
           if (splitted_string[0].compare("inport") == 0) {
@@ -146,14 +160,16 @@ bool ConfigParser::parse_file() {
 
         case 6:
           if (splitted_string[0].compare("devices") == 0) {
-            std::vector<std::string> mic = split_microphones(splitted_string[1]);
+            std::vector<std::string> mic =
+                split_microphones(splitted_string[1]);
             for (uint i = 0; i < mic.size(); i++) {
               int microphone_id = 0;
               std::stringstream(mic[i]) >> microphone_id;
               microphone_input_device_ids_.push_back(microphone_id);
             }
           } else if (splitted_string[0].compare("delays") == 0) {
-            std::vector<std::string> microphones = split_microphones(splitted_string[1]);
+            std::vector<std::string> microphones =
+                split_microphones(splitted_string[1]);
             for (uint i = 0; i < microphones.size(); i++) {
               int microphone_delay = 0;
               std::stringstream(microphones[i]) >> microphone_delay;
@@ -162,7 +178,7 @@ bool ConfigParser::parse_file() {
           }
           break;  // end section 6
 
-        default: // Do nothing
+        default:  // Do nothing
           break;
       }
     }
@@ -178,16 +194,23 @@ bool ConfigParser::parse_file() {
       section = 4;
     else if (line.compare("[visualizer]") == 0)
       section = 5;
-    else if(line.compare("[microphone input]") == 0)
+    else if (line.compare("[microphone input]") == 0)
       section = 6;
   }  // end while
 
   // create proper microphone device objects
-  for (int device_index = 0; device_index < static_cast<int>(microphone_input_device_ids_.size()); ++device_index) {
+  for (int device_index = 0;
+       device_index < static_cast<int>(microphone_input_device_ids_.size());
+       ++device_index) {
     MicrophoneDevice device;
-    device.microphone_id = microphone_input_device_ids_.at(static_cast<unsigned long>(device_index));
-    if(static_cast<int>(microphone_input_device_delays_.size()) > device_index) {
-      device.delay = microphone_input_device_delays_.at(static_cast<unsigned long>(device_index));
+    device.microphone_id =
+        microphone_input_device_ids_.at(static_cast<u_int64_t>
+                                        (device_index));
+    if (static_cast<int>(microphone_input_device_delays_.size()) >
+        device_index) {
+      device.delay =
+          microphone_input_device_delays_.at(
+              static_cast<u_int64_t>(device_index));
     } else {
       device.delay = 0;
     }
@@ -228,9 +251,15 @@ ConfigParser::split_microphones(std::string temporary_string) {
         && start != -1)
         || i == temporary_string.length() - 1) {
       if (i == temporary_string.length() -1)
-        elements.push_back(temporary_string.substr(static_cast<unsigned int>(start), static_cast<unsigned long>(i + 1 - start)));
+        elements.push_back(
+            temporary_string.substr(
+                static_cast<unsigned int>(start),
+                static_cast<u_int64_t>(i + 1 - start)));
       else
-        elements.push_back(temporary_string.substr(static_cast<unsigned int>(start), static_cast<unsigned long>(i - start)));
+        elements.push_back(
+            temporary_string.substr(
+                static_cast<unsigned int>(start),
+                static_cast<u_int64_t>(i - start)));
       start = -1;
     }
   }
@@ -242,12 +271,16 @@ ConfigParser::split_microphones(std::string temporary_string) {
 std::string ConfigParser::trim(const std::string &temporary_string) {
   auto whitespace_front =
       std::find_if_not(temporary_string.begin(),
-                       temporary_string.end(), [](int c){return std::isspace(c);});
+                       temporary_string.end(),
+                       [](int c){return std::isspace(c);});
   auto whitespace_back =
       std::find_if_not(temporary_string.rbegin(),
-                       temporary_string.rend(), [](int c){return std::isspace(c);}).base();
+                       temporary_string.rend(),
+                       [](int c){return std::isspace(c);}).base();
 
-  return whitespace_back <= whitespace_front ? std::string() : std::string(whitespace_front, whitespace_back);
+  return whitespace_back <= whitespace_front ?
+         std::string() :
+         std::string(whitespace_front, whitespace_back);
 }
 
 ConfigParser::ConfigParser() {
