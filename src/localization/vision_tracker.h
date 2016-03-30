@@ -25,7 +25,6 @@ SOFTWARE.
 /**
 * @file
 * @brief Implements the person tracking by using OpenCV
-* @version 1
 */
 #ifndef TAYLORTRACK_LOCALIZATION_VISION_TRACKER_H
 #define TAYLORTRACK_LOCALIZATION_VISION_TRACKER_H

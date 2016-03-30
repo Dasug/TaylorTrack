@@ -43,7 +43,7 @@ namespace utils {
  * @code
  * // Example usage:
  * // first initialize the configparser with a string containing the path to the config file
- * taylortrack::utils::ConfigParser parser("../Testdata/taylortrack.conf");
+ * taylortrack::utils::ConfigParser parser("example.conf");
  * // afterwards you can simply extract the read parameters with the appropiate getter functions like this.
  * taylortrack::utils::GeneralOptions general = parser.get_general_configuration();
  * @endcode
@@ -112,7 +112,7 @@ class ConfigParser {
    * @sa taylortrack::localization::Localizer
    */
   const CommunicationSettings &get_combination_communication_in() const {
-    return combination_communication_in_;
+    return combination_audio_communication_in_;
   }
 
   /**
@@ -131,6 +131,46 @@ class ConfigParser {
    */
   const CommunicationSettings &get_visualizer_communication_in() const {
     return visualizer_communication_in_;
+  }
+
+ /**
+ * @brief Retrieves the audio communication destination settings.
+ * @return taylortrack::utils::CommunicationSettings object, containing the audio communication destination settings.
+ */
+  const CommunicationSettings &get_audio_communication_destination() const {
+    return audio_communication_destination;
+  }
+
+  /**
+  * @brief Retrieves the audio communication source settings.
+  * @return taylortrack::utils::CommunicationSettings object, containing the audio communication source settings.
+  */
+  const CommunicationSettings &get_video_communication_source() const {
+    return video_communication_source;
+  }
+
+  /**
+ * @brief Retrieves the video communication destination settings.
+ * @return taylortrack::utils::CommunicationSettings object, containing the video communication destination settings.
+ */
+  const CommunicationSettings &get_video_communication_destination() const {
+    return video_communication_destination;
+  }
+
+  /**
+ * @brief Retrieves the combination communication destination settings.
+ * @return taylortrack::utils::CommunicationSettings object, containing the combination communication destination settings.
+ */
+  const CommunicationSettings &get_combination_communication_destination() const {
+    return combination_communication_destination;
+  }
+
+  /**
+ * @brief Retrieves the input ports for the combination module.
+ * @return std::vector<taylortrack::utils::CommunicationSettings> object, containing the input ports for the combination module.
+ */
+  std::vector<CommunicationSettings> get_combination_communication_inports()  {
+    return combination_inports_;
   }
 
   /**
@@ -226,7 +266,7 @@ class ConfigParser {
    */
   void set_combination_communication_in(
       const CommunicationSettings &combination_communication_in) {
-    ConfigParser::combination_communication_in_ = combination_communication_in;
+    ConfigParser::combination_audio_communication_in_ = combination_communication_in;
   }
 
   /**
@@ -288,6 +328,24 @@ class ConfigParser {
   }
 
   /**
+   * @brief Sets the settings for the wave file input module
+   * @param wave_input_settings taylortrack::utils::WaveInputSettings to be set
+   * @sa taylortrack::input::WaveInputStrategy
+   */
+  void set_wave_input_settings(const WaveInputSettings &wave_input_settings) {
+    ConfigParser::wave_input_settings_ = wave_input_settings;
+  }
+
+  /**
+  * @brief Gets the configuration for the wave file input module
+  * @pre is_valid() returns true
+  * @return Configuration for the wave file input module
+  */
+  const WaveInputSettings get_wave_input_configuration() const {
+    return wave_input_settings_;
+  }
+
+  /**
   * @brief Gets the configuration for the vision tracking algorithm
   * @pre is_valid() returns true
   * @return Configuration for the vision tracking algorithm
@@ -337,6 +395,8 @@ class ConfigParser {
   AudioSettings audio_settings_;
   // struct containing the microphone devices and audio samplerate and framesize
   MicrophoneInputSettings microphone_input_settings_;
+  // Contains parameters for the wave file input
+  WaveInputSettings wave_input_settings_;
   // contains the video algorithm parameters and the input port / output port
   VideoSettings video_settings_;
   // Contains parameters for the combination of the audio and video algorithm
@@ -345,11 +405,18 @@ class ConfigParser {
   CommunicationSettings input_communication_out_,
                         audio_communication_in_,
                         audio_communication_out_,
+                        audio_communication_destination,
+                        video_communication_source,
                         video_communication_in_,
                         video_communication_out_,
-                        combination_communication_in_,
+                        video_communication_destination,
+                        combination_video_communication_in_,
+                        combination_audio_communication_in_,
                         combination_communication_out_,
+                        combination_communication_destination,
                         visualizer_communication_in_;
+  // a vector storing all input ports for the combination module
+  std::vector<CommunicationSettings> combination_inports_;
   // a vector storing all microphone input device ids
   std::vector<int> microphone_input_device_ids_;
   // a vector storing the delays for each microphone

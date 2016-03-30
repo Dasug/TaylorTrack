@@ -17,7 +17,7 @@
  */
 int main(int argc, char *argv[]) {
     yarp::os::Network yarp;
-    taylortrack::utils::ConfigParser config("../Testdata/real_config.conf");
+    taylortrack::utils::ConfigParser config("../conf/real_config.conf");
     taylortrack::utils::CommunicationSettings out;
     out = config.get_audio_communication_out();
     taylortrack::sim::DataReceiver<yarp::os::Bottle> rec;
@@ -29,7 +29,8 @@ int main(int argc, char *argv[]) {
         int microphones = static_cast<int>(audio.mic_x.size());
         yarp::os::BufferedPort<yarp::os::Bottle> outport;
         outport.open(out.port);
-        yarp.connect(outport.getName(),yarp::os::ConstString(config.get_visualizer_communication_in().port));
+        //yarp.connect(outport.getName(),yarp::os::ConstString(config.get_visualizer_communication_in().port));
+        yarp.connect(outport.getName(),yarp::os::ConstString(config.get_audio_communication_destination().port));
 
         while (true) {
             std::vector<taylortrack::utils::RArray> signals;
