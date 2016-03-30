@@ -46,7 +46,7 @@ namespace utils {
  * @code
  * // Example usage:
  * // Simply create a class instance with a string that contains the path to the wav file which should be parsed
- * taylortrack::utils::WaveParser parser = taylortrack::utils::WaveParser("../Testdata/Test.wav");
+ * taylortrack::utils::WaveParser parser = taylortrack::utils::WaveParser("example.wav");
  *
  * // afterwards you can read the data with the function get_samples like this
  * std::string samples = parser.get_samples(2);
