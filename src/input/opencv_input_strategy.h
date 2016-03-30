@@ -52,6 +52,23 @@ namespace input {
 * @brief Implements the OpenCV input from Input Strategy.
 *
 * Strategy which reads OpenCV data
+* @code
+* // Example usage:
+* // initialize a parameter object using default values
+* taylortrack::utils::Parameters params;
+* // Initialize Config parser on default values
+* taylortrack::utils::ConfigParser config("example.conf");
+
+* // afterwards you can initialize the strategy with the parameter and settings objects and start to read data as following
+* taylortrack::input::OpenCVInputStrategy strategy;
+* strategy.set_parameters(params);
+* strategy.set_config(config);
+* yarp::os::Bottle bottle;
+* strategy.read(&bottle);
+* for (int i = 0; i < bottle.size(); i++) {
+*  std::cout << bottle.get(i).asDouble() << std::endl;
+* }
+* @endcode
 */
 class OpenCVInputStrategy : public InputStrategy {
  public:
