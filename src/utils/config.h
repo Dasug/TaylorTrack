@@ -53,6 +53,7 @@ struct MicrophoneDevice {
   /**
    * @var channels
    * number of channels within the input device
+   * Doesn't need to be set manually
    */
   int channels = 0;
 };
