@@ -29,7 +29,7 @@ SOFTWARE.
 #include "localization/vision_tracker.h"
 #include <algorithm>
 #include <iostream>
-#include <opencv2/imgproc.hpp>
+//#include <opencv2/imgproc.hpp>
 
 namespace taylortrack {
 namespace localization {
