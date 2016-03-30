@@ -64,7 +64,7 @@ option(COMPILE_TRACKER_AUDIO "Compile Audio Tracker" ON)
 
 if(CURSES_FOUND)
     include_directories(${CURSES_INCLUDE_DIRS})
-    option(COMPILE_VISUALIZER "Visualizer" ON)
+    option(COMPILE_VISUALIZER "Compile Visualizer" ON)
 else()
     message(STATUS "Curses not found, skipping Visualizer Target")
     set(COMPILE_VISUALIZER OFF)
