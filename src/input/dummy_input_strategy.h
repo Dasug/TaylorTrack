@@ -40,13 +40,20 @@ namespace input {
 * @brief Implements the dummy strategy.
 *
 * Strategy which streams the string: "Dummy Test successful".
+* @code
+* // Example usage:
+* // initialize the strategy and start reading data:
+* taylortrack::input::DummyInputStrategy strategy;
+* yarp::os::Bottle bottle;
+* yarp::os::ConstString stringdata = strategy.read(&bottle).pop().asString();
+* @endcode
 */
 class DummyInputStrategy : public InputStrategy {
  public:
   /**
   * @brief DummyInputStrategy Constructor .
   *
-  * Initialise done_.
+  * Initialise the object.
   */
   DummyInputStrategy();
 
