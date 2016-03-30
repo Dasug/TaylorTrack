@@ -24,7 +24,7 @@ SOFTWARE.
 
 /**
  * @file
- * @brief Simulation for receiving data
+ * @brief Module to receive data and execute the tracking algorithm.
  */
 #include <yarp/os/all.h>
 #include <yarp/sig/all.h>
@@ -46,7 +46,7 @@ SOFTWARE.
 /**
  * @brief opencv receiving data main method
  *
- * Initialize and open a port, wait for input from the opencv grabber, process the data and send it to the output port.
+ * Initialize and open a port, wait for input to process the data and send it to the output port.
  */
 int main(int argc,  const char *argv[]) {
   yarp::os::Network yarp;

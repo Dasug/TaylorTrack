@@ -112,7 +112,7 @@ class ConfigParser {
    * @sa taylortrack::localization::Localizer
    */
   const CommunicationSettings &get_combination_communication_in() const {
-    return combination_communication_in_;
+    return combination_audio_communication_in_;
   }
 
   /**
@@ -131,6 +131,10 @@ class ConfigParser {
    */
   const CommunicationSettings &get_visualizer_communication_in() const {
     return visualizer_communication_in_;
+  }
+
+  std::vector<CommunicationSettings> get_combination_communication_inports()  {
+    return combination_inports_;
   }
 
   /**
@@ -225,7 +229,7 @@ class ConfigParser {
    */
   void set_combination_communication_in(
       const CommunicationSettings &combination_communication_in) {
-    ConfigParser::combination_communication_in_ = combination_communication_in;
+    ConfigParser::combination_audio_communication_in_ = combination_communication_in;
   }
 
   /**
@@ -343,9 +347,12 @@ class ConfigParser {
                         audio_communication_out_,
                         video_communication_in_,
                         video_communication_out_,
-                        combination_communication_in_,
+                        combination_video_communication_in_,
+                        combination_audio_communication_in_,
                         combination_communication_out_,
                         visualizer_communication_in_;
+
+  std::vector<CommunicationSettings> combination_inports_;
   // a vector storing all microphone input device ids
   std::vector<int> microphone_input_device_ids_;
   // a vector storing the delays for each microphone

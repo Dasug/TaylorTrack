@@ -125,13 +125,24 @@ bool ConfigParser::parse_file() {
           break; // end section 2
 
         case 3:  // [combination]
-          if (splitted_string[0].compare("inport") == 0) {
+          if (splitted_string[0].compare("audio_inport") == 0) {
             combination_settings_.inport = splitted_string[1];
-            combination_communication_in_.port = splitted_string[1];
-          } else if (splitted_string[0].compare("outport") == 0) {
+            combination_audio_communication_in_.port = splitted_string[1];
+            combination_inports_.push_back(combination_audio_communication_in_);
+          }else if (splitted_string[0].compare("video_inport") == 0) {
+            combination_settings_.inport = splitted_string[1];
+            combination_video_communication_in_.port = splitted_string[1];
+            combination_inports_.push_back(combination_video_communication_in_);
+          }else if (splitted_string[0].compare("weight") == 0) {
+            std::vector<std::string> weights = split_microphones(splitted_string[1]);
+             combination_settings_.weight.resize(weights.size());
+            for (int i = 0; i < static_cast<int>(weights.size()); i++)
+              std::stringstream(weights[i]) >> combination_settings_.weight[i];
+          }else if (splitted_string[0].compare("outport") == 0) {
             combination_settings_.outport = splitted_string[1];
             combination_communication_out_.port = splitted_string[1];
           }
+
           break;  // end section 3
 
         case 4:

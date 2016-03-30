@@ -241,6 +241,11 @@ struct CombinationSettings {
    * @deprecated Use CommunicationSettings struct instead
   */
   std::string inport  = "/bp39_combination_in";
+  /**
+  * @var weight
+  * Defines the weight for the combination of the tracking results.
+  */
+  std::vector<double> weight  = {1, 1};
 };
 
 /**
