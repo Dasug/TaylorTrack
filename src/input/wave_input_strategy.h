@@ -44,6 +44,27 @@ namespace input {
 * @brief Reads a wave file and processes it to a format readable by the tracking algorithm.
 *
 * Returns a YARP bottle consisting of sample amplitude levels as float values
+* @code
+* // Example usage:
+* // initialize a parameter object using default values
+* taylortrack::utils::Parameters params;
+* // initialize default configuration object
+* taylortrack::utils::WaveSettings input_settings;
+* // Initialize Config parser on default values
+* taylortrack::utils::ConfigParser config;
+* // Apply Microphone settings
+* config.set_wave_input_settings(input_settings);
+*
+* // afterwards you can initialize the strategy with the parameter and settings objects and start to read data as following
+* taylortrack::input::WaveInputStrategy strategy;
+* strategy.set_parameters(params);
+* strategy.set_config(config);
+* yarp::os::Bottle bottle;
+* strategy.read(&bottle);
+* for (int i = 0; i < bottle.size(); i++) {
+*  std::cout << bottle.get(i).asDouble() << std::endl;
+* }
+* @endcode
 * @warning Only supports Wave files with 16 Bits per sample at the moment!
 */
 class WaveInputStrategy : public InputStrategy {
