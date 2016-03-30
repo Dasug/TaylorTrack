@@ -44,7 +44,7 @@ namespace taylortrack {
        * @var config
        * Path to the config file.
        */
-      const char *config ="../Testdata/real_config.conf";
+      const char *config = "../Testdata/real_config.conf";
     };
   } // namespace utils
 } // namespace taylortrack
