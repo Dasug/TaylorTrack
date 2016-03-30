@@ -73,15 +73,15 @@ int main(int argc,  const char *argv[]) {
   taylortrack::utils::VideoSettings vs = config.get_video_configuration();
   taylortrack::localization::VisionTracker algorithm;
   if (!algorithm.set_parameters(vs)) {
-    std::cout << "Error: Classifier couln't be loaded!" << std::endl;
+    std::cout << "Error: Classifier couldn't be loaded!" << std::endl;
     return -1;
   }
 
   yarp::os::BufferedPort<yarp::os::Bottle> outport;
   outport.open(out.port);
   std::string inport = config.get_visualizer_communication_in().port;
-  yarp.connect(outport.getName(), yarp::os::ConstString(inport));
-  yarp.connect("/icub/camcalib/left/out", in.port);
+  yarp.connect(outport.getName(),yarp::os::ConstString(config.get_video_communication_destination().port));
+  yarp.connect(config.get_video_communication_source().port, in.port);
 
   while (true) {
     input = buffered_port_->read(true);

@@ -44,6 +44,13 @@ if(COMPILE_TRACKER_AUDIO)
     target_link_libraries(sim_datareceiver ${YARP_LIBRARIES})
 endif()
 
+# Add combination module executable
+if(COMPILE_TRACKER_COMBINATION)
+    add_executable(combination_module combination_module.cpp utils/parameter_parser.cpp utils/config_parser.cpp)
+    target_link_libraries(combination_module ${YARP_LIBRARIES})
+endif()
+
+
 # Add OpenCv Datareceiver executeable
 if(COMPILE_TRACKER_VIDEO)
     add_executable(opencv_datareceiver opencv_datareceiver.cpp utils/parameter_parser.cpp utils/config_parser.cpp localization/vision_tracker.cpp)
