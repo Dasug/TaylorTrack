@@ -348,7 +348,7 @@ class SrpPhat : public Localizer {
     stepsize_ = audioConfig.interval;
     x_dim_mics_ = audioConfig.mic_x;
     y_dim_mics_ = audioConfig.mic_y;
-    frame_size_ = audioConfig.frame_size - 1;
+    frame_size_ = audioConfig.frame_size;
     beta_ = audioConfig.beta;
     delay_tensor_ = get_delay_tensor();
     intialized_ = true;
