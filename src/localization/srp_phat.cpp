@@ -183,9 +183,9 @@ SrpPhat::get_generalized_cross_correlation(const std::vector<RArray> &signals) {
     RArray signal2 = signals[index2];
     // get the current frame from the complete signal
     RArray signalSlice1 =
-        signal1[std::slice(0, static_cast<size_t>(steps_ + 1), 1)];
+        signal1[std::slice(0, static_cast<size_t>(frame_size_ + 1), 1)];
     RArray signalSlice2 =
-        signal2[std::slice(0, static_cast<size_t>(steps_), 1)];
+        signal2[std::slice(0, static_cast<size_t>(frame_size_), 1)];
     // computing the cross correlation of both frames
     RArray generalized_cross_temp =
         generalized_cross_correlation(signalSlice1, signalSlice2);
@@ -195,7 +195,7 @@ SrpPhat::get_generalized_cross_correlation(const std::vector<RArray> &signals) {
         double delay = micDelays[x][y][i];
         // adding the corresponding cross correlation value to the grid
         generalized_cross_correlation_values[x][y] +=
-            generalized_cross_temp[(steps_ - 1) +
+            generalized_cross_temp[(frame_size_ - 1) +
                 round(delay / (1.0 / samplerate_))];
       }
     }

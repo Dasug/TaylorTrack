@@ -290,14 +290,14 @@ class SrpPhat : public Localizer {
     * @return Returns the number of samples per frame for which a localization estimation is done.
     */
   int get_steps() const {
-    return steps_;
+    return frame_size_;
   }
   /**
     * @brief Sets the length of the audio signals the algorithm is working with (samples per frame).
     * @param steps for setting length of audio signal
     */
   void set_steps(int steps) {
-    steps_ = steps;
+    frame_size_ = steps;
   }
   /**
     * @brief Gets the beta exponent used in the cross correlation weighting.
@@ -348,7 +348,7 @@ class SrpPhat : public Localizer {
     stepsize_ = audioConfig.interval;
     x_dim_mics_ = audioConfig.mic_x;
     y_dim_mics_ = audioConfig.mic_y;
-    steps_ = audioConfig.frame_size;
+    frame_size_ = audioConfig.frame_size - 1;
     beta_ = audioConfig.beta;
     delay_tensor_ = get_delay_tensor();
     intialized_ = true;
@@ -377,7 +377,7 @@ class SrpPhat : public Localizer {
   RArray y_dim_mics_;
   // steps The amount of sampled points an audio signal has
   // that needs to be evaluated.
-  int steps_ = 0;
+  int frame_size_ = 0;
   // beta The exponent of the weighting term of the cross correlation.
   double beta_ = 0.0;
   // boolean to check if an object has been initialized
