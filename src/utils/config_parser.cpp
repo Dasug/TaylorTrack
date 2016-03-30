@@ -50,6 +50,7 @@ bool ConfigParser::parse_file() {
 
   // 0 = options, 1 = audio, 2 = video,
   // 3 = combination, 4 = input, 5 = visualizer
+  // 6 = microphone input, 7 = wave input
   int section = -1;
   std::string line = "";
   while (std::getline(*file_, line)) {
@@ -179,8 +180,14 @@ bool ConfigParser::parse_file() {
               std::stringstream(microphones[i]) >> microphone_delay;
               microphone_input_device_delays_.push_back(microphone_delay);
             }
-          }
+          } else if (splitted_string[0].compare("frame_size") == 0)
+            std::stringstream(splitted_string[1]) >> microphone_input_settings_.frame_size;
           break;  // end section 6
+
+        case 7:
+          if (splitted_string[0].compare("frame_size") == 0)
+            std::stringstream(splitted_string[1]) >> wave_input_settings_.frame_size;
+          break;  // end section 7
 
         default: // Do nothing
           break;
@@ -200,6 +207,8 @@ bool ConfigParser::parse_file() {
       section = 5;
     else if(line.compare("[microphone input]") == 0)
       section = 6;
+    else if(line.compare("[wave input]") == 0)
+      section = 7;
   }  // end while
 
   // create proper microphone device objects

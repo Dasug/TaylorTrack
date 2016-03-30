@@ -326,6 +326,24 @@ class ConfigParser {
   }
 
   /**
+   * @brief Sets the settings for the wave file input module
+   * @param wave_input_settings taylortrack::utils::WaveInputSettings to be set
+   * @sa taylortrack::input::WaveInputStrategy
+   */
+  void set_wave_input_settings(const WaveInputSettings &wave_input_settings) {
+    ConfigParser::wave_input_settings_ = wave_input_settings;
+  }
+
+  /**
+  * @brief Gets the configuration for the wave file input module
+  * @pre is_valid() returns true
+  * @return Configuration for the wave file input module
+  */
+  const WaveInputSettings get_wave_input_configuration() const {
+    return wave_input_settings_;
+  }
+
+  /**
   * @brief Gets the configuration for the vision tracking algorithm
   * @pre is_valid() returns true
   * @return Configuration for the vision tracking algorithm
@@ -373,6 +391,8 @@ class ConfigParser {
   AudioSettings audio_settings_;
   // struct containing the microphone devices and audio samplerate and framesize
   MicrophoneInputSettings microphone_input_settings_;
+  // Contains parameters for the wave file input
+  WaveInputSettings wave_input_settings_;
   // contains the video algorithm parameters and the input port / output port
   VideoSettings video_settings_;
   // Contains parameters for the combination of the audio and video algorithm

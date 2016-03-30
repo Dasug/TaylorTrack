@@ -92,7 +92,19 @@ struct MicrophoneInputSettings {
    * @var frame_size
    * Defines the amount of samples per channel that are being recorded per frame.
   */
-  int frame_size = 2048;
+  int frame_size = 2049;
+};
+
+/**
+ * @struct WaveInputSettings
+ * @brief Contains the parameters for the microphone input.
+ */
+struct WaveInputSettings {
+  /**
+   * @var frame_size
+   * Defines the amount of samples per channel that are being read per frame.
+  */
+  int frame_size = 2049;
 };
 
 /**
