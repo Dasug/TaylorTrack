@@ -31,7 +31,8 @@ SOFTWARE.
 
 namespace taylortrack {
 namespace sim {
-Streamer::Streamer(taylortrack::input::InputStrategy *strategy, const char *outport) {
+Streamer::Streamer(taylortrack::input::InputStrategy *strategy,
+                   const char *outport) {
   strategy_ = strategy;
   outport_ = outport;
 }
@@ -51,10 +52,10 @@ bool Streamer::start_streaming(const char *inport) {
       yarp::os::Bottle &output = out_port.prepare();
       output.clear();
       strategy_->read(&output);
-      out_port.write(true); //blocking statement
-    } // while
+      out_port.write(true);  // blocking statement
+    }  // while
     return true;
-  } // if
+  }  // if
 }
 
 }  // namespace sim
