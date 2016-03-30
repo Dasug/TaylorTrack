@@ -133,6 +133,42 @@ class ConfigParser {
     return visualizer_communication_in_;
   }
 
+ /**
+ * @brief Retrieves the audio communication destination settings.
+ * @return taylortrack::utils::CommunicationSettings object, containing the audio communication destination settings.
+ */
+  const CommunicationSettings &get_audio_communication_destination() const {
+    return audio_communication_destination;
+  }
+
+  /**
+  * @brief Retrieves the audio communication source settings.
+  * @return taylortrack::utils::CommunicationSettings object, containing the audio communication source settings.
+  */
+  const CommunicationSettings &get_video_communication_source() const {
+    return video_communication_source;
+  }
+
+  /**
+ * @brief Retrieves the video communication destination settings.
+ * @return taylortrack::utils::CommunicationSettings object, containing the video communication destination settings.
+ */
+  const CommunicationSettings &get_video_communication_destination() const {
+    return video_communication_destination;
+  }
+
+  /**
+ * @brief Retrieves the combination communication destination settings.
+ * @return taylortrack::utils::CommunicationSettings object, containing the combination communication destination settings.
+ */
+  const CommunicationSettings &get_combination_communication_destination() const {
+    return combination_communication_destination;
+  }
+
+  /**
+ * @brief Retrieves the input ports for the combination module.
+ * @return std::vector<taylortrack::utils::CommunicationSettings> object, containing the input ports for the combination module.
+ */
   std::vector<CommunicationSettings> get_combination_communication_inports()  {
     return combination_inports_;
   }
@@ -345,13 +381,17 @@ class ConfigParser {
   CommunicationSettings input_communication_out_,
                         audio_communication_in_,
                         audio_communication_out_,
+                        audio_communication_destination,
+                        video_communication_source,
                         video_communication_in_,
                         video_communication_out_,
+                        video_communication_destination,
                         combination_video_communication_in_,
                         combination_audio_communication_in_,
                         combination_communication_out_,
+                        combination_communication_destination,
                         visualizer_communication_in_;
-
+  // a vector storing all input ports for the combination module
   std::vector<CommunicationSettings> combination_inports_;
   // a vector storing all microphone input device ids
   std::vector<int> microphone_input_device_ids_;

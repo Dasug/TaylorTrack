@@ -61,6 +61,7 @@ else()
 endif()
 
 option(COMPILE_TRACKER_AUDIO "Compile Audio Tracker" ON)
+option(COMPILE_TRACKER_COMBINATION "Compile Combination" ON)
 
 if(CURSES_FOUND)
     include_directories(${CURSES_INCLUDE_DIRS})
