@@ -96,11 +96,14 @@ class MicrophoneInputStrategy : public InputStrategy {
   bool done_ = false;
   // Portaudio error
   PaError error_ = paNoError;
-  // a struct containing all microphone devices the sample rate and length of the frame
+  // a struct containing all microphone devices
+  // the sample rate and length of the frame
   utils::MicrophoneInputSettings settings_;
-  // a vector containing all microphones with their specific parameters such as ID, delay and number of channels
+  // a vector containing all microphones with their
+  // specific parameters such as ID, delay and number of channels
   std::vector<utils::MicrophoneDevice> microphone_devices_;
-  // a vector of microphonestreamdata structs where each entry contains the recorded samples
+  // a vector of microphonestreamdata structs where
+  // each entry contains the recorded samples
   std::vector<MicrophoneStreamData*> stream_datas_;
   // number of channels in the transmitted data
   int channels_ = 0;
