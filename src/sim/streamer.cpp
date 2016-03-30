@@ -34,5 +34,5 @@ bool Streamer::start_streaming(const char *inport) {
   } // if
 }
 
-} // namespace sim
-} // namespace taylortrack
+}  // namespace sim
+}  // namespace taylortrack
