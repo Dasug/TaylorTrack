@@ -136,19 +136,19 @@ bool ConfigParser::parse_file() {
             combination_settings_.inport = split_string[1];
             combination_audio_communication_in_.port = split_string[1];
             combination_inports_.push_back(combination_audio_communication_in_);
-          }else if (split_string[0].compare("video_inport") == 0) {
+          } else if (split_string[0].compare("video_inport") == 0) {
             combination_settings_.inport = split_string[1];
             combination_video_communication_in_.port = split_string[1];
             combination_inports_.push_back(combination_video_communication_in_);
-          }else if (split_string[0].compare("weight") == 0) {
+          } else if (split_string[0].compare("weight") == 0) {
             std::vector<std::string> weights = split_microphones(split_string[1]);
             combination_settings_.weight.resize(weights.size());
             for (int i = 0; i < static_cast<int>(weights.size()); i++)
               std::stringstream(weights[i]) >> combination_settings_.weight[i];
-          }else if (split_string[0].compare("destination") == 0) {
+          } else if (split_string[0].compare("destination") == 0) {
             audio_settings_.outport = split_string[1];
             combination_communication_destination.port = split_string[1];
-          }else if (split_string[0].compare("outport") == 0) {
+          } else if (split_string[0].compare("outport") == 0) {
             combination_settings_.outport = split_string[1];
             combination_communication_out_.port = split_string[1];
           }
@@ -250,16 +250,20 @@ ConfigParser::split_microphones(std::string temporary_string) {
 
   for (int i = 0; i < static_cast<int>(temporary_string.length()); ++i) {
     if (std::isspace(temporary_string[i]) == 0 && start == -1) {
-      if (i == temporary_string.length() - 1)
-        elements.push_back(temporary_string.substr(i));
+      if (i == static_cast<int>(temporary_string.length()) - 1)
+        elements.push_back(temporary_string.substr(static_cast<unsigned long>(i)));
       start = i;
     } else if ((std::isspace(temporary_string[i]) != 0
         && start != -1)
-        || i == temporary_string.length() - 1) {
-      if (i == temporary_string.length() -1)
-        elements.push_back(temporary_string.substr(static_cast<unsigned int>(start), static_cast<unsigned long>(i + 1 - start)));
+        || i == static_cast<int>(temporary_string.length()) - 1) {
+      if (i == static_cast<int>(temporary_string.length() -1))
+        elements.push_back(
+            temporary_string.substr(
+                static_cast<unsigned int>(start),static_cast<unsigned long>(i + 1 - start)));
       else
-        elements.push_back(temporary_string.substr(static_cast<unsigned int>(start), static_cast<unsigned long>(i - start)));
+        elements.push_back(
+            temporary_string.substr(
+                static_cast<unsigned int>(start), static_cast<unsigned long>(i - start)));
       start = -1;
     }
   }

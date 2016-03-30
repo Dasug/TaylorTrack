@@ -43,7 +43,7 @@ namespace utils {
  * @code
  * // Example usage:
  * // first initialize the configparser with a string containing the path to the config file
- * taylortrack::utils::ConfigParser parser("../Testdata/taylortrack.conf");
+ * taylortrack::utils::ConfigParser parser("example.conf");
  * // afterwards you can simply extract the read parameters with the appropiate getter functions like this.
  * taylortrack::utils::GeneralOptions general = parser.get_general_configuration();
  * @endcode
