@@ -161,7 +161,8 @@ class ConfigParser {
  * @brief Retrieves the combination communication destination settings.
  * @return taylortrack::utils::CommunicationSettings object, containing the combination communication destination settings.
  */
-  const CommunicationSettings &get_combination_communication_destination() const {
+  const CommunicationSettings &get_combination_communication_destination()
+  const {
     return combination_communication_destination;
   }
 
@@ -266,7 +267,8 @@ class ConfigParser {
    */
   void set_combination_communication_in(
       const CommunicationSettings &combination_communication_in) {
-    ConfigParser::combination_audio_communication_in_ = combination_communication_in;
+    ConfigParser::combination_audio_communication_in_ =
+        combination_communication_in;
   }
 
   /**

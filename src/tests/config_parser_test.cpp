@@ -11,7 +11,9 @@ TEST(ConfigParserTest, ValidParsing) {
   taylortrack::utils::CommunicationSettings audio_out = parser.get_audio_communication_out();
   taylortrack::utils::CommunicationSettings video_in = parser.get_video_communication_in();
   taylortrack::utils::CommunicationSettings video_out = parser.get_video_communication_out();
-  taylortrack::utils::CommunicationSettings combination_in = parser.get_combination_communication_in();
+  taylortrack::utils::CommunicationSettings combination_audio_in = parser.get_audio_communication_in();
+  taylortrack::utils::CommunicationSettings combination_video_in = parser.get_video_communication_in();
+
   taylortrack::utils::CommunicationSettings combination_out = parser.get_combination_communication_out();
   taylortrack::utils::CommunicationSettings visualizer_in = parser.get_visualizer_communication_in();
   taylortrack::utils::CommunicationSettings input_out = parser.get_input_communication_out();
@@ -60,12 +62,8 @@ TEST(ConfigParserTest, ValidParsing) {
   ASSERT_STREQ("/test_video_inport", video_in.port.c_str());
   ASSERT_STREQ("/test_video_outport", video_out.port.c_str());
 
-  // Old deprecated method
-  ASSERT_STREQ("/test_combination_inport", combination.inport.c_str());
-  ASSERT_STREQ("/test_combination_outport", combination.outport.c_str());
-
-  // New not yet deprecated method
-  ASSERT_STREQ("/test_combination_inport", combination_in.port.c_str());
+  ASSERT_STREQ("/test_audio_inport", combination_audio_in.port.c_str());
+  ASSERT_STREQ("/test_video_inport", combination_video_in.port.c_str());
   ASSERT_STREQ("/test_combination_outport", combination_out.port.c_str());
 
   ASSERT_STREQ("/test_visualizer_inport", visualizer_in.port.c_str());
