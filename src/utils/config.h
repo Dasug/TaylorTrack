@@ -96,7 +96,7 @@ struct MicrophoneInputSettings {
 };
 
 /**
- * @struct MicrophoneInputSettings
+ * @struct WaveInputSettings
  * @brief Contains the parameters for the microphone input.
  */
 struct WaveInputSettings {
