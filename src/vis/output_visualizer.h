@@ -44,6 +44,25 @@ namespace vis {
 * Data supplied using set_diagram_data() will be displayed as a histogram in the console window every time the draw_frame() function is called
 * Automatically scales to the largest value and will pack several bars into one if console is not wide enough to display each value individually
 * Does not support negative values and at least one value must be larger than 0.
+* @code
+* // Example usage:
+* // create general options struct witht default values
+* taylortrack::utils::GeneralOptions general_options;
+* // Initialize OutputVisualizer
+* taylortrack::vis::OutputVisualizer visualizer(general_options);
+*
+* // visualizer needs color to work
+* if (visualizer.term_supports_color()) {
+*   while (!visualizer.has_failed() && !visualizer.user_has_quit()) {
+*     // create arbitrary sample values
+*     std::vector<double> sample_values = {2.0, 4.7, 3.14, 42.0, 34.108 6.955};
+*
+*     // Set data and draw frame
+*     visualizer.set_diagram_data(sample_values);
+*     visualizer.draw_frame();
+*   }
+* }
+* @endcode
 */
 class OutputVisualizer {
  public:
