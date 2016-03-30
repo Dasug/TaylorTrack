@@ -26,9 +26,8 @@ SOFTWARE.
  * @brief Contains the implementation for the class taylortrack::input::MicrophoneInputStrategy
  * as well as a callback function used within the class.
  */
-
-#include <strings.h>
 #include "input/microphone_input_strategy.h"
+#include <strings.h>
 
 namespace taylortrack {
 namespace input {
