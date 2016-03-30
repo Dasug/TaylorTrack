@@ -76,7 +76,6 @@ Parameters parse_streamer(int argc,
       }
     } else {
       parameters.file = argv[i];
-      parameters.valid = true;
     }
   }
   return parameters;

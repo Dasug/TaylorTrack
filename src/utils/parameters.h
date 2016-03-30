@@ -38,7 +38,7 @@ namespace taylortrack {
        * @var valid
        * Stores if the given parameters are valid.
       */
-      bool valid = false;
+      bool valid = true;
 
       /**
        * @var config
