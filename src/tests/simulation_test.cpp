@@ -18,3 +18,11 @@ TEST(DummyTest, ReadDone) {
   dummy.read(&bottle);
   EXPECT_TRUE(dummy.is_done());
 }
+
+TEST(StreamerTest, SetDummyParameters) {
+  taylortrack::input::DummyInputStrategy dummy;
+  taylortrack::utils::ConfigParser config;
+  taylortrack::utils::Parameters params;
+  ASSERT_NO_FATAL_FAILURE(dummy.set_parameters(params));
+  ASSERT_NO_FATAL_FAILURE(dummy.set_config(config));
+}
