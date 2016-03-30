@@ -180,13 +180,13 @@ bool ConfigParser::parse_file() {
               std::stringstream(microphones[i]) >> microphone_delay;
               microphone_input_device_delays_.push_back(microphone_delay);
             }
-          } else if (splitted_string[0].compare("frame_size") == 0)
-            std::stringstream(splitted_string[1]) >> microphone_input_settings_.frame_size;
+          } else if (split_string[0].compare("frame_size") == 0)
+            std::stringstream(split_string[1]) >> microphone_input_settings_.frame_size;
           break;  // end section 6
 
         case 7:
-          if (splitted_string[0].compare("frame_size") == 0)
-            std::stringstream(splitted_string[1]) >> wave_input_settings_.frame_size;
+          if (split_string[0].compare("frame_size") == 0)
+            std::stringstream(split_string[1]) >> wave_input_settings_.frame_size;
           break;  // end section 7
 
         default: // Do nothing
