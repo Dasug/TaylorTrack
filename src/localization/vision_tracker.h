@@ -66,7 +66,7 @@ class VisionTracker : public VideoLocalizer {
   * @brief Sets the frame for the person detection.
   * @param frame A OpenCV Matrix containing the frame to be used for the detection.
   */
-  void set_frame(cv::Mat frame);
+  void set_frame(cv::Mat frame) override;
   /**
   * @brief Checks if a person is in the frame and stores his position.
   * @return True if a person is detected, otherwise returns false.
