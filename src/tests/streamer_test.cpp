@@ -10,11 +10,3 @@ TEST(StreamerTest, FailWhenDone) {
   dummy.read(&bottle);
   EXPECT_FALSE(streamer.start_streaming("/test_in"));
 }
-
-TEST(StreamerTest, SetDummyParameters) {
-  taylortrack::input::DummyInputStrategy dummy;
-  taylortrack::utils::ConfigParser config;
-  taylortrack::utils::Parameters params;
-  ASSERT_NO_FATAL_FAILURE(dummy.set_parameters(params));
-  ASSERT_NO_FATAL_FAILURE(dummy.set_config(config));
-}
