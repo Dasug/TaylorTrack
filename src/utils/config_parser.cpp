@@ -33,19 +33,19 @@ SOFTWARE.
 namespace taylortrack {
 namespace utils {
 ConfigParser::ConfigParser(const char *file_name) {
-  file_->open(file_name, std::ios::in|std::ios::binary);
+  file_ = std::move(std::ifstream(file_name, std::ios::in|std::ios::binary));
 
-  if (!file_->fail()) {
+  if (file_) {
     valid_ = parse_file();
   } else {
     std::cout << "Error could not parse file." << std::endl;
     valid_ = false;
-    file_->close();
+    file_.close();
   }
 }
 
 bool ConfigParser::parse_file() {
-  if (!file_->is_open())
+  if (!file_)
     return false;
 
   // 0 = options, 1 = audio, 2 = video,
@@ -53,7 +53,7 @@ bool ConfigParser::parse_file() {
   // 6 = microphone input, 7 = wave input
   int section = -1;
   std::string line = "";
-  while (std::getline(*file_, line)) {
+  while (std::getline(file_, line)) {
     std::vector<std::string> split_string = split(line, '=');
 
     if (split_string.size() < 2 && line.find('[') == std::string::npos)
@@ -320,9 +320,6 @@ std::string ConfigParser::trim(const std::string &temporary_string) {
 
 ConfigParser::ConfigParser() {
   valid_ = true;
-}
-ConfigParser::~ConfigParser() {
-  delete file_;
 }
 
 }  // namespace utils

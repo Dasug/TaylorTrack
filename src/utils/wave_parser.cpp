@@ -35,22 +35,18 @@ namespace taylortrack {
 namespace utils {
 
 WaveParser::WaveParser(const char *file_name) {
-  this->file_ = new std::ifstream(file_name, std::ios::in | std::ios::binary);
+  this->file_ = std::move(std::ifstream(file_name, std::ios::in | std::ios::binary));
 
-  if (this->file_->fail())
-    valid_ = false;
-  else
+  if (this->file_)
     this->parse_file();
-}
-
-WaveParser::~WaveParser() {
-  delete this->file_;
+  else
+    valid_ = false;
 }
 
 bool WaveParser::is_done() {
-  return !valid_ || this->file_->eof() ||
+  return !valid_ || this->file_.eof() ||
       (static_cast<int64_t>(this->data_offset_) +
-          this->data_size_ <= static_cast<int64_t>(this->file_->tellg()));
+          this->data_size_ <= static_cast<int64_t>(this->file_.tellg()));
 }
 
 int64_t WaveParser::get_sample_num() const {
@@ -63,46 +59,46 @@ void WaveParser::parse_file() {
   uint32_t fmt_size = 0;
 
   // Read RIFF header indication
-  this->file_->read(four_byte_buffer, 4*sizeof(char));
+  this->file_.read(four_byte_buffer, 4*sizeof(char));
   if (strcmp(four_byte_buffer, "RIFF") == 0) {
     // skip chunk size
-    this->file_->seekg(8, std::ios_base::beg);
+    this->file_.seekg(8, std::ios_base::beg);
 
     // read chunk format
-    valid &= static_cast<bool>(this->file_->read(four_byte_buffer, 4));
+    valid &= static_cast<bool>(this->file_.read(four_byte_buffer, 4));
     if (strcmp(four_byte_buffer, "WAVE") == 0) {
       // read subchunk id
-      valid &= static_cast<bool>(this->file_->read(four_byte_buffer, 4));
+      valid &= static_cast<bool>(this->file_.read(four_byte_buffer, 4));
       if (strcmp(four_byte_buffer, "fmt ") == 0) {
         fmt_size = static_cast<uint32_t>(
-            this->file_->get() | (this->file_->get() << 8) |
-                (this->file_->get() << 16) | (this->file_->get() << 24));
+            this->file_.get() | (this->file_.get() << 8) |
+                (this->file_.get() << 16) | (this->file_.get() << 24));
 
-        this->audio_format_ = static_cast<uint16_t>(this->file_->get() |
-            (this->file_->get() << 8));
-        this->num_channels_ = static_cast<uint16_t>(this->file_->get() |
-            (this->file_->get() << 8));
+        this->audio_format_ = static_cast<uint16_t>(this->file_.get() |
+            (this->file_.get() << 8));
+        this->num_channels_ = static_cast<uint16_t>(this->file_.get() |
+            (this->file_.get() << 8));
         this->sample_rate_ = static_cast<uint32_t>(
-            this->file_->get() | (this->file_->get() << 8) |
-                (this->file_->get() << 16) | (this->file_->get() << 24));
+            this->file_.get() | (this->file_.get() << 8) |
+                (this->file_.get() << 16) | (this->file_.get() << 24));
         this->byte_rate_ = static_cast<uint32_t>(
-            this->file_->get() | (this->file_->get() << 8) |
-                (this->file_->get() << 16) | (this->file_->get() << 24));
-        this->block_align_ = static_cast<uint16_t>(this->file_->get() |
-            (this->file_->get() << 8));
-        this->bits_per_sample_ = static_cast<uint16_t>(this->file_->get() |
-            (this->file_->get() << 8));
+            this->file_.get() | (this->file_.get() << 8) |
+                (this->file_.get() << 16) | (this->file_.get() << 24));
+        this->block_align_ = static_cast<uint16_t>(this->file_.get() |
+            (this->file_.get() << 8));
+        this->bits_per_sample_ = static_cast<uint16_t>(this->file_.get() |
+            (this->file_.get() << 8));
 
         // read data header
-        this->file_->seekg(20 + fmt_size, std::ios_base::beg);
-        valid &= static_cast<bool>(this->file_->read(four_byte_buffer, 4));
+        this->file_.seekg(20 + fmt_size, std::ios_base::beg);
+        valid &= static_cast<bool>(this->file_.read(four_byte_buffer, 4));
 
         if (strcmp(four_byte_buffer, "data") == 0) {
           // read data subchunk length in bytes
           this->data_size_ = static_cast<uint32_t>(
-              this->file_->get() | (this->file_->get() << 8) |
-                  (this->file_->get() << 16) | (this->file_->get() << 24));
-          this->data_offset_ = this->file_->tellg();
+              this->file_.get() | (this->file_.get() << 8) |
+                  (this->file_.get() << 16) | (this->file_.get() << 24));
+          this->data_offset_ = this->file_.tellg();
         } else {
           valid = false;
         }
@@ -125,7 +121,7 @@ std::string WaveParser::get_samples(int64_t sample_num) {
        this->data_size_);
   std::string samples;
   for (unsigned int i = 0; i < transfered_sample_size; ++i) {
-    samples.push_back(static_cast<char>(this->file_->get()));
+    samples.push_back(static_cast<char>(this->file_.get()));
   }
   return samples;
 }

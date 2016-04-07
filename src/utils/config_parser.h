@@ -373,12 +373,6 @@ class ConfigParser {
     return valid_;
   }
 
-
-  /**
-   * @brief Destructor frees the memory of file pointer.
-   */
-  virtual ~ConfigParser();
-
   ConfigParser(const ConfigParser &that) = delete;
 
  private:
@@ -390,7 +384,7 @@ class ConfigParser {
   bool parse_file();
   // signals if the configuration file is valid
   bool valid_;
-  std::ifstream *file_ = new std::ifstream();
+  std::ifstream file_;
   // struct to store console output settings
   GeneralOptions general_options_;
   // struct containing the audio algorithm parameters and input port/output port

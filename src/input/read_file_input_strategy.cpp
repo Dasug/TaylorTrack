@@ -33,17 +33,17 @@ namespace taylortrack {
 namespace input {
 
 yarp::os::Bottle ReadFileInputStrategy::read(yarp::os::Bottle *bottle) {
-  if (file_ && file_->is_open() && file_->tellg() != size_) {
+  if (file_.is_open() && file_.tellg() != size_) {
     char *memory_block = new char[package_size_];
-    file_->read(memory_block, package_size_);
+    file_.read(memory_block, package_size_);
     bottle->addString(yarp::os::ConstString(memory_block, package_size_));
-    done_ = file_->eof() || file_->tellg() == size_;
+    done_ = file_.eof() || file_.tellg() == size_;
   } else {
     done_ = true;
   }
 
-  if (file_ && done_ && file_->is_open())
-    file_->close();
+  if (done_ && file_.is_open())
+    file_.close();
 
   return *bottle;
 }
@@ -52,23 +52,17 @@ bool ReadFileInputStrategy::is_done() {
   return !file_ || done_;
 }
 
-ReadFileInputStrategy::~ReadFileInputStrategy() {
-  if (file_)
-    delete file_;
-}
-
 void ReadFileInputStrategy::set_parameters(const utils::Parameters &parameters) {
-  file_ = new std::ifstream(parameters.file,
-                            std::ios::in | std::ios::binary | std::ios::ate);
+  file_ = std::move(std::ifstream(parameters.file,
+                                  std::ios::in | std::ios::binary | std::ios::ate));
 
-  if (file_->fail())
-    file_->close();
-
-  // Determine the size of the file and initialise the char array for the data..
-  if (file_->is_open()) {
-    size_ = static_cast<int64_t>(file_->tellg());
-    file_->seekg(0, std::ios::beg);
+  if (file_) {
+    // Determine the size of the file and initialise the char array for the data..
+    size_ = static_cast<int64_t>(file_.tellg());
+    file_.seekg(0, std::ios::beg);
     package_size_ = (parameters.size == 0) ? size_ : parameters.size;
+  } else {
+    file_.close();
   }
 
   done_ = false;
