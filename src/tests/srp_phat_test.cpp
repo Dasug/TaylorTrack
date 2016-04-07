@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include <math.h>
+#include <cstdlib>
 #include <fstream>
 #include "localization/srp_phat.h"
 #include "utils/fft_lib.h"
@@ -48,7 +48,7 @@ TEST(SrpPhatTest, imtdfTest) {
   mic2[0] = 0.05;
   mic2[1] = 0;
   double difference2 = srp.inter_microphone_time_delay(point2, mic1, mic2);
-  ASSERT_TRUE(abs(difference2 - 0.0002077) < 0.000001);
+  ASSERT_LT(std::abs(difference2 - 0.0002077), 0.000001);
 }
 
 TEST(SrpPhatTest, axisValueTest) {
@@ -119,7 +119,7 @@ TEST(SrpPhatTest, gccTest) {
 
   taylortrack::utils::RArray gcca = srp.generalized_cross_correlation(temp1, temp2);
 
-  ASSERT_TRUE(abs(gcca.max() - 0.0529023) < 0.0001);
+  ASSERT_LT(std::abs(gcca.max() - 0.0529023), 0.0001);
 }
 
 TEST(SrpPhatTest, pointToAngleTest) {
@@ -196,7 +196,7 @@ TEST(SrpPhatTest, getDelayTensorTest) {
 
   difference = srp.get_delay_tensor();
   ASSERT_EQ(0, difference[0][0][0]);
-  ASSERT_TRUE(difference[0][28][1] - 0.0001199 < 0.000001);
+  ASSERT_LT(difference[0][28][1] - 0.0001199, 0.000001);
   ASSERT_EQ(0, difference[40][0][2]);
 }
 
@@ -271,8 +271,8 @@ TEST(SrpPhatTest, gccGridTest) {
   signals.push_back(sig3);
   signals.push_back(sig4);
   std::vector<std::vector<double>> gcca = srp.get_generalized_cross_correlation(signals);
-  ASSERT_TRUE(gcca[0][0] - 0.1636087 < 0.000001);
-  ASSERT_TRUE(gcca[18][0] - 0.14998061 < 0.000001);
+  ASSERT_LT(gcca[0][0] - 0.1636087, 0.000001);
+  ASSERT_LT(gcca[18][0] - 0.14998061, 0.000001);
 }
 
 TEST(SrpPhatTest, getPositionTest) {
