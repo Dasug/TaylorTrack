@@ -61,15 +61,13 @@ int main(int argc,  const char *argv[]) {
   in = config.get_video_communication_in();
   out = config.get_video_communication_out();
 #ifdef YARP_LITTLE_ENDIAN
-  auto *buffered_port_ =
-      new yarp::os::BufferedPort<yarp::sig::ImageOf<yarp::sig::PixelBgra>>;
+  yarp::os::BufferedPort<yarp::sig::ImageOf<yarp::sig::PixelBgra>> buffered_port_;
   yarp::sig::ImageOf<yarp::sig::PixelBgra> *input;
 #else
-  auto *buffered_port_ =
-      new yarp::os::BufferedPort<yarp::sig::ImageOf<yarp::sig::PixelRgba>>;
+  yarp::os::BufferedPort<yarp::sig::ImageOf<yarp::sig::PixelRgba>> buffered_port_;
   yarp::sig::ImageOf<yarp::sig::PixelRgba> *input;
 #endif
-  buffered_port_->open(in.port);
+  buffered_port_.open(in.port);
   taylortrack::utils::VideoSettings vs = config.get_video_configuration();
   taylortrack::localization::VisionTracker algorithm;
   if (!algorithm.set_parameters(vs)) {
@@ -84,7 +82,7 @@ int main(int argc,  const char *argv[]) {
   yarp.connect(config.get_video_communication_source().port, in.port);
 
   while (true) {
-    input = buffered_port_->read(true);
+    input = buffered_port_.read(true);
     cv::Mat frame = cv::Mat(input->width(), input->height(), 24);
 
     for (int i = 0; i < input->width(); i++)

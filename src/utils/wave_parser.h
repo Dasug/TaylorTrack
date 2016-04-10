@@ -63,16 +63,9 @@ class WaveParser {
   explicit WaveParser(const char *file_name);
 
   /**
-   * @brief Default copy constructor
+   * @brief Remove copy constructor
    */
-  WaveParser(const WaveParser &that) = default;
-
-  /**
-  * @brief WaveParser Destructor
-  *
-  * Releases wave file
-  */
-  virtual ~WaveParser();
+  WaveParser(const WaveParser &that) = delete;
 
   /**
   * @brief Checks whether the parsed file has a correct header.
@@ -169,7 +162,7 @@ class WaveParser {
   // the parsed wave file's datasize
   uint32_t data_size_ = 0;
   // a stream of the wave file
-  std::ifstream *file_;
+  std::ifstream file_;
   //
   std::fpos<mbstate_t> data_offset_;
   void parse_file();

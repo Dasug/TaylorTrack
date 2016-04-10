@@ -63,16 +63,10 @@ class ReadFileInputStrategy : public InputStrategy {
   ReadFileInputStrategy() = default;
 
   /**
-   * @brief Default Copy constructor
+   * @brief Remove copy constructor
    * @param that object to be copied
    */
-  ReadFileInputStrategy(const ReadFileInputStrategy &that) = default;
-  /**
-  * @brief Destructor
-  *
-  * Frees up memory.
-  */
-  ~ReadFileInputStrategy();
+  ReadFileInputStrategy(const ReadFileInputStrategy &that) = delete;
 
   /**
   * @brief Reads the entire file and returns the data.
@@ -97,7 +91,7 @@ class ReadFileInputStrategy : public InputStrategy {
   // signals if all data has been transfered/read
   bool done_ = true;
   int64_t size_, package_size_;
-  std::ifstream *file_ = nullptr;
+  std::ifstream file_;
 };
 }  // namespace input
 }  // namespace taylortrack
